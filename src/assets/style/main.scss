@@ -1,0 +1,280 @@
+@import "~@ionic/core/css/core.css";
+@import "~@ionic/core/css/ionic.bundle.css";
+@import "./colors";
+
+@font-face {
+  font-family: Economica;
+  src: url("assets/fonts/Economica/Economica-Regular.ttf");
+}
+
+@font-face {
+  font-family: Montserrat;
+  src: url("assets/fonts/Montserrat/Montserrat-Regular.ttf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: Montserrat;
+  src: url("assets/fonts/Montserrat/Montserrat-ExtraLight.ttf");
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: Montserrat;
+  src: url("assets/fonts/Montserrat/Montserrat-Bold.ttf");
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: Montserrat;
+  src: url("assets/fonts/Montserrat/Montserrat-Medium.ttf");
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: Montserrat;
+  src: url("assets/fonts/Montserrat/Montserrat-ExtraBold.ttf");
+  font-weight: 800;
+}
+
+:root {
+  --ion-font-family: Montserrat;
+}
+
+body {
+  background-color: var(--ion-color-lighter);
+}
+
+.economica {
+  font-family: Economica, sans-serif !important;
+  letter-spacing: 1px;
+}
+
+.roboto {
+  font-family: Roboto, sans-serif;
+}
+
+.title {
+  color: var(--ion-text-color-ligth);
+  font-family: Economica, sans-serif;
+  letter-spacing: 3px;
+}
+
+.title-md {
+  padding-inline-start: 5px;
+  padding-inline-end: 5px;
+}
+
+.title-ios.title-default {
+  padding-left: unset;
+  padding-right: unset;
+  padding-inline-start: 50px;
+  padding-inline-end: 50px;
+}
+
+.ripple-parent {
+  cursor: pointer;
+  overflow: hidden;
+  position: relative;
+}
+
+.expand {
+  flex: 1;
+}
+
+.shadow {
+  box-shadow: 0 1px 4px 0 rgba(37, 50, 56, 0.1);
+}
+
+.full-width {
+  width: 100%;
+}
+
+.text-center {
+  text-align: center;
+}
+
+ion-button {
+  text-transform: none;
+}
+
+.z-10 {
+  z-index: 10;
+}
+
+.auth-form {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 400px;
+  width: 90%;
+}
+
+.auth-form * {
+  z-index: 5;
+}
+
+.auth-form > * {
+  margin-top: 1em;
+}
+
+.auth-form hr {
+  background-color: #fff;
+  width: 100%;
+}
+
+ion-modal {
+  --backdrop-opacity: 0;
+}
+
+.item-disabled {
+  opacity: 0.8 !important;
+}
+
+ion-header {
+  z-index: 20;
+}
+
+ion-toolbar {
+  --color: var(--ion-text-color);
+}
+
+ion-footer ion-toolbar {
+  --border-width: 0;
+  --border-color: #eee;
+}
+
+ion-item {
+  --border-color: #eee;
+}
+
+ion-item ion-icon {
+  margin: auto 16px auto 0;
+}
+
+ion-skeleton-text {
+  line-height: 1em;
+}
+
+.invalid-input {
+  --full-highlight-height: 2px;
+  --highlight-background: var(--ion-color-danger);
+}
+
+.h-2\/3 {
+  position: relative;
+}
+
+.h-2\/3:after {
+  content: '';
+  display: block;
+  padding-top: 66%;
+}
+
+.h-1\/2 {
+  position: relative;
+}
+
+.h-1\/2:after {
+  content: '';
+  display: block;
+  padding-top: 33%;
+}
+
+.h-toolbar-top {
+  height: var(--ion-safe-area-top);
+}
+
+.md {
+  --ion-safe-area-top: var(--ion-statusbar-padding, 30px);
+}
+
+ion-content.fullscreen {
+  min-height: 100vh !important;
+  top: calc(-44px - var(--ion-safe-area-top));
+}
+
+ion-slides {
+  --bullet-background: #fff !important;
+  --bullet-background-active: var(--ion-color-light) !important;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .15s;
+}
+
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
+
+.fade-up-enter-active, .fade-up-leave-active {
+  transition: opacity .3s, bottom .3s;
+}
+
+.fade-up-enter, .fade-up-leave-to {
+  bottom: -100px !important;
+  opacity: 0;
+  position: fixed;
+}
+
+.bg-poly {
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+
+.bg-poly-1 {
+  background-image: url("~@/assets/img/poly-01.png");
+  background-position-y: 40px;
+}
+
+.ios .bg-poly-1 {
+  background-position-y: calc(var(--ion-safe-area-top) + 14px);
+}
+
+.bg-poly-2 {
+  background-image: url("~@/assets/img/poly-02.png");
+}
+
+.bg-poly-3 {
+  background-image: url("~@/assets/img/poly-03.png");
+}
+
+.bg-poly-4 {
+  background-image: url("~@/assets/img/poly-04.png");
+}
+
+.fab-tab {
+  margin-bottom: 55px;
+}
+
+.gradient-button {
+  --background: linear-gradient(150deg, var(--ion-color-secondary-tint), var(--ion-color-primary-tint));
+}
+
+.list-large-items ion-label, .large-item ion-label {
+  margin-bottom: 1.3em;
+  margin-top: 1.3em;
+}
+
+.s-ion-icon path {
+  stroke: var(--ion-color-base) !important;
+}
+
+.p-0 {
+  --padding-bottom: 0;
+  --padding-end: 0;
+  --padding-start: 0;
+  --padding-top: 0;
+}
+
+.text-shadow {
+  text-shadow: 0px 0px 3px #333;
+}
+
+
+@media screen and (min-width: 700px) {
+  :root {
+    font-size: 1.2em;
+  }
+}

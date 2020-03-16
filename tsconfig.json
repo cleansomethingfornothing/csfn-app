@@ -2,10 +2,10 @@
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
-    "strict": true,
     "jsx": "preserve",
     "importHelpers": true,
     "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
@@ -34,6 +34,8 @@
     "tests/**/*.tsx"
   ],
   "exclude": [
-    "node_modules"
+    "**/loading-bar.min.js",
+    "**/node_modules/**",
+    "@ionic"
   ]
 }

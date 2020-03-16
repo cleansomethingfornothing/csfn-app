@@ -1,24 +1,13 @@
-# csfn-app
+# Clean Something For Nothing App
 
-## Project setup
-```
-npm install
-```
+App for CSFN Project **[WIP]**
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+- [Instagram](https://www.instagram.com/cleansomethingfornothing)
 
-### Compiles and minifies for production
-```
-npm run build
-```
+- [Facebook](https://www.facebook.com/Cleansomethingfornothing)
 
-### Lints and fixes files
-```
-npm run lint
-```
+- [Website](https://cleansomething.wixsite.com/project)
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+---
+
+Built using Ionic with Vue

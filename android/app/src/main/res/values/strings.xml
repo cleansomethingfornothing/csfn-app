@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+  <string name="app_name">CSFN</string>
+  <string name="title_activity_main">CSFN</string>
+  <string name="package_name">com.cleansomething.app</string>
+  <string name="custom_url_scheme">com.cleansomething.app</string>
+  <string name="facebook_app_id">328579138196679</string>
+  <string name="fb_login_protocol_scheme">fb328579138196679</string>
+  <string name="server_client_id">597121035718-js77umaebmsjp5c9qbvjvc9oee4o1e85.apps.googleusercontent.com</string>
+</resources>

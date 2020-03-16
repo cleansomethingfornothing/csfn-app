@@ -1,32 +1,25 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div>
+    <ion-app>
+        <transition mode="in-out" name="fade">
+            <router-view></router-view>
+        </transition>
+    </ion-app>
 </template>
+<script lang="ts">
+import Vue from 'vue'
+import Component from 'vue-class-component'
+import CurrentUserPage from '@/views/pages/home/user/CurrentUserPage.vue'
+import EventsPage from '@/views/pages/home/events/EventsPage.vue'
+import AlertsPage from '@/views/pages/home/alerts/AlertsPage.vue'
+import CommunityPage from '@/views/pages/home/community/CommunityPage.vue'
 
+@Component({
+    components: {CurrentUserPage, EventsPage, AlertsPage, CommunityPage}
+})
+export default class Main extends Vue {
+
+}
+</script>
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
+@import 'assets/style/main.scss';
 </style>
