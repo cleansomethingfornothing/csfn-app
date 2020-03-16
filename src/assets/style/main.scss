@@ -1,0 +1,86 @@
+@import "~@ionic/core/css/core.css";
+@import "~@ionic/core/css/ionic.bundle.css";
+@import "./colors";
+
+.title-md {
+  padding-inline-start: 5px;
+  padding-inline-end: 5px;
+}
+
+.title-ios.title-default {
+  padding-left: unset;
+  padding-right: unset;
+  padding-inline-start: 50px;
+  padding-inline-end: 50px;
+}
+
+.ripple-parent {
+  position: relative;
+  overflow: hidden;
+}
+
+.expand {
+  flex: 1;
+}
+
+.shadow {
+  box-shadow: 0 1px 4px 0 rgba(37, 50, 56, 0.1);
+}
+
+.full-width {
+  width: 100%;
+}
+
+.text-center {
+  text-align: center;
+}
+
+ion-button {
+  text-transform: none;
+}
+
+.z-10 {
+  z-index: 10;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 85%;
+  margin: auto;
+  max-width: 400px;
+}
+
+.auth-form * {
+  z-index: 5;
+}
+
+.auth-form > * {
+  margin-top: 1em;
+}
+
+.auth-form hr {
+  height: 1px;
+  background-color: #fff;
+  width: 100%;
+  margin: 5% 0 1% 0;
+}
+
+ion-modal {
+  --backdrop-opacity: 0;
+}
+
+.item-disabled {
+  opacity: 0.8 !important;
+}
+
+ion-item ion-icon {
+  margin: auto 16px auto 0;
+}
+
+.invalid-input {
+  --full-highlight-height: 2px;
+  --highlight-background: var(--ion-color-danger);
+}

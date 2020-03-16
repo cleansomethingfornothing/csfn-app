@@ -1,0 +1,7 @@
+{
+  "name": "Clean Something For Nothing",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue"
+}

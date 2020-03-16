@@ -1,32 +1,45 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+  <ion-app>
+    <div :class="isMapInModal ? 'opacity-0': 'opacity-100'">
+      <ion-vue-router id="main"></ion-vue-router>
     </div>
-    <router-view/>
-  </div>
+    <app-menu :user="user" :disabled="isMapInModal" @logout="logout"></app-menu>
+  </ion-app>
 </template>
-
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
+  @import 'assets/style/main';
 </style>
+<script>
+  import Vue from 'vue'
+  import Component from 'vue-class-component'
+  import AppMenu from '@/components/menu/AppMenu'
+  import {userModule} from '@/store/userModule'
+  import {authModule} from '@/store/authModule'
+  import {nativeProvider} from '@/providers/native/native.provider'
+  import {locationModule} from '@/store/locationModule'
+
+  @Component({
+    components: {AppMenu}
+  })
+  export default class Main extends Vue {
+
+    get user() {
+      return userModule.getCurrentUser
+    }
+
+    get isMapInModal() {
+      return locationModule.isMapInModal
+    }
+
+    mounted() {
+      nativeProvider.hideSplashScreen()
+      locationModule.fetchCurrentPosition()
+    }
+
+    logout() {
+      authModule.doLogout()
+        .then(() => this.$router.replace('/login'))
+    }
+
+  }
+</script>

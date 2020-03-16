@@ -1,0 +1,19 @@
+{
+  "appId": "com.cleansomething.app",
+  "appName": "Clean Something For Nothing",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "dist",
+  "backgroundColor": "#ffffffff",
+  "cordova": {
+    "preferences": {
+      "GOOGLE_MAPS_ANDROID_API_KEY": "AIzaSyAhi24XarveoViH6tiPNS7qnqgwQHGefiw",
+      "GOOGLE_MAPS_IOS_API_KEY": "AIzaSyAhi24XarveoViH6tiPNS7qnqgwQHGefiw"
+    }
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchAutoHide": false
+    }
+  }
+}

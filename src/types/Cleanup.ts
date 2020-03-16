@@ -1,0 +1,31 @@
+import {ArrayNotEmpty, IsNotEmpty, ValidateIf} from 'class-validator'
+import Location from '@/types/Location'
+
+export default class Cleanup {
+
+  id?: string
+
+  @IsNotEmpty({message: 'required-error-f'})
+  description: string
+
+  @ValidateIf(o => o.done)
+  @IsNotEmpty({message: 'required-error'})
+  weight: number
+
+  @IsNotEmpty({message: 'required-error-f'})
+  location: Location
+
+  @IsNotEmpty({message: 'required-error-f'})
+  date: Date
+
+  @IsNotEmpty({message: 'required-error'})
+  done: boolean
+
+  @ArrayNotEmpty({message: 'select-some-picture-before'})
+  beforePictures: string[] = []
+
+  @ValidateIf(o => o.done)
+  @ArrayNotEmpty({message: 'select-some-picture-after'})
+  afterPictures: string[] = []
+
+}
