@@ -1,5 +1,5 @@
 <template>
-  <ion-card class="placeholder-card ion-activatable ripple-parent" mode="ios" @click="click" button>
+  <ion-card class="placeholder-card ion-activatable ripple-parent" mode="ios" button>
     <div class="placeholder-card__image">
       <img src="/img/placeholder.png" class="opacity-25">
     </div>
@@ -30,14 +30,21 @@
   }
 </script>
 <style>
-
   .placeholder-card__image {
-    background-color: #eee;
+    position: relative;
+  }
+
+  .placeholder-card__image > img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
   }
 
   .placeholder-card__image:after {
-    position: absolute;
     content: '';
     padding-top: 66%;
+    display: block;
   }
 </style>

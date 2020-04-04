@@ -1,10 +1,9 @@
 <template>
   <div class="transparent-header">
-    <ion-button class="back" fill="clear" shape="round" color="white" @click="$router.back()">
+    <ion-button class="back absolute left-0" fill="clear" shape="round" color="white" @click="$router.back()">
       <ion-icon name="arrow-back" slot="icon-only"></ion-icon>
     </ion-button>
-    <b>{{title}}</b>
-    <i></i>
+    <b class="mt-1">{{title}}</b>
   </div>
 </template>
 <script lang="ts">
@@ -23,15 +22,15 @@
 <style>
   .transparent-header {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     padding-left: 8px;
     padding-top: 6px;
-    padding-right: 50px;
     width: 100%;
     font-size: 1.3em !important;
     color: white;
     z-index: 5;
+    position: relative;
   }
 
   .back {

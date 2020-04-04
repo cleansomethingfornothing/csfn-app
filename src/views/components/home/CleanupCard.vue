@@ -17,7 +17,7 @@
       </div>
       <ion-item class="text-sm pl-0" lines="none">
         <ion-icon name="location" slot="start" class="text-lg mr-2" color="primary"></ion-icon>
-        <ion-label color="dark">{{cleanup.location.address.city}}, {{cleanup.location.address.state}}
+        <ion-label color="dark">{{cleanup.location.address.city}}, {{cleanup.location.address.country}}
         </ion-label>
       </ion-item>
     </ion-card-content>

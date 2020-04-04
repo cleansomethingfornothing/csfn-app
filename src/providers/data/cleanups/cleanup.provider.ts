@@ -9,17 +9,19 @@ export class CleanupProvider {
       setTimeout(() =>
           resolve(new Array(10).fill({
               user: {
-                userName: '@lester_prz',
+                userName: '@gfcesar',
                 email: ''
               },
-              description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vel suscipit justo. Pellentesque eget porta est. Sed ornare purus eget facilisis finibus. Donec eget turpis ultrices magna posuere tincidunt. Donec id risus ut libero commodo rhoncus a ac sapien. Cras volutpat vel sem at finibus.',
+              description: 'Shkodër is a town in the north of Albania. We stopped here to do a cleanup on a small tributary of the river Bojana that leads to the Adriatic Sea as final destination.\n' +
+                '\n' +
+                'This place is extremely dirty, we just took a bag of trash but it certainly needs many more to be clean... It seemed like it has been used as an illegal dump and many rests of plastic bags are still moving trapped in the branches of the riverside. Definitely Albania is a country with such incredible nature 🌿 but also full of contrasts like this... We did our bit to help turn this area a little bit cleaner. We are on the good path, however there is a long way to go. Thanks to such beautiful community of cleaners worldwide!!! We are making a real change',
               weight: 2,
               location: new Location(
                 {
-                  city: 'El Escorial',
-                  country: 'España',
+                  city: 'Shkodër',
+                  country: 'Albania',
                   countryCode: 'ES',
-                  state: 'Comunidad de Madrid'
+                  state: 'Shkodër'
                 }, {
                   lat: 40.2423808,
                   lng: -3.76832
