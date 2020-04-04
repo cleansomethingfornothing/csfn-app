@@ -53,7 +53,7 @@
     name: 'login',
     components: {ForestBg, ButtonItem, InputItem}
   })
-  export default class Login extends Vue {
+  export default class LoginPage extends Vue {
 
     userLogin = new UserLogin()
 

@@ -3,7 +3,9 @@
     <home-header :hide-top-toolbar="hideTopToolbar" :address="address" @click="homeButtonClicked"></home-header>
     <ion-content class="ion-content home-content" fullscreen="true"
                  :scroll-events="true" @ionScroll="onScroll">
-      <cleanup-card v-for="cleanup in cleanups" :key="cleanup.id" :cleanup="cleanup"></cleanup-card>
+      <placeholder-card v-if="!cleanups"></placeholder-card>
+      <cleanup-card v-else v-for="cleanup in cleanups" :key="cleanup.id" :cleanup="cleanup"
+                    @click="openCleanup(cleanup.id)"></cleanup-card>
       <ion-fab vertical="bottom" horizontal="end" slot="fixed">
         <ion-fab-button color="white" @click="publish">
           <ion-icon name="add" color="primary"></ion-icon>
@@ -19,16 +21,17 @@
   import HomeHeader from '@/views/components/home/HomeHeader.vue'
   import CleanupCard from '@/views/components/home/CleanupCard.vue'
   import {locationModule} from '@/store/locationModule'
-  import SelectLocation from '@/views/modals/SelectLocation.vue'
+  import SelectLocation from '@/views/modals/LocationModal.vue'
   import ModalPresenter from '@/tools/ModalPresenter'
-  import SelectCleanupType from '@/views/modals/SelectCleanupType.vue'
+  import SelectCleanupType from '@/views/modals/CleanupTypeModal.vue'
   import {cleanupsModule} from '@/store/cleanupsModule'
+  import PlaceholderCard from '@/views/components/home/PlaceholderCard.vue'
 
   @Component({
-    name: 'Home',
-    components: {CleanupCard, HomeHeader}
+    name: 'HomePage.vue',
+    components: {PlaceholderCard, CleanupCard, HomeHeader}
   })
-  export default class Home extends Vue {
+  export default class HomePage extends Vue {
 
     public hideTopToolbar = false
     private lastScroll = 0
@@ -85,6 +88,10 @@
           locationModule.updateUserPosition(data.selectedCoords)
         }
       })
+    }
+
+    openCleanup(id: string) {
+      this.$router.push({name: 'Cleanup', params: {id}})
     }
 
     publish() {

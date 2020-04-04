@@ -53,30 +53,30 @@
     --padding-start: 0;
   }
 
+  .cleanup-card__image {
+    position: relative;
+  }
+
+  .cleanup-card__image:after {
+    content: '';
+    padding-top: 66%;
+    display: block;
+  }
+
   .cleanup-card__image > img {
+    position: absolute;
     width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: center center;
   }
 
-  .cleanup-card__image > img:after {
-    content: '';
-    padding-top: 66%;
-  }
-
   .cleanup-card__description {
     color: var(--ion-text-color);
-    max-height: 4.3em;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
-  }
-
-  .cleanup-card__type {
-    width: 1.25rem!important;
-    margin-right: 0.5em;
   }
 </style>

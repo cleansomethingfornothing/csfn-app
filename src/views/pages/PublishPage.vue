@@ -70,11 +70,11 @@
   import Component from 'vue-class-component'
   import Cleanup from '@/types/Cleanup'
   import ModalPresenter from '@/tools/ModalPresenter'
-  import SelectLocation from '@/views/modals/SelectLocation.vue'
+  import SelectLocation from '@/views/modals/LocationModal.vue'
   import {locationModule} from '@/store/locationModule'
   import {placesProvider} from '@/providers/places/places.provider'
   import Location from '@/types/Location'
-  import ImagePreview from '@/views/modals/ImagePreview.vue'
+  import ImagePreview from '@/views/modals/ImagePreviewModal.vue'
   import UploadButton from '@/views/components/common/UploadButton.vue'
   import FormError from '@/types/errors/FormError'
   import ErrorMessage from '@/tools/ErrorMessage'
@@ -86,7 +86,7 @@
     name: 'publish-cleanup',
     components: {InputItem, InputError, UploadButton}
   })
-  export default class PublishCleanup extends Vue {
+  export default class PublishPage extends Vue {
 
     errors = {}
 

@@ -29,7 +29,7 @@
     name: 'forgotten-password',
     components: {TransparentHeader, Avatar, ButtonItem, ForestBg, InputItem}
   })
-  export default class ForgottenPassword extends Vue {
+  export default class ForgottenPasswordPage extends Vue {
 
     public email = ''
 

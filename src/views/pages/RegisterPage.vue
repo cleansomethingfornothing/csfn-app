@@ -52,7 +52,7 @@
     name: 'register',
     components: {InputError, TransparentHeader, Avatar, ButtonItem, ForestBg, InputItem}
   })
-  export default class Register extends Vue {
+  export default class RegisterPage extends Vue {
 
     userRegistration = new UserRegistration()
 
