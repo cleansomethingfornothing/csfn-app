@@ -2,8 +2,6 @@
   <div class="menu-profile ion-activatable ripple-parent" v-if="user">
     <!--<avatar :src="user.picture"></avatar>-->
     <img class="w-1/4" src="@/assets/img/icon.png">
-
-    <span class="menu-profile__full-name" color="white">{{user.firstName}} {{user.lastName}}</span>
     <span class="menu-profile__user-name">{{user.userName}}</span>
     <ion-ripple-effect></ion-ripple-effect>
   </div>
@@ -11,7 +9,7 @@
 <script lang="ts">
   import Vue from 'vue'
   import Component from 'vue-class-component'
-  import Avatar from '@/components/common/Avatar.vue'
+  import Avatar from '@/views/components/common/Avatar.vue'
   import User from '@/types/User'
   import {Prop} from 'vue-property-decorator'
 
@@ -27,7 +25,7 @@
 </script>
 <style>
   .menu-profile {
-    background: url("../../assets/img/profile-bg-small.png") center center;
+    background: url("../../../assets/img/profile-bg-small.png") center center;
     height: 200px;
     width: 100%;
     display: flex;
@@ -42,18 +40,11 @@
     align-items: center;
   }
 
-  .menu-profile__full-name {
+  .menu-profile__user-name {
     z-index: 10;
     margin-top: 0.5em;
     color: #fff;
     font-size: 1.25em;
     font-weight: bold;
-  }
-
-  .menu-profile__user-name {
-    margin-top: 0.25em;
-    font-weight: bold;
-    font-size: 0.9em;
-    color: #ccc;
   }
 </style>

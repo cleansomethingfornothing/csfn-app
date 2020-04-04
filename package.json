@@ -26,6 +26,7 @@
     "@ionic/vue": "0.0.9",
     "@turf/distance": "^6.0.1",
     "@types/compose-function": "0.0.30",
+    "@types/qs": "^6.9.1",
     "axios": "^0.19.2",
     "base64-blob": "^1.4.1",
     "class-validator": "^0.11.1",

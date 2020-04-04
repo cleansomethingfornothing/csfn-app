@@ -3,7 +3,9 @@
     <ion-header mode="ios">
       <ion-toolbar mode="ios">
         <ion-buttons slot="start">
-          <ion-back-button></ion-back-button>
+          <ion-button fill="clear" shape="round" @click="$router.back()">
+            <ion-icon name="arrow-back" slot="icon-only"></ion-icon>
+          </ion-button>
         </ion-buttons>
         <ion-title>
           {{$t('publish-cleanup')}}
@@ -73,11 +75,11 @@
   import {placesProvider} from '@/providers/places/places.provider'
   import Location from '@/types/Location'
   import ImagePreview from '@/views/modals/ImagePreview.vue'
-  import UploadButton from '@/components/common/UploadButton.vue'
+  import UploadButton from '@/views/components/common/UploadButton.vue'
   import FormError from '@/types/errors/FormError'
   import ErrorMessage from '@/tools/ErrorMessage'
-  import InputError from '@/components/common/InputError.vue'
-  import InputItem from '@/components/common/InputItem.vue'
+  import InputError from '@/views/components/common/InputError.vue'
+  import InputItem from '@/views/components/common/InputItem.vue'
   import {cleanupsModule} from '@/store/cleanupsModule'
 
   @Component({
@@ -103,7 +105,7 @@
     }
 
     publish() {
-      cleanupsModule.publishCleanup(this.cleanup)
+      cleanupsModule.publish(this.cleanup)
         .then(() => {
           this.$router.back()
         })

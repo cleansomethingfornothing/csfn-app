@@ -18,11 +18,11 @@
 <script lang="ts">
   import Vue from 'vue'
   import {Component} from 'vue-property-decorator'
-  import ButtonItem from '@/components/common/ButtonItem.vue'
-  import ForestBg from '@/components/common/ForestBg.vue'
-  import InputItem from '@/components/common/InputItem.vue'
-  import Avatar from '@/components/common/Avatar.vue'
-  import TransparentHeader from '@/components/common/TransparentHeader.vue'
+  import ButtonItem from '@/views/components/common/ButtonItem.vue'
+  import ForestBg from '@/views/components/common/ForestBg.vue'
+  import InputItem from '@/views/components/common/InputItem.vue'
+  import Avatar from '@/views/components/common/Avatar.vue'
+  import TransparentHeader from '@/views/components/common/TransparentHeader.vue'
   import {authModule} from '@/store/authModule'
 
   @Component({

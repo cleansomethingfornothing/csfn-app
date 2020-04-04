@@ -38,9 +38,9 @@
 <script lang="ts">
   import Vue from 'vue'
   import Component from 'vue-class-component'
-  import InputItem from '@/components/common/InputItem.vue'
-  import ButtonItem from '@/components/common/ButtonItem.vue'
-  import ForestBg from '@/components/common/ForestBg.vue'
+  import InputItem from '@/views/components/common/InputItem.vue'
+  import ButtonItem from '@/views/components/common/ButtonItem.vue'
+  import ForestBg from '@/views/components/common/ForestBg.vue'
   import {authModule} from '@/store/authModule'
   import UserLogin from '@/types/UserLogin'
   import UnknownError from '@/types/errors/UnknownError'

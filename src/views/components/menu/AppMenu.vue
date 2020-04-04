@@ -8,8 +8,8 @@
   import Vue from 'vue'
   import Component from 'vue-class-component'
   import {Action} from 'vuex-class'
-  import MenuItems from '@/components/menu/MenuItems.vue'
-  import MenuProfile from '@/components/menu/MenuProfile.vue'
+  import MenuItems from '@/views/components/menu/MenuItems.vue'
+  import MenuProfile from '@/views/components/menu/MenuProfile.vue'
   import {Emit, Prop, Ref} from 'vue-property-decorator'
   import User from '@/types/User'
 

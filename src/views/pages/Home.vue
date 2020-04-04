@@ -16,8 +16,8 @@
 <script lang="ts">
   import Vue from 'vue'
   import Component from 'vue-class-component'
-  import HomeHeader from '@/components/home/HomeHeader.vue'
-  import CleanupCard from '@/components/home/CleanupCard.vue'
+  import HomeHeader from '@/views/components/home/HomeHeader.vue'
+  import CleanupCard from '@/views/components/home/CleanupCard.vue'
   import {locationModule} from '@/store/locationModule'
   import SelectLocation from '@/views/modals/SelectLocation.vue'
   import ModalPresenter from '@/tools/ModalPresenter'
@@ -45,6 +45,10 @@
       return cleanupsModule.getCleanups
     }
 
+    mounted() {
+      cleanupsModule.fetch()
+    }
+
     public onScroll(event: CustomEvent): void {
       const scroll = event.detail.scrollTop
 
@@ -61,6 +65,11 @@
       switch (button) {
         case 'location':
           this.openLocationSelection()
+          break
+        case 'filters':
+          break
+        case 'map':
+          break
       }
     }
 
@@ -90,6 +99,3 @@
     }
   }
 </script>
-<style>
-
-</style>

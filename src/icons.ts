@@ -2,6 +2,7 @@ import {addIcons} from 'ionicons'
 import {
   add,
   alert,
+  arrowBack,
   arrowDropleft,
   at,
   calendar,
@@ -27,6 +28,8 @@ import {
 addIcons({
   'ios-add': add.ios,
   'md-add': add.md,
+  'ios-arrow-back': arrowBack.ios,
+  'md-arrow-back': arrowBack.md,
   'ios-alert': alert.ios,
   'md-alert': alert.md,
   'ios-at': at.md,

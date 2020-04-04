@@ -16,21 +16,6 @@
             <input-error :error="this.fieldErrors.picture && this.fieldErrors.picture[0]"></input-error>
           </div>
           -->
-          <input-item icon="person" type="text" @click="resetError('firstName') || resetError('lastName')" :rounded="true"
-                     :errors="(this.fieldErrors.firstName && this.fieldErrors.lastName) && [...this.fieldErrors.firstName, ...this.fieldErrors.lastName]">
-            <ion-row class="ion-no-padding">
-              <ion-col class="name-input ion-no-padding" size="5">
-                <ion-input type="text" :placeholder="$t('firstName')" :value="userRegistration.firstName" :rounded="true"
-                           @ionFocus="resetError('firstName') || resetError('lastName')"
-                           @ionChange="userRegistration.firstName = $event.target.value"></ion-input>
-              </ion-col>
-              <ion-col size="7" class="ion-no-padding ion-padding-start">
-                <ion-input ref="input" type="text" :placeholder="$t('lastName')" :value="userRegistration.lastName" :rounded="true"
-                           @ionChange="userRegistration.lastName = $event.target.value"
-                           @ionFocus="resetError('firstName') || resetError('lastName')"></ion-input>
-              </ion-col>
-            </ion-row>
-          </input-item>
           <input-item icon="at" :placeholder="$t('username')" type="text" v-model="userRegistration.username" :rounded="true"
                      :errors="fieldErrors.username" @focus="resetError('username')"></input-item>
           <input-item icon="mail" placeholder="Email" type="email" v-model="userRegistration.email" :rounded="true"
@@ -50,15 +35,15 @@
 <script lang="ts">
   import Vue from 'vue'
   import {Component} from 'vue-property-decorator'
-  import ButtonItem from '@/components/common/ButtonItem.vue'
-  import ForestBg from '@/components/common/ForestBg.vue'
-  import InputItem from '@/components/common/InputItem.vue'
-  import Avatar from '@/components/common/Avatar.vue'
-  import TransparentHeader from '@/components/common/TransparentHeader.vue'
+  import ButtonItem from '@/views/components/common/ButtonItem.vue'
+  import ForestBg from '@/views/components/common/ForestBg.vue'
+  import InputItem from '@/views/components/common/InputItem.vue'
+  import Avatar from '@/views/components/common/Avatar.vue'
+  import TransparentHeader from '@/views/components/common/TransparentHeader.vue'
   import UserRegistration from '@/types/UserRegistration'
   import {authModule} from '@/store/authModule'
   import FormError from '@/types/errors/FormError'
-  import InputError from '@/components/common/InputError.vue'
+  import InputError from '@/views/components/common/InputError.vue'
   import UnknownError from '@/types/errors/UnknownError'
   import ToastPresenter from '@/tools/ToastPresenter'
   import ErrorMessage from '@/tools/ErrorMessage'

@@ -1,9 +1,12 @@
 import {ArrayNotEmpty, IsNotEmpty, ValidateIf} from 'class-validator'
 import Location from '@/types/Location'
+import User from '@/types/User'
 
 export default class Cleanup {
 
   id?: string
+
+  user?: User
 
   @IsNotEmpty({message: 'required-error-f'})
   description: string

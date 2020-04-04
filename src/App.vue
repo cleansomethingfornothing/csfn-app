@@ -12,7 +12,7 @@
 <script>
   import Vue from 'vue'
   import Component from 'vue-class-component'
-  import AppMenu from '@/components/menu/AppMenu'
+  import AppMenu from '@/views/components/menu/AppMenu'
   import {userModule} from '@/store/userModule'
   import {authModule} from '@/store/authModule'
   import {nativeProvider} from '@/providers/native/native.provider'

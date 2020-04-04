@@ -2,9 +2,9 @@ import UserLogin from '@/types/UserLogin'
 import UserRegistration from '@/types/UserRegistration'
 import User from '@/types/User'
 import axios, {AxiosInstance} from 'axios'
-import FormUrlEncoder from '@/tools/FormUrlEncoder'
 import UnknownError from '@/types/errors/UnknownError'
 import config from '@/providers/data/config'
+import qs from 'qs'
 
 const baseUrl = config.hostname + config.context + '/usuarioApp'
 
@@ -20,12 +20,11 @@ export class AuthProvider {
   }
 
   fetchUserId(): Promise<string> {
-    return Promise.reject()
+    return Promise.resolve('hi')
   }
 
   doRegister(user: UserRegistration): Promise<User> {
-    return this.axios.post(registerUrl, FormUrlEncoder.encode(user),
-      {headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
+    return this.axios.post(registerUrl, qs.stringify(user))
       .then((response) => {
         return new User(user.firstName, user.lastName, user.email, user.password)
       }).catch((error) => {

@@ -24,7 +24,7 @@
             </home-header-button>
           </div>
           <div class="home-bubble">
-            <home-header-button :icon-only="true" @click="click('filter')">
+            <home-header-button :icon-only="true" @click="click('filters')">
               <ion-icon name="filter"></ion-icon>
             </home-header-button>
           </div>
@@ -42,7 +42,7 @@
   import Vue from 'vue'
   import Component from 'vue-class-component'
   import {Emit, Prop} from 'vue-property-decorator'
-  import HomeHeaderButton from '@/components/home/HomeHeaderButton.vue'
+  import HomeHeaderButton from '@/views/components/home/HomeHeaderButton.vue'
   import Address from '@/types/Address'
 
   @Component({

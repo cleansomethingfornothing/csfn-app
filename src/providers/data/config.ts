@@ -1,4 +1,4 @@
 export default {
   hostname: 'https://cleansomething.com',
-  context: 'server_csfn/api/'
+  context: '/server_csfn/api'
 }

@@ -21,7 +21,7 @@
   import Vue from 'vue'
   import Component from 'vue-class-component'
   import {Emit, Prop, Ref} from 'vue-property-decorator'
-  import InputError from '@/components/common/InputError.vue'
+  import InputError from '@/views/components/common/InputError.vue'
 
   @Component({
     name: 'input-item',

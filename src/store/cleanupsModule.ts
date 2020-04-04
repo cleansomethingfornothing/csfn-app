@@ -35,13 +35,13 @@ class CleanupsModule extends VuexModule {
   }
 
   @Action
-  fetchCleanups(): Promise<void> {
+  fetch(): Promise<void> {
     return cleanupProvider.fetch(this.filters)
       .then((cleanups) => this.setCleanups(cleanups))
   }
 
   @Action
-  publishCleanup(cleanup: Cleanup): Promise<void> {
+  publish(cleanup: Cleanup): Promise<void> {
     return Validator.validate(cleanup)
       .then(() => cleanupProvider.publish(cleanup))
   }
