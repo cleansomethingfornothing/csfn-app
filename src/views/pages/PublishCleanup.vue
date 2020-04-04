@@ -1,7 +1,7 @@
 <template>
   <ion-page class="ion-page publish-cleanup">
     <ion-header mode="ios">
-      <ion-toolbar>
+      <ion-toolbar mode="ios">
         <ion-buttons slot="start">
           <ion-back-button></ion-back-button>
         </ion-buttons>
@@ -32,7 +32,7 @@
                           v-model="cleanup.date" ref="date" :readonly="true"
                           @ionChange="change('date', new Date($event.target.value))"></ion-datetime>
           </input-item>
-          <input-item :errors="errors['beforePictures']">
+          <input-item :errors="errors['beforePictures']" :no-lines="!cleanup.done">
             <ion-label position="floating" class="publish-label">{{$t('beforePictures')}}</ion-label>
             <ion-row class="w-full mt-8 mb-2">
               <ion-col v-for="i of [0,1,2,3]" :key="i">
@@ -42,7 +42,7 @@
             </ion-row>
           </input-item>
 
-          <input-item :errors="errors['afterPictures']" v-if="cleanup.done">
+          <input-item :errors="errors['afterPictures']" v-if="cleanup.done" :no-lines="true">
             <ion-label position="floating" class="publish-label">{{$t('afterPictures')}}</ion-label>
             <ion-row class="w-full mt-8 mb-2">
               <ion-col v-for="i of [0,1,2,3]" :key="i">
@@ -68,17 +68,17 @@
   import Component from 'vue-class-component'
   import Cleanup from '@/types/Cleanup'
   import ModalPresenter from '@/tools/ModalPresenter'
-  import SelectLocation from '@/views/SelectLocation.vue'
+  import SelectLocation from '@/views/modals/SelectLocation.vue'
   import {locationModule} from '@/store/locationModule'
   import {placesProvider} from '@/providers/places/places.provider'
   import Location from '@/types/Location'
-  import ImagePreview from '@/views/ImagePreview.vue'
+  import ImagePreview from '@/views/modals/ImagePreview.vue'
   import UploadButton from '@/components/common/UploadButton.vue'
-  import Validator from '@/tools/Validator'
   import FormError from '@/types/errors/FormError'
   import ErrorMessage from '@/tools/ErrorMessage'
   import InputError from '@/components/common/InputError.vue'
   import InputItem from '@/components/common/InputItem.vue'
+  import {cleanupsModule} from '@/store/cleanupsModule'
 
   @Component({
     name: 'publish-cleanup',
@@ -103,7 +103,7 @@
     }
 
     publish() {
-      Validator.validate(this.cleanup)
+      cleanupsModule.publishCleanup(this.cleanup)
         .then(() => {
           this.$router.back()
         })

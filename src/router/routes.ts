@@ -1,8 +1,8 @@
-import Home from '@/views/Home.vue'
-import Login from '@/views/Login.vue'
-import Register from '@/views/Register.vue'
-import ForgottenPassword from '@/views/ForgottenPassword.vue'
-import PublishCleanup from '@/views/PublishCleanup.vue'
+import Home from '@/views/pages/Home.vue'
+import Login from '@/views/pages/Login.vue'
+import Register from '@/views/pages/Register.vue'
+import ForgottenPassword from '@/views/pages/ForgottenPassword.vue'
+import PublishCleanup from '@/views/pages/PublishCleanup.vue'
 
 export default [
   {

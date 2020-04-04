@@ -39,6 +39,7 @@
     "form-data": "^3.0.0",
     "ionicons": "^4.6.3",
     "moment": "^2.24.0",
+    "qs": "^6.9.3",
     "reflect-metadata": "^0.1.13",
     "tailwindcss": "^ 1.2.0",
     "vue": "^2.6.11",

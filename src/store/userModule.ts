@@ -1,7 +1,7 @@
 import User from '@/types/User'
 import {Action, Module, Mutation, VuexModule} from 'vuex-class-modules'
 import {store} from '@/store/index'
-import {userProvider} from '@/providers/user/user.provider'
+import {userProvider} from '@/providers/data/user/user.provider'
 
 @Module
 class UserModule extends VuexModule {

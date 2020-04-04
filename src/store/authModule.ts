@@ -2,7 +2,7 @@ import UserRegistration from '@/types/UserRegistration'
 import UserLogin from '@/types/UserLogin'
 import {Action, Module, Mutation, VuexModule} from 'vuex-class-modules'
 import {store} from '@/store/index'
-import {authProvider} from '@/providers/auth/auth.provider'
+import {authProvider} from '@/providers/data/auth/auth.provider'
 import {userModule} from '@/store/userModule'
 import Validator from '@/tools/Validator'
 

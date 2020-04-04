@@ -1,7 +1,7 @@
 <template>
   <div class="text-item" :class="errors ? 'invalid-input': ''">
     <div class="overflow-hidden ion-activatable ripple-parent" :class="rounded ? 'rounded-full' : ''" @click="clicked">
-      <ion-item :color="outline ? 'light': '' ">
+      <ion-item :color="outline ? 'light': '' " :lines="noLines ? 'none' : 'full'">
         <ion-icon v-if="icon" :name="icon" slot="start" color="dark"></ion-icon>
         <slot>
           <ion-input @ionChange="change" @ionInput="onInput" @ionFocus="clicked" @ionBlur="blur" :value="value"
@@ -52,6 +52,9 @@
 
     @Prop(Boolean)
     public readonly rounded!: boolean;
+
+    @Prop(Boolean)
+    public readonly noLines!: boolean;
 
     @Prop(Array)
     public readonly errors!: string[];

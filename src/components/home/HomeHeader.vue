@@ -1,7 +1,7 @@
 <template>
   <div class="home-header" :class="hideTopToolbar ? ' scrolled': ''">
-    <transition name="roll-up">
-      <ion-toolbar>
+    <ion-header mode="ios">
+      <ion-toolbar mode="ios">
         <ion-buttons slot="start">
           <ion-menu-button auto-hide="true" color="dark"></ion-menu-button>
         </ion-buttons>
@@ -9,33 +9,33 @@
           Clean Something For Nothing
         </ion-title>
       </ion-toolbar>
-    </transition>
 
-    <ion-toolbar>
-      <div class="home-bubbles">
-        <div class="home-bubble home-location-button">
-          <home-header-button @click="click('location')">
-            <ion-icon name="location" color="primary"></ion-icon>
-            <ion-spinner name="dots" v-if="address === undefined"></ion-spinner>
-            <ion-label v-if="address === null">{{$t('select-location')}}</ion-label>
-            <ion-label class="ion-color-dark" v-if="address">
-              {{address.city}}, {{address.state}}
-            </ion-label>
-            <i></i>
-          </home-header-button>
+      <ion-toolbar mode="ios" class="pb-1">
+        <div class="home-bubbles">
+          <div class="home-bubble home-location-button">
+            <home-header-button @click="click('location')">
+              <ion-icon name="location" color="primary"></ion-icon>
+              <ion-spinner name="dots" v-if="address === undefined"></ion-spinner>
+              <ion-label v-if="address === null">{{$t('select-location')}}</ion-label>
+              <ion-label class="ion-color-dark" v-if="address">
+                {{address.city}}, {{address.state}}
+              </ion-label>
+              <i></i>
+            </home-header-button>
+          </div>
+          <div class="home-bubble">
+            <home-header-button :icon-only="true" @click="click('filter')">
+              <ion-icon name="filter"></ion-icon>
+            </home-header-button>
+          </div>
+          <div class="home-bubble">
+            <home-header-button :icon-only="true" @click="click('map')">
+              <ion-icon name="map"></ion-icon>
+            </home-header-button>
+          </div>
         </div>
-        <div class="home-bubble">
-          <home-header-button :icon-only="true" @click="click('filter')">
-            <ion-icon name="filter"></ion-icon>
-          </home-header-button>
-        </div>
-        <div class="home-bubble">
-          <home-header-button :icon-only="true" @click="click('map')">
-            <ion-icon name="map"></ion-icon>
-          </home-header-button>
-        </div>
-      </div>
-    </ion-toolbar>
+      </ion-toolbar>
+    </ion-header>
   </div>
 </template>
 <script lang="ts">
@@ -64,20 +64,16 @@
 </script>
 <style>
 
-  .home-header {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 10;
-    transition: top 0.5s;
+  .home-header > ion-header {
+    transition: margin-top 0.5s;
   }
 
-  .home-header.scrolled {
-    top: -56px;
+  .home-header.scrolled > ion-header {
+    margin-top: -56px;
   }
 
-  .ios .home-header.scrolled {
-    top: -44px !important;
+  .ios .home-header.scrolled > ion-header {
+    margin-top: -41px !important;
   }
 
   .home-header > ion-toolbar:nth-child(2) {
@@ -101,18 +97,4 @@
   .home-location-button {
     width: calc(100% - 36px - 36px - 1em);
   }
-
-  .roll-up-enter-active, .roll-up-leave-active, .roll-up-leave-active + ion-toolbar {
-    transition: all 0.5s;
-  }
-
-  .roll-up-enter, .roll-up-leave-to, .roll-up-leave-active,
-  .roll-up-enter + ion-toolbar, .roll-up-leave-to + ion-toolbar, .roll-up-leave-active + ion-toolbar {
-    transform: translateY(-56px);
-  }
-
-  .roll-up-enter-to, .roll-up-enter-to + ion-toolbar {
-    transform: translateY(0);
-  }
-
 </style>

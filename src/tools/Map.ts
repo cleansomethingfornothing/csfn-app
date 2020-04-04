@@ -36,7 +36,7 @@ export default class Map {
 
   public addMarker(position: Coords) {
     const marker = this.map.addMarkerSync({
-      icon: getComputedStyle(document.documentElement).getPropertyValue('--ion-color-secondary'),
+      icon: getComputedStyle(document.documentElement).getPropertyValue('--ion-color-primary-shade'),
       animation: 'DROP',
       position: {
         lat: position.lat,

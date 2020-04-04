@@ -1,16 +1,25 @@
-import axios from 'axios'
+import axios, {AxiosInstance} from 'axios'
 import Coords from '@/types/Coords'
 import UnknownError from '@/types/errors/UnknownError'
 import Address from '@/types/Address'
 import Location from '@/types/Location'
 
-const reverseURL = 'https://nominatim.openstreetmap.org/reverse'
-const searchURL = 'https://nominatim.openstreetmap.org/search'
+const baseUrl = 'https://nominatim.openstreetmap.org'
+const reverseURL = '/reverse'
+const searchURL = '/search'
 
 class PlacesProvider {
 
+  axios: AxiosInstance
+
+  constructor() {
+    this.axios = axios.create({
+      baseURL: baseUrl
+    })
+  }
+
   getAddress(coords: Coords): Promise<Address> {
-    return axios.get(reverseURL, {
+    return this.axios.get(reverseURL, {
       params: {
         lat: coords.lat,
         lon: coords.lng,
@@ -23,7 +32,7 @@ class PlacesProvider {
   }
 
   searchPlace(query: string, country: string): Promise<Location[]> {
-    return axios.get(searchURL, {
+    return this.axios.get(searchURL, {
       params: {
         q: query,
         countrycodes: country,

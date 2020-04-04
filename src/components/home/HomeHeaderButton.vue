@@ -1,5 +1,5 @@
 <template>
-  <div class="home-header-button ion-activatable ripple-parent shadow" :class="iconOnly ? 'square' : ''" @click="click">
+  <div class="home-header-button ion-activatable ripple-parent" :class="iconOnly ? 'square' : ''" @click="click">
     <slot></slot>
     <ion-ripple-effect></ion-ripple-effect>
   </div>

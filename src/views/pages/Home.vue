@@ -3,7 +3,7 @@
     <home-header :hide-top-toolbar="hideTopToolbar" :address="address" @click="homeButtonClicked"></home-header>
     <ion-content class="ion-content home-content" fullscreen="true"
                  :scroll-events="true" @ionScroll="onScroll">
-      <cleanup-card v-for="i in [1,2,3,4, 5, 6, 7, 8, 9, 10]" :key="i"></cleanup-card>
+      <cleanup-card v-for="cleanup in cleanups" :key="cleanup.id" :cleanup="cleanup"></cleanup-card>
       <ion-fab vertical="bottom" horizontal="end" slot="fixed">
         <ion-fab-button color="white" @click="publish">
           <ion-icon name="add" color="primary"></ion-icon>
@@ -19,9 +19,10 @@
   import HomeHeader from '@/components/home/HomeHeader.vue'
   import CleanupCard from '@/components/home/CleanupCard.vue'
   import {locationModule} from '@/store/locationModule'
-  import {nativeProvider} from '@/providers/native/native.provider'
-  import SelectLocation from '@/views/SelectLocation.vue'
+  import SelectLocation from '@/views/modals/SelectLocation.vue'
   import ModalPresenter from '@/tools/ModalPresenter'
+  import SelectCleanupType from '@/views/modals/SelectCleanupType.vue'
+  import {cleanupsModule} from '@/store/cleanupsModule'
 
   @Component({
     name: 'Home',
@@ -40,8 +41,8 @@
       return locationModule.getAddress
     }
 
-    mounted() {
-      nativeProvider.setStatusBarColor('#ffffff')
+    get cleanups() {
+      return cleanupsModule.getCleanups
     }
 
     public onScroll(event: CustomEvent): void {
@@ -78,40 +79,17 @@
     }
 
     publish() {
-      this.$ionic.alertController.create({
-        header: this.$t('publish-cleanup').toString(),
-        message: this.$t('cleanup-type-selection').toString(),
-        inputs: [
-          {
-            type: 'radio',
-            label: this.$t('cleanup-type-selection-done').toString(),
-            value: 'true',
-          },
-          {
-            type: 'radio',
-            label: this.$t('cleanup-type-selection-not-done').toString(),
-            value: 'false',
-          }
-        ],
-        buttons: [{
-          text: this.$t('cancel').toString(),
-          role: 'cancel'
-        }, {
-          text: this.$t('accept').toString(),
-          handler: (done) => {
-            this.$router.push({path: '/publish', query: {done}})
-          }
-        }]
-      }).then(a => a.present())
+      ModalPresenter.present(this.$ionic, SelectCleanupType, {
+        title: this.$t('publish-cleanup'),
+        message: this.$t('cleanup-type-selection'),
+        buttonDone: this.$t('cleanup-type-selection-done'),
+        buttonNotDone: this.$t('cleanup-type-selection-not-done')
+      }, 'cleanup-type-modal', true).then(({data}) => {
+        this.$router.push({path: '/publish', query: {done: data.toString()}})
+      })
     }
   }
 </script>
 <style>
-  .home-content {
-    --padding-top: 112px;
-  }
 
-  .ios .home-content {
-    --padding-top: 80px;
-  }
 </style>

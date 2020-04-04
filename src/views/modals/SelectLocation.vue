@@ -1,7 +1,7 @@
 <template>
   <div class="select-location">
     <ion-header mode="ios" class="z-50">
-      <ion-toolbar class="p-2" @keyup.enter="search">
+      <ion-toolbar class="p-2" @keyup.enter="search" mode="ios">
         <text-item class="mt-2" icon="search" :outline="true" :placeholder="searchPlaceholder" :rounded="true"
                    type="search" v-model="searchText" :clear="true" @cleared="clear" @blur="clear"></text-item>
       </ion-toolbar>
@@ -101,7 +101,6 @@
     }
 
     selected(selected: Location) {
-      console.log(selected)
       this.searchText = selected.toString()
       this.selectedResult = selected
       this.map.moveCamera(selected.coords)

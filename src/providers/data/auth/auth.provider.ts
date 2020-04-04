@@ -1,24 +1,31 @@
-import {AuthProvider} from '@/providers/auth/auth.provider'
 import UserLogin from '@/types/UserLogin'
 import UserRegistration from '@/types/UserRegistration'
 import User from '@/types/User'
-import axios from 'axios'
+import axios, {AxiosInstance} from 'axios'
 import FormUrlEncoder from '@/tools/FormUrlEncoder'
 import UnknownError from '@/types/errors/UnknownError'
-import {returnRight} from 'ionicons/icons'
+import config from '@/providers/data/config'
 
-const url = 'https://www.cleansomething.com/server_csfn/api/usuarioApp'
+const baseUrl = config.hostname + config.context + '/usuarioApp'
 
-const loginUrl = url + '/login'
-const registerUrl = url + '/alta'
+const loginUrl = '/login'
+const registerUrl = '/alta'
 
-export default class ServerAuthProvider implements AuthProvider {
+export class AuthProvider {
+
+  axios: AxiosInstance
+
+  constructor() {
+    this.axios = axios.create({baseURL: baseUrl})
+  }
+
   fetchUserId(): Promise<string> {
-    return Promise.resolve('hi')
+    return Promise.reject()
   }
 
   doRegister(user: UserRegistration): Promise<User> {
-    return axios.post(registerUrl, FormUrlEncoder.encode(user), {headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
+    return this.axios.post(registerUrl, FormUrlEncoder.encode(user),
+      {headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
       .then((response) => {
         return new User(user.firstName, user.lastName, user.email, user.password)
       }).catch((error) => {
@@ -46,3 +53,5 @@ export default class ServerAuthProvider implements AuthProvider {
     return Promise.resolve(email && undefined);
   }
 }
+
+export const authProvider = new AuthProvider()
