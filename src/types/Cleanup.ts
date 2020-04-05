@@ -24,11 +24,7 @@ export default class Cleanup {
   @IsNotEmpty({message: 'required-error'})
   done: boolean
 
-  @ArrayNotEmpty({message: 'select-some-picture-before'})
-  beforePictures: string[] = []
-
-  @ValidateIf(o => o.done)
-  @ArrayNotEmpty({message: 'select-some-picture-after'})
-  afterPictures: string[] = []
+  @ArrayNotEmpty({message: 'select-some-picture'})
+  pictures: string[] = []
 
 }

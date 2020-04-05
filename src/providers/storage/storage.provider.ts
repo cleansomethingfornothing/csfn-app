@@ -1,19 +1,25 @@
+import 'capacitor-secure-storage-plugin';
 import {Plugins} from '@capacitor/core';
 
-const {Storage} = Plugins;
+const {SecureStoragePlugin} = Plugins;
 
 class StorageProvider {
 
   set(key: string, value: any): Promise<void> {
-    return Storage.set({
+    return SecureStoragePlugin.set({
       key,
       value: JSON.stringify(value)
     })
   }
 
   get(key: string): Promise<any> {
-    return Storage.get({key})
+    return SecureStoragePlugin.get({key})
       .then(({value}) => JSON.parse(value))
+      .catch(() => undefined)
+  }
+
+  remove(key: string): Promise<void> {
+    return SecureStoragePlugin.remove({key})
   }
 }
 

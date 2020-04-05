@@ -1,7 +1,6 @@
 import User from '@/types/User'
 import {Action, Module, Mutation, VuexModule} from 'vuex-class-modules'
 import {store} from '@/store/index'
-import {userProvider} from '@/providers/data/user/user.provider'
 
 @Module
 class UserModule extends VuexModule {
@@ -19,14 +18,6 @@ class UserModule extends VuexModule {
   @Mutation
   setUser(user: User) {
     this.user = user
-  }
-
-  @Action
-  fetchUser(userId: string): Promise<void> {
-    return userProvider.fetchUser(userId)
-      .then((user: User) => {
-        this.setUser(user)
-      })
   }
 }
 

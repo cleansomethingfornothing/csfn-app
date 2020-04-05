@@ -35,7 +35,7 @@ export default [
       public: true
     }
   }, {
-    path: '/cleanup',
+    path: '/cleanup/:id',
     name: 'Cleanup',
     component: CleanupPage
   }, {

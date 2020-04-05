@@ -1,79 +1,106 @@
-import {Environment, GoogleMap, GoogleMaps, GoogleMapsEvent, Marker} from '@ionic-native/google-maps'
+import {Marker} from '@ionic-native/google-maps'
 import Coords from '@/types/Coords'
+import {locationProvider} from '@/providers/location/location.provider'
+
+declare const google: any
 
 export default class Map {
 
-  static zoom = 16
+  static zoom = 15
 
-  map: GoogleMap
+  map: any
   origin: Coords
-  markers: Marker[] = []
+  selected: Coords
+  markers: any[] = []
   isInput: boolean
 
   constructor({element, origin, isInput}: { element: string, origin: Coords, isInput: boolean }) {
     this.origin = origin
     this.isInput = isInput
-    Environment.setBackgroundColor('#FFFFFF')
-    this.map = GoogleMaps.create(element, {
-      camera: {
-        target: {
-          lat: origin.lat,
-          lng: origin.lng
-        },
-        zoom: Map.zoom
-      },
-      controls: {
-        myLocationButton: true
-      }
-    });
+    this.map = new google.maps.Map(document.getElementById(element), {
+      center: origin,
+      zoom: Map.zoom,
+      disableDefaultUI: true
+    })
 
-    this.map.on(GoogleMapsEvent.MY_LOCATION_BUTTON_CLICK).subscribe(this.myLocationClicked.bind(this))
+    const centerControlDiv = document.createElement('div');
+    new Map.CenterControl(centerControlDiv, this.map, this.origin, this.myLocationClicked.bind(this));
+
+    this.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(centerControlDiv);
 
     if (isInput) {
-      this.map.on(GoogleMapsEvent.MAP_CLICK).subscribe(this.mapClicked.bind(this))
+      this.map.addListener('click', this.mapClicked.bind(this))
     }
   }
 
   public addMarker(position: Coords) {
-    const marker = this.map.addMarkerSync({
-      icon: getComputedStyle(document.documentElement).getPropertyValue('--ion-color-primary-shade'),
-      animation: 'DROP',
-      position: {
-        lat: position.lat,
-        lng: position.lng
-      }
-    });
+    const marker = new google.maps.Marker({
+      position,
+      animation: google.maps.Animation.DROP,
+      icon: '/img/pin.png',
+      map: this.map,
+    })
+
     this.markers.push(marker)
   }
 
   public getSelectedPosition(): Coords {
-    return this.markers[0].getPosition()
+    return this.selected
   }
 
-  private mapClicked(params) {
-    this.positionSelected(params[0])
+  private mapClicked({latLng}) {
+    this.positionSelected(new Coords(latLng.lat(), latLng.lng()))
   }
 
   private myLocationClicked() {
-    this.map.getMyLocation()
-      .then((location) => {
+    locationProvider.getCurrentCoords()
+      .then((coords) => {
         if (this.isInput) {
-          this.positionSelected(location.latLng)
+          this.positionSelected(coords)
         }
-        this.moveCamera(location.latLng)
+        this.moveCamera(coords)
       })
   }
 
   public positionSelected(position: Coords) {
-    this.markers.splice(0, 1)[0].remove()
+    this.selected = position
+    this.markers.splice(0, 1)[0].setMap(null)
     this.addMarker(position)
   }
 
   public moveCamera(position) {
-    this.map.animateCamera({
-      zoom: Map.zoom,
-      target: position,
-      duration: 500
-    })
+    this.map.panTo(position)
+    this.map.setZoom(Map.zoom)
   }
+
+  static CenterControl(controlDiv, map, origin, clicked) {
+    // Set CSS for the control border.
+    const controlUI = document.createElement('div');
+    controlUI.className = 'ion-activatable ripple-parent'
+    controlUI.style.backgroundColor = '#fff';
+    controlUI.style.border = '2px solid #fff';
+    controlUI.style.borderRadius = '100%';
+    controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
+    controlUI.style.cursor = 'pointer';
+    controlUI.style.marginTop = '16px';
+    controlUI.style.marginRight = '16px';
+    controlUI.style.textAlign = 'center';
+    controlDiv.appendChild(controlUI);
+
+    // Set CSS for the control interior.
+    const controlText = document.createElement('div');
+    controlText.style.fontSize = '2.5em'
+    controlText.style.paddingTop = '5px';
+    controlText.style.paddingLeft = '7px';
+    controlText.style.paddingRight = '7px';
+    controlText.innerHTML = '<ion-icon name="locate" color="dark"></ion-icon><ion-ripple-effect></ion-ripple-effect>';
+    controlUI.appendChild(controlText);
+
+    // Setup the click event listeners: simply set the map to Chicago.
+    controlUI.addEventListener('click', function () {
+      clicked()
+    });
+
+  }
+
 }

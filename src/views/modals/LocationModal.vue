@@ -74,17 +74,11 @@
 
     map: Map;
 
-    created() {
+    mounted() {
       setTimeout(() => {
-        locationModule.setMapInModal(true)
-      }, 100)
-
-      this.map = new Map({element: 'map_canvas', origin: this.currentCoords, isInput: true})
-      this.map.addMarker(this.currentCoords)
-    }
-
-    destroyed() {
-      locationModule.setMapInModal(false)
+        this.map = new Map({element: 'map_canvas', origin: this.currentCoords, isInput: true})
+        this.map.addMarker(this.currentCoords)
+      })
     }
 
     search() {

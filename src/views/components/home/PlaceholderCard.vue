@@ -1,7 +1,7 @@
 <template>
   <ion-card class="placeholder-card ion-activatable ripple-parent" mode="ios" button>
     <div class="placeholder-card__image">
-      <img src="/img/placeholder.png" class="opacity-25">
+      <img src="/img/placeholder.png" class="opacity-50">
     </div>
     <ion-card-content>
       <div class="flex justify-between items-center mt-3 mb-4">

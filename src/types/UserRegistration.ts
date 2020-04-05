@@ -2,13 +2,7 @@ import {IsEmail, IsNotEmpty, Validate} from 'class-validator'
 import {PasswordConfirmation} from '@/tools/Validator'
 
 export default class UserRegistration {
-
-  @IsNotEmpty({message: 'required-error'})
-  firstName: string
-
-  @IsNotEmpty({message: 'required-error'})
-  lastName: string
-
+  
   @IsNotEmpty({message: 'required-error'})
   username: string
 

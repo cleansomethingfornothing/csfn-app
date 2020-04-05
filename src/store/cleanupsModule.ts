@@ -1,14 +1,14 @@
 import {Action, Module, Mutation, VuexModule} from 'vuex-class-modules'
 import Cleanup from '@/types/Cleanup'
 import CleanupFilters from '@/types/CleanupFilters'
-import {cleanupProvider} from '@/providers/data/cleanups/cleanup.provider'
 import {store} from '@/store/index'
 import Validator from '@/tools/Validator'
+import {dataProvider} from '@/providers/data/data.provider'
 
 @Module
 class CleanupsModule extends VuexModule {
 
-  cleanups: Cleanup[] = undefined
+  cleanups: { [id: string]: Cleanup } = undefined
 
   filters: CleanupFilters = new CleanupFilters()
 
@@ -20,13 +20,17 @@ class CleanupsModule extends VuexModule {
     return this.cleanups
   }
 
+  get getCleanup() {
+    return (id) => this.cleanups[id]
+  }
+
   get getFilters() {
     return this.filters
   }
 
   @Mutation
   setCleanups(cleanups: Cleanup[]) {
-    this.cleanups = cleanups
+    this.cleanups = cleanups.reduce((acc, v) => ({...acc, [v.id]: v}), {})
   }
 
   @Mutation
@@ -36,14 +40,14 @@ class CleanupsModule extends VuexModule {
 
   @Action
   fetch(): Promise<void> {
-    return cleanupProvider.fetch(this.filters)
+    return dataProvider.cleanups.fetch(this.filters)
       .then((cleanups) => this.setCleanups(cleanups))
   }
 
   @Action
   publish(cleanup: Cleanup): Promise<void> {
     return Validator.validate(cleanup)
-      .then(() => cleanupProvider.publish(cleanup))
+      .then(() => dataProvider.cleanups.publish(cleanup))
   }
 
 }

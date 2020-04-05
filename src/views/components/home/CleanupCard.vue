@@ -1,7 +1,7 @@
 <template>
   <ion-card class="cleanup-card ion-activatable ripple-parent" mode="ios" @click="click" button>
     <div class="cleanup-card__image">
-      <img :src="cleanup.afterPictures[0] || cleanup.beforePictures[0]">
+      <img :src="cleanup.pictures[0]">
     </div>
     <ion-card-content>
       <div class="flex justify-between items-center">

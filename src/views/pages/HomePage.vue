@@ -3,14 +3,22 @@
     <home-header :hide-top-toolbar="hideTopToolbar" :address="address" @click="homeButtonClicked"></home-header>
     <ion-content class="ion-content home-content" fullscreen="true"
                  :scroll-events="true" @ionScroll="onScroll">
+      <ion-refresher v-if="cleanups" slot="fixed" @ionRefresh="refresh">
+        <ion-refresher-content>
+        </ion-refresher-content>
+      </ion-refresher>
+
       <placeholder-card v-if="!cleanups"></placeholder-card>
+
       <cleanup-card v-else v-for="cleanup in cleanups" :key="cleanup.id" :cleanup="cleanup"
                     @click="openCleanup(cleanup.id)"></cleanup-card>
+
       <ion-fab vertical="bottom" horizontal="end" slot="fixed">
         <ion-fab-button color="white" @click="publish">
           <ion-icon name="add" color="primary"></ion-icon>
         </ion-fab-button>
       </ion-fab>
+
     </ion-content>
   </ion-page>
 </template>
@@ -26,6 +34,8 @@
   import SelectCleanupType from '@/views/modals/CleanupTypeModal.vue'
   import {cleanupsModule} from '@/store/cleanupsModule'
   import PlaceholderCard from '@/views/components/home/PlaceholderCard.vue'
+  import {Ref} from 'vue-property-decorator'
+  import Cleanup from '@/types/Cleanup'
 
   @Component({
     name: 'HomePage.vue',
@@ -36,6 +46,9 @@
     public hideTopToolbar = false
     private lastScroll = 0
 
+    @Ref('refresher')
+    refresher: any
+
     get coords() {
       return locationModule.getCoords
     }
@@ -44,12 +57,23 @@
       return locationModule.getAddress
     }
 
-    get cleanups() {
+    get cleanups(): { [id: string]: Cleanup } {
       return cleanupsModule.getCleanups
     }
 
     mounted() {
-      cleanupsModule.fetch()
+      this.fetch()
+    }
+
+    fetch() {
+      return cleanupsModule.fetch()
+    }
+
+    refresh(event) {
+      this.fetch()
+        .then(() => {
+          event.target.complete()
+        })
     }
 
     public onScroll(event: CustomEvent): void {

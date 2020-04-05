@@ -34,22 +34,12 @@
                           v-model="cleanup.date" ref="date" :readonly="true"
                           @ionChange="change('date', new Date($event.target.value))"></ion-datetime>
           </input-item>
-          <input-item :errors="errors['beforePictures']" :no-lines="!cleanup.done">
-            <ion-label position="floating" class="publish-label">{{$t('beforePictures')}}</ion-label>
+          <input-item :errors="errors['pictures']" :no-lines="!cleanup.done">
+            <ion-label position="floating" class="publish-label">{{$t('pictures')}}</ion-label>
             <ion-row class="w-full mt-8 mb-2">
               <ion-col v-for="i of [0,1,2,3]" :key="i">
-                <upload-button :file="cleanup.beforePictures[i]" @click="openPreview('beforePictures', i)"
-                               @select="arrayChange(cleanup.beforePictures, $event)"></upload-button>
-              </ion-col>
-            </ion-row>
-          </input-item>
-
-          <input-item :errors="errors['afterPictures']" v-if="cleanup.done" :no-lines="true">
-            <ion-label position="floating" class="publish-label">{{$t('afterPictures')}}</ion-label>
-            <ion-row class="w-full mt-8 mb-2">
-              <ion-col v-for="i of [0,1,2,3]" :key="i">
-                <upload-button :file="cleanup.afterPictures[i]" @click="openPreview('afterPictures', i)"
-                               @select="arrayChange(cleanup.afterPictures, $event)"></upload-button>
+                <upload-button :file="cleanup.pictures[i]" @click="openPreview(i)"
+                               @select="arrayChange(cleanup.pictures, $event)"></upload-button>
               </ion-col>
             </ion-row>
           </input-item>
@@ -136,14 +126,14 @@
       })
     }
 
-    openPreview(arrayName: string, index: number) {
-      this.resetError(arrayName)
-      if (!this.cleanup[arrayName][index]) return
+    openPreview(index: number) {
+      this.resetError('pictures')
+      if (!this.cleanup.pictures[index]) return
       ModalPresenter.present(this.$ionic, ImagePreview, {
-        image: this.cleanup[arrayName][index]
+        image: this.cleanup.pictures[index]
       }).then(({data}) => {
         if (data?.remove) {
-          this.cleanup[arrayName].splice(index, 1)
+          this.cleanup.pictures.splice(index, 1)
         }
       })
     }

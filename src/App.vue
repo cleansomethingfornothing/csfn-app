@@ -1,9 +1,7 @@
 <template>
   <ion-app>
-    <div :class="isMapInModal ? 'opacity-0': 'opacity-100'">
-      <ion-vue-router id="main"></ion-vue-router>
-    </div>
-    <app-menu :user="user" :disabled="isMapInModal" @logout="logout"></app-menu>
+    <ion-vue-router id="main"></ion-vue-router>
+    <app-menu v-if="user" :user="user" @logout="logout"></app-menu>
   </ion-app>
 </template>
 <style lang="scss">
@@ -25,10 +23,6 @@
 
     get user() {
       return userModule.getCurrentUser
-    }
-
-    get isMapInModal() {
-      return locationModule.isMapInModal
     }
 
     mounted() {

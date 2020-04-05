@@ -44,7 +44,7 @@ class PlacesProvider {
         .filter((location) => location.type == 'administrative' && (location.address.city || location.address.town || location.address.village || location.address.hamlet))
         .map(({address, lat, lon}) => new Location(
           new Address(address.city || address.town || address.village || address.hamlet, address.state, address.country, address.country_code.toUpperCase()),
-          new Coords(lat, lon)))
+          new Coords(Number(lat), Number(lon))))
       return PlacesProvider.uniqueResults(places)
     }).catch((error) => {
       console.log(error)

@@ -1,14 +1,23 @@
 import Cleanup from '@/types/Cleanup'
 import CleanupFilters from '@/types/CleanupFilters'
 import Location from '@/types/Location'
+import {AxiosInstance} from 'axios'
 
-export class CleanupProvider {
+export class CleanupsProvider {
+
+  axios: AxiosInstance
+
+  constructor(axios) {
+    this.axios = axios
+  }
 
   fetch(filters: CleanupFilters): Promise<Cleanup[]> {
     return new Promise(resolve => {
       setTimeout(() =>
-          resolve(new Array(10).fill({
+          resolve(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'].map((id) => ({
+              id,
               user: {
+                id: '1',
                 userName: '@gfcesar',
                 email: ''
               },
@@ -28,9 +37,8 @@ export class CleanupProvider {
                 }),
               date: new Date(),
               done: false,
-              beforePictures: ['https://www.cleansomething.com/imgBasuras/@gfcesar-68.png'],
-              afterPictures: []
-            }
+              pictures: ['https://www.cleansomething.com/imgBasuras/@gfcesar-68.png']
+            })
           ))
         , 3000)
     })
@@ -42,4 +50,3 @@ export class CleanupProvider {
 
 }
 
-export const cleanupProvider = new CleanupProvider()

@@ -2,9 +2,13 @@ import UserRegistration from '@/types/UserRegistration'
 import UserLogin from '@/types/UserLogin'
 import {Action, Module, Mutation, VuexModule} from 'vuex-class-modules'
 import {store} from '@/store/index'
-import {authProvider} from '@/providers/data/auth/auth.provider'
 import {userModule} from '@/store/userModule'
 import Validator from '@/tools/Validator'
+import {storageProvider} from '@/providers/storage/storage.provider'
+import {dataProvider} from '@/providers/data/data.provider'
+import User from '@/types/User'
+
+const SESSION = 'CSFN_SESSION'
 
 @Module
 class AuthModule extends VuexModule {
@@ -36,16 +40,20 @@ class AuthModule extends VuexModule {
 
   initialize(): Promise<void> {
     this.setInitialized()
-    return authProvider.fetchUserId()
-      .then(userModule.fetchUser)
-      .then(() => this.setLogged(true))
-      .catch(ignore => ignore)
+    return storageProvider.get(SESSION)
+      .then((session) => {
+        if (session) {
+          userModule.setUser(new User(session.username))
+          dataProvider.setToken(session.token)
+          this.setLogged(true)
+        }
+      })
   }
 
   @Action
   doRegister(userRegistration: UserRegistration): Promise<void> {
     return Validator.validate(userRegistration)
-      .then(() => authProvider.doRegister(userRegistration))
+      .then(() => dataProvider.auth.doRegister(userRegistration))
       .then(userModule.setUser)
       .then(() => this.setLogged(true))
   }
@@ -53,8 +61,9 @@ class AuthModule extends VuexModule {
   @Action
   doCredentialsLogin(userLogin: UserLogin): Promise<void> {
     return Validator.validate(userLogin)
-      .then(() => authProvider.doLogin(userLogin))
-      .then(userModule.setUser)
+      .then(() => dataProvider.auth.doLogin(userLogin))
+      .then((token) => storageProvider.set(SESSION, {token, username: userLogin.username}))
+      .then(() => userModule.setUser(new User(userLogin.username)))
       .then(() => this.setLogged(true))
   }
 
@@ -70,13 +79,15 @@ class AuthModule extends VuexModule {
 
   @Action
   doResetPassword(email: string): Promise<void> {
-    return authProvider.doResetPassword(email)
+    return dataProvider.auth.doResetPassword(email)
   }
 
   @Action
   doLogout(): Promise<void> {
-    return authProvider.doLogout()
+    return dataProvider.auth.doLogout()
+      .then(() => storageProvider.remove(SESSION))
       .then(() => {
+        dataProvider.removeToken()
         this.setLogged(false)
         userModule.setUser(undefined)
       })

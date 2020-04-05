@@ -12,7 +12,6 @@ const LAST_ADDRESS = 'CSFN_LAST_ADDRESS'
 @Module
 class LocationModule extends VuexModule {
 
-  mapInModal = false
   userCoords: Coords = undefined
   userAddress: Address = undefined
 
@@ -28,10 +27,6 @@ class LocationModule extends VuexModule {
     return this.userAddress
   }
 
-  get isMapInModal() {
-    return this.mapInModal
-  }
-
   @Mutation
   setUserCoords(coords: Coords) {
     this.userCoords = coords
@@ -40,11 +35,6 @@ class LocationModule extends VuexModule {
   @Mutation
   setUserAddress(address: Address) {
     this.userAddress = address
-  }
-
-  @Mutation
-  setMapInModal(mapInModal: boolean) {
-    this.mapInModal = mapInModal
   }
 
   @Action

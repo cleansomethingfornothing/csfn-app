@@ -69,11 +69,11 @@
   }
 
   .home-header.scrolled > ion-header {
-    margin-top: -56px;
+    margin-top: -41px;
   }
 
-  .ios .home-header.scrolled > ion-header {
-    margin-top: -41px !important;
+  .md .home-header.scrolled > ion-header {
+    margin-top: -50px !important;
   }
 
   .home-header > ion-toolbar:nth-child(2) {
