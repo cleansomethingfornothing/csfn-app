@@ -1,5 +1,5 @@
 <template>
-  <ion-card class="cleanup-card ion-activatable ripple-parent" mode="ios" @click="click" button>
+  <ion-card class="cleanup-card ion-activatable ripple-parent" mode="ios" @click="click" button color="white">
     <div class="cleanup-card__image">
       <img :src="cleanup.pictures[0]">
     </div>
@@ -54,6 +54,7 @@
   }
 
   .cleanup-card__image {
+    background-color: #eee;
     position: relative;
   }
 

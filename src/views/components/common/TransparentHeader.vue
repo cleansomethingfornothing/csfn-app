@@ -1,6 +1,6 @@
 <template>
   <div class="transparent-header">
-    <ion-button class="back absolute left-0" fill="clear" shape="round" color="white" @click="$router.back()">
+    <ion-button class="back absolute left-0 ml-2" fill="clear" shape="round" color="white" @click="$router.back()">
       <ion-icon name="arrow-back" slot="icon-only"></ion-icon>
     </ion-button>
     <b class="mt-1">{{title}}</b>

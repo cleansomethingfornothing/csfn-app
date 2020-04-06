@@ -21,7 +21,8 @@ export default class Map {
     this.map = new google.maps.Map(document.getElementById(element), {
       center: origin,
       zoom: Map.zoom,
-      disableDefaultUI: true
+      disableDefaultUI: true,
+      clickableIcons: false
     })
 
     const centerControlDiv = document.createElement('div');
@@ -83,15 +84,15 @@ export default class Map {
     controlUI.style.borderRadius = '100%';
     controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
     controlUI.style.cursor = 'pointer';
-    controlUI.style.marginTop = '16px';
-    controlUI.style.marginRight = '16px';
+    controlUI.style.marginTop = '12px';
+    controlUI.style.marginRight = '12px';
     controlUI.style.textAlign = 'center';
     controlDiv.appendChild(controlUI);
 
     // Set CSS for the control interior.
     const controlText = document.createElement('div');
     controlText.style.fontSize = '2.5em'
-    controlText.style.paddingTop = '5px';
+    controlText.style.paddingTop = '6px';
     controlText.style.paddingLeft = '7px';
     controlText.style.paddingRight = '7px';
     controlText.innerHTML = '<ion-icon name="locate" color="dark"></ion-icon><ion-ripple-effect></ion-ripple-effect>';

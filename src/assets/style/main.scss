@@ -76,6 +76,15 @@ ion-modal {
   opacity: 0.8 !important;
 }
 
+ion-footer ion-toolbar {
+  --border-width: 0;
+  --border-color: #eee;
+}
+
+ion-item {
+  --border-color: #eee;
+}
+
 ion-item ion-icon {
   margin: auto 16px auto 0;
 }

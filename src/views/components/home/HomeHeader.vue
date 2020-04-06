@@ -1,6 +1,6 @@
 <template>
   <div class="home-header" :class="hideTopToolbar ? ' scrolled': ''">
-    <ion-header mode="ios">
+    <ion-header mode="ios" class="shadow-sm">
       <ion-toolbar mode="ios">
         <ion-buttons slot="start">
           <ion-menu-button auto-hide="true" color="dark"></ion-menu-button>
@@ -11,7 +11,7 @@
       </ion-toolbar>
 
       <ion-toolbar mode="ios" class="pb-1">
-        <div class="home-bubbles">
+        <div class="home-bubbles sm:w-2/3 lg:w-1/2 m-auto">
           <div class="home-bubble home-location-button">
             <home-header-button @click="click('location')">
               <ion-icon name="location" color="primary"></ion-icon>

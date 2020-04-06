@@ -16,7 +16,7 @@
             <input-error :error="this.fieldErrors.picture && this.fieldErrors.picture[0]"></input-error>
           </div>
           -->
-          <input-item icon="at" :placeholder="$t('username')" type="text" v-model="userRegistration.username" :rounded="true"
+          <input-item icon="person" :placeholder="$t('username')" type="text" v-model="userRegistration.username" :rounded="true"
                      :errors="fieldErrors.username" @focus="resetError('username')"></input-item>
           <input-item icon="mail" placeholder="Email" type="email" v-model="userRegistration.email" :rounded="true"
                      :errors="fieldErrors.email" @focus="resetError('email')"></input-item>

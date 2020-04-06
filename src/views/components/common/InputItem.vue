@@ -1,5 +1,5 @@
 <template>
-  <div class="text-item" :class="errors ? 'invalid-input': ''">
+  <div class="text-item cursor-pointer" :class="errors ? 'invalid-input': ''">
     <div class="overflow-hidden ion-activatable ripple-parent" :class="rounded ? 'rounded-full' : ''" @click="clicked">
       <ion-item :color="outline ? 'light': '' " :lines="noLines ? 'none' : 'full'">
         <ion-icon v-if="icon" :name="icon" slot="start" color="dark"></ion-icon>

@@ -3,8 +3,8 @@ import {PictureSourceType} from '@ionic-native/camera'
   <div class="picture-button w-full ion-activatable ripple-parent" @click="click">
     <img v-if="file" alt="Cleanup picture" :src="file" class="absolute w-full h-full">
     <div v-else class="background w-full h-full absolute">
-      <div v-if="isMobile" class="w-full h-full absolute" @click="getPicture"></div>
-      <label v-else class="w-full h-full absolute">
+      <div v-if="isMobile" class="w-full h-full absolute cursor-pointer" @click="getPicture"></div>
+      <label v-else class="w-full h-full absolute cursor-pointer">
         <input class="hidden" type="file" @change="desktopFileSelected($event.target.files[0])" accept=".png,.jpg" name="file">
       </label>
     </div>

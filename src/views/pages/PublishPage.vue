@@ -1,6 +1,6 @@
 <template>
   <ion-page class="ion-page publish-cleanup">
-    <ion-header mode="ios">
+    <ion-header mode="ios" class="shadow-sm">
       <ion-toolbar mode="ios">
         <ion-buttons slot="start">
           <ion-button fill="clear" shape="round" @click="$router.back()">
@@ -12,8 +12,9 @@
         </ion-title>
       </ion-toolbar>
     </ion-header>
-    <ion-content fullscreen="true">
-      <form>
+    <ion-content fullscreen="true" color="light">
+      <form
+        class="sm:w-2/3 lg:w-1/2 m-auto sm:rounded-lg overflow-hidden sm:mt-6 sm:shadow-lg sm:pb-4 bg-white border-1 border-solid border-gray-500">
         <ion-list lines="full" class="p-0">
           <input-item :errors="errors['description']" :slotted-input="$refs['desc']" @focus="resetError('description')">
             <ion-textarea :placeholder="$t('write-description')" auto-grow="true" rows="3"
@@ -34,10 +35,16 @@
                           v-model="cleanup.date" ref="date" :readonly="true"
                           @ionChange="change('date', new Date($event.target.value))"></ion-datetime>
           </input-item>
-          <input-item :errors="errors['pictures']" :no-lines="!cleanup.done">
+          <input-item :errors="errors['pictures']" no-lines>
             <ion-label position="floating" class="publish-label">{{$t('pictures')}}</ion-label>
             <ion-row class="w-full mt-8 mb-2">
-              <ion-col v-for="i of [0,1,2,3]" :key="i">
+              <ion-col v-for="i of [0,1,2,3,4]" :key="i">
+                <upload-button :file="cleanup.pictures[i]" @click="openPreview(i)"
+                               @select="arrayChange(cleanup.pictures, $event)"></upload-button>
+              </ion-col>
+            </ion-row>
+            <ion-row class="w-full mb-2">
+              <ion-col v-for="i of [5,6,7,8,9]" :key="i">
                 <upload-button :file="cleanup.pictures[i]" @click="openPreview(i)"
                                @select="arrayChange(cleanup.pictures, $event)"></upload-button>
               </ion-col>
@@ -46,9 +53,10 @@
         </ion-list>
       </form>
     </ion-content>
-    <ion-footer mode="ios">
+    <ion-footer mode="ios" class="shadow-sm">
       <ion-toolbar class="px-2">
-        <ion-button color="primary" fill="solid" size="block" shape="round" @click="publish">
+        <ion-button class="sm:w-2/3 lg:w-1/2 m-auto" color="primary" fill="solid" size="block" shape="round"
+                    @click="publish">
           {{$t('publish')}}
         </ion-button>
       </ion-toolbar>

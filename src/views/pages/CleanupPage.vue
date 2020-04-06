@@ -1,18 +1,30 @@
 <template>
   <ion-page class="ion-page cleanup-page">
-    <ion-fab vertical="top" horizontal="start" slot="fixed">
-      <ion-fab-button color="white" @click="$router.back()" size="small">
-        <ion-icon name="arrow-back" color="dark"></ion-icon>
-      </ion-fab-button>
-    </ion-fab>
-    <ion-fab vertical="top" horizontal="end" slot="fixed" v-if="cleanup.user.username === currentUser.username">
-      <ion-fab-button color="white" @click="$router.back()" size="small">
-        <ion-icon name="create" color="dark"></ion-icon>
-      </ion-fab-button>
-    </ion-fab>
     <ion-content>
-      <div class="cleanup-page__picture">
-        <img :src="cleanup ? cleanup.picture : 'img/placeholder.png'">
+      <ion-fab vertical="top" horizontal="start" slot="fixed">
+        <ion-fab-button color="white" @click="$router.back()" size="small">
+          <ion-icon name="arrow-back" color="dark"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
+      <ion-fab vertical="top" horizontal="end" slot="fixed" v-if="cleanup.user.username === currentUser.username">
+        <ion-fab-button color="white" @click="$router.back()" size="small">
+          <ion-icon name="create" color="dark"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
+      <div class="cleanup-page__picture relative">
+        <img :src="cleanup.pictures[0]" class="absolute w-full h-full">
+      </div>
+      <div class="ion-padding">
+        <div class="flex justify-between items-center">
+          <ion-label class="text-sm">{{cleanup.user.username}}</ion-label>
+          <ion-item class="text-sm pl-0" lines="none">
+            <ion-icon name="calendar" slot="start" class="text-lg mr-2" color="dark"></ion-icon>
+            <ion-label class="my-1 ">{{cleanup.date.toLocaleDateString()}}
+            </ion-label>
+          </ion-item>
+        </div>
+        <hr class="mt-1 mb-4">
+        {{cleanup.description}}
       </div>
     </ion-content>
   </ion-page>
@@ -45,6 +57,18 @@
 </script>
 <style>
   .cleanup-page__picture {
-    height: 40%;
+    background-color: #eee;
+  }
+
+  .cleanup-page__picture img {
+    object-fit: cover;
+    object-position: center center;
+  }
+
+  .cleanup-page__picture:after {
+    display: block;
+    content: '';
+    padding-top: 66%;
+    overflow: hidden;
   }
 </style>

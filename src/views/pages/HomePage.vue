@@ -1,18 +1,18 @@
 <template>
   <ion-page class="ion-page">
     <home-header :hide-top-toolbar="hideTopToolbar" :address="address" @click="homeButtonClicked"></home-header>
-    <ion-content class="ion-content home-content" fullscreen="true"
+    <ion-content class="ion-content home-content" fullscreen="true" color="lighter"
                  :scroll-events="true" @ionScroll="onScroll">
       <ion-refresher v-if="cleanups" slot="fixed" @ionRefresh="refresh">
         <ion-refresher-content>
         </ion-refresher-content>
       </ion-refresher>
+      <div class="sm:w-2/3 lg:w-1/2 m-auto">
+        <placeholder-card v-if="!cleanups"></placeholder-card>
 
-      <placeholder-card v-if="!cleanups"></placeholder-card>
-
-      <cleanup-card v-else v-for="cleanup in cleanups" :key="cleanup.id" :cleanup="cleanup"
-                    @click="openCleanup(cleanup.id)"></cleanup-card>
-
+        <cleanup-card v-else v-for="cleanup in cleanups" :key="cleanup.id" :cleanup="cleanup"
+                      @click="openCleanup(cleanup.id)"></cleanup-card>
+      </div>
       <ion-fab vertical="bottom" horizontal="end" slot="fixed">
         <ion-fab-button color="white" @click="publish">
           <ion-icon name="add" color="primary"></ion-icon>

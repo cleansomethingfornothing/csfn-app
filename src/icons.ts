@@ -48,7 +48,7 @@ addIcons({
   'md-person': person.md,
   'ios-images': images.ios,
   'md-images': images.md,
-  'ios-locate': locate.ios,
+  'ios-locate': locate.md,
   'md-locate': locate.md,
   'ios-location': pin.ios,
   'md-location': pin.md,

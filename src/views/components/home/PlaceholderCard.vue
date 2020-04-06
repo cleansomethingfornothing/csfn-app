@@ -1,5 +1,5 @@
 <template>
-  <ion-card class="placeholder-card ion-activatable ripple-parent" mode="ios" button>
+  <ion-card class="placeholder-card ion-activatable ripple-parent" mode="ios" button color="white">
     <div class="placeholder-card__image">
       <img src="/img/placeholder.png" class="opacity-50">
     </div>

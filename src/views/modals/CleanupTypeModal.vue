@@ -63,7 +63,8 @@
 <style>
   ion-modal.cleanup-type-modal {
     --background: transparent;
-    --height: 300px;
+    --height: 50%;
+    --box-shadow: none;
   }
 
   .cleanup-type-modal ion-toolbar {
