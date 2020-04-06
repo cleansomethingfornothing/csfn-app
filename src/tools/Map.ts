@@ -16,6 +16,7 @@ export default class Map {
 
   constructor({element, origin, isInput}: { element: string, origin: Coords, isInput: boolean }) {
     this.origin = origin
+    this.selected = origin
     this.isInput = isInput
     this.map = new google.maps.Map(document.getElementById(element), {
       center: origin,

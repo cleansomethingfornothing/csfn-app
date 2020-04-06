@@ -2,7 +2,7 @@
   <div class="menu-profile ion-activatable ripple-parent" v-if="user">
     <!--<avatar :src="user.picture"></avatar>-->
     <img class="w-1/4" src="@/assets/img/icon.png">
-    <span class="menu-profile__user-name">{{user.userName}}</span>
+    <span class="menu-profile__user-name">{{user.username}}</span>
     <ion-ripple-effect></ion-ripple-effect>
   </div>
 </template>

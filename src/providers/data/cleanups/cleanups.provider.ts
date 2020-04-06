@@ -17,8 +17,7 @@ export class CleanupsProvider {
           resolve(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'].map((id) => ({
               id,
               user: {
-                id: '1',
-                userName: '@gfcesar',
+                username: '@lester_prz',
                 email: ''
               },
               description: 'Shkodër is a town in the north of Albania. We stopped here to do a cleanup on a small tributary of the river Bojana that leads to the Adriatic Sea as final destination.\n' +

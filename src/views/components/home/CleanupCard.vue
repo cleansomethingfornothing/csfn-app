@@ -5,7 +5,7 @@
     </div>
     <ion-card-content>
       <div class="flex justify-between items-center">
-        <ion-label class="text-sm">{{cleanup.user.userName}}</ion-label>
+        <ion-label class="text-sm">{{cleanup.user.username}}</ion-label>
         <ion-item class="text-sm pl-0" lines="none">
           <ion-icon name="calendar" slot="start" class="text-lg mr-2" color="dark"></ion-icon>
           <ion-label color="dark" class="my-1">{{cleanup.date.toLocaleDateString()}}

@@ -5,7 +5,7 @@
         <ion-icon name="arrow-back" color="dark"></ion-icon>
       </ion-fab-button>
     </ion-fab>
-    <ion-fab vertical="top" horizontal="end" slot="fixed" v-if="cleanup.user.id === currentUser.id">
+    <ion-fab vertical="top" horizontal="end" slot="fixed" v-if="cleanup.user.username === currentUser.username">
       <ion-fab-button color="white" @click="$router.back()" size="small">
         <ion-icon name="create" color="dark"></ion-icon>
       </ion-fab-button>
