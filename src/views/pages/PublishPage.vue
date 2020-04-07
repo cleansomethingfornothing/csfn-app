@@ -14,7 +14,7 @@
     </ion-header>
     <ion-content fullscreen="true" color="light">
       <form
-        class="sm:w-2/3 lg:w-1/2 m-auto sm:rounded-lg overflow-hidden sm:mt-6 sm:shadow-lg sm:pb-4 bg-white border-1 border-solid border-gray-500">
+        class="lg:w-2/3 xl:w-1/2 m-auto lg:rounded-lg overflow-hidden lg:mt-6 lg:shadow-lg lg:pb-4 bg-white border-1 border-solid border-gray-500">
         <ion-list lines="full" class="p-0">
           <input-item :errors="errors['description']" :slotted-input="$refs['desc']" @focus="resetError('description')">
             <ion-textarea :placeholder="$t('write-description')" auto-grow="true" rows="3"

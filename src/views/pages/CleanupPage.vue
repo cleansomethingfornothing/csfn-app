@@ -12,7 +12,7 @@
           <ion-icon name="create" color="dark"></ion-icon>
         </ion-fab-button>
       </ion-fab>
-      <div class="sm:w-2/3 lg:w-1/2 m-auto bg-white sm:rounded-lg sm:my-8 overflow-hidden sm:shadow-lg">
+      <div class="lg:w-2/3 xl:w-1/2 m-auto bg-white lg:rounded-lg lg:my-8 overflow-hidden lg:shadow-lg">
         <div class="cleanup-page__picture h-2/3">
           <img v-if="cleanup" :src="cleanup.pictures[0]" class="absolute w-full h-full">
         </div>
