@@ -20,6 +20,4 @@
   </feature>
 
   
-  <preference name="GOOGLE_MAPS_ANDROID_API_KEY" value="AIzaSyAhi24XarveoViH6tiPNS7qnqgwQHGefiw" />
-  <preference name="GOOGLE_MAPS_IOS_API_KEY" value="AIzaSyAhi24XarveoViH6tiPNS7qnqgwQHGefiw" />
 </widget>

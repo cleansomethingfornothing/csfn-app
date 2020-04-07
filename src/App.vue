@@ -1,7 +1,6 @@
 <template>
   <ion-app>
     <ion-vue-router id="main"></ion-vue-router>
-    <app-menu v-if="user" :user="user" @logout="logout"></app-menu>
   </ion-app>
 </template>
 <style lang="scss">

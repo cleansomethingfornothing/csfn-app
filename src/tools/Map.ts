@@ -1,4 +1,3 @@
-import {Marker} from '@ionic-native/google-maps'
 import Coords from '@/types/Coords'
 import {locationProvider} from '@/providers/location/location.provider'
 
@@ -14,13 +13,13 @@ export default class Map {
   markers: any[] = []
   isInput: boolean
 
-  constructor({element, origin, isInput}: { element: string, origin: Coords, isInput: boolean }) {
+  constructor({element, origin, isInput, zoom}: { element: string, origin: Coords, isInput: boolean, zoom?: number }) {
     this.origin = origin
     this.selected = origin
     this.isInput = isInput
     this.map = new google.maps.Map(document.getElementById(element), {
       center: origin,
-      zoom: Map.zoom,
+      zoom: zoom || Map.zoom,
       disableDefaultUI: true,
       clickableIcons: false
     })

@@ -7,10 +7,14 @@
           <img alt="icon" src="@/assets/img/icon.png" width="35%" class="z-10">
           <img alt="title" src="@/assets/img/text_white.png" width="95%" class="z-10">
 
-          <input-item icon="person" :placeholder="$t('username')" type="text" v-model="userLogin.username" :rounded="true"
-                     :errors="fieldErrors.username" @blur="blur" @focus="resetError('username') || focus()"></input-item>
-          <input-item icon="lock" :placeholder="$t('password')" type="password" v-model="userLogin.password" :rounded="true"
-                     :errors="fieldErrors.password" @blur="blur" @focus="resetError('password') || focus()"></input-item>
+          <input-item icon="person" :placeholder="$t('username')" type="text" v-model="userLogin.username"
+                      :rounded="true"
+                      :errors="fieldErrors.username" @blur="blur"
+                      @focus="resetError('username') || focus()"></input-item>
+          <input-item icon="lock" :placeholder="$t('password')" type="password" v-model="userLogin.password"
+                      :rounded="true"
+                      :errors="fieldErrors.password" @blur="blur"
+                      @focus="resetError('password') || focus()"></input-item>
           <button-item color="secondary" :text="$t('login')" :disabled="loading"
                        @click="credentialsLogin"></button-item>
           <!--
@@ -62,10 +66,6 @@
     typing = false
 
     loading = false
-
-    mounted() {
-      nativeProvider.setStatusBarColor('#C6D7B3')
-    }
 
     credentialsLogin() {
       this.loading = true

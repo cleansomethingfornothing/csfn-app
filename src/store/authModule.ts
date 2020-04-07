@@ -7,6 +7,7 @@ import Validator from '@/tools/Validator'
 import {storageProvider} from '@/providers/storage/storage.provider'
 import {dataProvider} from '@/providers/data/data.provider'
 import User from '@/types/User'
+import {nativeProvider} from '@/providers/native/native.provider'
 
 const SESSION = 'CSFN_SESSION'
 
@@ -43,9 +44,12 @@ class AuthModule extends VuexModule {
     return storageProvider.get(SESSION)
       .then((session) => {
         if (session) {
+          nativeProvider.setStatusBarColor('#FFFFFF')
           userModule.setUser(new User(session.username))
           dataProvider.setToken(session.token)
           this.setLogged(true)
+        } else {
+          nativeProvider.setStatusBarColor('#C6D7B3')
         }
       })
   }
@@ -64,7 +68,10 @@ class AuthModule extends VuexModule {
       .then(() => dataProvider.auth.doLogin(userLogin))
       .then((token) => storageProvider.set(SESSION, {token, username: userLogin.username}))
       .then(() => userModule.setUser(new User(userLogin.username)))
-      .then(() => this.setLogged(true))
+      .then(() => {
+        nativeProvider.setStatusBarColor('#FFFFFF')
+        this.setLogged(true)
+      })
   }
 
   /*
@@ -87,6 +94,7 @@ class AuthModule extends VuexModule {
     return dataProvider.auth.doLogout()
       .then(() => storageProvider.remove(SESSION))
       .then(() => {
+        nativeProvider.setStatusBarColor('#C6D7B3')
         dataProvider.removeToken()
         this.setLogged(false)
         userModule.setUser(undefined)

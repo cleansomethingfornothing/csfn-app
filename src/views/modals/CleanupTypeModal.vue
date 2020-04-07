@@ -1,25 +1,25 @@
 <template>
-  <ion-card color="white" class="block ion-activatable" >
+  <ion-card color="white" class="block ion-activatable">
     <ion-card-header>
       <ion-card-subtitle class="text-center font-bold">
         {{title}}
       </ion-card-subtitle>
     </ion-card-header>
-    <ion-card-content class="p-2 -mt-2">
+    <ion-card-content class="p-2 -mt-2 h-80">
       <div class="text-center mb-6 px-2">
         <p>{{message}}</p>
       </div>
-      <ion-row>
-        <ion-col>
-          <div @click="selected(false)" class="flex flex-col justify-center items-center">
+      <ion-row class="h-80">
+        <ion-col class="h-85">
+          <div @click="selected(false)" class="flex flex-col justify-center items-center h-full">
             <div class="w-1/2 mb-4">
               <img alt="Icon cleanup not done" src="@/assets/img/cleanup-not-done.svg">
             </div>
             <ion-label class="text-center"><b>{{buttonNotDone}}</b></ion-label>
           </div>
         </ion-col>
-        <ion-col>
-          <div @click="selected(true)" class="ion-activatable flex flex-col justify-center items-center">
+        <ion-col class="h-85">
+          <div @click="selected(true)" class="flex flex-col justify-center items-center h-full">
             <div class="w-1/2 mb-4">
               <img alt="Icon cleanup done" src="@/assets/img/cleanup-done.svg">
             </div>
@@ -69,5 +69,13 @@
 
   .cleanup-type-modal ion-toolbar {
     --border-width: 0;
+  }
+
+  .h-85 {
+    height: 85%;
+  }
+
+  .h-80 {
+    height: 80%;
   }
 </style>

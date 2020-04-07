@@ -1,8 +1,6 @@
 <template>
   <ion-card class="placeholder-card ion-activatable ripple-parent" mode="ios" button color="white">
-    <div class="placeholder-card__image">
-      <img src="/img/placeholder.png" class="opacity-50">
-    </div>
+    <div class="placeholder-card__image"></div>
     <ion-card-content>
       <div class="flex justify-between items-center mt-3 mb-4">
         <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
@@ -32,6 +30,7 @@
 <style>
   .placeholder-card__image {
     position: relative;
+    background-color: #eee;
   }
 
   .placeholder-card__image > img {

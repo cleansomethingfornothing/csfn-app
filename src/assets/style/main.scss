@@ -2,6 +2,11 @@
 @import "~@ionic/core/css/ionic.bundle.css";
 @import "./colors";
 
+@font-face {
+  font-family: Economica;
+  src: url("assets/fonts/Economica/Economica-Regular.ttf");
+}
+
 .title-md {
   padding-inline-start: 5px;
   padding-inline-end: 5px;
@@ -89,7 +94,27 @@ ion-item ion-icon {
   margin: auto 16px auto 0;
 }
 
+ion-skeleton-text {
+  line-height: 1em;
+}
+
 .invalid-input {
   --full-highlight-height: 2px;
   --highlight-background: var(--ion-color-danger);
+}
+
+.h-2\/3{
+  position: relative;
+}
+
+.h-2\/3:after{
+  display: block;
+  content: '';
+  padding-top: 66%;
+}
+
+@media screen and (min-width: 700px) {
+  :root {
+    font-size: 1.1em;
+  }
 }

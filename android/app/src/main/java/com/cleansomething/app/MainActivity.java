@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import com.getcapacitor.BridgeActivity;
 import com.getcapacitor.Plugin;
+import com.whitestein.securestorage.SecureStoragePlugin;
 
 import java.util.ArrayList;
 

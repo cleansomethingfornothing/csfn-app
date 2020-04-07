@@ -26,6 +26,7 @@ export class AuthProvider {
   }
 
   doLogin(user: UserLogin): Promise<string> {
+    return Promise.resolve('yyy')
     return this.axios({
       method: 'get',
       url: loginUrl,

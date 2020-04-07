@@ -1,17 +1,28 @@
 <template>
   <div class="home-header" :class="hideTopToolbar ? ' scrolled': ''">
-    <ion-header mode="ios" class="shadow-sm">
-      <ion-toolbar mode="ios">
+    <ion-header mode="ios" class="shadow-sm" color="white">
+      <ion-toolbar>
+        <div class="flex items-center w-full">
+          <img src="@/assets/img/icon.png" class="w-1/12 ml-3" style="max-width: 28px">
+          <span class="title ml-3 sm:text-xl md:text-2xl">clean something for nothing</span>
+        </div>
+        <!--
         <ion-buttons slot="start">
           <ion-menu-button auto-hide="true" color="dark"></ion-menu-button>
         </ion-buttons>
         <ion-title>
           Clean Something For Nothing
         </ion-title>
+        -->
+        <ion-buttons slot="end">
+          <ion-button fill="clear" shape="round" color="dark" size="large">
+            <ion-icon name="more" slor="icon-only"></ion-icon>
+          </ion-button>
+        </ion-buttons>
       </ion-toolbar>
 
       <ion-toolbar mode="ios" class="pb-1">
-        <div class="home-bubbles sm:w-2/3 lg:w-1/2 m-auto">
+        <div class="home-bubbles lg:w-2/3 xl:w-1/2 m-auto">
           <div class="home-bubble home-location-button">
             <home-header-button @click="click('location')">
               <ion-icon name="location" color="primary"></ion-icon>
@@ -63,7 +74,6 @@
   }
 </script>
 <style>
-
   .home-header > ion-header {
     transition: margin-top 0.5s;
   }
@@ -74,6 +84,12 @@
 
   .md .home-header.scrolled > ion-header {
     margin-top: -50px !important;
+  }
+
+  .home-header .title {
+    font-family: Economica, sans-serif;
+    letter-spacing: 3px;
+    color: var(--ion-color-dark-shade);
   }
 
   .home-header > ion-toolbar:nth-child(2) {

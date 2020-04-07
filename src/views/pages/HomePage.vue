@@ -7,8 +7,8 @@
         <ion-refresher-content>
         </ion-refresher-content>
       </ion-refresher>
-      <div class="sm:w-2/3 lg:w-1/2 m-auto">
-        <placeholder-card v-if="!cleanups"></placeholder-card>
+      <div class="lg:w-2/3 xl:w-1/2 m-auto">
+        <placeholder-card v-if="!Object.keys(cleanups).length"></placeholder-card>
 
         <cleanup-card v-else v-for="cleanup in cleanups" :key="cleanup.id" :cleanup="cleanup"
                       @click="openCleanup(cleanup.id)"></cleanup-card>
@@ -62,6 +62,7 @@
     }
 
     mounted() {
+      cleanupsModule.setCleanups([])
       this.fetch()
     }
 
