@@ -15,8 +15,9 @@
         </ion-title>
         -->
         <ion-buttons slot="end">
-          <ion-button fill="clear" shape="round" color="dark" size="large">
-            <ion-icon name="more" slor="icon-only"></ion-icon>
+          <ion-button fill="clear" shape="round" color="dark" size="large"
+                      @click="$router.push('/user/' + user.username)">
+            <ion-icon name="contact" slor="icon-only"></ion-icon>
           </ion-button>
         </ion-buttons>
       </ion-toolbar>
@@ -55,6 +56,7 @@
   import {Emit, Prop} from 'vue-property-decorator'
   import HomeHeaderButton from '@/views/components/home/HomeHeaderButton.vue'
   import Address from '@/types/Address'
+  import User from '@/types/User'
 
   @Component({
     name: 'home-header',
@@ -66,6 +68,9 @@
 
     @Prop(Object)
     readonly address: Address
+
+    @Prop(Object)
+    user: User
 
     @Emit('click')
     click(modal) {

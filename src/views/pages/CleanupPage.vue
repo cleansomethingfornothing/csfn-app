@@ -1,24 +1,15 @@
 <template>
   <ion-page class="ion-page cleanup-page">
-    <div class="cleanup-header" :class="scrolled ? 'scrolled' : ''">
-      <ion-header mode="ios">
-        <ion-toolbar mode="ios">
-          <ion-buttons slot="start">
-            <ion-button shape="round" fill="clear" @click="$router.back()" :color="scrolled ? 'dark' : 'white'">
-              <ion-icon name="arrow-back"></ion-icon>
-            </ion-button>
-          </ion-buttons>
-          <ion-buttons slot="end">
-            <ion-button shape="round" fill="clear" :color="scrolled ? 'dark' : 'white'"
-                        v-if="cleanup && cleanup.user.username === currentUser.username">
-              <ion-icon name="create"></ion-icon>
-            </ion-button>
-          </ion-buttons>
-        </ion-toolbar>
-      </ion-header>
-    </div>
+    <transparent-header :scrolled="scrolled" :lg-opaque="true">
+      <template slot="end-buttons">
+        <ion-button shape="round" fill="clear" :color="scrolled ? 'dark' : 'white'"
+                    v-if="cleanup && cleanup.user.username === currentUser.username">
+          <ion-icon name="create"></ion-icon>
+        </ion-button>
+      </template>
+    </transparent-header>
 
-    <ion-content class="cleanup-content" color="lighter" :fullscreen="true" :scroll-events="true" @ionScroll="onScroll">
+    <ion-content class="fullscreen" color="lighter" :fullscreen="true" :scroll-events="true" @ionScroll="onScroll">
       <div class="lg:w-2/3 xl:w-1/2 m-auto bg-white lg:rounded-lg lg:mt-16 overflow-hidden lg:shadow-lg">
 
         <!-- Pictures -->
@@ -102,9 +93,11 @@
   import MapModal from '@/views/modals/MapModal.vue'
   import moment from 'moment'
   import PicturesModal from '@/views/modals/PicturesModal.vue'
+  import TransparentHeader from '@/views/components/common/TransparentHeader.vue'
 
   @Component({
-    name: 'cleanup-page'
+    name: 'cleanup-page',
+    components: {TransparentHeader}
   })
   export default class CleanupPage extends Vue {
 
@@ -171,41 +164,5 @@
   .map-wrapper > img {
     object-position: center center;
     object-fit: cover;
-  }
-
-  .cleanup-header {
-    background-color: transparent;
-  }
-
-  .cleanup-header ion-toolbar {
-    --background: linear-gradient(180deg, rgba(0, 0, 0, 0.4), transparent 100%);
-    --border-width: 0 !important;
-    --box-shadow: none !important;
-  }
-
-  .cleanup-header * {
-    transition: all 0.5s;
-  }
-
-  .cleanup-header.scrolled ion-toolbar {
-    --background: #fff;
-    --border-width: 0 0 0.55px 0 !important;
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  }
-
-  .cleanup-content {
-    top: -44px
-  }
-
-  @media (min-width: 600px) {
-    .cleanup-header ion-toolbar {
-      --background: #fff !important;
-      --border-width: 0 0 0.55px 0 !important;
-      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    }
-
-    .cleanup-header ion-toolbar * {
-      color: var(--ion-color-dark);
-    }
   }
 </style>

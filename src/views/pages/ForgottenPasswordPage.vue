@@ -1,9 +1,9 @@
 <template>
   <ion-page class="ion-page register-page">
-    <ion-content>
+    <transparent-header :title="$t('recover-password')"></transparent-header>
+    <ion-content class="fullscreen h-screen">
       <forest-bg clazz="login-bg-image"></forest-bg>
       <div class="flex flex-col justify-between items-center w-full h-full">
-        <transparent-header :title="$t('recover-password')"></transparent-header>
         <form class="auth-form" @keyup.enter="resetPassword">
           <ion-label class="password-message z-10" color="white">
             {{$t('recover-password-text')}}

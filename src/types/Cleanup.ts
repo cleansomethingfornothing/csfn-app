@@ -25,6 +25,6 @@ export default class Cleanup {
   done: boolean
 
   @ArrayNotEmpty({message: 'select-some-picture'})
-  pictures: string[] = []
+  pictures: string[] | Blob[] = []
 
 }

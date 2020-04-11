@@ -8,7 +8,7 @@
     "open:android": "npx cap open android",
     "open:ios": "npx cap open ios",
     "lint": "vue-cli-service lint",
-    "run:android": "ionic capacitor run android -l",
+    "run:android": "vue-cli-service build && npx cap copy && npx cap open android",
     "run:ios": "ionic capacitor run ios -l",
     "resources": "node ./scripts/copy-resources/index.js",
     "resources:android": "capacitor-resources -p android -i ./resources/icon_android.png -I",

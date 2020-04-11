@@ -7,6 +7,8 @@ export default class Cropper {
 
   image: HTMLImageElement
 
+  static SIDE = 512
+
   public static crop(image: Blob): Promise<Blob> {
     return new Cropper(image).crop()
   }
@@ -16,16 +18,8 @@ export default class Cropper {
   }
 
   private crop(): Promise<Blob> {
-    this.initCanvas()
     return this.initImage()
       .then(() => this.process())
-  }
-
-  private initCanvas() {
-    this.canvas = document.createElement('canvas')
-    this.canvas.width = 256
-    this.canvas.height = 256
-    this.context = this.canvas.getContext('2d')
   }
 
   private initImage(): Promise<void> {
@@ -56,15 +50,24 @@ export default class Cropper {
   private processHorizontalImage(width, height) {
     const size = height
     const offset = (width - height) / 2
-    const finalSize = size > 256 ? 256 : size
+    const finalSize = size > Cropper.SIDE ? Cropper.SIDE : size
+    this.initCanvas(finalSize)
     this.context.drawImage(this.image, offset, 0, size, size, 0, 0, finalSize, finalSize)
   }
 
   private processVerticalImage(width, height) {
     const size = width
     const offset = (height - width) / 2
-    const finalSize = size > 256 ? 256 : size
+    const finalSize = size > Cropper.SIDE ? Cropper.SIDE : size
+    this.initCanvas(finalSize)
     this.context.drawImage(this.image, 0, offset, size, size, 0, 0, finalSize, finalSize)
+  }
+
+  private initCanvas(size) {
+    this.canvas = document.createElement('canvas')
+    this.canvas.width = size
+    this.canvas.height = size
+    this.context = this.canvas.getContext('2d')
   }
 
   private getResultBlob(): Promise<Blob> {

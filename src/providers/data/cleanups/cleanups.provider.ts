@@ -36,7 +36,7 @@ export class CleanupsProvider {
                 }),
               date: new Date(),
               done: true,
-            pictures: ['https://www.cleansomething.com/imgBasuras/@gfcesar-68.png', 'https://www.cleansomething.com/imgBasuras/@gfcesar-68.png', 'https://www.cleansomething.com/imgBasuras/@gfcesar-68.png']
+            pictures: ['https://www.cleansomethingfornothing.com/imgBasuras/@gfcesar-68.png', 'https://www.cleansomethingfornothing.com/imgBasuras/@gfcesar-68.png', 'https://www.cleansomethingfornothing.com/imgBasuras/@gfcesar-68.png']
             })
           ))
         , 1000)
@@ -68,7 +68,7 @@ export class CleanupsProvider {
             }),
           date: new Date(),
           done: true,
-          pictures: ['https://www.cleansomething.com/imgBasuras/@gfcesar-68.png', 'https://www.cleansomething.com/imgBasuras/@gfcesar-68.png', 'https://www.cleansomething.com/imgBasuras/@gfcesar-68.png']
+          pictures: ['https://www.cleansomethingfornothing.com/imgBasuras/@gfcesar-68.png', 'https://www.cleansomethingfornothing.com/imgBasuras/@gfcesar-68.png', 'https://www.cleansomethingfornothing.com/imgBasuras/@gfcesar-68.png']
         }), 1000)
     })
   }

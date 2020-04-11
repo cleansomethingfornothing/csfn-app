@@ -1,30 +1,29 @@
 <template>
   <ion-page class="ion-page register-page">
-    <ion-content>
+    <transparent-header :title="$t('create-account')"></transparent-header>
+    <ion-content class="fullscreen">
       <forest-bg></forest-bg>
       <div class="w-full h-full flex flex-col justify-between items-center">
-        <transparent-header :title="$t('create-account')"></transparent-header>
         <form class="auth-form" @keyup.enter="register" action="javascript:void(0)">
-          <!--
-          <div class="w-full flex flex-col items-center justify-center">
-            <label class="w-2/5 flex justify-center ripple-parent">
-              <avatar :src="picture || '/add-picture.png'" :invalid="!!this.fieldErrors.picture"></avatar>
-              <input class="hidden" type="file" @change="fileSelected($event.target.files[0])" accept=".png,.jpg">
-              <ion-ripple-effect></ion-ripple-effect>
-            </label>
-
+          <div class="w-full">
+            <div class="w-2/5 m-auto ">
+              <upload-button :file="userRegistration.picture" @click="userRegistration.picture && openPreview()"
+                             @select="fileSelected" :rounded="true" :loading="loadingPicture"></upload-button>
+            </div>
             <input-error :error="this.fieldErrors.picture && this.fieldErrors.picture[0]"></input-error>
           </div>
-          -->
-          <input-item icon="person" :placeholder="$t('username')" type="text" v-model="userRegistration.username" :rounded="true"
-                     :errors="fieldErrors.username" @focus="resetError('username')"></input-item>
+          <input-item icon="person" :placeholder="$t('username')" type="text" v-model="userRegistration.username"
+                      :rounded="true"
+                      :errors="fieldErrors.username" @focus="resetError('username')"></input-item>
           <input-item icon="mail" placeholder="Email" type="email" v-model="userRegistration.email" :rounded="true"
-                     :errors="fieldErrors.email" @focus="resetError('email')"></input-item>
-          <input-item icon="lock" :placeholder="$t('password')" type="password" v-model="userRegistration.password" :rounded="true"
-                     :errors="fieldErrors.password" @focus="resetError('password')"></input-item>
+                      :errors="fieldErrors.email" @focus="resetError('email')"></input-item>
+          <input-item icon="lock" :placeholder="$t('password')" type="password" v-model="userRegistration.password"
+                      :rounded="true"
+                      :errors="fieldErrors.password" @focus="resetError('password')"></input-item>
           <input-item icon="lock" :placeholder="$t('passwordConfirmation')" type="password" :rounded="true"
-                     v-model="userRegistration.passwordConfirmation"
-                     :errors="fieldErrors.passwordConfirmation" @focus="resetError('passwordConfirmation')"></input-item>
+                      v-model="userRegistration.passwordConfirmation"
+                      :errors="fieldErrors.passwordConfirmation"
+                      @focus="resetError('passwordConfirmation')"></input-item>
           <button-item color="secondary" :text="$t('create-account')" type="button" @click="register"></button-item>
         </form>
         <i></i>
@@ -47,18 +46,22 @@
   import UnknownError from '@/types/errors/UnknownError'
   import ToastPresenter from '@/tools/ToastPresenter'
   import ErrorMessage from '@/tools/ErrorMessage'
+  import UploadButton from '@/views/components/common/UploadButton.vue'
+  import PicturesModal from '@/views/modals/PicturesModal.vue'
+  import ModalPresenter from '@/tools/ModalPresenter'
+  import Cropper from '@/tools/Cropper'
 
   @Component({
     name: 'register',
-    components: {InputError, TransparentHeader, Avatar, ButtonItem, ForestBg, InputItem}
+    components: {UploadButton, InputError, TransparentHeader, Avatar, ButtonItem, ForestBg, InputItem}
   })
   export default class RegisterPage extends Vue {
 
     userRegistration = new UserRegistration()
 
-    picture = ''
-
     fieldErrors = {}
+
+    loadingPicture = false
 
     register() {
       authModule.doRegister(this.userRegistration)
@@ -79,16 +82,28 @@
       this.fieldErrors[field] = undefined
     }
 
-    /*
     fileSelected(file: Blob) {
+      this.loadingPicture = true
       this.fieldErrors['picture'] = undefined
       Cropper.crop(file)
         .then((cropped) => {
-          this.userRegistration.picture = cropped
-          this.picture = URL.createObjectURL(cropped)
+          this.loadingPicture = false
+          this.$set(this.userRegistration, 'picture', cropped)
         })
     }
-     */
+
+    openPreview() {
+      this.resetError('pictures')
+      ModalPresenter.present(this.$ionic, PicturesModal, {
+        pictures: [this.userRegistration.picture],
+        selected: 0,
+        removable: true
+      }).then(({data}) => {
+        if (data?.index !== undefined) {
+          this.$set(this.userRegistration, 'picture', undefined)
+        }
+      })
+    }
   }
 </script>
 <style>

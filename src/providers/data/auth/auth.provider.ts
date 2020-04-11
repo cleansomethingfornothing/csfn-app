@@ -3,7 +3,7 @@ import UserRegistration from '@/types/UserRegistration'
 import User from '@/types/User'
 import {AxiosInstance} from 'axios'
 import UnknownError from '@/types/errors/UnknownError'
-import qs from 'qs'
+import FormEncoder from '@/tools/FormEncoder'
 
 const loginUrl = '/login'
 const registerUrl = '/alta'
@@ -17,9 +17,17 @@ export class AuthProvider {
   }
 
   doRegister(user: UserRegistration): Promise<User> {
-    return this.axios.post(registerUrl, qs.stringify(user))
+    return this.axios.post(registerUrl, FormEncoder.encodeData({
+        'img_perfil': user.picture,
+        'nombre_usuario': user.username,
+        'password': user.password,
+        'password_rep': user.passwordConfirmation,
+        'correo': user.email,
+        'groupname': 'user'
+      }))
       .then((response) => {
-        return new User(user.email, user.password)
+        console.log(response)
+        return new User(user.username, user.email, 'picture')
       }).catch((error) => {
         return Promise.reject(new UnknownError('register'))
       })

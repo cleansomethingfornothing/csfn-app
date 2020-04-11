@@ -1,10 +1,10 @@
 export default class User {
-  //picture: string
+  picture: string
   username: string
   email: string
 
-  constructor(/*picture: string, */ username?: string, email?: string) {
-    //this.picture = picture
+  constructor(username: string, email: string, picture: string) {
+    this.picture = picture
     this.username = username
     this.email = email
   }

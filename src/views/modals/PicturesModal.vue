@@ -10,13 +10,16 @@
       </ion-toolbar>
     </ion-header>
 
-    <ion-content color="black">
-      <ion-slides v-if="pictures" pager="true" class="h-full w-full bg-black" ref="slider"
+    <ion-content color="black" class="flex items-center">
+      <ion-slides v-if="pictures && pictures.length > 1" pager="true" class="h-full w-full bg-black" ref="slider"
                   :options="{initialSlide: selected}">
-        <ion-slide v-for="(picture, i) of pictures" :key="i" class="bg-black">
+        <ion-slide v-for="(picture, i) of pics" :key="i" class="bg-black">
           <img alt="Cleanup picture" :src="picture" class="picture">
         </ion-slide>
       </ion-slides>
+      <div v-else class="h-full w-full flex justify-center items-center">
+        <img alt="Cleanup picture" :src="pics[0]" class="w-full">
+      </div>
     </ion-content>
 
     <ion-footer mode="ios">
@@ -41,7 +44,7 @@
   })
   export default class PicturesModal extends Vue {
     @Prop(Array)
-    public readonly pictures: string[]
+    public readonly pictures: string[] | Blob[]
 
     @Prop(Number)
     public readonly selected: number
@@ -52,15 +55,25 @@
     @Ref('slider')
     public readonly slider: any
 
+    get picturesAreBlobs() {
+      return this.pictures[0] instanceof Blob
+    }
+
+    get pics() {
+      return this.picturesAreBlobs ? (this.pictures as Blob[]).map(p => URL.createObjectURL(p)) : this.pictures
+    }
+
     created() {
       nativeProvider.setStatusBarColor('#000000')
     }
 
     mounted() {
-      setTimeout(() => {
-        this.slider.update()
-        this.slider.slideTo(this.selected)
-      }, 100)
+      if (this.pictures.length > 1) {
+        setTimeout(() => {
+          this.slider.update()
+          this.slider.slideTo(this.selected)
+        }, 100)
+      }
     }
 
     beforeDestroy(): void {
@@ -69,7 +82,7 @@
 
     remove() {
       this.$ionic.modalController.dismiss({
-        index: this.slider.getActiveIndex()
+        index: this.slider ? this.slider.getActiveIndex() : 0
       })
     }
 
@@ -82,5 +95,4 @@
   .picture-modal ion-toolbar {
     --border-width: 0 !important;
   }
-
 </style>

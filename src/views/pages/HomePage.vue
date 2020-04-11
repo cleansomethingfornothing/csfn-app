@@ -1,6 +1,7 @@
 <template>
   <ion-page class="ion-page">
-    <home-header :hide-top-toolbar="hideTopToolbar" :address="address" @click="homeButtonClicked"></home-header>
+    <home-header :user="user" :hide-top-toolbar="hideTopToolbar" :address="address"
+                 @click="homeButtonClicked"></home-header>
     <ion-content class="ion-content home-content" color="lighter"
                  :scroll-events="true" @ionScroll="onScroll">
       <ion-refresher v-if="cleanups" slot="fixed" @ionRefresh="refresh">
@@ -39,6 +40,7 @@
   import PlaceholderCard from '@/views/components/home/PlaceholderCard.vue'
   import {Ref} from 'vue-property-decorator'
   import Cleanup from '@/types/Cleanup'
+  import {userModule} from '@/store/userModule'
 
   @Component({
     name: 'HomePage.vue',
@@ -51,6 +53,10 @@
 
     @Ref('refresher')
     refresher: any
+
+    get user() {
+      return userModule.getCurrentUser
+    }
 
     get coords() {
       return locationModule.getCoords

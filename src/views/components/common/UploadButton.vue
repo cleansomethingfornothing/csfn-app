@@ -1,13 +1,14 @@
-import {PictureSourceType} from '@ionic-native/camera'
 <template>
-  <div class="picture-button w-full ion-activatable ripple-parent" @click="click">
-    <img v-if="file" alt="Cleanup picture" :src="file" class="absolute w-full h-full">
+  <div class="picture-button w-full ion-activatable ripple-parent" @click="click" :class="rounded ? 'rounded' : ''">
+    <img v-if="file" alt="Cleanup picture" :src="fileUrl" class="absolute w-full h-full">
     <div v-else class="background w-full h-full absolute">
       <div v-if="isMobile" class="w-full h-full absolute cursor-pointer" @click="getPicture"></div>
       <label v-else class="w-full h-full absolute cursor-pointer">
-        <input class="hidden" type="file" @change="desktopFileSelected($event.target.files[0])" accept=".png,.jpg"
+        <input class="hidden" type="file" @change="fileSelected($event.target.files[0])" accept=".png,.jpg"
                name="file">
       </label>
+      <ion-spinner v-if="loading" class="absolute w-full h-full opacity-50" color="primary"
+                   name="crescent"></ion-spinner>
     </div>
     <ion-ripple-effect></ion-ripple-effect>
   </div>
@@ -19,7 +20,6 @@ import {PictureSourceType} from '@ionic-native/camera'
   import {nativeProvider} from '@/providers/native/native.provider'
   import {Camera, DestinationType, PictureSourceType} from '@ionic-native/camera'
   import {BackgroundMode} from '@ionic-native/background-mode'
-  import {blobToBase64} from 'base64-blob'
 
   @Component({
     name: 'upload-button'
@@ -28,8 +28,18 @@ import {PictureSourceType} from '@ionic-native/camera'
 
     isMobile = false
 
-    @Prop(String)
-    file: string
+    @Prop(Boolean)
+    rounded: boolean
+
+    @Prop(Boolean)
+    loading: boolean
+
+    @Prop(Blob)
+    file: Blob
+
+    get fileUrl() {
+      return URL.createObjectURL(this.file)
+    }
 
     mounted() {
       nativeProvider.isMobile()
@@ -48,12 +58,12 @@ import {PictureSourceType} from '@ionic-native/camera'
             })
             .then((image) => {
               if (source == 'camera') BackgroundMode.disable()
-              console.log(image)
-              this.fileSelected(image)
+              return fetch(image)
             })
+            .then((res) => res.blob())
+            .then((blob) => this.fileSelected(blob))
             .catch(error => {
               if (source == 'camera') BackgroundMode.disable()
-              console.log(error)
             })
         })
     }
@@ -79,13 +89,8 @@ import {PictureSourceType} from '@ionic-native/camera'
       })
     }
 
-    desktopFileSelected(file) {
-      blobToBase64(file)
-        .then(base64 => this.fileSelected(base64))
-    }
-
     @Emit('select')
-    fileSelected(file: string) {
+    fileSelected(file: Blob) {
       return file
     }
 
@@ -100,10 +105,21 @@ import {PictureSourceType} from '@ionic-native/camera'
     border-radius: 1rem;
   }
 
+  .picture-button.rounded {
+    border-radius: 50%;
+    border: 4px solid #fff;
+    background-color: #eee;
+  }
+
   .picture-button .background {
     border-radius: 1rem;
     border: 2px dashed #b0b0b0;
     background: url("/add-picture.png") center center/cover;
+  }
+
+  .picture-button.rounded .background {
+    border-radius: 50%;
+    border: none;
   }
 
   .picture-button:after {

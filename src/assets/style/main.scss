@@ -119,6 +119,11 @@ ion-skeleton-text {
   padding-top: 66%;
 }
 
+ion-content.fullscreen {
+  top: -44px;
+  min-height: 100vh !important;
+}
+
 ion-slides {
   --bullet-background: #fff !important;
   --bullet-background-active: var(--ion-color-light) !important;

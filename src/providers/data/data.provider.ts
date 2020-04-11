@@ -3,7 +3,7 @@ import {CleanupsProvider} from '@/providers/data/cleanups/cleanups.provider'
 import {UserProvider} from '@/providers/data/user/user.provider'
 import axios, {AxiosInstance} from 'axios'
 
-const baseUrl = 'https://www.cleansomething.com/server_csfn/api/usuarios'
+const baseUrl = 'https://www.cleansomethingfornothing.com/server_csfn/api/usuarios/'
 
 class DataProvider {
 
