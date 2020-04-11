@@ -1,24 +1,27 @@
 <template>
   <ion-page class="ion-page">
     <home-header :hide-top-toolbar="hideTopToolbar" :address="address" @click="homeButtonClicked"></home-header>
-    <ion-content class="ion-content home-content" fullscreen="true" color="lighter"
+    <ion-content class="ion-content home-content" color="lighter"
                  :scroll-events="true" @ionScroll="onScroll">
       <ion-refresher v-if="cleanups" slot="fixed" @ionRefresh="refresh">
         <ion-refresher-content>
         </ion-refresher-content>
       </ion-refresher>
-      <div class="lg:w-2/3 xl:w-1/2 m-auto">
+      <div class="lg:w-2/3 xl:w-1/2 m-auto pb-4 cards min-h-screen flex flex-col justify-between">
         <placeholder-card v-if="!Object.keys(cleanups).length"></placeholder-card>
 
         <cleanup-card v-else v-for="cleanup in cleanups" :key="cleanup.id" :cleanup="cleanup"
                       @click="openCleanup(cleanup.id)"></cleanup-card>
+
+        <ion-label size="small" color="medium" class="title ml-4">© Clean something for nothing {{new
+          Date().getFullYear()}}
+        </ion-label>
       </div>
       <ion-fab vertical="bottom" horizontal="end" slot="fixed">
         <ion-fab-button color="white" @click="publish">
           <ion-icon name="add" color="primary"></ion-icon>
         </ion-fab-button>
       </ion-fab>
-
     </ion-content>
   </ion-page>
 </template>
@@ -80,7 +83,8 @@
     public onScroll(event: CustomEvent): void {
       const scroll = event.detail.scrollTop
 
-      if (!this.hideTopToolbar && scroll > 56 && scroll > this.lastScroll) {
+      if (!this.hideTopToolbar && scroll > 56 && scroll > this.lastScroll
+        && scroll < document.querySelector('.cards')['offsetHeight'] - window.innerHeight) {
         this.hideTopToolbar = true
       } else if (this.hideTopToolbar && scroll < this.lastScroll) {
         this.hideTopToolbar = false

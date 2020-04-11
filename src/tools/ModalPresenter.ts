@@ -3,6 +3,7 @@ export default class ModalPresenter {
     return ionic.modalController
       .create({
         showBackdrop: showBakdrop,
+        mode: 'ios',
         cssClass,
         component,
         componentProps: {

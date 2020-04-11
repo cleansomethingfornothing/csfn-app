@@ -24,6 +24,7 @@ import {
   pin,
   search,
   settings,
+  share,
   speedometer,
   stats,
   trash
@@ -74,6 +75,8 @@ addIcons({
   'md-search': search.ios,
   'ios-settings': settings.md,
   'md-settings': settings.md,
+  'ios-share': share.ios,
+  'md-share': share.md,
   'ios-mail': mail.ios,
   'md-mail': mail.ios,
   'ios-more': more.ios,

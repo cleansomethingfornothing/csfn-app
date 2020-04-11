@@ -5,7 +5,8 @@ import {PictureSourceType} from '@ionic-native/camera'
     <div v-else class="background w-full h-full absolute">
       <div v-if="isMobile" class="w-full h-full absolute cursor-pointer" @click="getPicture"></div>
       <label v-else class="w-full h-full absolute cursor-pointer">
-        <input class="hidden" type="file" @change="desktopFileSelected($event.target.files[0])" accept=".png,.jpg" name="file">
+        <input class="hidden" type="file" @change="desktopFileSelected($event.target.files[0])" accept=".png,.jpg"
+               name="file">
       </label>
     </div>
     <ion-ripple-effect></ion-ripple-effect>
@@ -38,7 +39,7 @@ import {PictureSourceType} from '@ionic-native/camera'
     getPicture() {
       this.pickSource()
         .then((source) => {
-          BackgroundMode.enable()
+          if (source == 'camera') BackgroundMode.enable()
           Camera.getPicture({
               quality: 100,
               correctOrientation: true,
@@ -46,11 +47,12 @@ import {PictureSourceType} from '@ionic-native/camera'
               sourceType: source == 'camera' ? PictureSourceType.CAMERA : PictureSourceType.PHOTOLIBRARY
             })
             .then((image) => {
-              BackgroundMode.disable()
+              if (source == 'camera') BackgroundMode.disable()
+              console.log(image)
               this.fileSelected(image)
             })
             .catch(error => {
-              BackgroundMode.disable()
+              if (source == 'camera') BackgroundMode.disable()
               console.log(error)
             })
         })

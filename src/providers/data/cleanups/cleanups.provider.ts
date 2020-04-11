@@ -17,7 +17,7 @@ export class CleanupsProvider {
           resolve(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'].map((id) => ({
               id,
               user: {
-                username: '@lester_prz',
+                username: '@lester_pr',
                 email: ''
               },
               description: 'Shkodër is a town in the north of Albania. We stopped here to do a cleanup on a small tributary of the river Bojana that leads to the Adriatic Sea as final destination.\n' +
@@ -35,8 +35,8 @@ export class CleanupsProvider {
                   lng: -3.76832
                 }),
               date: new Date(),
-              done: false,
-              pictures: ['https://www.cleansomething.com/imgBasuras/@gfcesar-68.png']
+              done: true,
+            pictures: ['https://www.cleansomething.com/imgBasuras/@gfcesar-68.png', 'https://www.cleansomething.com/imgBasuras/@gfcesar-68.png', 'https://www.cleansomething.com/imgBasuras/@gfcesar-68.png']
             })
           ))
         , 1000)
@@ -49,7 +49,7 @@ export class CleanupsProvider {
         resolve({
           id,
           user: {
-            username: '@lester_prz',
+            username: '@lester_pr',
             email: ''
           },
           description: 'Shkodër is a town in the north of Albania. We stopped here to do a cleanup on a small tributary of the river Bojana that leads to the Adriatic Sea as final destination.\n' +
@@ -67,8 +67,8 @@ export class CleanupsProvider {
               lng: -3.76832
             }),
           date: new Date(),
-          done: false,
-          pictures: ['https://www.cleansomething.com/imgBasuras/@gfcesar-68.png']
+          done: true,
+          pictures: ['https://www.cleansomething.com/imgBasuras/@gfcesar-68.png', 'https://www.cleansomething.com/imgBasuras/@gfcesar-68.png', 'https://www.cleansomething.com/imgBasuras/@gfcesar-68.png']
         }), 1000)
     })
   }

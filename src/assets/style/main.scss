@@ -7,6 +7,12 @@
   src: url("assets/fonts/Economica/Economica-Regular.ttf");
 }
 
+.title {
+  font-family: Economica, sans-serif;
+  letter-spacing: 3px;
+  color: var(--ion-text-color-ligth);
+}
+
 .title-md {
   padding-inline-start: 5px;
   padding-inline-end: 5px;
@@ -103,14 +109,19 @@ ion-skeleton-text {
   --highlight-background: var(--ion-color-danger);
 }
 
-.h-2\/3{
+.h-2\/3 {
   position: relative;
 }
 
-.h-2\/3:after{
+.h-2\/3:after {
   display: block;
   content: '';
   padding-top: 66%;
+}
+
+ion-slides {
+  --bullet-background: #fff !important;
+  --bullet-background-active: var(--ion-color-light) !important;
 }
 
 @media screen and (min-width: 700px) {

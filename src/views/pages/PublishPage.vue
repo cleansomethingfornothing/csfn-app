@@ -3,7 +3,7 @@
     <ion-header mode="ios" class="shadow-sm">
       <ion-toolbar mode="ios">
         <ion-buttons slot="start">
-          <ion-button fill="clear" shape="round" @click="$router.back()">
+          <ion-button color="dark" fill="clear" shape="round" @click="$router.back()">
             <ion-icon name="arrow-back" slot="icon-only"></ion-icon>
           </ion-button>
         </ion-buttons>
@@ -12,7 +12,7 @@
         </ion-title>
       </ion-toolbar>
     </ion-header>
-    <ion-content fullscreen="true" color="light">
+    <ion-content fullscreen="true" color="lighter">
       <form
         class="lg:w-2/3 xl:w-1/2 m-auto lg:rounded-lg overflow-hidden lg:mt-6 lg:shadow-lg lg:pb-4 bg-white border-1 border-solid border-gray-500">
         <ion-list lines="full" class="p-0">
@@ -39,13 +39,13 @@
             <ion-label position="floating" class="publish-label">{{$t('pictures')}}</ion-label>
             <ion-row class="w-full mt-8 mb-2">
               <ion-col v-for="i of [0,1,2,3,4]" :key="i">
-                <upload-button :file="cleanup.pictures[i]" @click="openPreview(i)"
+                <upload-button :file="cleanup.pictures[i]" @click="cleanup.pictures[i] && openPreview(i)"
                                @select="arrayChange(cleanup.pictures, $event)"></upload-button>
               </ion-col>
             </ion-row>
             <ion-row class="w-full mb-2">
               <ion-col v-for="i of [5,6,7,8,9]" :key="i">
-                <upload-button :file="cleanup.pictures[i]" @click="openPreview(i)"
+                <upload-button :file="cleanup.pictures[i]" @click="cleanup.pictures[i] && openPreview(i)"
                                @select="arrayChange(cleanup.pictures, $event)"></upload-button>
               </ion-col>
             </ion-row>
@@ -72,7 +72,7 @@
   import {locationModule} from '@/store/locationModule'
   import {placesProvider} from '@/providers/places/places.provider'
   import Location from '@/types/Location'
-  import ImagePreview from '@/views/modals/ImagePreviewModal.vue'
+  import PicturesModal from '@/views/modals/PicturesModal.vue'
   import UploadButton from '@/views/components/common/UploadButton.vue'
   import FormError from '@/types/errors/FormError'
   import ErrorMessage from '@/tools/ErrorMessage'
@@ -134,14 +134,15 @@
       })
     }
 
-    openPreview(index: number) {
+    openPreview(selected: number) {
       this.resetError('pictures')
-      if (!this.cleanup.pictures[index]) return
-      ModalPresenter.present(this.$ionic, ImagePreview, {
-        image: this.cleanup.pictures[index]
+      ModalPresenter.present(this.$ionic, PicturesModal, {
+        pictures: this.cleanup.pictures,
+        selected,
+        removable: true
       }).then(({data}) => {
-        if (data?.remove) {
-          this.cleanup.pictures.splice(index, 1)
+        if (data?.index) {
+          this.cleanup.pictures.splice(data.index, 1)
         }
       })
     }

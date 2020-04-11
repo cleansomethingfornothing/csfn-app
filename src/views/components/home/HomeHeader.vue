@@ -75,7 +75,7 @@
 </script>
 <style>
   .home-header > ion-header {
-    transition: margin-top 0.5s;
+    transition: margin-top 0.4s;
   }
 
   .home-header.scrolled > ion-header {
@@ -84,12 +84,6 @@
 
   .md .home-header.scrolled > ion-header {
     margin-top: -50px !important;
-  }
-
-  .home-header .title {
-    font-family: Economica, sans-serif;
-    letter-spacing: 3px;
-    color: var(--ion-color-dark-shade);
   }
 
   .home-header > ion-toolbar:nth-child(2) {
