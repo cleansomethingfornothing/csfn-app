@@ -4,22 +4,18 @@
       <img :src="cleanup.pictures[0]">
     </div>
     <ion-card-content>
-      <div class="flex justify-between items-center">
-        <ion-label class="text-sm">{{cleanup.user.username}}</ion-label>
-        <ion-item class="text-sm pl-0" lines="none">
-          <ion-icon name="calendar" slot="start" class="text-lg mr-2" color="dark"></ion-icon>
-          <ion-label color="dark" class="my-1">{{cleanup.date.toLocaleDateString()}}
-          </ion-label>
-        </ion-item>
-      </div>
-      <div class="cleanup-card__description">
+      <ion-label class="text-lg font-bold">{{$t('cleanup-in')}} {{cleanup.location.address.city}}</ion-label>
+      <br>
+      <ion-label color="medium" class="text-xs font-bold">{{formattedDate.toUpperCase()}}</ion-label>
+      <div class="cleanup-card__description mt-1">
         {{cleanup.description}}
       </div>
-      <ion-item class="text-sm pl-0" lines="none">
-        <ion-icon name="location" slot="start" class="text-lg mr-2" color="primary"></ion-icon>
-        <ion-label color="dark">{{cleanup.location.address.city}}, {{cleanup.location.address.country}}
-        </ion-label>
-      </ion-item>
+      <ion-chip class="-ml-1 mt-2" color="dark" @click="$router.push('/user/' + cleanup.user.username)">
+        <ion-avatar>
+          <img :src="cleanup.user.picture">
+        </ion-avatar>
+        <ion-label class="mr-2">{{cleanup.user.username}}</ion-label>
+      </ion-chip>
     </ion-card-content>
     <ion-ripple-effect></ion-ripple-effect>
   </ion-card>
@@ -29,6 +25,7 @@
   import Component from 'vue-class-component'
   import {Emit, Prop} from 'vue-property-decorator'
   import Cleanup from '@/types/Cleanup'
+  import moment from 'moment'
 
   @Component({
     name: 'cleanup-card'
@@ -37,6 +34,10 @@
 
     @Prop(Object)
     cleanup: Cleanup
+
+    get formattedDate() {
+      return this.cleanup && moment(this.cleanup.date).fromNow()
+    }
 
     @Emit('click')
     click() {
@@ -47,6 +48,10 @@
 <style>
   .cleanup-card + .cleanup-card {
     margin-top: 0.5em;
+  }
+
+  .cleanup-card ion-title {
+    font-size: smaller;
   }
 
   .cleanup-card ion-item {
@@ -73,7 +78,6 @@
   }
 
   .cleanup-card__description {
-    color: var(--ion-text-color);
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;

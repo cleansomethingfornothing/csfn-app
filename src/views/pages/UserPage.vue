@@ -8,9 +8,11 @@
       </template>
     </transparent-header>
 
-    <ion-content @ionScroll="onScroll" class="fullscreen">
-      <div class="h-2/3">
-        <img class="absolute object-center object-cover" src="@/assets/img/profile-bg-large.png">
+    <ion-content @ionScroll="onScroll" class="fullscreen" color="lighter">
+      <div class="lg:w-2/3 xl:w-1/2 m-auto bg-white lg:rounded-lg lg:mt-16 overflow-hidden lg:shadow-lg">
+        <div class="h-2/3">
+          <img class="absolute object-center object-cover" src="@/assets/img/profile-bg-large.png">
+        </div>
       </div>
     </ion-content>
   </ion-page>

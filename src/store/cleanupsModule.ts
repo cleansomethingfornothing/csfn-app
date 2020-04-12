@@ -45,6 +45,7 @@ class CleanupsModule extends VuexModule {
 
   @Action
   fetch(): Promise<void> {
+    this.setCleanups([])
     return dataProvider.cleanups.fetch(this.filters)
       .then((cleanups) => this.setCleanups(cleanups))
   }

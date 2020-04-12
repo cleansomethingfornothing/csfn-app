@@ -1,0 +1,40 @@
+export default {
+  en: {
+    'publish-cleanup': 'Publish cleanup',
+    'cleaned-weight': '{param}kg of trash were cleaned',
+    'cleanup-type-selection': 'Do you want to publish an alert or a cleanup?',
+    'cleanup': 'Cleanup',
+    'cleanup-in': 'Cleanup in',
+    'alert': 'Alert',
+    'write-description': 'Write a descrpition',
+    'description': 'Description',
+    'weight': 'Weight',
+    'location': 'Location',
+    'pictures': 'Pictures',
+    'date': 'Date',
+    'gallery': 'Gallery',
+    'camera': 'Camera',
+    'publish': 'Publish',
+    'published': 'Published',
+    'published-on': 'Published on'
+  },
+  es: {
+    'publish-cleanup': 'Publicar limpieza',
+    'cleaned-weight': 'Se recogieron {param}kg de basura',
+    'cleanup-type-selection': '¿Quieres publicar una alerta o una limpieza?',
+    'cleanup': 'Limpieza',
+    'cleanup-in': 'Limpieza en',
+    'alert': 'Alerta',
+    'write-description': 'Escribe una descripción',
+    'description': 'Descripción',
+    'weight': 'Peso',
+    'location': 'Ubicación',
+    'pictures': ' Fotos',
+    'date': 'Fecha',
+    'gallery': 'Galería',
+    'camera': 'Cámara',
+    'publish': 'Publicar',
+    'published': 'Publicado',
+    'published-on': 'Publicado el'
+  }
+}

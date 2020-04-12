@@ -4,7 +4,7 @@
       <ion-toolbar>
         <div class="flex items-center w-full">
           <img src="@/assets/img/icon.png" class="w-1/12 ml-3" style="max-width: 28px">
-          <span class="title ml-3 sm:text-xl md:text-2xl">clean something for nothing</span>
+          <span class="title ml-2 sm:text-xl md:text-2xl">clean something for nothing</span>
         </div>
         <!--
         <ion-buttons slot="start">
@@ -15,15 +15,17 @@
         </ion-title>
         -->
         <ion-buttons slot="end">
-          <ion-button fill="clear" shape="round" color="dark" size="large"
-                      @click="$router.push('/user/' + user.username)">
-            <ion-icon name="contact" slor="icon-only"></ion-icon>
-          </ion-button>
+          <div
+            class="mr-2 mt-1 sm:mt-0 ion-activatable ripple-parent w-8 h-8 rounded-full overflow-hidden flex justify-center items-center cursor-pointer">
+            <img alt="Profile picture" :src="user.picture" class="w-full h-full object-cover object-center"
+                 @click="$router.push('/user/' + user.username)">
+            <ion-ripple-effect></ion-ripple-effect>
+          </div>
         </ion-buttons>
       </ion-toolbar>
 
       <ion-toolbar mode="ios" class="pb-1">
-        <div class="home-bubbles lg:w-2/3 xl:w-1/2 m-auto">
+        <div class="home-bubbles lg:w-2/3 xl:w-1/2 m-auto px-2">
           <div class="home-bubble home-location-button">
             <home-header-button @click="click('location')">
               <ion-icon name="location" color="primary"></ion-icon>
@@ -96,7 +98,6 @@
   }
 
   .home-bubbles {
-    padding: 0 0.5em;
     display: flex;
     align-items: center;
   }

@@ -13,7 +13,7 @@
         <ion-col class="h-85">
           <div @click="selected(false)" class="flex flex-col justify-center items-center h-full">
             <div class="w-1/2 mb-4">
-              <img alt="Icon cleanup not done" src="@/assets/img/cleanup-not-done.svg">
+              <img alt="Icon cleanup not done" src="@/assets/img/alert.svg">
             </div>
             <ion-label class="text-center"><b>{{buttonNotDone}}</b></ion-label>
           </div>
@@ -21,7 +21,7 @@
         <ion-col class="h-85">
           <div @click="selected(true)" class="flex flex-col justify-center items-center h-full">
             <div class="w-1/2 mb-4">
-              <img alt="Icon cleanup done" src="@/assets/img/cleanup-done.svg">
+              <img alt="Icon cleanup done" src="@/assets/img/cleanup.svg">
             </div>
             <ion-label class="text-center"><b>{{buttonDone}}</b></ion-label>
           </div>

@@ -10,7 +10,7 @@
     </transparent-header>
 
     <ion-content class="fullscreen" color="lighter" :fullscreen="true" :scroll-events="true" @ionScroll="onScroll">
-      <div class="lg:w-2/3 xl:w-1/2 m-auto bg-white lg:rounded-lg lg:mt-16 overflow-hidden lg:shadow-lg">
+      <div class="lg:w-2/3 xl:w-1/2 m-auto bg-white lg:rounded-lg lg:my-16 overflow-hidden lg:shadow-lg">
 
         <!-- Pictures -->
         <div class="cleanup-page__picture h-2/3 cursor-pointer">
@@ -21,20 +21,20 @@
           </ion-slides>
         </div>
 
-        <!-- Weight -->
         <div class="ion-padding">
-          <ion-skeleton-text class="mb-3 mt-2" v-if="!cleanup" animated style="width: 30%"></ion-skeleton-text>
-          <div class="mt-1" v-else>
-            <div v-if="cleanup.done" class="flex items-center">
-              <img src="@/assets/img/cleanup-done.svg" class="w-6 mr-2">
-              <ion-label class="font-bold">{{$t('cleaned-weight', {param: cleanup.weight})}}</ion-label>
-            </div>
-            <div v-else>
-              <img src="@/assets/img/cleanup-not-done.svg" class="w-1/12">
-            </div>
-          </div>
+          <!-- Title -->
+          <ion-skeleton-text v-if="!cleanup" animated style="width: 70%"></ion-skeleton-text>
+          <ion-label v-else class="text-xl font-bold">{{$t('cleanup-in')}} {{cleanup.location.address.city}}</ion-label>
+          <hr class="my-3">
 
-          <hr class="my-4">
+          <!-- Weight -->
+          <ion-skeleton-text v-if="!cleanup" animated style="width: 50%"></ion-skeleton-text>
+          <div v-else class="flex items-center">
+            <img src="@/assets/img/cleanup-done.svg" class="w-6 mr-2">
+            <ion-label color="dark" class="text-md">{{$t('cleaned-weight', {param: cleanup.weight})}}
+            </ion-label>
+          </div>
+          <hr class="my-3">
 
           <!-- Description -->
           <div v-if="!cleanup">
@@ -43,21 +43,27 @@
             <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
           </div>
           <ion-text v-else>{{cleanup.description}}</ion-text>
+          <br>
+          <ion-skeleton-text v-if="!cleanup" class="mb-3 mt-2" animated style="width: 30%"></ion-skeleton-text>
+          <ion-chip v-else class="-ml-1 mt-4" color="dark" @click="$router.push('/user/' + cleanup.user.username)">
+            <ion-avatar>
+              <img :src="cleanup.user.picture">
+            </ion-avatar>
+            <ion-label class="mr-2">{{cleanup.user.username}}</ion-label>
+          </ion-chip>
 
-          <hr class="mt-4 mb-2">
+          <hr class="mt-3 mb-1">
 
-          <!-- User and date -->
-          <div class="flex justify-between items-center -mt-2">
-            <ion-skeleton-text class="mb-3 mt-2" v-if="!cleanup" animated style="width: 30%"></ion-skeleton-text>
-            <ion-label v-else class="text-sm font-bold">{{cleanup.user.username}}</ion-label>
-            <ion-item v-if="cleanup" class="text-sm pl-0" lines="none">
-              <ion-icon name="calendar" slot="start" class="text-lg mr-2" color="dark"></ion-icon>
-              <ion-label class="my-1 font-bold">{{formattedDate}}</ion-label>
-            </ion-item>
-            <ion-skeleton-text class="mb-3 mt-2" v-else animated style="width: 30%"></ion-skeleton-text>
-          </div>
+          <!-- Date-->
+          <ion-skeleton-text v-if="!cleanup" class="mb-3 mt-2" animated style="width: 60%"></ion-skeleton-text>
+          <ion-item v-else class="pl-0" lines="none">
+            <ion-icon name="calendar" color="dark" class="mr-2"></ion-icon>
+            <ion-label color="dark">
+              {{$t('published-on')}} {{formattedDate}}
+            </ion-label>
+          </ion-item>
 
-          <hr class="mb-1">
+          <hr class="mt-1 mb-1">
 
           <!-- Location -->
           <ion-skeleton-text class="my-4" v-if="!cleanup" animated style="width: 60%"></ion-skeleton-text>
@@ -115,7 +121,7 @@
     }
 
     get formattedDate() {
-      return this.cleanup && moment(this.cleanup.date).format('D MMM YYYY')
+      return this.cleanup && moment(this.cleanup.date).format('D MMMM YYYY')
     }
 
     mounted() {

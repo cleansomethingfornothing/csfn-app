@@ -6,7 +6,6 @@ import {userModule} from '@/store/userModule'
 import Validator from '@/tools/Validator'
 import {storageProvider} from '@/providers/storage/storage.provider'
 import {dataProvider} from '@/providers/data/data.provider'
-import User from '@/types/User'
 import {nativeProvider} from '@/providers/native/native.provider'
 
 const SESSION = 'CSFN_SESSION'
@@ -39,38 +38,62 @@ class AuthModule extends VuexModule {
     return this.logged
   }
 
+  @Action
   initialize(): Promise<void> {
     this.setInitialized()
     return storageProvider.get(SESSION)
-      .then((session) => {
-        if (session) {
-          nativeProvider.setStatusBarColor('#FFFFFF')
-          userModule.setUser(new User(session.username))
-          dataProvider.setToken(session.token)
-          this.setLogged(true)
-        } else {
-          nativeProvider.setStatusBarColor('#7c8578')
-        }
-      })
+      .then((session) => this.loggedIn(session))
+      .catch(() => this.loggedOut())
   }
 
   @Action
   doRegister(userRegistration: UserRegistration): Promise<void> {
     return Validator.validate(userRegistration)
       .then(() => dataProvider.auth.doRegister(userRegistration))
-      .then(userModule.setUser)
-      .then(() => this.setLogged(true))
+      .then(() => this.doCredentialsLogin({
+        username: userRegistration.username,
+        password: userRegistration.password
+      }))
   }
 
   @Action
   doCredentialsLogin(userLogin: UserLogin): Promise<void> {
     return Validator.validate(userLogin)
       .then(() => dataProvider.auth.doLogin(userLogin))
-      .then((token) => storageProvider.set(SESSION, {token, username: userLogin.username}))
-      .then(() => userModule.setUser(new User(userLogin.username)))
+      .then((token) => storageProvider.set(SESSION, {token, username: userLogin.username})
+        .then((token) => this.loggedIn({token, username: userLogin.username})))
+  }
+
+  @Action
+  loggedIn({token, username}) {
+    dataProvider.setToken(token)
+    return dataProvider.user.fetchUser(username)
+      .then((user) => userModule.setUser(user))
       .then(() => {
         nativeProvider.setStatusBarColor('#FFFFFF')
         this.setLogged(true)
+      })
+  }
+
+  @Action
+  doResetPassword(email: string): Promise<void> {
+    return dataProvider.auth.doResetPassword(email)
+  }
+
+  @Action
+  doLogout(): Promise<void> {
+    return dataProvider.auth.doLogout()
+      .then(() => this.loggedOut())
+  }
+
+  @Action
+  loggedOut() {
+    storageProvider.remove(SESSION)
+      .then(() => {
+        nativeProvider.setStatusBarColor('#7c8578')
+        userModule.setUser(undefined)
+        dataProvider.removeToken()
+        this.setLogged(false)
       })
   }
 
@@ -82,24 +105,7 @@ class AuthModule extends VuexModule {
   doInstagramLogin(): Promise<void> {
 
   }
-   */
-
-  @Action
-  doResetPassword(email: string): Promise<void> {
-    return dataProvider.auth.doResetPassword(email)
-  }
-
-  @Action
-  doLogout(): Promise<void> {
-    return dataProvider.auth.doLogout()
-      .then(() => storageProvider.remove(SESSION))
-      .then(() => {
-        nativeProvider.setStatusBarColor('#7c8578')
-        dataProvider.removeToken()
-        this.setLogged(false)
-        userModule.setUser(undefined)
-      })
-  }
+  */
 }
 
 export const authModule = new AuthModule()

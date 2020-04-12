@@ -7,6 +7,10 @@
   src: url("assets/fonts/Economica/Economica-Regular.ttf");
 }
 
+body {
+  background-color: var(--ion-color-lighter);
+}
+
 .title {
   font-family: Economica, sans-serif;
   letter-spacing: 3px;

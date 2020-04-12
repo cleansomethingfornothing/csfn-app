@@ -2,6 +2,7 @@ import Cleanup from '@/types/Cleanup'
 import CleanupFilters from '@/types/CleanupFilters'
 import Location from '@/types/Location'
 import {AxiosInstance} from 'axios'
+import moment from 'moment'
 
 export class CleanupsProvider {
 
@@ -18,7 +19,8 @@ export class CleanupsProvider {
               id,
               user: {
                 username: '@lester_pr',
-                email: ''
+                email: '',
+                picture: '/img/user-placeholder.png'
               },
               description: 'Shkodër is a town in the north of Albania. We stopped here to do a cleanup on a small tributary of the river Bojana that leads to the Adriatic Sea as final destination.\n' +
                 '\n' +
@@ -34,9 +36,9 @@ export class CleanupsProvider {
                   lat: 40.2423808,
                   lng: -3.76832
                 }),
-              date: new Date(),
+              date: moment([2020, 0, 29]).toDate(),
               done: true,
-            pictures: ['https://www.cleansomethingfornothing.com/imgBasuras/@gfcesar-68.png', 'https://www.cleansomethingfornothing.com/imgBasuras/@gfcesar-68.png', 'https://www.cleansomethingfornothing.com/imgBasuras/@gfcesar-68.png']
+              pictures: ['https://www.cleansomethingfornothing.com/imgBasuras/@gfcesar-68.png', 'https://www.cleansomethingfornothing.com/imgBasuras/@gfcesar-68.png', 'https://www.cleansomethingfornothing.com/imgBasuras/@gfcesar-68.png']
             })
           ))
         , 1000)
@@ -50,7 +52,8 @@ export class CleanupsProvider {
           id,
           user: {
             username: '@lester_pr',
-            email: ''
+            email: '',
+            picture: '/img/user-placeholder.png'
           },
           description: 'Shkodër is a town in the north of Albania. We stopped here to do a cleanup on a small tributary of the river Bojana that leads to the Adriatic Sea as final destination.\n' +
             '\n' +
@@ -66,7 +69,7 @@ export class CleanupsProvider {
               lat: 40.2423808,
               lng: -3.76832
             }),
-          date: new Date(),
+          date: moment([2020, 0, 29]).toDate(),
           done: true,
           pictures: ['https://www.cleansomethingfornothing.com/imgBasuras/@gfcesar-68.png', 'https://www.cleansomethingfornothing.com/imgBasuras/@gfcesar-68.png', 'https://www.cleansomethingfornothing.com/imgBasuras/@gfcesar-68.png']
         }), 1000)

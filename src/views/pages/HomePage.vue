@@ -1,5 +1,5 @@
 <template>
-  <ion-page class="ion-page">
+  <ion-page class="ion-page" color="lighter">
     <home-header :user="user" :hide-top-toolbar="hideTopToolbar" :address="address"
                  @click="homeButtonClicked"></home-header>
     <ion-content class="ion-content home-content" color="lighter"
@@ -141,3 +141,9 @@
     }
   }
 </script>
+<style>
+  ion-refresher ion-refresher-content {
+    background-color: var(--ion-color-lighter);
+    --color: var(--ion-color-primary) !important;
+  }
+</style>

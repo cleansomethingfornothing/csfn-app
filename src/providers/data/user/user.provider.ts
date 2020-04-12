@@ -10,6 +10,6 @@ export class UserProvider {
   }
 
   fetchUser(id: string): Promise<User> {
-    return Promise.resolve(id && new User('1', '@lester_ps'));
+    return Promise.resolve(id && new User('@lester_prz', 'lester@gmail.com', '/img/user-placeholder.png'));
   }
 }

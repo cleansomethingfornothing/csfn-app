@@ -2,16 +2,14 @@
   <ion-card class="placeholder-card ion-activatable ripple-parent" mode="ios" button color="white">
     <div class="placeholder-card__image"></div>
     <ion-card-content>
-      <div class="flex justify-between items-center mt-3 mb-4">
-        <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
-        <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
-      </div>
-      <div class="mb-4">
+      <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+      <ion-skeleton-text animated class="mt-2" style="width: 30%"></ion-skeleton-text>
+      <div class="my-4">
         <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
         <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
         <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
       </div>
-      <ion-skeleton-text animated class="mb-3" style="width: 100%"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
     </ion-card-content>
     <ion-ripple-effect></ion-ripple-effect>
   </ion-card>

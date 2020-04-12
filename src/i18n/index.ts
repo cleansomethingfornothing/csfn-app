@@ -1,5 +1,5 @@
 import VueI18n from 'vue-i18n'
-import {messages} from '@/i18n/messages'
+import messages from './messages'
 import Vue from 'vue'
 import moment from 'moment'
 
