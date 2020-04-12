@@ -132,7 +132,10 @@
     }
 
     openMap() {
-      ModalPresenter.present(this.$ionic, MapModal, {origin: this.cleanup.location.coords})
+      ModalPresenter.present(this.$ionic, MapModal, {
+        origin: this.cleanup.location.coords,
+        pin: this.cleanup.done ? '/img/cleanup_pin.png' : '/img/alert_pin.png'
+      })
     }
 
     openPictures(selected) {

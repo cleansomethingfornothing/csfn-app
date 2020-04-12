@@ -8,13 +8,13 @@
           </ion-button>
         </ion-buttons>
         <ion-title>
-          {{$t('publish-cleanup')}}
+          {{$t('publish')}} {{$t(cleanup.done ? 'cleanup': 'alert').toLowerCase()}}
         </ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content fullscreen="true" color="lighter">
       <form
-        class="lg:w-2/3 xl:w-1/2 m-auto bg-white lg:rounded-lg lg:my-8 overflow-hidden lg:shadow-lg">
+        class="lg:w-2/3 xl:w-1/2 m-auto bg-white lg:rounded-lg lg:my-8 overflow-hidden lg:shadow-lg h-full lg:h-auto lg:pb-4">
         <ion-list lines="full" class="p-0">
           <input-item :errors="errors['description']" :slotted-input="$refs['desc']" @focus="resetError('description')">
             <ion-textarea :placeholder="$t('write-description')" auto-grow="true" rows="3"
@@ -29,7 +29,8 @@
             <ion-label position="floating" class="fix-label">{{$t('location')}}</ion-label>
             <ion-input type="text" :value="cleanup.location && cleanup.location.toString()" readonly="true"></ion-input>
           </input-item>
-          <input-item :errors="errors['date']" icon="calendar" @focus="resetError('date') || $refs.date.open()">
+          <input-item :errors="errors['date']" icon="calendar" @focus="resetError('date') || $refs.date.open()"
+                      v-if="cleanup.done">
             <ion-label position="floating" class="fix-label">{{$t('date')}}</ion-label>
             <ion-datetime display-format="DD/MM/YYYY" picker-format="DD MMMM YYYY"
                           v-model="cleanup.date" ref="date" :readonly="true"
@@ -39,12 +40,6 @@
             <ion-label position="floating" class="publish-label">{{$t('pictures')}}</ion-label>
             <ion-row class="w-full mt-8 mb-2">
               <ion-col v-for="i of [0,1,2,3,4]" :key="i">
-                <upload-button :file="cleanup.pictures[i]" @click="cleanup.pictures[i] && openPreview(i)"
-                               @select="arrayChange(cleanup.pictures, $event)"></upload-button>
-              </ion-col>
-            </ion-row>
-            <ion-row class="w-full mb-2">
-              <ion-col v-for="i of [5,6,7,8,9]" :key="i">
                 <upload-button :file="cleanup.pictures[i]" @click="cleanup.pictures[i] && openPreview(i)"
                                @select="arrayChange(cleanup.pictures, $event)"></upload-button>
               </ion-col>
@@ -123,7 +118,8 @@
         currentAddress: this.cleanup.location?.address || this.address,
         searchPlaceholder: this.$t('search-place'),
         cancelText: this.$t('cancel'),
-        acceptText: this.$t('save')
+        acceptText: this.$t('save'),
+        pin: this.cleanup.done ? '/img/cleanup_pin.png' : '/img/alert_pin.png'
       }).then(({data}) => {
         if (data) {
           placesProvider.getAddress(data.selectedCoords)
@@ -141,7 +137,7 @@
         selected,
         removable: true
       }).then(({data}) => {
-        if (data?.index) {
+        if (data) {
           this.cleanup.pictures.splice(data.index, 1)
         }
       })

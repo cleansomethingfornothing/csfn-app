@@ -37,7 +37,6 @@
   import {Prop} from 'vue-property-decorator'
   import Coords from '@/types/Coords'
   import InputItem from '@/views/components/common/InputItem.vue'
-  import {locationModule} from '@/store/locationModule'
   import Map from '@/tools/Map'
   import SelectionList from '@/views/components/common/SelectionList.vue'
   import Location from '@/types/Location'
@@ -51,6 +50,9 @@
     components: {SelectionList, TextItem: InputItem}
   })
   export default class SelectLocation extends Vue {
+    @Prop(String)
+    pin: string
+
     @Prop(Object)
     currentCoords: Coords
 
@@ -76,7 +78,7 @@
 
     mounted() {
       setTimeout(() => {
-        this.map = new Map({element: 'map_canvas', origin: this.currentCoords, isInput: true})
+        this.map = new Map({element: 'map_canvas', origin: this.currentCoords, isInput: true, pin: this.pin})
         this.map.addMarker(this.currentCoords)
       })
     }

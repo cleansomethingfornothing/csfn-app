@@ -28,7 +28,7 @@ export class CleanupsProvider {
               weight: 2,
               location: new Location(
                 {
-                  city: 'Shkodër',
+                  city: 'San Lorenzo de El Escorial',
                   country: 'Albania',
                   countryCode: 'ES',
                   state: 'Shkodër'
@@ -38,7 +38,7 @@ export class CleanupsProvider {
                 }),
               date: moment([2020, 0, 29]).toDate(),
               done: true,
-              pictures: ['https://www.cleansomethingfornothing.com/imgBasuras/@gfcesar-68.png', 'https://www.cleansomethingfornothing.com/imgBasuras/@gfcesar-68.png', 'https://www.cleansomethingfornothing.com/imgBasuras/@gfcesar-68.png']
+              pictures: ['/img/placeholder.png', '/img/placeholder.png', '/img/placeholder.png']
             })
           ))
         , 1000)
@@ -61,7 +61,7 @@ export class CleanupsProvider {
           weight: 2,
           location: new Location(
             {
-              city: 'Shkodër',
+              city: 'San Lorenzo de El Escorial',
               country: 'Albania',
               countryCode: 'ES',
               state: 'Shkodër'
@@ -71,7 +71,7 @@ export class CleanupsProvider {
             }),
           date: moment([2020, 0, 29]).toDate(),
           done: true,
-          pictures: ['https://www.cleansomethingfornothing.com/imgBasuras/@gfcesar-68.png', 'https://www.cleansomethingfornothing.com/imgBasuras/@gfcesar-68.png', 'https://www.cleansomethingfornothing.com/imgBasuras/@gfcesar-68.png']
+          pictures: ['/img/placeholder.png', '/img/placeholder.png', '/img/placeholder.png']
         }), 1000)
     })
   }

@@ -1,34 +1,35 @@
 <template>
-  <ion-card color="white" class="block ion-activatable">
+  <ion-card color="white" class="block">
     <ion-card-header>
       <ion-card-subtitle class="text-center font-bold">
         {{title}}
       </ion-card-subtitle>
     </ion-card-header>
     <ion-card-content class="p-2 -mt-2 h-80">
-      <div class="text-center mb-6 px-2">
+      <div class="text-center mb-4 px-2">
         <p>{{message}}</p>
       </div>
       <ion-row class="h-80">
-        <ion-col class="h-85">
+        <ion-col class="h-85 ion-activatable ripple-parent rounded-full">
           <div @click="selected(false)" class="flex flex-col justify-center items-center h-full">
-            <div class="w-1/2 mb-4">
+            <div class="w-24 mb-4">
               <img alt="Icon cleanup not done" src="@/assets/img/alert.svg">
             </div>
-            <ion-label class="text-center"><b>{{buttonNotDone}}</b></ion-label>
+            <ion-label class="text-center"><b>{{alert}}</b></ion-label>
           </div>
+          <ion-ripple-effect></ion-ripple-effect>
         </ion-col>
-        <ion-col class="h-85">
+        <ion-col class="h-85 ion-activatable ripple-parent rounded-full">
           <div @click="selected(true)" class="flex flex-col justify-center items-center h-full">
-            <div class="w-1/2 mb-4">
+            <div class="w-24 mb-4">
               <img alt="Icon cleanup done" src="@/assets/img/cleanup.svg">
             </div>
-            <ion-label class="text-center"><b>{{buttonDone}}</b></ion-label>
+            <ion-label class="text-center"><b>{{cleanup}}</b></ion-label>
           </div>
+          <ion-ripple-effect></ion-ripple-effect>
         </ion-col>
       </ion-row>
     </ion-card-content>
-    <ion-ripple-effect></ion-ripple-effect>
   </ion-card>
 </template>
 <script lang="ts">
@@ -50,10 +51,10 @@
     message: string
 
     @Prop(String)
-    buttonDone: string
+    alert: string
 
     @Prop(String)
-    buttonNotDone: string
+    cleanup: string
 
     selected(done: boolean) {
       this.$ionic.modalController.dismiss(done)
@@ -63,7 +64,7 @@
 <style>
   ion-modal.cleanup-type-modal {
     --background: transparent;
-    --height: 50%;
+    --height: 300px;
     --box-shadow: none;
   }
 

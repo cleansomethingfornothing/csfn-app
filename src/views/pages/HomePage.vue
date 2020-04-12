@@ -117,7 +117,8 @@
         currentAddress: this.address,
         searchPlaceholder: this.$t('search-place'),
         cancelText: this.$t('cancel'),
-        acceptText: this.$t('save')
+        acceptText: this.$t('save'),
+        pin: '/img/user_pin.png'
       }).then(({data}) => {
         if (data) {
           locationModule.updateUserPosition(data.selectedCoords)
@@ -133,8 +134,8 @@
       ModalPresenter.present(this.$ionic, SelectCleanupType, {
         title: this.$t('publish-cleanup'),
         message: this.$t('cleanup-type-selection'),
-        buttonDone: this.$t('cleanup-type-selection-done'),
-        buttonNotDone: this.$t('cleanup-type-selection-not-done')
+        alert: this.$t('alert'),
+        cleanup: this.$t('cleanup')
       }, 'cleanup-type-modal', true).then(({data}) => {
         this.$router.push({path: '/publish', query: {done: data.toString()}})
       })

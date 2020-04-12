@@ -12,11 +12,13 @@ export default class Map {
   selected: Coords
   markers: any[] = []
   isInput: boolean
+  pin: string
 
-  constructor({element, origin, isInput, zoom}: { element: string, origin: Coords, isInput: boolean, zoom?: number }) {
+  constructor({element, origin, isInput, zoom, pin}: { element: string, origin: Coords, isInput: boolean, zoom?: number, pin: string }) {
     this.origin = origin
     this.selected = origin
     this.isInput = isInput
+    this.pin = pin
     this.map = new google.maps.Map(document.getElementById(element), {
       center: origin,
       zoom: zoom || Map.zoom,
@@ -37,8 +39,7 @@ export default class Map {
   public addMarker(position: Coords) {
     const marker = new google.maps.Marker({
       position,
-      animation: google.maps.Animation.DROP,
-      icon: '/img/pin.png',
+      icon: this.pin,
       map: this.map,
     })
 

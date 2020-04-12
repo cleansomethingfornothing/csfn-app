@@ -23,9 +23,12 @@
     @Prop(Object)
     origin: Coords
 
+    @Prop(String)
+    pin: string
+
     mounted(): void {
       setTimeout(() => {
-        const map = new Map({element: 'modal-map', isInput: false, origin: this.origin})
+        const map = new Map({element: 'modal-map', isInput: false, origin: this.origin, pin: this.pin})
         map.addMarker(this.origin)
       })
     }

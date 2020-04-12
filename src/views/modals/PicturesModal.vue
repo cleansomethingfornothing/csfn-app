@@ -81,9 +81,12 @@
     }
 
     remove() {
-      this.$ionic.modalController.dismiss({
-        index: this.slider ? this.slider.getActiveIndex() : 0
-      })
+      (this.slider ? this.slider.getActiveIndex() : Promise.resolve(0))
+        .then((index) => {
+          this.$ionic.modalController.dismiss({
+            index
+          })
+        })
     }
 
     close() {
