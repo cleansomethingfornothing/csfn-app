@@ -37,7 +37,6 @@
   import Vue from 'vue'
   import Component from 'vue-class-component'
   import {Prop, Ref} from 'vue-property-decorator'
-  import {nativeProvider} from '@/providers/native/native.provider'
 
   @Component({
     name: 'image-preview'
@@ -63,10 +62,6 @@
       return this.picturesAreBlobs ? (this.pictures as Blob[]).map(p => URL.createObjectURL(p)) : this.pictures
     }
 
-    created() {
-      nativeProvider.setStatusBarColor('#000000')
-    }
-
     mounted() {
       if (this.pictures.length > 1) {
         setTimeout(() => {
@@ -74,10 +69,6 @@
           this.slider.slideTo(this.selected)
         }, 100)
       }
-    }
-
-    beforeDestroy(): void {
-      nativeProvider.setStatusBarColor('#FFFFFF')
     }
 
     remove() {

@@ -72,7 +72,6 @@
       authModule.doCredentialsLogin(this.userLogin)
         .then(() => {
           this.$router.push('/')
-          nativeProvider.setStatusBarColor('#FFFFFF')
         })
         .catch(error => {
           if (error instanceof FormError) {

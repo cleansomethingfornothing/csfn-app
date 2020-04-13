@@ -31,7 +31,7 @@
 
     logout() {
       authModule.doLogout()
-        .then(() => this.$router.replace('/login'))
+        .then(() => this.$router.push('/login'))
     }
 
   }

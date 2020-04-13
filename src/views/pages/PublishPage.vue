@@ -95,6 +95,9 @@
 
     mounted(): void {
       this.$set(this.cleanup, 'done', this.$route.query['done'] == 'true')
+      if (this.cleanup) {
+        this.cleanup.date = new Date()
+      }
     }
 
     publish() {

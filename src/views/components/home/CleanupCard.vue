@@ -4,7 +4,9 @@
       <img :src="cleanup.pictures[0]">
     </div>
     <ion-card-content>
-      <ion-label class="text-lg font-bold">{{$t('cleanup-in')}} {{cleanup.location.address.city}}</ion-label>
+      <ion-label class="text-lg font-bold">{{$t(cleanup.done ? 'cleanup-in' : 'alert-in')}}
+        {{cleanup.location.address.city}}
+      </ion-label>
       <br>
       <ion-label color="medium" class="text-xs font-bold">{{formattedDate.toUpperCase()}}</ion-label>
       <div class="cleanup-card__description mt-1">

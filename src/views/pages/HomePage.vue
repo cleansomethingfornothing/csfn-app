@@ -41,6 +41,7 @@
   import {Ref} from 'vue-property-decorator'
   import Cleanup from '@/types/Cleanup'
   import {userModule} from '@/store/userModule'
+  import FiltersModal from '@/views/modals/FiltersModal.vue'
 
   @Component({
     name: 'HomePage.vue',
@@ -105,6 +106,7 @@
           this.openLocationSelection()
           break
         case 'filters':
+          this.openFilters()
           break
         case 'map':
           break
@@ -122,6 +124,21 @@
       }).then(({data}) => {
         if (data) {
           locationModule.updateUserPosition(data.selectedCoords)
+          this.fetch()
+        }
+      })
+    }
+
+    openFilters() {
+      ModalPresenter.present(this.$ionic, FiltersModal, {
+        titleText: this.$t('filter-results'),
+        alertsTitle: this.$t('alerts'),
+        alertsText: this.$t('show-alerts'),
+        distanceText: this.$t('distance'),
+        noLimitsText: this.$t('no-limits')
+      }).then(({data}) => {
+        if (data && data.changed) {
+          this.fetch()
         }
       })
     }
@@ -137,7 +154,9 @@
         alert: this.$t('alert'),
         cleanup: this.$t('cleanup')
       }, 'cleanup-type-modal', true).then(({data}) => {
-        this.$router.push({path: '/publish', query: {done: data.toString()}})
+        if (data) {
+          this.$router.push({path: '/publish', query: {done: data.toString()}})
+        }
       })
     }
   }

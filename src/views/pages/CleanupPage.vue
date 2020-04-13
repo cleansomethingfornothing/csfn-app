@@ -24,17 +24,20 @@
         <div class="ion-padding">
           <!-- Title -->
           <ion-skeleton-text v-if="!cleanup" animated style="width: 70%"></ion-skeleton-text>
-          <ion-label v-else class="text-xl font-bold">{{$t('cleanup-in')}} {{cleanup.location.address.city}}</ion-label>
-          <hr class="my-3">
+          <ion-label v-else class="text-xl font-bold">{{$t(cleanup.done ? 'cleanup-in' : 'alert-in')}}
+            {{cleanup.location.address.city}}
+          </ion-label>
+          <hr class="my-3" v-if="!cleanup || cleanup.done">
 
           <!-- Weight -->
           <ion-skeleton-text v-if="!cleanup" animated style="width: 50%"></ion-skeleton-text>
-          <div v-else class="flex items-center">
+          <div v-if="cleanup && cleanup.done" class="flex items-center">
             <img src="@/assets/img/cleanup-done.svg" class="w-6 mr-2">
             <ion-label color="dark" class="text-md">{{$t('cleaned-weight', {param: cleanup.weight})}}
             </ion-label>
           </div>
-          <hr class="my-3">
+          <hr class="my-3" v-if="!cleanup || cleanup.done">
+          <div v-else class="mt-2"></div>
 
           <!-- Description -->
           <div v-if="!cleanup">
@@ -75,7 +78,7 @@
           </ion-item>
 
           <!-- Map -->
-          <div class="h-2/3 mt-1 rounded-md w-full map-wrapper overflow-hidden ripple-parent cursor-pointer"
+          <div class="h-2/3 mt-2 rounded-md w-full map-wrapper overflow-hidden ripple-parent cursor-pointer"
                @click="openMap">
             <img v-if="cleanup && width" class="absolute w-full h-full" :src="`https://maps.googleapis.com/maps/api/staticmap?key=${KEY}`
             + `&markers=color:0x9ed362|${cleanup.location.coords.lat},${cleanup.location.coords.lng}`

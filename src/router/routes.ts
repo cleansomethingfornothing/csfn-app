@@ -13,7 +13,8 @@ export default [
     name: 'LoginPage',
     component: LoginPage,
     meta: {
-      public: true
+      public: true,
+      statusBarColor: '#C6D7B3'
     }
   }, {
     public: true,
@@ -21,7 +22,8 @@ export default [
     name: 'RegisterPage',
     component: RegisterPage,
     meta: {
-      public: true
+      public: true,
+      statusBarColor: '#7c8578'
     }
   }, {
     public: true,
@@ -29,27 +31,43 @@ export default [
     name: 'ForgottenPasswordPage',
     component: ForgottenPasswordPage,
     meta: {
-      public: true
+      public: true,
+      statusBarColor: '#7c8578'
     }
   }, {
     path: '/',
     name: 'HomePage',
-    component: HomePage
+    component: HomePage,
+    meta: {
+      statusBarColor: '#FFFFFF'
+    }
   }, {
     path: '/user/:id',
     name: 'user',
-    component: UserPage
+    component: UserPage,
+    meta: {
+      statusBarColor: '#FFFFFF'
+    }
   }, {
     path: '/cleanup/:id',
     name: 'Cleanup',
-    component: CleanupPage
+    component: CleanupPage,
+    meta: {
+      statusBarColor: '#FFFFFF'
+    }
   }, {
     path: '/publish',
     name: 'Publish',
-    component: PublishPage
+    component: PublishPage,
+    meta: {
+      statusBarColor: '#FFFFFF'
+    }
   }, {
     path: '/settings',
     name: 'Settings',
-    component: SettingsPage
+    component: SettingsPage,
+    meta: {
+      statusBarColor: '#FFFFFF'
+    }
   }
 ]

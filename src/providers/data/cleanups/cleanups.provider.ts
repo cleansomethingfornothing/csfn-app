@@ -37,7 +37,7 @@ export class CleanupsProvider {
                   lng: -3.76832
                 }),
               date: moment([2020, 0, 29]).toDate(),
-              done: true,
+              done: false,
               pictures: ['/img/placeholder.png', '/img/placeholder.png', '/img/placeholder.png']
             })
           ))

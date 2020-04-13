@@ -6,6 +6,8 @@ export default {
     'cleanup': 'Cleanup',
     'cleanup-in': 'Cleanup in',
     'alert': 'Alert',
+    'alerts': 'Alerts',
+    'alert-in': 'Alert in',
     'write-description': 'Write a descrpition',
     'description': 'Description',
     'weight': 'Weight',
@@ -16,7 +18,10 @@ export default {
     'camera': 'Camera',
     'publish': 'Publish',
     'published': 'Published',
-    'published-on': 'Published on'
+    'published-on': 'Published on',
+    'show-alerts': 'Show only alerts',
+    'distance': 'Distance',
+    'no-limits': 'No limits'
   },
   es: {
     'publish-cleanup': 'Publicar limpieza',
@@ -25,6 +30,8 @@ export default {
     'cleanup': 'Limpieza',
     'cleanup-in': 'Limpieza en',
     'alert': 'Alerta',
+    'alerts': 'Alertas',
+    'alert-in': 'Alerta en',
     'write-description': 'Escribe una descripción',
     'description': 'Descripción',
     'weight': 'Peso',
@@ -35,6 +42,9 @@ export default {
     'camera': 'Cámara',
     'publish': 'Publicar',
     'published': 'Publicado',
-    'published-on': 'Publicado el'
+    'published-on': 'Publicado el',
+    'show-alerts': 'Mostrar solo las alertas',
+    'distance': 'Distancia',
+    'no-limits': 'Sin límites'
   }
 }

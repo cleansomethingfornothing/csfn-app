@@ -70,7 +70,6 @@ class AuthModule extends VuexModule {
     return dataProvider.user.fetchUser(username)
       .then((user) => userModule.setUser(user))
       .then(() => {
-        nativeProvider.setStatusBarColor('#FFFFFF')
         this.setLogged(true)
       })
   }
@@ -88,9 +87,8 @@ class AuthModule extends VuexModule {
 
   @Action
   loggedOut() {
-    storageProvider.remove(SESSION)
+    return storageProvider.remove(SESSION)
       .then(() => {
-        nativeProvider.setStatusBarColor('#7c8578')
         userModule.setUser(undefined)
         dataProvider.removeToken()
         this.setLogged(false)

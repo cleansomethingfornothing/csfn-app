@@ -1,9 +1,9 @@
 export default class CleanupFilters {
-  notDone: boolean
+  alerts: boolean
   distance: number
 
   constructor() {
-    this.notDone = false
-    this.distance = 50
+    this.alerts = false
+    this.distance = 30
   }
 }

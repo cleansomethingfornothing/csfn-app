@@ -1,8 +1,8 @@
 export default class ModalPresenter {
-  public static present(ionic, component, props, cssClass?, showBakdrop?) {
+  public static present(ionic, component, props?, cssClass?, hideBackdrop?) {
     return ionic.modalController
       .create({
-        showBackdrop: showBakdrop,
+        showBackdrop: !hideBackdrop,
         mode: 'ios',
         cssClass,
         component,
