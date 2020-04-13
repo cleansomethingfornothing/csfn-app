@@ -23,7 +23,7 @@
   }
 </script>
 <style>
-  .avatar-wrapper{
+  .avatar-wrapper {
     padding: 2px;
     width: 100%;
   }
@@ -50,7 +50,7 @@
     padding-bottom: 100%;
   }
 
-  .avatar.avatar-error{
+  .avatar.avatar-error {
     box-shadow: 0px 0px 0px 1px var(--ion-color-danger);
   }
 </style>

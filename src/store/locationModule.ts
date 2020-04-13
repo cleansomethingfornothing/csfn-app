@@ -38,7 +38,7 @@ class LocationModule extends VuexModule {
   }
 
   @Action
-  fetchCurrentPosition(): Promise<void> {
+  initialize(): Promise<void> {
     return locationProvider.getCurrentCoords()
       .then((currentCoords) => this.setUserCoords(currentCoords))
       .then(() => storageProvider.get(LAST_ADDRESS))

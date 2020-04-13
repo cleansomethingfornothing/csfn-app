@@ -12,7 +12,8 @@
       <div class="cleanup-card__description mt-1">
         {{cleanup.description}}
       </div>
-      <ion-chip class="-ml-1 mt-2" color="dark" @click="$router.push('/user/' + cleanup.user.username)">
+      <ion-chip class="-ml-1 mt-2" color="dark"
+                @click="$router.push({name: 'User', params:{ id: cleanup.user.username}})">
         <ion-avatar>
           <img :src="cleanup.user.picture">
         </ion-avatar>
@@ -32,7 +33,7 @@
   @Component({
     name: 'cleanup-card'
   })
-  export default class CleanupCard extends Vue {
+  export default class HomeCleanupCard extends Vue {
 
     @Prop(Object)
     cleanup: Cleanup

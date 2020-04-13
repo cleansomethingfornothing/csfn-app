@@ -78,8 +78,8 @@
 
     mounted() {
       setTimeout(() => {
-        this.map = new Map({element: 'map_canvas', origin: this.currentCoords, isInput: true, pin: this.pin})
-        this.map.addMarker(this.currentCoords)
+        this.map = new Map({element: 'map_canvas', origin: this.currentCoords, isInput: true})
+        this.map.addMarker(this.currentCoords, this.pin)
       })
     }
 

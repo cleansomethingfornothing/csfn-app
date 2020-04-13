@@ -19,7 +19,7 @@
       <ion-label class="font-bold text-sm ml-4">{{distanceText}}</ion-label>
       <ion-item>
         <ion-range min="0" max="6" color="primary" step="1" @ionChange="distanceChange($event.target.value)"
-                   :snaps="true" :ticks="true" :value="distance" mode="ios" class="pl-1">
+                   :snaps="true" :ticks="true" :value="distance" mode="ios" class="pl-4">
         </ion-range>
         <ion-label class="ml-2">{{filters.distance ? filters.distance + ' Km' : noLimitsText}}</ion-label>
       </ion-item>
@@ -74,7 +74,7 @@
     }
 
     distanceChange(step) {
-      cleanupsModule.setFilters({...this.filters, distance: this.distances[step]})
+      cleanupsModule.setFiltersDistance(this.distances[step])
     }
 
     close() {

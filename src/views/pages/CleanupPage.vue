@@ -81,8 +81,8 @@
           <div class="h-2/3 mt-2 rounded-md w-full map-wrapper overflow-hidden ripple-parent cursor-pointer"
                @click="openMap">
             <img v-if="cleanup && width" class="absolute w-full h-full" :src="`https://maps.googleapis.com/maps/api/staticmap?key=${KEY}`
-            + `&markers=color:0x9ed362|${cleanup.location.coords.lat},${cleanup.location.coords.lng}`
-            + `&zoom=13&size=${width}x${Math.ceil(width * 2 / 3)}`">
+            + `&markers=color:0x${cleanup.done ? '9ed362': 'd32f2f'}|${cleanup.location.coords.lat},${cleanup.location.coords.lng}`
+            + `&zoom=10&size=${width}x${Math.ceil(width * 2 / 3)}`">
             <ion-ripple-effect></ion-ripple-effect>
           </div>
 

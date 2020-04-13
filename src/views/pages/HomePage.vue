@@ -1,23 +1,23 @@
 <template>
   <ion-page class="ion-page" color="lighter">
     <home-header :user="user" :hide-top-toolbar="hideTopToolbar" :address="address"
-                 @click="homeButtonClicked"></home-header>
+                 @click="homeButtonClicked" :show-map="showMap"></home-header>
     <ion-content class="ion-content home-content" color="lighter"
                  :scroll-events="true" @ionScroll="onScroll">
-      <ion-refresher v-if="cleanups" slot="fixed" @ionRefresh="refresh">
+
+      <ion-refresher v-if="cleanups && showMap === false" slot="fixed" @ionRefresh="refresh">
         <ion-refresher-content>
         </ion-refresher-content>
       </ion-refresher>
-      <div class="lg:w-2/3 xl:w-1/2 m-auto pb-4 cards min-h-screen flex flex-col justify-between">
-        <placeholder-card v-if="!Object.keys(cleanups).length"></placeholder-card>
 
-        <cleanup-card v-else v-for="cleanup in cleanups" :key="cleanup.id" :cleanup="cleanup"
-                      @click="openCleanup(cleanup.id)"></cleanup-card>
+      <transition name="fade">
+        <home-cleanups-list v-if="showMap === false" :cleanups="cleanups" @refresh="refresh"
+                            @click="openCleanup"></home-cleanups-list>
 
-        <ion-label size="small" color="medium" class="title ml-4">© Clean something for nothing {{new
-          Date().getFullYear()}}
-        </ion-label>
-      </div>
+        <home-cleanups-map v-else-if="coords" :cleanups="cleanups" :origin="coords"
+                           @click="openCleanup"></home-cleanups-map>
+      </transition>
+
       <ion-fab vertical="bottom" horizontal="end" slot="fixed">
         <ion-fab-button color="white" @click="publish">
           <ion-icon name="add" color="primary"></ion-icon>
@@ -31,29 +31,37 @@
   import Vue from 'vue'
   import Component from 'vue-class-component'
   import HomeHeader from '@/views/components/home/HomeHeader.vue'
-  import CleanupCard from '@/views/components/home/CleanupCard.vue'
+  import HomeCleanupCard from '@/views/components/home/HomeCleanupCard.vue'
   import {locationModule} from '@/store/locationModule'
   import SelectLocation from '@/views/modals/LocationModal.vue'
   import ModalPresenter from '@/tools/ModalPresenter'
   import SelectCleanupType from '@/views/modals/CleanupTypeModal.vue'
   import {cleanupsModule} from '@/store/cleanupsModule'
-  import PlaceholderCard from '@/views/components/home/PlaceholderCard.vue'
-  import {Ref} from 'vue-property-decorator'
+  import HomePlaceholderCard from '@/views/components/home/HomePlaceholderCard.vue'
   import Cleanup from '@/types/Cleanup'
   import {userModule} from '@/store/userModule'
   import FiltersModal from '@/views/modals/FiltersModal.vue'
+  import HomeCleanupsList from '@/views/components/home/HomeCleanupsList.vue'
+  import HomeCleanupsMap from '@/views/components/home/HomeCleanupsMap.vue'
+  import {Watch} from 'vue-property-decorator'
 
   @Component({
     name: 'HomePage.vue',
-    components: {PlaceholderCard, CleanupCard, HomeHeader}
+    components: {
+      HomeCleanupsMap,
+      HomeCleanupsList,
+      PlaceholderCard: HomePlaceholderCard,
+      CleanupCard: HomeCleanupCard,
+      HomeHeader
+    }
   })
   export default class HomePage extends Vue {
 
     public hideTopToolbar = false
+
     private lastScroll = 0
 
-    @Ref('refresher')
-    refresher: any
+    showMap: boolean = null
 
     get user() {
       return userModule.getCurrentUser
@@ -71,9 +79,25 @@
       return cleanupsModule.getCleanups
     }
 
-    mounted() {
-      cleanupsModule.setCleanups([])
-      this.fetch()
+    @Watch('coords')
+    coordsChanged(coords) {
+      if (coords) {
+        this.fetch()
+      }
+    }
+
+    @Watch('$route')
+    routeChange(to, from) {
+      console.log('---')
+      this.showMap = !!(to.query.view && to.query.view == 'map')
+    }
+
+    mounted(): void {
+      if (this.coords) {
+        this.fetch()
+      }
+
+      this.showMap = !!(this.$route.query.view && this.$route.query.view == 'map')
     }
 
     fetch() {
@@ -85,6 +109,10 @@
         .then(() => {
           event.target.complete()
         })
+    }
+
+    openCleanup(id: string) {
+      this.$router.push({name: 'Cleanup', params: {id}})
     }
 
     public onScroll(event: CustomEvent): void {
@@ -109,6 +137,7 @@
           this.openFilters()
           break
         case 'map':
+          this.toggleMap()
           break
       }
     }
@@ -143,8 +172,8 @@
       })
     }
 
-    openCleanup(id: string) {
-      this.$router.push({name: 'Cleanup', params: {id}})
+    toggleMap() {
+      this.$router.push({path: '/', query: {view: this.showMap ? 'list' : 'map'}})
     }
 
     publish() {
@@ -153,7 +182,7 @@
         message: this.$t('cleanup-type-selection'),
         alert: this.$t('alert'),
         cleanup: this.$t('cleanup')
-      }, 'cleanup-type-modal', true).then(({data}) => {
+      }, 'cleanup-type-modal').then(({data}) => {
         if (data) {
           this.$router.push({path: '/publish', query: {done: data.toString()}})
         }
@@ -161,9 +190,3 @@
     }
   }
 </script>
-<style>
-  ion-refresher ion-refresher-content {
-    background-color: var(--ion-color-lighter);
-    --color: var(--ion-color-primary) !important;
-  }
-</style>

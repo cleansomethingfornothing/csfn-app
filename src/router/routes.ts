@@ -43,7 +43,7 @@ export default [
     }
   }, {
     path: '/user/:id',
-    name: 'user',
+    name: 'User',
     component: UserPage,
     meta: {
       statusBarColor: '#FFFFFF'

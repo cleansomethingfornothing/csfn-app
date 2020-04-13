@@ -7,7 +7,7 @@ export default class Cropper {
 
   image: HTMLImageElement
 
-  static SIDE = 512
+  static SIDE = 400
 
   public static crop(image: Blob): Promise<Blob> {
     return new Cropper(image).crop()

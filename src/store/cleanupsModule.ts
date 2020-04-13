@@ -4,6 +4,9 @@ import CleanupFilters from '@/types/CleanupFilters'
 import {store} from '@/store/index'
 import Validator from '@/tools/Validator'
 import {dataProvider} from '@/providers/data/data.provider'
+import {storageProvider} from '@/providers/storage/storage.provider'
+
+const FILTERS_DISTANCE = 'CSFN_FILTERS_DISTANCE'
 
 @Module
 class CleanupsModule extends VuexModule {
@@ -41,6 +44,24 @@ class CleanupsModule extends VuexModule {
   @Mutation
   setFilters(filters: CleanupFilters) {
     this.filters = filters
+  }
+
+  @Action
+  initialize() {
+    return storageProvider.get(FILTERS_DISTANCE)
+      .then((distance) => {
+        if (distance !== undefined) {
+          this.setFiltersDistance(distance)
+        }
+      })
+  }
+
+  @Action
+  setFiltersDistance(distance) {
+    storageProvider.set(FILTERS_DISTANCE, distance)
+      .then(() => {
+        this.setFilters({...this.filters, distance})
+      })
   }
 
   @Action

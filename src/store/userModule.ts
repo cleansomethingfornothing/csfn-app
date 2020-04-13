@@ -1,5 +1,5 @@
 import User from '@/types/User'
-import {Action, Module, Mutation, VuexModule} from 'vuex-class-modules'
+import {Module, Mutation, VuexModule} from 'vuex-class-modules'
 import {store} from '@/store/index'
 
 @Module

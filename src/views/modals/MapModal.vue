@@ -28,8 +28,8 @@
 
     mounted(): void {
       setTimeout(() => {
-        const map = new Map({element: 'modal-map', isInput: false, origin: this.origin, pin: this.pin})
-        map.addMarker(this.origin)
+        const map = new Map({element: 'modal-map', isInput: false, origin: this.origin})
+        map.addMarker(this.origin, this.pin)
       })
     }
 

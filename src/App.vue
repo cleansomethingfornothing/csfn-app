@@ -13,20 +13,26 @@
   import {userModule} from '@/store/userModule'
   import {authModule} from '@/store/authModule'
   import {nativeProvider} from '@/providers/native/native.provider'
-  import {locationModule} from '@/store/locationModule'
+  import {appModule} from '@/store/appModule'
 
   @Component({
     components: {AppMenu}
   })
   export default class Main extends Vue {
 
+    get initialized() {
+      return appModule.isInitialized
+    }
+
     get user() {
       return userModule.getCurrentUser
     }
 
     mounted() {
-      nativeProvider.hideSplashScreen()
-      locationModule.fetchCurrentPosition()
+      appModule.initialize()
+        .then(() => {
+          nativeProvider.hideSplashScreen()
+        })
     }
 
     logout() {

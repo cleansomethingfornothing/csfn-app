@@ -51,7 +51,6 @@
   import ErrorMessage from '@/tools/ErrorMessage'
   import ToastPresenter from '@/tools/ToastPresenter'
   import FormError from '@/types/errors/FormError'
-  import {nativeProvider} from '@/providers/native/native.provider'
 
   @Component({
     name: 'login',

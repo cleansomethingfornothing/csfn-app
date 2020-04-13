@@ -21,7 +21,7 @@
   @Component({
     name: 'placeholder-card'
   })
-  export default class PlaceholderCard extends Vue {
+  export default class HomePlaceholderCard extends Vue {
 
   }
 </script>

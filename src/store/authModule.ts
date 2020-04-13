@@ -6,18 +6,20 @@ import {userModule} from '@/store/userModule'
 import Validator from '@/tools/Validator'
 import {storageProvider} from '@/providers/storage/storage.provider'
 import {dataProvider} from '@/providers/data/data.provider'
-import {nativeProvider} from '@/providers/native/native.provider'
 
 const SESSION = 'CSFN_SESSION'
 
 @Module
 class AuthModule extends VuexModule {
 
-  initialized = false
   logged = false
 
   constructor() {
     super({store, name: 'auth'})
+  }
+
+  get isLogged() {
+    return this.logged
   }
 
   @Mutation
@@ -25,22 +27,8 @@ class AuthModule extends VuexModule {
     this.logged = logged
   }
 
-  @Mutation
-  setInitialized(): void {
-    this.initialized = true
-  }
-
-  @Action
-  async isLogged(): Promise<boolean> {
-    if (!this.initialized) {
-      await this.initialize()
-    }
-    return this.logged
-  }
-
   @Action
   initialize(): Promise<void> {
-    this.setInitialized()
     return storageProvider.get(SESSION)
       .then((session) => this.loggedIn(session))
       .catch(() => this.loggedOut())

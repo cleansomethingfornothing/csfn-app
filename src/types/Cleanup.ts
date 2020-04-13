@@ -1,4 +1,4 @@
-import {ArrayNotEmpty, IsNotEmpty, ValidateIf} from 'class-validator'
+import {ArrayMinSize, IsNotEmpty, ValidateIf} from 'class-validator'
 import Location from '@/types/Location'
 import User from '@/types/User'
 
@@ -24,7 +24,7 @@ export default class Cleanup {
   @IsNotEmpty({message: 'required-error'})
   done: boolean
 
-  @ArrayNotEmpty({message: 'select-some-picture'})
+  @ArrayMinSize(2, {message: 'select-some-picture'})
   pictures: string[] | Blob[] = []
 
 }

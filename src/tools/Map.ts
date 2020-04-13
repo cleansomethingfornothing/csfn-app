@@ -8,17 +8,17 @@ export default class Map {
   static zoom = 15
 
   map: any
+  zoom: number
   origin: Coords
   selected: Coords
   markers: any[] = []
   isInput: boolean
-  pin: string
 
-  constructor({element, origin, isInput, zoom, pin}: { element: string, origin: Coords, isInput: boolean, zoom?: number, pin: string }) {
+  constructor({element, origin, isInput, zoom, onTouch, onReady}: { element: string, origin: Coords, isInput: boolean, zoom?: number, onTouch?: Function, onReady?: Function }) {
     this.origin = origin
     this.selected = origin
     this.isInput = isInput
-    this.pin = pin
+    this.zoom = zoom
     this.map = new google.maps.Map(document.getElementById(element), {
       center: origin,
       zoom: zoom || Map.zoom,
@@ -31,19 +31,39 @@ export default class Map {
 
     this.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(centerControlDiv);
 
+    if(onReady){
+      this.map.addListener('ready', onReady)
+    }
+
+    if (onTouch) {
+      this.map.addListener('click', onTouch)
+      this.map.addListener('dragend', onTouch)
+      this.map.addListener('zoom_changed', onTouch)
+      this.map.addListener('tilt_changed', onTouch)
+    }
+
     if (isInput) {
       this.map.addListener('click', this.mapClicked.bind(this))
     }
   }
 
-  public addMarker(position: Coords) {
+  public addMarker(position: Coords, pin: string, onClick?: Function) {
     const marker = new google.maps.Marker({
       position,
-      icon: this.pin,
+      icon: pin,
       map: this.map,
     })
 
+    if (onClick) {
+      marker.addListener('click', onClick)
+    }
+
     this.markers.push(marker)
+  }
+
+  removeMarkers() {
+    this.markers.forEach((marker) => marker.setMap(null))
+    this.markers = []
   }
 
   public getSelectedPosition(): Coords {
@@ -55,24 +75,32 @@ export default class Map {
   }
 
   private myLocationClicked() {
-    locationProvider.getCurrentCoords()
-      .then((coords) => {
-        if (this.isInput) {
+    if (this.isInput) {
+      locationProvider.getCurrentCoords()
+        .then((coords) => {
           this.positionSelected(coords)
-        }
-        this.moveCamera(coords)
-      })
+          this.moveCamera(coords)
+        })
+    } else {
+      this.moveCamera(this.origin)
+    }
   }
 
   public positionSelected(position: Coords) {
+    const pin = this.markers[0].icon
     this.selected = position
     this.markers.splice(0, 1)[0].setMap(null)
-    this.addMarker(position)
+    this.addMarker(position, pin)
   }
 
   public moveCamera(position) {
     this.map.panTo(position)
-    this.map.setZoom(Map.zoom)
+    this.map.setZoom(this.zoom || Map.zoom)
+  }
+
+  public setOrigin(origin) {
+    this.origin = origin
+    this.moveCamera(origin)
   }
 
   static CenterControl(controlDiv, map, origin, clicked) {

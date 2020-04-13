@@ -18,7 +18,7 @@
           <div
             class="mr-2 mt-1 sm:mt-0 ion-activatable ripple-parent w-8 h-8 rounded-full overflow-hidden flex justify-center items-center cursor-pointer">
             <img alt="Profile picture" :src="user.picture" class="w-full h-full object-cover object-center"
-                 @click="$router.push('/user/' + user.username)">
+                 @click="$router.push({name: 'User', params:{ id: user.username}})">
             <ion-ripple-effect></ion-ripple-effect>
           </div>
         </ion-buttons>
@@ -44,7 +44,10 @@
           </div>
           <div class="home-bubble">
             <home-header-button :icon-only="true" @click="click('map')">
-              <ion-icon name="map"></ion-icon>
+              <transition name="fade">
+                <ion-icon v-if="!showMap" name="map"></ion-icon>
+                <ion-icon v-else name="list"></ion-icon>
+              </transition>
             </home-header-button>
           </div>
         </div>
@@ -73,6 +76,9 @@
 
     @Prop(Object)
     user: User
+
+    @Prop(Boolean)
+    showMap: boolean
 
     @Emit('click')
     click(modal) {

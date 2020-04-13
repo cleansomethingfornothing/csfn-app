@@ -7,7 +7,7 @@ import {store} from '@/store'
 import {router} from '@/router'
 import {i18n} from '@/i18n'
 import './assets/style/tailwind.css'
-import {AppRestoredResult, Plugins} from '@capacitor/core'
+import {Plugins} from '@capacitor/core'
 
 const {App, SplashScreen, StatusBar, Device} = Plugins;
 

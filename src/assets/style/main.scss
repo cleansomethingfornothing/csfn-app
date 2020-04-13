@@ -123,6 +123,16 @@ ion-skeleton-text {
   padding-top: 66%;
 }
 
+.h-1\/2 {
+  position: relative;
+}
+
+.h-1\/2:after {
+  display: block;
+  content: '';
+  padding-top: 33%;
+}
+
 ion-content.fullscreen {
   top: -44px;
   min-height: 100vh !important;
@@ -131,6 +141,23 @@ ion-content.fullscreen {
 ion-slides {
   --bullet-background: #fff !important;
   --bullet-background-active: var(--ion-color-light) !important;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .3s;
+}
+
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
+
+.fade-up-enter-active, .fade-up-leave-active {
+  transition: opacity .3s, bottom .3s;
+}
+
+.fade-up-enter, .fade-up-leave-to {
+  opacity: 0;
+  bottom: -100px !important;
 }
 
 @media screen and (min-width: 700px) {
