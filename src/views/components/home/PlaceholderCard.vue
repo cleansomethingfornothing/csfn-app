@@ -9,7 +9,7 @@
         <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
         <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
       </div>
-      <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
     </ion-card-content>
     <ion-ripple-effect></ion-ripple-effect>
   </ion-card>
@@ -21,7 +21,7 @@
   @Component({
     name: 'placeholder-card'
   })
-  export default class HomePlaceholderCard extends Vue {
+  export default class PlaceholderCard extends Vue {
 
   }
 </script>

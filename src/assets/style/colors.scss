@@ -123,6 +123,10 @@
   --ion-color-tint: var(--ion-color-lighter-tint);
 }
 
+.background-light {
+  background: var(--ion-color-light);
+}
+
 .md, .ios {
   --ion-text-color: rgba(0, 0, 0, 0.87);
   --ion-text-color-ligth: rgba(0, 0, 0, 0.79);

@@ -6,6 +6,10 @@ export default {
     'password': 'Password',
     'passwordConfirmation': 'Repeat password',
     'picture': 'Picture',
+    'seed': 'Seed',
+    'sprout': 'Sprout',
+    'bush': 'Bush',
+    'tree': 'Tree'
   },
   es: {
     'continue-with': 'Continuar con {param}',
@@ -15,5 +19,9 @@ export default {
     'password': 'Contraseña',
     'passwordConfirmation': 'Repetir contraseña',
     'picture': 'Foto',
+    'seed': 'Semilla',
+    'sprout': 'Brote',
+    'bush': 'Arbusto',
+    'tree': 'Árbol'
   }
 }

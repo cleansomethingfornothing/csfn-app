@@ -9,10 +9,11 @@
     </transition>
     <div id="home-map" class="w-full h-full"></div>
     <transition name="fade-up">
-      <div class="absolute bottom-0 w-full flex justify-center md:justify-start" v-if="selectedCleanup"
+      <div class="absolute bottom-0 w-full flex justify-center md:justify-start lg:w-1/2 xl:w-1/3"
+           v-if="selectedCleanup"
            style="z-index: 1000">
-        <div class="w-full lg:w-1/2 xl:w-1/3 z-50">
-          <home-map-cleanup-card :cleanup="selectedCleanup" @click="click"></home-map-cleanup-card>
+        <div class="w-full z-50">
+          <map-cleanup-card :cleanup="selectedCleanup" @click="click"></map-cleanup-card>
         </div>
       </div>
     </transition>
@@ -25,13 +26,13 @@
   import {Emit, Prop, Watch} from 'vue-property-decorator'
   import Cleanup from '@/types/Cleanup'
   import Coords from '@/types/Coords'
-  import HomeMapCleanupCard from '@/views/components/home/HomeMapCleanupCard.vue'
+  import MapCleanupCard from '@/views/components/home/MapCleanupCard.vue'
 
   @Component({
-    name: "HomeCleanupsMap",
-    components: {HomeMapCleanupCard}
+    name: "cleanups-map",
+    components: {MapCleanupCard}
   })
-  export default class HomeCleanupsMap extends Vue {
+  export default class CleanupsMap extends Vue {
 
     map: Map = null
 
@@ -44,11 +45,11 @@
     origin: Coords
 
     @Watch('origin')
-    originChange() {
+    originChange(origin) {
       if (!this.map) {
         this.init()
       } else {
-        this.map.setOrigin(this.origin)
+        this.map.setOrigin(origin)
       }
     }
 
@@ -58,7 +59,8 @@
     }
 
     @Watch('cleanups')
-    cleanupChanged(cleanups: { [id: string]: Cleanup }) {
+    cleanupsChanged(cleanups: { [id: string]: Cleanup }) {
+      if(!cleanups) return
       this.map.removeMarkers()
       for (const cleanup of Object.values(cleanups)) {
         this.map.addMarker(cleanup.location.coords,
@@ -87,7 +89,7 @@
         zoom: 10,
         onTouch: () => this.selectedCleanup = undefined
       })
-      this.cleanupChanged(this.cleanups)
+      this.cleanupsChanged(this.cleanups)
     }
 
     openCleanup(id: string) {

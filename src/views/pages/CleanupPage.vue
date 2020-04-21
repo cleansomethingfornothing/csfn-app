@@ -1,6 +1,6 @@
 <template>
   <ion-page class="ion-page cleanup-page">
-    <transparent-header :scrolled="scrolled" :lg-opaque="true">
+    <transparent-header :scrolled="scrolled">
       <template slot="end-buttons">
         <ion-button shape="round" fill="clear" :color="scrolled ? 'dark' : 'white'"
                     v-if="cleanup && cleanup.user.username === currentUser.username">

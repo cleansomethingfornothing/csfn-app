@@ -1,19 +1,23 @@
 export default class Cropper {
 
+  static SIDE = 128
+
   canvas: HTMLCanvasElement
+
   context: CanvasRenderingContext2D
 
   imageBlob: Blob
 
   image: HTMLImageElement
 
-  static SIDE = 400
+  reduce: boolean
 
-  public static crop(image: Blob): Promise<Blob> {
-    return new Cropper(image).crop()
+  public static cropSquare(image: Blob, reduce?: boolean): Promise<Blob> {
+    return new Cropper(image, reduce).crop()
   }
 
-  private constructor(image: Blob) {
+  private constructor(image: Blob, reduce?: boolean) {
+    this.reduce = reduce
     this.imageBlob = image
   }
 
@@ -50,7 +54,7 @@ export default class Cropper {
   private processHorizontalImage(width, height) {
     const size = height
     const offset = (width - height) / 2
-    const finalSize = size > Cropper.SIDE ? Cropper.SIDE : size
+    const finalSize = (this.reduce && size > Cropper.SIDE) ? Cropper.SIDE : size
     this.initCanvas(finalSize)
     this.context.drawImage(this.image, offset, 0, size, size, 0, 0, finalSize, finalSize)
   }
@@ -58,7 +62,7 @@ export default class Cropper {
   private processVerticalImage(width, height) {
     const size = width
     const offset = (height - width) / 2
-    const finalSize = size > Cropper.SIDE ? Cropper.SIDE : size
+    const finalSize = (this.reduce && size > Cropper.SIDE) ? Cropper.SIDE : size
     this.initCanvas(finalSize)
     this.context.drawImage(this.image, 0, offset, size, size, 0, 0, finalSize, finalSize)
   }

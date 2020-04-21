@@ -1,5 +1,6 @@
 <template>
-  <div class="transparent-header" :class="(scrolled ? 'scrolled' : '') + ' ' + (lgOpaque ? 'lg-opaque' : '')">
+  <div class="transparent-header"
+       :class="(alwaysTransparent ? 'always-transparent' : '') + ' '+ (scrolled ? 'scrolled' : '')">
     <ion-header mode="ios">
       <ion-toolbar mode="ios">
         <ion-buttons slot="start">
@@ -32,7 +33,7 @@
     title: string
 
     @Prop(Boolean)
-    lgOpaque: boolean
+    alwaysTransparent: boolean
   }
 </script>
 <style>
@@ -46,6 +47,10 @@
     --box-shadow: none !important;
   }
 
+  .transparent-header.always-transparent ion-toolbar {
+    --background: transparent !important;
+  }
+
   .transparent-header * {
     transition: all 0.5s;
   }
@@ -57,13 +62,13 @@
   }
 
   @media (min-width: 600px) {
-    .transparent-header.lg-opaque ion-toolbar {
+    .transparent-header:not(.always-transparent) ion-toolbar {
       --background: #fff !important;
       --border-width: 0 0 0.55px 0 !important;
       box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
     }
 
-    .transparent-header.lg-opaque ion-toolbar * {
+    .transparent-header:not(.always-transparent) ion-toolbar * {
       color: var(--ion-color-dark);
     }
   }

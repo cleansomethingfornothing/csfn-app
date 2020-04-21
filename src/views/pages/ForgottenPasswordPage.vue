@@ -1,6 +1,6 @@
 <template>
   <ion-page class="ion-page register-page">
-    <transparent-header :title="$t('recover-password')"></transparent-header>
+    <transparent-header :title="$t('recover-password')" :always-transparent="true"></transparent-header>
     <ion-content class="fullscreen h-screen">
       <forest-bg clazz="login-bg-image"></forest-bg>
       <div class="flex flex-col justify-between items-center w-full h-full">

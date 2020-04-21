@@ -12,7 +12,7 @@
 
       <transition name="fade">
         <home-cleanups-list v-if="showMap === false" :cleanups="cleanups" @refresh="refresh"
-                            @click="openCleanup"></home-cleanups-list>
+                            @click="openCleanup" :coords="coords"></home-cleanups-list>
 
         <home-cleanups-map v-else-if="coords" :cleanups="cleanups" :origin="coords"
                            @click="openCleanup"></home-cleanups-map>
@@ -31,27 +31,27 @@
   import Vue from 'vue'
   import Component from 'vue-class-component'
   import HomeHeader from '@/views/components/home/HomeHeader.vue'
-  import HomeCleanupCard from '@/views/components/home/HomeCleanupCard.vue'
+  import CleanupCard from '@/views/components/home/CleanupCard.vue'
   import {locationModule} from '@/store/locationModule'
   import SelectLocation from '@/views/modals/LocationModal.vue'
   import ModalPresenter from '@/tools/ModalPresenter'
   import SelectCleanupType from '@/views/modals/CleanupTypeModal.vue'
   import {cleanupsModule} from '@/store/cleanupsModule'
-  import HomePlaceholderCard from '@/views/components/home/HomePlaceholderCard.vue'
+  import PlaceholderCard from '@/views/components/home/PlaceholderCard.vue'
   import Cleanup from '@/types/Cleanup'
   import {userModule} from '@/store/userModule'
   import FiltersModal from '@/views/modals/FiltersModal.vue'
-  import HomeCleanupsList from '@/views/components/home/HomeCleanupsList.vue'
-  import HomeCleanupsMap from '@/views/components/home/HomeCleanupsMap.vue'
+  import HomeCleanupsList from '@/views/components/home/CleanupsList.vue'
+  import CleanupsMap from '@/views/components/home/CleanupsMap.vue'
   import {Watch} from 'vue-property-decorator'
 
   @Component({
     name: 'HomePage.vue',
     components: {
-      HomeCleanupsMap,
+      HomeCleanupsMap: CleanupsMap,
       HomeCleanupsList,
-      PlaceholderCard: HomePlaceholderCard,
-      CleanupCard: HomeCleanupCard,
+      PlaceholderCard: PlaceholderCard,
+      CleanupCard: CleanupCard,
       HomeHeader
     }
   })
@@ -87,8 +87,7 @@
     }
 
     @Watch('$route')
-    routeChange(to, from) {
-      console.log('---')
+    routeChange(to) {
       this.showMap = !!(to.query.view && to.query.view == 'map')
     }
 

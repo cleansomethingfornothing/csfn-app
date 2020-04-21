@@ -8,17 +8,20 @@
         {{cleanup.location.address.city}}
       </ion-label>
       <br>
-      <ion-label color="medium" class="text-xs font-bold">{{formattedDate.toUpperCase()}}</ion-label>
-      <div class="cleanup-card__description mt-1">
+      <ion-label color="medium" class="text-xs font-bold">{{distance}} Km</ion-label>
+      <ion-text class="cleanup-card__description mt-1">
         {{cleanup.description}}
+      </ion-text>
+      <div class="flex justify-between items-baseline">
+        <ion-chip class="-ml-1 mt-2" color="dark"
+                  @click="$router.push({name: 'User', params:{ id: cleanup.user.username}})">
+          <ion-avatar>
+            <img :src="cleanup.user.picture">
+          </ion-avatar>
+          <ion-label class="mr-2">{{cleanup.user.username}}</ion-label>
+        </ion-chip>
+        <ion-label color="medium" class="text-xs font-bold">{{formattedDate}}</ion-label>
       </div>
-      <ion-chip class="-ml-1 mt-2" color="dark"
-                @click="$router.push({name: 'User', params:{ id: cleanup.user.username}})">
-        <ion-avatar>
-          <img :src="cleanup.user.picture">
-        </ion-avatar>
-        <ion-label class="mr-2">{{cleanup.user.username}}</ion-label>
-      </ion-chip>
     </ion-card-content>
     <ion-ripple-effect></ion-ripple-effect>
   </ion-card>
@@ -33,14 +36,21 @@
   @Component({
     name: 'cleanup-card'
   })
-  export default class HomeCleanupCard extends Vue {
+  export default class CleanupCard extends Vue {
 
     @Prop(Object)
     cleanup: Cleanup
 
+    @Prop(Number)
+    distance: number
+
     get formattedDate() {
-      return this.cleanup && moment(this.cleanup.date).fromNow()
+      if (!this.cleanup)
+        return undefined
+      const s = moment(this.cleanup.date).fromNow()
+      return s.charAt(0).toUpperCase() + s.slice(1)
     }
+
 
     @Emit('click')
     click() {

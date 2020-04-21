@@ -23,7 +23,7 @@ export default [
     component: RegisterPage,
     meta: {
       public: true,
-      statusBarColor: '#7c8578'
+      statusBarColor: '#C6D7B3'
     }
   }, {
     public: true,
@@ -32,7 +32,7 @@ export default [
     component: ForgottenPasswordPage,
     meta: {
       public: true,
-      statusBarColor: '#7c8578'
+      statusBarColor: '#C6D7B3'
     }
   }, {
     path: '/',

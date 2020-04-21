@@ -35,9 +35,9 @@
   import moment from 'moment'
 
   @Component({
-    name: 'home-map-cleanup-card'
+    name: 'map-cleanup-card'
   })
-  export default class HomeMapCleanupCard extends Vue {
+  export default class MapCleanupCard extends Vue {
     @Prop(Object)
     cleanup: Cleanup
 

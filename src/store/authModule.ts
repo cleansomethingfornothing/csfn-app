@@ -36,8 +36,7 @@ class AuthModule extends VuexModule {
 
   @Action
   doRegister(userRegistration: UserRegistration): Promise<void> {
-    return Validator.validate(userRegistration)
-      .then(() => dataProvider.auth.doRegister(userRegistration))
+    return dataProvider.auth.doRegister(userRegistration)
       .then(() => this.doCredentialsLogin({
         username: userRegistration.username,
         password: userRegistration.password
@@ -56,7 +55,7 @@ class AuthModule extends VuexModule {
   loggedIn({token, username}) {
     dataProvider.setToken(token)
     return dataProvider.user.fetchUser(username)
-      .then((user) => userModule.setUser(user))
+      .then((user) => userModule.setCurrentUser(user))
       .then(() => {
         this.setLogged(true)
       })
@@ -77,7 +76,7 @@ class AuthModule extends VuexModule {
   loggedOut() {
     return storageProvider.remove(SESSION)
       .then(() => {
-        userModule.setUser(undefined)
+        userModule.setCurrentUser(undefined)
         dataProvider.removeToken()
         this.setLogged(false)
       })

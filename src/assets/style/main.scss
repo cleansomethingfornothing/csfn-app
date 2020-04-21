@@ -11,6 +11,10 @@ body {
   background-color: var(--ion-color-lighter);
 }
 
+.economica {
+  font-family: Economica, sans-serif !important;
+}
+
 .title {
   font-family: Economica, sans-serif;
   letter-spacing: 3px;
@@ -32,6 +36,7 @@ body {
 .ripple-parent {
   position: relative;
   overflow: hidden;
+  cursor: pointer;
 }
 
 .expand {

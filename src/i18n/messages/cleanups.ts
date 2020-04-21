@@ -4,6 +4,8 @@ export default {
     'cleaned-weight': '{param}kg of trash were cleaned',
     'cleanup-type-selection': 'Do you want to publish an alert or a cleanup?',
     'cleanup': 'Cleanup',
+    'cleanups': 'Cleanups',
+    'cleanups-and-alerts': 'Cleanups and alerts',
     'cleanup-in': 'Cleanup in',
     'alert': 'Alert',
     'alerts': 'Alerts',
@@ -21,14 +23,17 @@ export default {
     'published-on': 'Published on',
     'show-alerts': 'Show only alerts',
     'distance': 'Distance',
-    'no-limits': 'No limits'
+    'no-limits': 'No limits',
+    'no-cleanups': 'There are no cleanups yet'
   },
   es: {
     'publish-cleanup': 'Publicar limpieza',
     'cleaned-weight': 'Se recogieron {param}kg de basura',
     'cleanup-type-selection': '¿Quieres publicar una alerta o una limpieza?',
-    'cleanup': 'Limpieza',
     'cleanup-in': 'Limpieza en',
+    'cleanup': 'Limpieza',
+    'cleanups': 'Limpiezas',
+    'cleanups-and-alerts': 'Limpiezas y alertas',
     'alert': 'Alerta',
     'alerts': 'Alertas',
     'alert-in': 'Alerta en',
@@ -45,6 +50,7 @@ export default {
     'published-on': 'Publicado el',
     'show-alerts': 'Mostrar solo las alertas',
     'distance': 'Distancia',
-    'no-limits': 'Sin límites'
+    'no-limits': 'Sin límites',
+    'no-cleanups': 'Todavía no hay limpiezas'
   }
 }

@@ -1,6 +1,6 @@
 <template>
   <ion-page class="ion-page register-page">
-    <transparent-header :title="$t('create-account')"></transparent-header>
+    <transparent-header :title="$t('create-account')" :always-transparent="true"></transparent-header>
     <ion-content class="fullscreen">
       <forest-bg></forest-bg>
       <div class="w-full h-full flex flex-col justify-between items-center">
@@ -50,6 +50,7 @@
   import PicturesModal from '@/views/modals/PicturesModal.vue'
   import ModalPresenter from '@/tools/ModalPresenter'
   import Cropper from '@/tools/Cropper'
+  import Validator from '@/tools/Validator'
 
   @Component({
     name: 'register',
@@ -64,7 +65,10 @@
     loadingPicture = false
 
     register() {
-      authModule.doRegister(this.userRegistration)
+      Validator.validate(this.userRegistration)
+        .then(() => Cropper.cropSquare(this.userRegistration.picture as Blob, true))
+        .then((croppedImage) =>
+          authModule.doRegister({...this.userRegistration, picture: croppedImage} as UserRegistration))
         .then(() => this.$router.replace('/'))
         .catch(error => {
           if (error instanceof FormError) {
@@ -76,6 +80,7 @@
             ToastPresenter.present(this.$ionic, ErrorMessage.getMessage(error))
           }
         })
+
     }
 
     resetError(field) {
@@ -85,7 +90,7 @@
     fileSelected(file: Blob) {
       this.loadingPicture = true
       this.fieldErrors['picture'] = undefined
-      Cropper.crop(file)
+      Cropper.cropSquare(file)
         .then((cropped) => {
           this.loadingPicture = false
           this.$set(this.userRegistration, 'picture', cropped)

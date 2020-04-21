@@ -5,13 +5,15 @@ import {store} from '@/store/index'
 import Validator from '@/tools/Validator'
 import {dataProvider} from '@/providers/data/data.provider'
 import {storageProvider} from '@/providers/storage/storage.provider'
+import {locationModule} from '@/store/locationModule'
 
 const FILTERS_DISTANCE = 'CSFN_FILTERS_DISTANCE'
 
 @Module
 class CleanupsModule extends VuexModule {
 
-  cleanups: { [id: string]: Cleanup } = {}
+  cleanups: { [id: string]: Cleanup } = null
+  userCleanups: { [id: string]: Cleanup } = null
 
   filters: CleanupFilters = new CleanupFilters()
 
@@ -27,6 +29,10 @@ class CleanupsModule extends VuexModule {
     return (id) => this.cleanups[id]
   }
 
+  get getUserCleanups() {
+    return this.userCleanups
+  }
+
   get getFilters() {
     return this.filters
   }
@@ -38,7 +44,12 @@ class CleanupsModule extends VuexModule {
 
   @Mutation
   setCleanup(cleanup: Cleanup) {
-    this.cleanups = {...this.cleanups, [cleanup.id]: cleanup}
+    this.cleanups = {...(this.cleanups || {}), [cleanup.id]: cleanup}
+  }
+
+  @Mutation
+  setUserCleanups(cleanups: Cleanup[]) {
+    this.userCleanups = cleanups.reduce((acc, v) => ({...acc, [v.id]: v}), {})
   }
 
   @Mutation
@@ -67,8 +78,15 @@ class CleanupsModule extends VuexModule {
   @Action
   fetch(): Promise<void> {
     this.setCleanups([])
-    return dataProvider.cleanups.fetch(this.filters)
+    return dataProvider.cleanups.fetch(this.filters, locationModule.getCoords)
       .then((cleanups) => this.setCleanups(cleanups))
+  }
+
+  @Action
+  fetchFromUser(userId: string): Promise<void> {
+    this.setUserCleanups([])
+    return dataProvider.cleanups.fetchFromUser(userId)
+      .then((cleanups) => this.setUserCleanups(cleanups))
   }
 
   @Action
