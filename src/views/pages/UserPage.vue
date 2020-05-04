@@ -11,7 +11,8 @@ import {UserLevel} from '@/types/UserLevel'
     </transparent-header>
 
     <ion-content :scroll-events="true" @ionScroll="onScroll" class="fullscreen" color="lighter">
-      <div class="lg:w-2/3 xl:w-1/2 m-auto bg-white lg:rounded-lg lg:mt-16 overflow-hidden lg:shadow-lg h-full lg:h-auto">
+      <div
+        class="lg:w-2/3 xl:w-1/2 m-auto bg-white lg:rounded-lg lg:mt-16 lg:mb-8 overflow-hidden lg:shadow-lg min-h-full lg:min-h-auto">
         <div class="h-48 relative">
           <img class="w-full h-full absolute object-center object-cover" src="@/assets/img/profile-bg-large.png">
         </div>
@@ -21,29 +22,32 @@ import {UserLevel} from '@/types/UserLevel'
           <ion-label v-else class="font-bold text-xl -ml-1">{{user.username}}</ion-label>
         </div>
 
-        <hr class="my-4 mx-4">
+        <hr class="mt-4 mx-4">
 
-        <div class="flex items-baseline justify-center -ml-1">
-          <img :src="require(`@/assets/img/levels/${userLevelAndPercentage[0]}.svg`)" class="w-8">
-          <ion-label class="ml-2 text-3xl economica">{{$t(userLevelAndPercentage[0])}}</ion-label>
-        </div>
-        <div class="flex justify-between items-center px-4">
-          <div class="flex">
-            <img class="w-6 mr-2" src="@/assets/img/cleanups.svg">
-            <ion-label class="economica text-2xl font-bold" color="dark">
-              {{Object.keys(userCleanups).length + $t('cleanups')}}
-            </ion-label>
+        <div class="ripple-parent ion-activatable py-4">
+          <div class="flex items-baseline justify-center -ml-1">
+            <img :src="require(`@/assets/img/levels/${userLevelAndPercentage[0]}.svg`)" class="w-8">
+            <ion-label class="ml-2 text-3xl economica">{{$t(userLevelAndPercentage[0])}}</ion-label>
           </div>
-          <div class="flex mr-1">
-            <img class="w-6 mr-2" src="@/assets/img/weight.svg">
-            <ion-label class="economica text-2xl font-bold" color="dark">{{userWeight}}Kg</ion-label>
+          <div class="flex justify-between items-center px-4">
+            <div class="flex">
+              <img class="w-6 mr-2" src="@/assets/img/cleanups.svg">
+              <ion-label class="economica text-2xl font-bold" color="dark">
+                {{Object.keys(userCleanups).length + ' ' + $t('cleanups')}}
+              </ion-label>
+            </div>
+            <div class="flex mr-1">
+              <img class="w-6 mr-2" src="@/assets/img/weight.svg">
+              <ion-label class="economica text-2xl font-bold" color="dark">{{userWeight}} Kg</ion-label>
+            </div>
           </div>
-        </div>
-        <div class="mt-2 px-3">
-          <progress-bar :value="userLevelAndPercentage[1]"></progress-bar>
+          <div class="mt-2 px-3">
+            <progress-bar :value="userLevelAndPercentage[1]"></progress-bar>
+          </div>
+          <ion-ripple-effect></ion-ripple-effect>
         </div>
 
-        <hr class="mt-4 mb-2 mx-4">
+        <hr class="mb-4 mb-2 mx-4">
 
         <ion-list lines="inset">
           <ion-list-header>

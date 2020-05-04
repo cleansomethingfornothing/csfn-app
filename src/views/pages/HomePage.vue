@@ -182,7 +182,7 @@
         alert: this.$t('alert'),
         cleanup: this.$t('cleanup')
       }, 'cleanup-type-modal').then(({data}) => {
-        if (data) {
+        if (data !== undefined) {
           this.$router.push({path: '/publish', query: {done: data.toString()}})
         }
       })

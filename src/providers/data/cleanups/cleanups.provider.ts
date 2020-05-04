@@ -17,7 +17,7 @@ export class CleanupsProvider {
   fetch(filters: CleanupFilters, origin: Coords): Promise<Cleanup[]> {
     const cleanups = [{
       "id": "a",
-      "user": {"username": "@lester_pr", "email": "", "picture": "/img/user-placeholder.png"},
+      "user": {"username": "@lester_prz", "email": "", "picture": "/img/user-placeholder.png"},
       "description": "Shkodër is a town in the north of Albania. We stopped here to do a cleanup on a small tributary of the river Bojana that leads to the Adriatic Sea as final destination.\n\nThis place is extremely dirty, we just took a bag of trash but it certainly needs many more to be clean.",
       "weight": 2,
       "location": new Location({
@@ -32,7 +32,7 @@ export class CleanupsProvider {
       "pictures": ["/img/placeholder.png", "/img/placeholder.png", "/img/placeholder.png"]
     }, {
       "id": "b",
-      "user": {"username": "@lester_pr", "email": "", "picture": "/img/user-placeholder.png"},
+      "user": {"username": "@lester_prz", "email": "", "picture": "/img/user-placeholder.png"},
       "description": "Shkodër is a town in the north of Albania. We stopped here to do a cleanup on a small tributary of the river Bojana that leads to the Adriatic Sea as final destination.\n\nThis place is extremely dirty, we just took a bag of trash but it certainly needs many more to be clean.",
       "weight": 2,
       "location": new Location({
@@ -47,7 +47,7 @@ export class CleanupsProvider {
       "pictures": ["/img/placeholder.png", "/img/placeholder.png", "/img/placeholder.png"]
     }, {
       "id": "c",
-      "user": {"username": "@lester_pr", "email": "", "picture": "/img/user-placeholder.png"},
+      "user": {"username": "@lester_prz", "email": "", "picture": "/img/user-placeholder.png"},
       "description": "Shkodër is a town in the north of Albania. We stopped here to do a cleanup on a small tributary of the river Bojana that leads to the Adriatic Sea as final destination.\n\nThis place is extremely dirty, we just took a bag of trash but it certainly needs many more to be clean.",
       "weight": 2,
       "location": new Location({
@@ -62,7 +62,7 @@ export class CleanupsProvider {
       "pictures": ["/img/placeholder.png", "/img/placeholder.png", "/img/placeholder.png"]
     }, {
       "id": "d",
-      "user": {"username": "@lester_pr", "email": "", "picture": "/img/user-placeholder.png"},
+      "user": {"username": "@lester_prz", "email": "", "picture": "/img/user-placeholder.png"},
       "description": "Shkodër is a town in the north of Albania. We stopped here to do a cleanup on a small tributary of the river Bojana that leads to the Adriatic Sea as final destination.\n\nThis place is extremely dirty, we just took a bag of trash but it certainly needs many more to be clean.",
       "weight": 2,
       "location": new Location({
@@ -77,7 +77,7 @@ export class CleanupsProvider {
       "pictures": ["/img/placeholder.png", "/img/placeholder.png", "/img/placeholder.png"]
     }, {
       "id": "e",
-      "user": {"username": "@lester_pr", "email": "", "picture": "/img/user-placeholder.png"},
+      "user": {"username": "@lester_prz", "email": "", "picture": "/img/user-placeholder.png"},
       "description": "Shkodër is a town in the north of Albania. We stopped here to do a cleanup on a small tributary of the river Bojana that leads to the Adriatic Sea as final destination.\n\nThis place is extremely dirty, we just took a bag of trash but it certainly needs many more to be clean.",
       "weight": 2,
       "location": new Location({
@@ -92,7 +92,7 @@ export class CleanupsProvider {
       "pictures": ["/img/placeholder.png", "/img/placeholder.png", "/img/placeholder.png"]
     }, {
       "id": "f",
-      "user": {"username": "@lester_pr", "email": "", "picture": "/img/user-placeholder.png"},
+      "user": {"username": "@lester_prz", "email": "", "picture": "/img/user-placeholder.png"},
       "description": "Shkodër is a town in the north of Albania. We stopped here to do a cleanup on a small tributary of the river Bojana that leads to the Adriatic Sea as final destination.\n\nThis place is extremely dirty, we just took a bag of trash but it certainly needs many more to be clean.",
       "weight": 2,
       "location": new Location({
@@ -108,7 +108,7 @@ export class CleanupsProvider {
       "pictures": ["/img/placeholder.png", "/img/placeholder.png", "/img/placeholder.png"]
     }, {
       "id": "g",
-      "user": {"username": "@lester_pr", "email": "", "picture": "/img/user-placeholder.png"},
+      "user": {"username": "@lester_prz", "email": "", "picture": "/img/user-placeholder.png"},
       "description": "Shkodër is a town in the north of Albania. We stopped here to do a cleanup on a small tributary of the river Bojana that leads to the Adriatic Sea as final destination.\n\nThis place is extremely dirty, we just took a bag of trash but it certainly needs many more to be clean.",
       "weight": 2,
       "location": new Location({
@@ -123,7 +123,7 @@ export class CleanupsProvider {
       "pictures": ["/img/placeholder.png", "/img/placeholder.png", "/img/placeholder.png"]
     }, {
       "id": "h",
-      "user": {"username": "@lester_pr", "email": "", "picture": "/img/user-placeholder.png"},
+      "user": {"username": "@lester_prz", "email": "", "picture": "/img/user-placeholder.png"},
       "description": "Shkodër is a town in the north of Albania. We stopped here to do a cleanup on a small tributary of the river Bojana that leads to the Adriatic Sea as final destination.\n\nThis place is extremely dirty, we just took a bag of trash but it certainly needs many more to be clean.",
       "weight": 2,
       "location": new Location({
@@ -138,7 +138,7 @@ export class CleanupsProvider {
       "pictures": ["/img/placeholder.png", "/img/placeholder.png", "/img/placeholder.png"]
     }, {
       "id": "i",
-      "user": {"username": "@lester_pr", "email": "", "picture": "/img/user-placeholder.png"},
+      "user": {"username": "@lester_prz", "email": "", "picture": "/img/user-placeholder.png"},
       "description": "Shkodër is a town in the north of Albania. We stopped here to do a cleanup on a small tributary of the river Bojana that leads to the Adriatic Sea as final destination.\n\nThis place is extremely dirty, we just took a bag of trash but it certainly needs many more to be clean.",
       "weight": 2,
       "location": new Location(
@@ -169,10 +169,9 @@ export class CleanupsProvider {
   }
 
   fetchFromUser(userId: string): Promise<Cleanup[]> {
-    return Promise.resolve([])
     return Promise.resolve([{
       "id": "a",
-      "user": {"username": "@lester_pr", "email": "", "picture": "/img/user-placeholder.png"},
+      "user": {"username": "@lester_prz", "email": "", "picture": "/img/user-placeholder.png"},
       "description": "Shkodër is a town in the north of Albania. We stopped here to do a cleanup on a small tributary of the river Bojana that leads to the Adriatic Sea as final destination.\n\nThis place is extremely dirty, we just took a bag of trash but it certainly needs many more to be clean.",
       "weight": 2,
       "location": new Location({
@@ -187,7 +186,7 @@ export class CleanupsProvider {
       "pictures": ["/img/placeholder.png", "/img/placeholder.png", "/img/placeholder.png"]
     }, {
       "id": "b",
-      "user": {"username": "@lester_pr", "email": "", "picture": "/img/user-placeholder.png"},
+      "user": {"username": "@lester_prz", "email": "", "picture": "/img/user-placeholder.png"},
       "description": "Shkodër is a town in the north of Albania. We stopped here to do a cleanup on a small tributary of the river Bojana that leads to the Adriatic Sea as final destination.\n\nThis place is extremely dirty, we just took a bag of trash but it certainly needs many more to be clean.",
       "weight": 2,
       "location": new Location({
@@ -202,7 +201,7 @@ export class CleanupsProvider {
       "pictures": ["/img/placeholder.png", "/img/placeholder.png", "/img/placeholder.png"]
     }, {
       "id": "c",
-      "user": {"username": "@lester_pr", "email": "", "picture": "/img/user-placeholder.png"},
+      "user": {"username": "@lester_prz", "email": "", "picture": "/img/user-placeholder.png"},
       "description": "Shkodër is a town in the north of Albania. We stopped here to do a cleanup on a small tributary of the river Bojana that leads to the Adriatic Sea as final destination.\n\nThis place is extremely dirty, we just took a bag of trash but it certainly needs many more to be clean.",
       "weight": 2,
       "location": new Location({
@@ -217,7 +216,7 @@ export class CleanupsProvider {
       "pictures": ["/img/placeholder.png", "/img/placeholder.png", "/img/placeholder.png"]
     }, {
       "id": "d",
-      "user": {"username": "@lester_pr", "email": "", "picture": "/img/user-placeholder.png"},
+      "user": {"username": "@lester_prz", "email": "", "picture": "/img/user-placeholder.png"},
       "description": "Shkodër is a town in the north of Albania. We stopped here to do a cleanup on a small tributary of the river Bojana that leads to the Adriatic Sea as final destination.\n\nThis place is extremely dirty, we just took a bag of trash but it certainly needs many more to be clean.",
       "weight": 2,
       "location": new Location({
@@ -232,7 +231,7 @@ export class CleanupsProvider {
       "pictures": ["/img/placeholder.png", "/img/placeholder.png", "/img/placeholder.png"]
     }, {
       "id": "e",
-      "user": {"username": "@lester_pr", "email": "", "picture": "/img/user-placeholder.png"},
+      "user": {"username": "@lester_prz", "email": "", "picture": "/img/user-placeholder.png"},
       "description": "Shkodër is a town in the north of Albania. We stopped here to do a cleanup on a small tributary of the river Bojana that leads to the Adriatic Sea as final destination.\n\nThis place is extremely dirty, we just took a bag of trash but it certainly needs many more to be clean.",
       "weight": 2,
       "location": new Location({
@@ -247,7 +246,7 @@ export class CleanupsProvider {
       "pictures": ["/img/placeholder.png", "/img/placeholder.png", "/img/placeholder.png"]
     }, {
       "id": "f",
-      "user": {"username": "@lester_pr", "email": "", "picture": "/img/user-placeholder.png"},
+      "user": {"username": "@lester_prz", "email": "", "picture": "/img/user-placeholder.png"},
       "description": "Shkodër is a town in the north of Albania. We stopped here to do a cleanup on a small tributary of the river Bojana that leads to the Adriatic Sea as final destination.\n\nThis place is extremely dirty, we just took a bag of trash but it certainly needs many more to be clean.",
       "weight": 2,
       "location": new Location({
@@ -263,7 +262,7 @@ export class CleanupsProvider {
       "pictures": ["/img/placeholder.png", "/img/placeholder.png", "/img/placeholder.png"]
     }, {
       "id": "g",
-      "user": {"username": "@lester_pr", "email": "", "picture": "/img/user-placeholder.png"},
+      "user": {"username": "@lester_prz", "email": "", "picture": "/img/user-placeholder.png"},
       "description": "Shkodër is a town in the north of Albania. We stopped here to do a cleanup on a small tributary of the river Bojana that leads to the Adriatic Sea as final destination.\n\nThis place is extremely dirty, we just took a bag of trash but it certainly needs many more to be clean.",
       "weight": 2,
       "location": new Location({
@@ -278,7 +277,7 @@ export class CleanupsProvider {
       "pictures": ["/img/placeholder.png", "/img/placeholder.png", "/img/placeholder.png"]
     }, {
       "id": "h",
-      "user": {"username": "@lester_pr", "email": "", "picture": "/img/user-placeholder.png"},
+      "user": {"username": "@lester_prz", "email": "", "picture": "/img/user-placeholder.png"},
       "description": "Shkodër is a town in the north of Albania. We stopped here to do a cleanup on a small tributary of the river Bojana that leads to the Adriatic Sea as final destination.\n\nThis place is extremely dirty, we just took a bag of trash but it certainly needs many more to be clean.",
       "weight": 2,
       "location": new Location({
@@ -293,7 +292,7 @@ export class CleanupsProvider {
       "pictures": ["/img/placeholder.png", "/img/placeholder.png", "/img/placeholder.png"]
     }, {
       "id": "i",
-      "user": {"username": "@lester_pr", "email": "", "picture": "/img/user-placeholder.png"},
+      "user": {"username": "@lester_prz", "email": "", "picture": "/img/user-placeholder.png"},
       "description": "Shkodër is a town in the north of Albania. We stopped here to do a cleanup on a small tributary of the river Bojana that leads to the Adriatic Sea as final destination.\n\nThis place is extremely dirty, we just took a bag of trash but it certainly needs many more to be clean.",
       "weight": 2,
       "location": new Location(
