@@ -11,6 +11,7 @@ import {
   close,
   contact,
   create,
+  flag,
   funnel,
   images,
   informationCircle,
@@ -29,7 +30,8 @@ import {
   share,
   speedometer,
   stats,
-  trash
+  trash,
+  globe
 } from 'ionicons/icons'
 
 addIcons({
@@ -67,6 +69,10 @@ addIcons({
   'md-map': map.md,
   'ios-filter': funnel.md,
   'md-filter': funnel.md,
+  'ios-flag': flag.ios,
+  'md-flag': flag.md,
+  'ios-globe': globe.md,
+  'md-globe': globe.md,
   'ios-lock': lock.md,
   'md-lock': lock.md,
   'md-info': informationCircle.md,

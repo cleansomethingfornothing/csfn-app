@@ -36,6 +36,12 @@ export default [
     }
   }, {
     path: '/',
+    redirect: '/home/community'
+  }, {
+    path: '/home',
+    redirect: '/home/community'
+  }, {
+    path: '/home/:tab',
     name: 'HomePage',
     component: HomePage,
     meta: {

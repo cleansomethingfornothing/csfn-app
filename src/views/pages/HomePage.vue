@@ -1,30 +1,43 @@
 <template>
-  <ion-page class="ion-page" color="lighter">
-    <home-header :user="user" :hide-top-toolbar="hideTopToolbar" :address="address"
-                 @click="homeButtonClicked" :show-map="showMap"></home-header>
-    <ion-content class="ion-content home-content" color="lighter"
-                 :scroll-events="true" @ionScroll="onScroll">
+  <div>
+    <ion-tabs @IonTabsWillChange="tabWillChange" @IonTabsDidChange="tabDidChange">
+      <ion-tab tab="user" ref="user">
+        <current-user-page/>
+      </ion-tab>
 
-      <ion-refresher v-if="cleanups && showMap === false" slot="fixed" @ionRefresh="refresh">
-        <ion-refresher-content>
-        </ion-refresher-content>
-      </ion-refresher>
+      <ion-tab tab="community" ref="community">
+        <community-page/>
+      </ion-tab>
 
-      <transition name="fade">
-        <home-cleanups-list v-if="showMap === false" :cleanups="cleanups" @refresh="refresh"
-                            @click="openCleanup" :coords="coords"></home-cleanups-list>
+      <ion-tab tab="alerts" ref="alerts">
+        <alerts-page/>
+      </ion-tab>
 
-        <home-cleanups-map v-else-if="coords" :cleanups="cleanups" :origin="coords"
-                           @click="openCleanup"></home-cleanups-map>
-      </transition>
+      <ion-tab tab="events" ref="events">
+        <events-page/>
+      </ion-tab>
 
-      <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-        <ion-fab-button color="white" @click="publish">
-          <ion-icon name="add" color="primary"></ion-icon>
-        </ion-fab-button>
-      </ion-fab>
-    </ion-content>
-  </ion-page>
+      <template slot="bottom">
+        <ion-tab-bar selected-tab="community">
+          <ion-tab-button tab="user">
+            <ion-icon size="large" :src="require('@/assets/img/user.svg')"></ion-icon>
+          </ion-tab-button>
+
+          <ion-tab-button tab="community">
+            <ion-icon size="large" :src="require('@/assets/img/community.svg')"></ion-icon>
+          </ion-tab-button>
+
+          <ion-tab-button tab="alerts">
+            <ion-icon size="large" :src="require('@/assets/img/alerts.svg')"></ion-icon>
+          </ion-tab-button>
+
+          <ion-tab-button tab="events">
+            <ion-icon size="large" :src="require('@/assets/img/events.svg')"></ion-icon>
+          </ion-tab-button>
+        </ion-tab-bar>
+      </template>
+    </ion-tabs>
+  </div>
 </template>
 
 <script lang="ts">
@@ -44,10 +57,18 @@
   import HomeCleanupsList from '@/views/components/home/CleanupsList.vue'
   import CleanupsMap from '@/views/components/home/CleanupsMap.vue'
   import {Watch} from 'vue-property-decorator'
+  import CurrentUserPage from '@/views/pages/CurrentUserPage.vue'
+  import CommunityPage from '@/views/pages/CommunityPage.vue'
+  import AlertsPage from '@/views/pages/AlertsPage.vue'
+  import EventsPage from '@/views/pages/EventsPage.vue'
 
   @Component({
     name: 'HomePage.vue',
     components: {
+      EventsPage,
+      AlertsPage,
+      CommunityPage,
+      CurrentUserPage,
       HomeCleanupsMap: CleanupsMap,
       HomeCleanupsList,
       PlaceholderCard: PlaceholderCard,
@@ -97,6 +118,14 @@
       }
 
       this.showMap = !!(this.$route.query.view && this.$route.query.view == 'map')
+    }
+
+    tabWillChange({path}) {
+      console.log(this.$refs[path])
+    }
+
+    tabDidChange({path}) {
+      console.log(this.$refs[path])
     }
 
     fetch() {

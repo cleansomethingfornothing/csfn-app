@@ -131,3 +131,11 @@
   --ion-text-color: rgba(0, 0, 0, 0.87);
   --ion-text-color-ligth: rgba(0, 0, 0, 0.79);
 }
+
+.text-primary {
+  color: var(--ion-color-primary);
+}
+
+.bg-primary {
+  background-color: var(--ion-color-primary);
+}

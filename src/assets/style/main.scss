@@ -7,12 +7,41 @@
   src: url("assets/fonts/Economica/Economica-Regular.ttf");
 }
 
+@font-face {
+  font-family: Montserrat;
+  src: url("assets/fonts/Montserrat/Montserrat-Regular.ttf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: Montserrat;
+  src: url("assets/fonts/Montserrat/Montserrat-ExtraLight.ttf");
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: Montserrat;
+  src: url("assets/fonts/Montserrat/Montserrat-Bold.ttf");
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: Montserrat;
+  src: url("assets/fonts/Montserrat/Montserrat-ExtraBold.ttf");
+  font-weight: 800;
+}
+
+:root {
+  --ion-font-family: Montserrat;
+}
+
 body {
   background-color: var(--ion-color-lighter);
 }
 
 .economica {
   font-family: Economica, sans-serif !important;
+  letter-spacing: 1px;
 }
 
 .title {
@@ -167,6 +196,6 @@ ion-slides {
 
 @media screen and (min-width: 700px) {
   :root {
-    font-size: 1.1em;
+    font-size: 1em;
   }
 }
