@@ -27,7 +27,7 @@
       <div class="-m-4 z-10 bg-white">
         <wave/>
       </div>
-      <div class="-mt-20  lg:-mt-24 p-2">
+      <div class="-mt-20 lg:-mt-24 p-2">
         <ion-card button>
           <community-map/>
         </ion-card>
@@ -35,7 +35,7 @@
 
       <div class="p-4">
         <months-chart
-          :month-stats="[{month: 1, year: 2020, cleanups: 1000},{month: 2, year: 2020, cleanups: 2000},
+          :month-stats="[{month: 10, year: 2019, cleanups: 1500},{month: 11, year: 2019, cleanups: 1700},{month: 12, year: 2019, cleanups: 900},{month: 1, year: 2020, cleanups: 1000},{month: 2, year: 2020, cleanups: 2000},
           {month: 3, year: 2020, cleanups: 4000},{month: 4, year: 2020, cleanups: 3000},{month: 5, year: 2020, cleanups: 5000}]"/>
       </div>
     </ion-content>
