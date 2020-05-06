@@ -1,8 +1,10 @@
 <template>
-  <div class="month-bar">
-    <div class="face top"></div>
-    <div class="face front"></div>
-    <div class="face side"></div>
+  <div class="month-bar-container">
+    <div class="month-bar">
+      <div class="face top"></div>
+      <div class="face front"></div>
+      <div class="face side"></div>
+    </div>
   </div>
 </template>
 <script lang=ts>
@@ -17,13 +19,18 @@
 </script>
 <style scoped>
 
+  .month-bar-container {
+    height: 100%;
+    perspective: 400px;
+  }
+
   .month-bar {
-    perspective: 300px;
-    transform-style: preserve-3d;
-    perspective-origin: -100% -100%;
-    --side: 24px;
+    --side: 2em;
     position: relative;
-    width: 100%
+    width: 100%;
+    perspective: 400px;
+    perspective-origin: 50px -100px;
+    transform: translateZ(-80px) translateY(10px) translateX(-5px);
   }
 
   .month-bar, .front, .side {
@@ -38,19 +45,19 @@
   .top {
     width: var(--side);
     height: var(--side);
-    background-color: var(--ion-color-secondary);
-    transform: rotateX(90deg) translateZ(50px);
+    background-color: var(--ion-color-primary-tint);
+    transform: rotateX(90deg) rotateZ(45deg) translateZ(calc(var(--side) / 2));
   }
 
   .front {
     width: var(--side);
-    background-color: var(--ion-color-primary-tint);
-    transform: translateZ(50px);
+    background: linear-gradient(135deg, var(--ion-color-primary), var(--ion-color-secondary));
+    transform: rotateY(-45deg) translateZ(calc(var(--side) / 2));
   }
 
   .side {
     width: var(--side);
-    background-color: var(--ion-color-primary-shade);
-    transform: rotateY(-90deg) translateZ(50px);
+    background: linear-gradient(135deg, var(--ion-color-primary), var(--ion-color-secondary));
+    transform: rotateY(45deg) translateZ(calc(var(--side) / 2));
   }
 </style>

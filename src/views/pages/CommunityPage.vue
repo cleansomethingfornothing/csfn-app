@@ -28,22 +28,44 @@
         <ion-label class="text-5xl lg:text-6xl" color="white">45.059.443</ion-label>
         <div class="pt-10 lg:pt-8"></div>
       </div>
-      <div class="-mt-20 lg:-mt-40 z-10">
+      <div class="-mt-20 lg:-mt-32 z-10">
         <wave/>
       </div>
       <div class="pt-8 lg:pt-0 bg-white"></div>
-      <div class="-mt-16 lg:-mt-40 p-2 lg:p-24">
-        <ion-card button>
+      <div class="-mt-16 lg:-mt-20 p-2 lg:px-24">
+        <ion-card button class="lg:h-64">
           <community-map/>
         </ion-card>
       </div>
 
-      <div class="p-4">
+      <div class="p-4 lg:px-24">
+        <ion-label color="primary" class="ml-2 font-bold text-xl">{{$t('last-months')}}</ion-label>
+        <div class="pt-2"></div>
         <months-chart
-          :month-stats="[{month: 1, year: 2020, cleanups: 1000},{month: 2, year: 2020, cleanups: 2000},
-          {month: 3, year: 2020, cleanups: 4000},{month: 4, year: 2020, cleanups: 3000},{month: 5, year: 2020, cleanups: 5000}]"/>
+          :month-stats="[{month: 10, year: 2019, kg: 1500},{month: 11, year: 2019, kg: 1700},{month: 12, year: 2019, kg: 900},{month: 1, year: 2020, kg: 7000},{month: 2, year: 2020, kg: 2000},
+          {month: 3, year: 2020, kg: 4000},{month: 4, year: 2020, kg: 3000},{month: 5, year: 2020, kg: 4500}]"/>
       </div>
-      <div class="pt-32"></div>
+
+      <div class="p-4 lg:px-24">
+        <ion-label color="primary" class="ml-2 font-bold text-xl">{{$t('top-users')}}</ion-label>
+      </div>
+      <ion-list>
+        <ion-item v-for="i of [0, 1,2,3,4,5,6,7,8,9]" :key="i" class="lg:px-24 user" button
+                  :class="i === 0 ? 'user-gold' : i === 1 ? 'user-silver' : i === 2 ? 'user-bronze' : ''">
+          <div class="user-bg"></div>
+          <span slot="start"
+                class="w-6 h-6 flex justify-center items-center rounded-full font-bold num">
+            {{i + 1}}
+          </span>
+          <ion-avatar slot="start" class="-ml-4">
+            <img src="/img/user-placeholder.png">
+          </ion-avatar>
+          <ion-label class="font-bold my-6">@user_name</ion-label>
+          <p>1000 Lt</p>
+        </ion-item>
+      </ion-list>
+
+      <div class="pt-10"></div>
     </ion-content>
   </ion-page>
 </template>
@@ -91,6 +113,34 @@
   .no-border ion-toolbar {
     --border-width: 0 !important;
     --box-shadow: none !important;
+  }
+
+  .user-gold {
+    --background: rgba(255, 198, 10, 0.25) !important;
+  }
+
+  .user-silver {
+    --background: rgba(192, 192, 192, 0.25) !important;
+  }
+
+  .user-bronze {
+    --background: rgba(205, 127, 50, 0.25) !important;
+  }
+
+  .user-gold .num, .user-silver .num, .user-bronze .num {
+    color: #fff;
+  }
+
+  .user-gold .num {
+    background-color: #e8b923;
+  }
+
+  .user-silver .num {
+    background-color: silver;
+  }
+
+  .user-bronze .num {
+    background-color: chocolate;
   }
 
   .bg-gradient {

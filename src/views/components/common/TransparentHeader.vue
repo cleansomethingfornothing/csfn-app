@@ -73,6 +73,7 @@
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   }
 
+  /*
   @media (min-width: 600px) {
     .transparent-header:not(.always-transparent) ion-toolbar {
       --background: #fff !important;
@@ -84,4 +85,5 @@
       color: var(--ion-color-dark);
     }
   }
+   */
 </style>

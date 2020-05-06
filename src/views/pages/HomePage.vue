@@ -121,11 +121,11 @@
     }
 
     tabWillChange({path}) {
-      console.log(this.$refs[path])
+      return
     }
 
     tabDidChange({path}) {
-      console.log(this.$refs[path])
+      return
     }
 
     fetch() {

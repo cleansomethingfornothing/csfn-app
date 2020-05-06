@@ -2,7 +2,7 @@
   <ion-page>
     <ion-content :scroll-events="true" @ionScroll="onScroll" class="fullscreen">
       <div class="h-48 relative">
-        <img class="w-full h-full absolute object-center object-cover" src="@/assets/img/profile-bg-large.png">
+        <img class="w-full h-full absolute object-center object-cover object-top object-left" src="@/assets/img/polygons.png">
       </div>
       <div class="-mt-16 flex flex-col justify-center items-center">
         <avatar class="w-32" :src="user && user.picture"></avatar>
