@@ -1,9 +1,11 @@
 <template>
   <div class="transparent-header"
-       :class="(alwaysTransparent ? 'always-transparent' : '') + ' '+ (scrolled ? 'scrolled' : '')">
+       :class="(alwaysTransparent ? 'always-transparent' : '') + ' '
+       + (scrolled ? 'scrolled' : '') + ' '
+       + (noGradient ? 'no-gradient' : '')">
     <ion-header mode="ios">
       <ion-toolbar mode="ios">
-        <ion-buttons slot="start">
+        <ion-buttons slot="start" v-if="!noBack">
           <ion-button shape="round" fill="clear" @click="$router.back()" :color="scrolled ? 'dark' : 'white'">
             <ion-icon name="arrow-back"></ion-icon>
           </ion-button>
@@ -34,6 +36,12 @@
 
     @Prop(Boolean)
     alwaysTransparent: boolean
+
+    @Prop(Boolean)
+    noGradient: boolean
+
+    @Prop(Boolean)
+    noBack: boolean
   }
 </script>
 <style>
@@ -45,6 +53,10 @@
     --background: linear-gradient(180deg, rgba(0, 0, 0, 0.4), transparent 100%);
     --border-width: 0 !important;
     --box-shadow: none !important;
+  }
+
+  .transparent-header.no-gradient ion-toolbar {
+    --background: transparent;
   }
 
   .transparent-header.always-transparent ion-toolbar {

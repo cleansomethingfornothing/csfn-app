@@ -194,6 +194,10 @@ ion-slides {
   bottom: -100px !important;
 }
 
+.bg-polygons {
+  background: url("~@/assets/img/profile-bg-large.png") center center/cover;
+}
+
 @media screen and (min-width: 700px) {
   :root {
     font-size: 1em;

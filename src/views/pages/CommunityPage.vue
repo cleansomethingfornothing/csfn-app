@@ -1,5 +1,7 @@
 <template>
   <ion-page>
+    <transparent-header :title="$t('community')" :scrolled="scrolled" :no-back="true" :no-gradient="true"/>
+    <!--
     <ion-header mode="ios" class="border-0 no-border">
       <ion-toolbar mode="ios" color="primary" class="border-0">
         <ion-title class="economica text-2xl font-light font-bold">
@@ -7,9 +9,10 @@
         </ion-title>
       </ion-toolbar>
     </ion-header>
+    -->
 
-    <ion-content>
-      <div class="p-4 sm:p-4 bg-primary">
+    <ion-content class="fullscreen" :scroll-events="true" @ionScroll="onScroll">
+      <div class="p-4 lg:p-24 bg-polygons pt-16">
         <!-- Total number -->
         <div class="flex justify-between">
           <span class="text-lg lg:text-2xl text-white">{{$t('total-collected')}}</span>
@@ -23,11 +26,13 @@
           </ion-segment>
         </div>
         <ion-label class="text-5xl lg:text-6xl" color="white">45.059.443</ion-label>
+        <div class="pt-10 lg:pt-8"></div>
       </div>
-      <div class="-m-4 z-10 bg-white">
+      <div class="-mt-20 lg:-mt-40 z-10">
         <wave/>
       </div>
-      <div class="-mt-20  lg:-mt-24 p-2">
+      <div class="pt-8 lg:pt-0 bg-white"></div>
+      <div class="-mt-16 lg:-mt-40 p-2 lg:p-24">
         <ion-card button>
           <community-map/>
         </ion-card>
@@ -38,6 +43,7 @@
           :month-stats="[{month: 1, year: 2020, cleanups: 1000},{month: 2, year: 2020, cleanups: 2000},
           {month: 3, year: 2020, cleanups: 4000},{month: 4, year: 2020, cleanups: 3000},{month: 5, year: 2020, cleanups: 5000}]"/>
       </div>
+      <div class="pt-32"></div>
     </ion-content>
   </ion-page>
 </template>
@@ -47,17 +53,23 @@
   import Wave from '@/views/components/common/Wave.vue'
   import CommunityMap from '@/views/components/community/CommunityMap.vue'
   import MonthsChart from '@/views/components/community/MonthsChart.vue'
+  import TransparentHeader from '@/views/components/common/TransparentHeader.vue'
 
   @Component({
     name: "community-page",
-    components: {MonthsChart, CommunityMap, Wave}
+    components: {TransparentHeader, MonthsChart, CommunityMap, Wave}
   })
   export default class CommunityPage extends Vue {
+
+    scrolled = false
 
     unitChanged(unit) {
       console.log(unit)
     }
 
+    onScroll(event: CustomEvent): void {
+      this.scrolled = event.detail.scrollTop > 0;
+    }
   }
 </script>
 <style scoped>
@@ -79,5 +91,9 @@
   .no-border ion-toolbar {
     --border-width: 0 !important;
     --box-shadow: none !important;
+  }
+
+  .bg-gradient {
+    /*background: linear-gradient(var(--ion-color-primary), var(--ion-color-secondary));*/
   }
 </style>
