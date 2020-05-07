@@ -4,7 +4,7 @@
        + (scrolled ? 'scrolled' : '') + ' '
        + (noGradient ? 'no-gradient' : '')">
     <ion-header mode="ios">
-      <ion-toolbar mode="ios">
+      <ion-toolbar mode="ios" ref="toolbar">
         <ion-buttons slot="start" v-if="!noBack">
           <ion-button shape="round" fill="clear" @click="$router.back()" :color="scrolled ? 'dark' : 'white'">
             <ion-icon name="arrow-back"></ion-icon>
@@ -21,12 +21,18 @@
 <script lang=ts>
   import Vue from 'vue'
   import Component from 'vue-class-component'
-  import {Prop} from 'vue-property-decorator'
+  import {Prop, Ref, Watch} from 'vue-property-decorator'
+  import {createAnimation} from '@ionic/core'
 
   @Component({
     name: "TransparentHeader"
   })
   export default class TransparentHeader extends Vue {
+
+    isScrolled = false
+
+    @Ref('toolbar')
+    toolbar: any
 
     @Prop(Boolean)
     scrolled: boolean
@@ -42,13 +48,21 @@
 
     @Prop(Boolean)
     noBack: boolean
+
+    @Watch('scrolled')
+    onScrolled(scrolled) {
+      if (scrolled) {
+        createAnimation()
+          .addElement(this.toolbar)
+          .duration(300)
+          .iterations(1)
+          .direction('normal')
+          .fromTo('background', 'transparent', 'linear-gradient(135deg, var(--ion-color-secondary), var(--ion-color-primary))')
+      }
+    }
   }
 </script>
 <style>
-  .transparent-header {
-    background-color: transparent;
-  }
-
   .transparent-header ion-toolbar {
     --background: linear-gradient(180deg, rgba(0, 0, 0, 0.4), transparent 100%);
     --border-width: 0 !important;
@@ -63,12 +77,13 @@
     --background: transparent !important;
   }
 
-  .transparent-header * {
-    transition: all 0.5s;
+  .transparent-header *, .transparent-header ion-toolbar {
+    transition: all 0.3s;
   }
 
   .transparent-header.scrolled ion-toolbar {
     --background: #fff;
+    /*--background: linear-gradient(135deg, var(--ion-color-secondary), var(--ion-color-primary));*/
     --border-width: 0 0 0.55px 0 !important;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   }

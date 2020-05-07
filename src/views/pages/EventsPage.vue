@@ -11,6 +11,13 @@
     name: "events-page"
   })
   export default class EventsPage extends Vue {
+    init() {
+      return
+    }
+
+    exit() {
+      return
+    }
   }
 </script>
 <style scoped>

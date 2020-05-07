@@ -4,13 +4,15 @@
          v-for="(month, i) of monthStats"
          :key="month.month + '-' + month.year">
       <ion-label color="medium" v-if="showYear(i)" class="text-xs font-bold">{{month.year}}</ion-label>
-      <div class="h-12 flex justify-center items-center">
-        <div v-if="showData === i" class="tooltip">
-          <span>{{month.kg}}</span>
-        </div>
-      </div>
-      <div :tabindex="i" class="h-full flex flex-col justify-end items-center" @focus="focus(i)" @blur="blur(i)">
-        <div :style="`height: ${percentage(month.kg)}%`" class="-ml-4">
+      <div class="pt-6"></div>
+      <div class="relative h-full flex flex-col justify-end items-center">
+        <transition name="fade">
+          <div v-if="showData === i" class="tooltip text-sm" :style="`bottom: ${heights[i] + 1}%`">
+            <span>{{month.kg}} Kg</span>
+          </div>
+        </transition>
+        <div :class="showData === i ? 'selected' : ''" :tabindex="i" :style="`height: ${heights[i]}%`"
+             class="-ml-4 bar" @focus="focus(i)" @blur="blur(i)">
           <month-bar/>
         </div>
       </div>
@@ -40,14 +42,28 @@
 
     showData = null
 
+    heights = []
+
     get max() {
       return Math.max(...this.monthStats.map(({kg}) => kg))
     }
 
     mounted(): void {
       setTimeout(() => {
-        this.chart.scrollTo(this.chart.scrollWidth, 0)
+        this.init()
       }, 1000)
+    }
+
+    init() {
+      this.chart.scrollTo(this.chart.scrollWidth, 0)
+      this.heights = this.monthStats.map(() => 0)
+      setTimeout(() => {
+        this.heights = this.monthStats.map(month => this.percentage(month.kg))
+      }, 100)
+    }
+
+    exit() {
+      this.heights = this.monthStats.map(() => 0)
     }
 
     monthName(monthIndex) {
@@ -76,17 +92,23 @@
     height: 0;
   }
 
-  .month-bar {
-    transition: height 1s;
+  .bar {
+    transition: opacity 0.3s, height 0.3s;
+  }
+
+  .bar.selected {
+    opacity: 0.85;
   }
 
   .tooltip {
     background-color: var(--ion-color-dark);
     color: white;
-    padding: 2px 4px;
+    padding: 0 4px;
     border-radius: 5px;
-    position: relative;
+    position: absolute;
     font-weight: bold;
+    white-space: nowrap;
+    outline: none;
   }
 
   .tooltip::after {
@@ -97,6 +119,6 @@
     margin-left: -5px;
     border-width: 5px;
     border-style: solid;
-    border-color: black transparent transparent transparent;
+    border-color: var(--ion-color-dark) transparent transparent transparent;
   }
 </style>

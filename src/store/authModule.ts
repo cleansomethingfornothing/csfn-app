@@ -69,17 +69,15 @@ class AuthModule extends VuexModule {
   @Action
   doLogout(): Promise<void> {
     return dataProvider.auth.doLogout()
+      .then(() => storageProvider.remove(SESSION))
       .then(() => this.loggedOut())
   }
 
   @Action
   loggedOut() {
-    return storageProvider.remove(SESSION)
-      .then(() => {
-        userModule.setCurrentUser(undefined)
-        dataProvider.removeToken()
-        this.setLogged(false)
-      })
+    userModule.setCurrentUser(undefined)
+    dataProvider.removeToken()
+    this.setLogged(false)
   }
 
   /*

@@ -11,6 +11,13 @@
     name: "alerts-page"
   })
   export default class AlertsPage extends Vue {
+    init() {
+      return
+    }
+
+    exit() {
+      return
+    }
   }
 </script>
 <style scoped>

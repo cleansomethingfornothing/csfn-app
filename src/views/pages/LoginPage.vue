@@ -15,7 +15,7 @@
                       :rounded="true"
                       :errors="fieldErrors.password" @blur="blur"
                       @focus="resetError('password') || focus()"></input-item>
-          <button-item color="secondary" :text="$t('login')" :disabled="loading"
+          <button-item color="primary" :text="$t('login')" :disabled="loading"
                        @click="credentialsLogin"></button-item>
           <!--
           <hr class="z-10">
@@ -26,15 +26,21 @@
            -->
         </form>
 
-        <div class="flex justify-between w-full z-10">
-          <ion-button fill="clear" color="light" shape="round" size="small" @click="$router.push('/register')">
-            {{$t('register')}}
-          </ion-button>
-          <ion-button fill="clear" color="light" shape="round" size="small"
-                      @click="$router.push('/forgotten-password')">
-            {{$t('forgotten-password')}}
-          </ion-button>
-        </div>
+        <ion-footer>
+          <ion-toolbar class="flex justify-between transparent-footer z-10">
+            <ion-buttons slot="start">
+              <ion-button fill="clear" color="white" shape="round" size="small" @click="$router.push('/register')">
+                {{$t('register')}}
+              </ion-button>
+            </ion-buttons>
+            <ion-buttons slot="end">
+              <ion-button fill="clear" color="white" shape="round" size="small"
+                          @click="$router.push('/forgotten-password')">
+                {{$t('forgotten-password')}}
+              </ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-footer>
       </div>
     </ion-content>
   </ion-page>
@@ -117,5 +123,10 @@
     bottom: 0.25em;
     left: 0.25em;
     z-index: 5;
+  }
+
+  .transparent-footer {
+    --background: transparent;
+    --border-width: 0 !important;
   }
 </style>

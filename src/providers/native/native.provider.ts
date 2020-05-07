@@ -29,7 +29,10 @@ class NativeProvider {
   hideSplashScreen() {
     this.isMobile()
       .then((isMobile) => {
-        isMobile && SplashScreen.hide()
+        if (isMobile) {
+          StatusBar.setOverlaysWebView({overlay: true})
+          SplashScreen.hide()
+        }
       })
   }
 }

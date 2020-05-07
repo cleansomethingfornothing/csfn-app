@@ -61,10 +61,9 @@ class CleanupsModule extends VuexModule {
   initialize() {
     return storageProvider.get(FILTERS_DISTANCE)
       .then((distance) => {
-        if (distance !== undefined) {
-          this.setFiltersDistance(distance)
-        }
+        this.setFiltersDistance(distance)
       })
+      .catch(() => ({}))
   }
 
   @Action

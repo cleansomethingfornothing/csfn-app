@@ -11,8 +11,8 @@
     </ion-header>
     -->
 
-    <ion-content class="fullscreen" :scroll-events="true" @ionScroll="onScroll">
-      <div class="p-4 lg:p-24 bg-polygons pt-16">
+    <ion-content class="fullscreen" :scroll-events="true" @ionScroll="onScroll" color="white">
+      <div class="p-4 lg:p-24 bg-polygons pt-24">
         <!-- Total number -->
         <div class="flex justify-between">
           <span class="text-lg lg:text-2xl text-white">{{$t('total-collected')}}</span>
@@ -29,7 +29,7 @@
         <div class="pt-10 lg:pt-8"></div>
       </div>
       <div class="-mt-20 lg:-mt-32 z-10">
-        <wave/>
+        <wave-community/>
       </div>
       <div class="pt-8 lg:pt-0 bg-white"></div>
       <div class="-mt-16 lg:-mt-20 p-2 lg:px-24">
@@ -41,27 +41,28 @@
       <div class="p-4 lg:px-24">
         <ion-label color="primary" class="ml-2 font-bold text-xl">{{$t('last-months')}}</ion-label>
         <div class="pt-2"></div>
-        <months-chart
-          :month-stats="[{month: 10, year: 2019, kg: 1500},{month: 11, year: 2019, kg: 1700},{month: 12, year: 2019, kg: 900},{month: 1, year: 2020, kg: 7000},{month: 2, year: 2020, kg: 2000},
+        <months-chart ref="chart"
+                      :month-stats="[{month: 10, year: 2019, kg: 1500},{month: 11, year: 2019, kg: 1700},{month: 12, year: 2019, kg: 900},{month: 1, year: 2020, kg: 7000},{month: 2, year: 2020, kg: 2000},
           {month: 3, year: 2020, kg: 4000},{month: 4, year: 2020, kg: 3000},{month: 5, year: 2020, kg: 4500}]"/>
       </div>
 
       <div class="p-4 lg:px-24">
         <ion-label color="primary" class="ml-2 font-bold text-xl">{{$t('top-users')}}</ion-label>
       </div>
-      <ion-list>
-        <ion-item v-for="i of [0, 1,2,3,4,5,6,7,8,9]" :key="i" class="lg:px-24 user" button
-                  :class="i === 0 ? 'user-gold' : i === 1 ? 'user-silver' : i === 2 ? 'user-bronze' : ''">
+      <ion-list class="lg:px-24">
+        <ion-item v-for="i of [0, 1,2,3,4,5,6,7,8,9]" :key="i" class=" user lg:my-2 lg:rounded-full" button
+                  :class="i === 0 ? 'user-gold' : i === 1 ? 'user-silver' : i === 2 ? 'user-bronze' : ''"
+                  detail="false">
           <div class="user-bg"></div>
           <span slot="start"
                 class="w-6 h-6 flex justify-center items-center rounded-full font-bold num">
             {{i + 1}}
           </span>
-          <ion-avatar slot="start" class="-ml-4">
+          <ion-avatar slot="start" class="-ml-2">
             <img src="/img/user-placeholder.png">
           </ion-avatar>
-          <ion-label class="font-bold my-6">@user_name</ion-label>
-          <p>1000 Lt</p>
+          <ion-label class="font-bold my-6 lg:my-4">@user_name</ion-label>
+          <p class="pr-2">1000 Kg</p>
         </ion-item>
       </ion-list>
 
@@ -72,21 +73,29 @@
 <script lang=ts>
   import Vue from 'vue'
   import Component from 'vue-class-component'
-  import Wave from '@/views/components/common/Wave.vue'
+  import WaveCommunity from '@/views/components/common/WaveCommunity.vue'
   import CommunityMap from '@/views/components/community/CommunityMap.vue'
   import MonthsChart from '@/views/components/community/MonthsChart.vue'
   import TransparentHeader from '@/views/components/common/TransparentHeader.vue'
 
   @Component({
     name: "community-page",
-    components: {TransparentHeader, MonthsChart, CommunityMap, Wave}
+    components: {WaveCommunity, TransparentHeader, MonthsChart, CommunityMap}
   })
   export default class CommunityPage extends Vue {
 
     scrolled = false
 
+    init() {
+      (this.$refs['chart'] as any).init()
+    }
+
     unitChanged(unit) {
       console.log(unit)
+    }
+
+    exit() {
+      (this.$refs['chart'] as any).exit()
     }
 
     onScroll(event: CustomEvent): void {

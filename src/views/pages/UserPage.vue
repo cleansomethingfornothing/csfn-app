@@ -14,7 +14,7 @@ import {UserLevel} from '@/types/UserLevel'
       <div
         class="lg:w-2/3 xl:w-1/2 m-auto bg-white lg:rounded-lg lg:mt-16 lg:mb-8 overflow-hidden lg:shadow-lg min-h-full lg:min-h-auto">
         <div class="h-48 relative">
-          <img class="w-full h-full absolute object-center object-cover" src="@/assets/img/profile-bg-large.png">
+          <img class="w-full h-full absolute object-center object-cover" src="@/assets/img/polygons.png">
         </div>
         <div class="-mt-16 flex flex-col justify-center items-center">
           <avatar class="w-32" :src="user && user.picture"></avatar>

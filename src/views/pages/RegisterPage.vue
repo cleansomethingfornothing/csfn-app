@@ -24,7 +24,7 @@
                       v-model="userRegistration.passwordConfirmation"
                       :errors="fieldErrors.passwordConfirmation"
                       @focus="resetError('passwordConfirmation')"></input-item>
-          <button-item color="secondary" :text="$t('create-account')" type="button" @click="register"></button-item>
+          <button-item color="primary" :text="$t('create-account')" type="button" @click="register"></button-item>
         </form>
         <i></i>
       </div>
