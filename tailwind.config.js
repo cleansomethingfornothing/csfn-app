@@ -14,6 +14,12 @@ module.exports = {
             '1/2': '50%',
             '3/4': '75%',
             'full': '100%',
+        },
+        height: {
+            sm: '8px',
+            md: '16px',
+            lg: '32px',
+            xl: '48px',
         }
     },
     variants: {},

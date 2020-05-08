@@ -1,11 +1,12 @@
 <template>
   <ion-page>
     <ion-content :scroll-events="true" @ionScroll="onScroll" class="fullscreen">
-      <div class="h-48 relative">
-        <img class="w-full h-full absolute object-cover object-top object-left" src="@/assets/img/polygons.png">
+      <div class="bg-poly bg-poly-1 h-64"></div>
+      <div class="-mt-20 lg:-mt-32 z-10">
+        <wave :num="1"/>
       </div>
-      <div class="-mt-16 flex flex-col justify-center items-center">
-        <avatar class="w-32" :src="user && user.picture"></avatar>
+      <div class="-mt-48 flex flex-col justify-center items-center">
+        <avatar class="w-32 lg:w-40" :src="user && user.picture"></avatar>
         <ion-skeleton-text class="w-32" v-if="!user"></ion-skeleton-text>
         <ion-label v-else class="font-bold text-xl -ml-1">{{user.username}}</ion-label>
       </div>
@@ -99,10 +100,11 @@
   import ProgressBar from '@/views/components/user/ProgressBar.vue'
   import LevelCalculator from '@/tools/LevelCalculator'
   import {UserLevel} from '@/types/UserLevel'
+  import Wave from '@/views/components/common/Wave.vue'
 
   @Component({
     name: "current-user-page",
-    components: {ProgressBar, Avatar, TransparentHeader}
+    components: {Wave, ProgressBar, Avatar, TransparentHeader}
   })
   export default class CurrentUserPage extends Vue {
 

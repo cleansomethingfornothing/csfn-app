@@ -1,6 +1,6 @@
 <template>
   <div class="flex overflow-x-auto months-chart" ref="chart">
-    <div class="min-w-1/5 lg:min-w-1/6 flex flex-col justify-between items-center h-48 relative"
+    <div class="min-w-1/5 lg:min-w-1/6 flex flex-col justify-between items-center h-64 relative"
          v-for="(month, i) of monthStats"
          :key="month.month + '-' + month.year">
       <ion-label color="medium" v-if="showYear(i)" class="text-xs font-bold">{{month.year}}</ion-label>

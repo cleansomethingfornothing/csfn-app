@@ -204,8 +204,26 @@ ion-slides {
   bottom: -100px !important;
 }
 
-.bg-polygons {
-  background: url("~@/assets/img/polygons.png") top left/cover;
+.bg-poly {
+  background-position: top left;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.bg-poly-1 {
+  background-image: url("~@/assets/img/poly-01.png");
+}
+
+.bg-poly-2 {
+  background-image: url("~@/assets/img/poly-02.png");
+}
+
+.bg-poly-3 {
+  background-image: url("~@/assets/img/poly-03.png");
+}
+
+.bg-poly-4 {
+  background-image: url("~@/assets/img/poly-04.png");
 }
 
 @media screen and (min-width: 700px) {
