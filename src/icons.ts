@@ -13,6 +13,7 @@ import {
   create,
   flag,
   funnel,
+  globe,
   images,
   informationCircle,
   list,
@@ -30,8 +31,7 @@ import {
   share,
   speedometer,
   stats,
-  trash,
-  globe
+  trash
 } from 'ionicons/icons'
 
 addIcons({

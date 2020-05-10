@@ -1,41 +1,30 @@
 <template>
-  <ion-tabs @IonTabsDidChange="tabDidChange">
-    <ion-tab tab="user">
-      <current-user-page ref="user"/>
-    </ion-tab>
+  <ion-page class="home-page">
+    <ion-slides class="w-full h-full" ref="slider" :options="{initialSlide: 1, resistanceRatio: 1}"
+                @ionSlideWillChange="slided">
+      <ion-slide>
+        <current-user-page ref="user"/>
+      </ion-slide>
+      <ion-slide>
+        <community-page ref="community"/>
+      </ion-slide>
+      <ion-slide>
+        <alerts-page ref="alerts"/>
+      </ion-slide>
+      <ion-slide>
+        <events-page ref="events"/>
+      </ion-slide>
+    </ion-slides>
 
-    <ion-tab tab="community">
-      <community-page ref="community"/>
-    </ion-tab>
-
-    <ion-tab tab="alerts">
-      <alerts-page ref="alerts"/>
-    </ion-tab>
-
-    <ion-tab tab="events">
-      <events-page ref="events"/>
-    </ion-tab>
-
-    <template slot="bottom">
-      <ion-tab-bar selected-tab="community">
-        <ion-tab-button tab="user">
-          <ion-icon size="large" :src="require('@/assets/img/user.svg')"></ion-icon>
-        </ion-tab-button>
-
-        <ion-tab-button tab="community">
-          <ion-icon size="large" :src="require('@/assets/img/community.svg')"></ion-icon>
-        </ion-tab-button>
-
-        <ion-tab-button tab="alerts">
-          <ion-icon size="large" :src="require('@/assets/img/alerts.svg')"></ion-icon>
-        </ion-tab-button>
-
-        <ion-tab-button tab="events">
-          <ion-icon size="large" :src="require('@/assets/img/events.svg')"></ion-icon>
-        </ion-tab-button>
-      </ion-tab-bar>
-    </template>
-  </ion-tabs>
+    <ion-tab-bar>
+      <ion-tab-button v-for="tab in ['user', 'community', 'alerts', 'events']" :key="tab" @click="changeTab(tab)"
+                      :selected="selectedTab === tab">
+        <ion-icon v-if="selectedTab === tab" size="large"
+                  :src="require('@/assets/img/tabs/' + tab + '.svg')"></ion-icon>
+        <ion-icon  v-else size="large" :src="require('@/assets/img/tabs/' + tab + '_off.svg')"></ion-icon>
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-page>
 </template>
 
 <script lang="ts">
@@ -50,6 +39,7 @@
   import CommunityPage from '@/views/pages/CommunityPage.vue'
   import AlertsPage from '@/views/pages/AlertsPage.vue'
   import EventsPage from '@/views/pages/EventsPage.vue'
+  import {Ref} from 'vue-property-decorator'
 
   @Component({
     name: 'HomePage.vue',
@@ -67,18 +57,56 @@
   })
   export default class HomePage extends Vue {
 
-    currentTab = ''
+    tabs = ['user', 'community', 'alerts', 'events']
+
+    selectedTab = ''
+
+    @Ref('slider')
+    slider: any
 
     mounted() {
-      this.currentTab = this.$route.params.tab
+      this.slideTo(this.$route.params.tab)
     }
 
-    tabDidChange({path}) {
-      (this.$refs[this.currentTab] as any).exit()
-      this.currentTab = path
-      setTimeout(() => {
-        (this.$refs[path] as any).init()
-      }, 200)
+    changeTab(tab) {
+      this.leaveTab(tab)
+      this.slideTo(tab)
+    }
+
+    slideTo(tab) {
+      this.slider.slideTo(this.tabs.indexOf(tab))
+      this.enterTab(tab)
+    }
+
+    leaveTab(tab) {
+      (this.$refs[this.selectedTab] as any).exit()
+      this.$router.replace('/home/' + tab)
+    }
+
+    enterTab(tab) {
+      Promise.resolve().then(() => (this.$refs[tab] as any).init())
+      this.selectedTab = tab
+    }
+
+    slided() {
+      this.slider.getActiveIndex()
+        .then(index => {
+          const tab = this.tabs[index]
+          if (this.selectedTab !== tab) {
+            this.leaveTab(tab)
+            this.enterTab(tab)
+          }
+        })
     }
   }
 </script>
+<style>
+  .home-tabs {
+    --padding: 0;
+    --pading-top: 0;
+  }
+
+  .tab-button {
+    height: 150%;
+  }
+</style>

@@ -1,5 +1,5 @@
 import {Action, Module, Mutation, VuexModule} from 'vuex-class-modules'
-import Cleanup from '@/types/Cleanup'
+import Activity from '@/types/Activity'
 import CleanupFilters from '@/types/CleanupFilters'
 import {store} from '@/store/index'
 import Validator from '@/tools/Validator'
@@ -12,8 +12,8 @@ const FILTERS_DISTANCE = 'CSFN_FILTERS_DISTANCE'
 @Module
 class CleanupsModule extends VuexModule {
 
-  cleanups: { [id: string]: Cleanup } = null
-  userCleanups: { [id: string]: Cleanup } = null
+  cleanups: { [id: string]: Activity } = null
+  userCleanups: { [id: string]: Activity } = null
 
   filters: CleanupFilters = new CleanupFilters()
 
@@ -38,17 +38,17 @@ class CleanupsModule extends VuexModule {
   }
 
   @Mutation
-  setCleanups(cleanups: Cleanup[]) {
-    this.cleanups = cleanups.reduce((acc, v) => ({...acc, [v.id]: v}), {})
+  setCleanups(cleanups: Activity[]) {
+    this.cleanups = cleanups && cleanups.reduce((acc, v) => ({...acc, [v.id]: v}), {})
   }
 
   @Mutation
-  setCleanup(cleanup: Cleanup) {
+  setCleanup(cleanup: Activity) {
     this.cleanups = {...(this.cleanups || {}), [cleanup.id]: cleanup}
   }
 
   @Mutation
-  setUserCleanups(cleanups: Cleanup[]) {
+  setUserCleanups(cleanups: Activity[]) {
     this.userCleanups = cleanups.reduce((acc, v) => ({...acc, [v.id]: v}), {})
   }
 
@@ -76,16 +76,8 @@ class CleanupsModule extends VuexModule {
 
   @Action
   fetch(): Promise<void> {
-    this.setCleanups([])
-    return dataProvider.cleanups.fetch(this.filters, locationModule.getCoords)
+    return dataProvider.activities.fetch(this.filters, locationModule.getCoords)
       .then((cleanups) => this.setCleanups(cleanups))
-  }
-
-  @Action
-  fetchFromUser(userId: string): Promise<void> {
-    this.setUserCleanups([])
-    return dataProvider.cleanups.fetchFromUser(userId)
-      .then((cleanups) => this.setUserCleanups(cleanups))
   }
 
   @Action
@@ -93,15 +85,15 @@ class CleanupsModule extends VuexModule {
     if (this.cleanups[id]) {
       return Promise.resolve()
     }
-    return dataProvider.cleanups.fetchOne(id)
+    return dataProvider.activities.fetchOne(id)
       .then((cleanup) => this.setCleanup(cleanup))
   }
 
 
   @Action
-  publish(cleanup: Cleanup): Promise<void> {
+  publish(cleanup: Activity): Promise<void> {
     return Validator.validate(cleanup)
-      .then(() => dataProvider.cleanups.publish(cleanup))
+      .then(() => dataProvider.activities.publish(cleanup))
   }
 
 }

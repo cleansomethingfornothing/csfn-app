@@ -1,11 +1,12 @@
 <template>
   <ion-page>
-    <ion-content :scroll-events="true" @ionScroll="onScroll" class="fullscreen">
-      <div class="bg-poly bg-poly-1 h-64"></div>
-      <div class="-mt-20 lg:-mt-32 z-10">
+    <ion-content :scroll-events="true" @ionScroll="onScroll" class="user-content min-h-screen">
+      <div class="bg-poly bg-poly-1 h-64 lg:h-88 ios:h-60 sm:ios:h-64 lg:ios:h-72 xl:ios:h-88"></div>
+      <div class="-mt-24 pt-3 lg:-mt-32 xl:-mt-40 z-10 sm:ios:pt-4">
+        <div class="sm:ios:pt-3"></div>
         <wave :num="1"/>
       </div>
-      <div class="-mt-48 flex flex-col justify-center items-center">
+      <div class="-mt-40 lg:-mt-48 flex flex-col justify-center items-center pt-4 ios:-mt-40  lg:ios:-mt-56">
         <avatar class="w-32 lg:w-40" :src="user && user.picture"></avatar>
         <ion-skeleton-text class="w-32" v-if="!user"></ion-skeleton-text>
         <ion-label v-else class="font-bold text-xl -ml-1">{{user.username}}</ion-label>
@@ -15,18 +16,24 @@
 
       <div class="ripple-parent ion-activatable py-4">
         <div class="flex items-baseline justify-center -ml-1">
-          <img :src="require(`@/assets/img/levels/${userLevelAndPercentage[0]}.svg`)" class="w-8">
+          <div class="w-8">
+            <img :src="require(`@/assets/img/levels/${userLevelAndPercentage[0]}.svg`)">
+          </div>
           <ion-label class="ml-2 text-3xl economica">{{$t(userLevelAndPercentage[0])}}</ion-label>
         </div>
         <div class="flex justify-between items-center px-4">
           <div class="flex">
-            <img class="w-6 mr-2" src="@/assets/img/cleanups.svg">
+            <div class="w-6 mr-2 flex justify-center items-center">
+              <img src="@/assets/img/cleanups.svg">
+            </div>
             <ion-label class="economica text-2xl font-bold" color="dark">
               {{Object.keys(userCleanups).length + ' ' + $t('cleanups')}}
             </ion-label>
           </div>
-          <div class="flex mr-1">
-            <img class="w-6 mr-2" src="@/assets/img/weight.svg">
+          <div class="flex items-enter mr-1">
+            <div class="w-6 mr-2 flex justify-center items-center">
+              <img src="@/assets/img/weight.svg">
+            </div>
             <ion-label class="economica text-2xl font-bold" color="dark">{{userWeight}} Kg</ion-label>
           </div>
         </div>
@@ -36,22 +43,38 @@
         <ion-ripple-effect></ion-ripple-effect>
       </div>
 
+      <!--
       <hr class="mb-4 mb-2 mx-4">
+      -->
+
+      <div class="p-2 lg:px-24 -mt-4">
+        <ion-card button class="lg:h-64">
+          <community-map/>
+        </ion-card>
+      </div>
+
+      <hr class="mx-4">
+
       <ion-list lines="inset">
-        <ion-item button>
-          <ion-icon slot="start" :src="require('@/assets/img/bags.svg')"></ion-icon>
-          <ion-label>{{$t('cleanups')}}</ion-label>
+        <ion-item button detail="true">
+          <ion-icon slot="start" name="trash" size="large" color="dark"></ion-icon>
+          <ion-label class="my-4">{{$t('cleanups')}}</ion-label>
         </ion-item>
-        <ion-item button>
-          <ion-icon slot="start" :src="require('@/assets/img/exclamation.svg')"></ion-icon>
-          <ion-label>{{$t('alerts')}}</ion-label>
+        <ion-item button detail="true">
+          <ion-icon slot="start" name="alert" size="large" color="dark"></ion-icon>
+          <ion-label class="my-4">{{$t('alerts')}}</ion-label>
         </ion-item>
-        <ion-item button>
-          <ion-icon slot="start" :src="require('@/assets/img/flag.svg')"></ion-icon>
-          <ion-label><h2 class="font-bold">{{$t('events')}}</h2></ion-label>
+        <ion-item button detail="true">
+          <ion-icon slot="start" name="flag" size="large" color="dark"></ion-icon>
+          <ion-label class="my-4">{{$t('events')}}</ion-label>
+        </ion-item>
+        <ion-item button detail="true">
+          <ion-icon slot="start" name="settings" size="large" color="dark"></ion-icon>
+          <ion-label class="my-4">{{$t('settings')}}</ion-label>
         </ion-item>
       </ion-list>
 
+      <div class="pt-12"></div>
       <!--
       <ion-list lines="inset">
         <ion-list-header>
@@ -101,10 +124,11 @@
   import LevelCalculator from '@/tools/LevelCalculator'
   import {UserLevel} from '@/types/UserLevel'
   import Wave from '@/views/components/common/Wave.vue'
+  import CommunityMap from '@/views/components/community/CommunityMap.vue'
 
   @Component({
     name: "current-user-page",
-    components: {Wave, ProgressBar, Avatar, TransparentHeader}
+    components: {CommunityMap, Wave, ProgressBar, Avatar, TransparentHeader}
   })
   export default class CurrentUserPage extends Vue {
 
@@ -127,13 +151,13 @@
     }
 
     get userWeight() {
-      return Object.values(this.userCleanups).reduce((acc, c) => acc + c.weight, 0)
+      return Object.values(this.userCleanups).reduce((acc, c) => acc + c.liters, 0)
     }
 
     mounted(): void {
       const userId = this.$route.params.id
       userModule.fetchViewingUser(userId)
-      cleanupsModule.fetchFromUser(userId)
+      //cleanupsModule.fetchFromUser(userId)
     }
 
     init() {
@@ -154,6 +178,3 @@
 
   }
 </script>
-<style scoped>
-
-</style>

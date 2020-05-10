@@ -10,7 +10,7 @@
   import Vue from 'vue'
   import Component from 'vue-class-component'
   import {Emit, Prop} from 'vue-property-decorator'
-  import Cleanup from '@/types/Cleanup'
+  import Activity from '@/types/Activity'
   import PlaceholderCard from '@/views/components/home/PlaceholderCard.vue'
   import CleanupCard from '@/views/components/home/CleanupCard.vue'
   import Coords from '@/types/Coords'
@@ -26,7 +26,7 @@
     coords: Coords
 
     @Prop(Object)
-    cleanups: { [id: string]: Cleanup }
+    cleanups: { [id: string]: Activity }
 
     calcDistance(cleanupCoords: Coords) {
       return Math.round(locationProvider.calculateDistance(this.coords, cleanupCoords))

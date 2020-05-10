@@ -1,4 +1,4 @@
-import Cleanup from '@/types/Cleanup'
+import Activity from '@/types/Activity'
 import {UserLevel} from '@/types/UserLevel'
 import UserLevelRule from '@/types/UserLevelRule'
 
@@ -24,9 +24,9 @@ export default class LevelCalculator {
     }
   ]
 
-  static getUserLevelAndPercentage(cleanups: Cleanup[]): [UserLevel, number] {
+  static getUserLevelAndPercentage(cleanups: Activity[]): [UserLevel, number] {
     const userCleanups = cleanups.length
-    const userWeight = cleanups.reduce((acc, c) => acc + c.weight, 0)
+    const userWeight = cleanups.reduce((acc, c) => acc + c.liters, 0)
 
     let applyingRule
     let nextRule

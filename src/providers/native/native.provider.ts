@@ -5,8 +5,6 @@ const {App, SplashScreen, StatusBar, Device} = Plugins;
 class NativeProvider {
   mobile: boolean
 
-  statusBarColor: string
-
   isMobile(): Promise<boolean> {
     return ((this.mobile === undefined)
       ? Device.getInfo().then(({platform}) => {
@@ -15,21 +13,11 @@ class NativeProvider {
       .then(() => this.mobile)
   }
 
-  setStatusBarColor(color: string) {
-    this.isMobile()
-      .then((isMobile) => {
-        if (isMobile && color !== this.statusBarColor) {
-          StatusBar.setStyle({style: StatusBarStyle.Light})
-          StatusBar.setBackgroundColor({color})
-          this.statusBarColor = color
-        }
-      })
-  }
-
   hideSplashScreen() {
     this.isMobile()
       .then((isMobile) => {
         if (isMobile) {
+          StatusBar.setStyle({style: StatusBarStyle.Light})
           StatusBar.setOverlaysWebView({overlay: true})
           SplashScreen.hide()
         }

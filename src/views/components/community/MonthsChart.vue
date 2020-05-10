@@ -1,5 +1,5 @@
 <template>
-  <div class="flex overflow-x-auto months-chart" ref="chart">
+  <div class="flex overflow-x-auto months-chart" ref="chart" @touchstart="scrolled">
     <div class="min-w-1/5 lg:min-w-1/6 flex flex-col justify-between items-center h-64 relative"
          v-for="(month, i) of monthStats"
          :key="month.month + '-' + month.year">
@@ -45,7 +45,7 @@
     heights = []
 
     get max() {
-      return Math.max(...this.monthStats.map(({kg}) => kg))
+      return Math.max(...this.monthStats.map(({kilos}) => kilos))
     }
 
     mounted(): void {
@@ -58,7 +58,7 @@
       this.chart.scrollTo(this.chart.scrollWidth, 0)
       this.heights = this.monthStats.map(() => 0)
       setTimeout(() => {
-        this.heights = this.monthStats.map(month => this.percentage(month.kg))
+        this.heights = this.monthStats.map(month => this.percentage(month.kilos))
       }, 100)
     }
 
@@ -84,6 +84,10 @@
 
     blur() {
       this.showData = null
+    }
+
+    scrolled(e) {
+      e.stopPropagation()
     }
   }
 </script>

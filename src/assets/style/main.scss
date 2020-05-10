@@ -167,12 +167,10 @@ ion-skeleton-text {
   padding-top: 33%;
 }
 
-/*
-:root {
-  --ion-safe-area-top: env(safe-area-inset-top);
-  --ion-safe-area-bottom: env(safe-area-inset-bottom);
+.h-toolbar-top {
+  height: var(--ion-safe-area-top);
 }
-*/
+
 .md {
   --ion-safe-area-top: var(--ion-statusbar-padding, 24px);
 }
@@ -205,8 +203,7 @@ ion-slides {
 }
 
 .bg-poly {
-  background-position: top left;
-  background-size: cover;
+  background-size: calc(100% + 2px);
   background-repeat: no-repeat;
 }
 

@@ -31,7 +31,7 @@
   import Vue from 'vue'
   import Component from 'vue-class-component'
   import {Emit, Prop} from 'vue-property-decorator'
-  import Cleanup from '@/types/Cleanup'
+  import Activity from '@/types/Activity'
   import moment from 'moment'
 
   @Component({
@@ -39,7 +39,7 @@
   })
   export default class MapCleanupCard extends Vue {
     @Prop(Object)
-    cleanup: Cleanup
+    cleanup: Activity
 
     get formattedDate() {
       if (!this.cleanup)

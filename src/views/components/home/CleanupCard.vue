@@ -1,5 +1,5 @@
 <template>
-  <ion-card class="cleanup-card ion-activatable ripple-parent" mode="ios" @click="click" button color="white">
+  <ion-card class="cleanup-card ion-activatable ripple-parent text-left" mode="ios" @click="click" button color="white">
     <div class="cleanup-card__image">
       <img :src="cleanup.pictures[0]">
     </div>
@@ -30,7 +30,7 @@
   import Vue from 'vue'
   import Component from 'vue-class-component'
   import {Emit, Prop} from 'vue-property-decorator'
-  import Cleanup from '@/types/Cleanup'
+  import Activity from '@/types/Activity'
   import moment from 'moment'
 
   @Component({
@@ -39,7 +39,7 @@
   export default class CleanupCard extends Vue {
 
     @Prop(Object)
-    cleanup: Cleanup
+    cleanup: Activity
 
     @Prop(Number)
     distance: number

@@ -49,7 +49,16 @@ export class AuthProvider {
     return Promise.resolve();
   }
 
-  doResetPassword(email: string): Promise<void> {
+  askPasswordResetCode(email: string): Promise<void> {
     return Promise.resolve(email && undefined);
   }
+
+  validatePasswordResetCode(email: string, code: string): Promise<boolean> {
+    return Promise.resolve(true)
+  }
+
+  doPasswordReset(email: string, code: string, newPassword: string): Promise<void> {
+    return Promise.resolve()
+  }
+
 }

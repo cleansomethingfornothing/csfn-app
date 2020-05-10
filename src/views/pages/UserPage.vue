@@ -126,13 +126,12 @@ import {UserLevel} from '@/types/UserLevel'
     }
 
     get userWeight() {
-      return Object.values(this.userCleanups).reduce((acc, c) => acc + c.weight, 0)
+      return Object.values(this.userCleanups).reduce((acc, c) => acc + c.kilos, 0)
     }
 
     mounted(): void {
       const userId = this.$route.params.id
       userModule.fetchViewingUser(userId)
-      cleanupsModule.fetchFromUser(userId)
     }
 
     openCleanup(id: string) {

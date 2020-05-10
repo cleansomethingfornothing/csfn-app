@@ -54,7 +54,7 @@ class AuthModule extends VuexModule {
   @Action
   loggedIn({token, username}) {
     dataProvider.setToken(token)
-    return dataProvider.user.fetchUser(username)
+    return dataProvider.user.fetchUser()
       .then((user) => userModule.setCurrentUser(user))
       .then(() => {
         this.setLogged(true)
@@ -63,7 +63,7 @@ class AuthModule extends VuexModule {
 
   @Action
   doResetPassword(email: string): Promise<void> {
-    return dataProvider.auth.doResetPassword(email)
+    return dataProvider.auth.askPasswordResetCode(email)
   }
 
   @Action

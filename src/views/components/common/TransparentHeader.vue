@@ -10,7 +10,7 @@
             <ion-icon name="arrow-back"></ion-icon>
           </ion-button>
         </ion-buttons>
-        <ion-title v-if="title" :color="scrolled ? 'dark' : 'white'">{{title}}</ion-title>
+        <ion-title class="lg:text-lg xl:text-xl" v-if="title" :color="scrolled ? 'dark' : 'white'">{{title}}</ion-title>
         <ion-buttons slot="end">
           <slot name="end-buttons"></slot>
         </ion-buttons>
@@ -75,10 +75,6 @@
 
   .transparent-header.always-transparent ion-toolbar {
     --background: transparent !important;
-  }
-
-  .transparent-header *, .transparent-header ion-toolbar {
-    transition: all 0.3s;
   }
 
   .transparent-header.scrolled ion-toolbar {

@@ -6,6 +6,10 @@ import PublishPage from '@/views/pages/EditionPage.vue'
 import CleanupPage from '@/views/pages/CleanupPage.vue'
 import UserPage from '@/views/pages/UserPage.vue'
 import SettingsPage from '@/views/pages/SettingsPage.vue'
+import CommunityPage from '@/views/pages/CommunityPage.vue'
+import AlertsPage from '@/views/pages/AlertsPage.vue'
+import EventsPage from '@/views/pages/EventsPage.vue'
+import CurrentUserPage from '@/views/pages/CurrentUserPage.vue'
 
 export default [
   {
@@ -13,8 +17,7 @@ export default [
     name: 'LoginPage',
     component: LoginPage,
     meta: {
-      public: true,
-      statusBarColor: '#C6D7B3'
+      public: true
     }
   }, {
     public: true,
@@ -22,8 +25,7 @@ export default [
     name: 'RegisterPage',
     component: RegisterPage,
     meta: {
-      public: true,
-      statusBarColor: '#C6D7B3'
+      public: true
     }
   }, {
     public: true,
@@ -31,8 +33,7 @@ export default [
     name: 'ForgottenPasswordPage',
     component: ForgottenPasswordPage,
     meta: {
-      public: true,
-      statusBarColor: '#C6D7B3'
+      public: true
     }
   }, {
     path: '/',
@@ -43,37 +44,22 @@ export default [
   }, {
     path: '/home/:tab',
     name: 'HomePage',
-    component: HomePage,
-    meta: {
-      statusBarColor: '#FFFFFF'
-    }
+    component: HomePage
   }, {
     path: '/user/:id',
     name: 'User',
-    component: UserPage,
-    meta: {
-      statusBarColor: '#FFFFFF'
-    }
+    component: UserPage
   }, {
     path: '/cleanup/:id',
     name: 'Cleanup',
-    component: CleanupPage,
-    meta: {
-      statusBarColor: '#FFFFFF'
-    }
+    component: CleanupPage
   }, {
     path: '/publish',
     name: 'Publish',
-    component: PublishPage,
-    meta: {
-      statusBarColor: '#FFFFFF'
-    }
+    component: PublishPage
   }, {
     path: '/settings',
     name: 'Settings',
-    component: SettingsPage,
-    meta: {
-      statusBarColor: '#FFFFFF'
-    }
+    component: SettingsPage
   }
 ]

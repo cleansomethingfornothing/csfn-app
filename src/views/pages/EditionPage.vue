@@ -61,7 +61,7 @@
 <script lang="ts">
   import Vue from 'vue'
   import Component from 'vue-class-component'
-  import Cleanup from '@/types/Cleanup'
+  import Activity from '@/types/Activity'
   import ModalPresenter from '@/tools/ModalPresenter'
   import SelectLocation from '@/views/modals/LocationModal.vue'
   import {locationModule} from '@/store/locationModule'
@@ -83,7 +83,7 @@
 
     errors = {}
 
-    cleanup = new Cleanup()
+    cleanup = new Activity()
 
     get coords() {
       return locationModule.getCoords
@@ -122,7 +122,7 @@
         searchPlaceholder: this.$t('search-place'),
         cancelText: this.$t('cancel'),
         acceptText: this.$t('save'),
-        pin: this.cleanup.done ? '/img/cleanup_pin.png' : '/img/alert_pin.png'
+        pin: '/img/cleanup_pin.png'
       }).then(({data}) => {
         if (data) {
           placesProvider.getAddress(data.selectedCoords)

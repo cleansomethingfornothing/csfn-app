@@ -1,7 +1,9 @@
 import {AuthProvider} from '@/providers/data/auth/auth.provider'
-import {CleanupsProvider} from '@/providers/data/cleanups/cleanups.provider'
 import {UserProvider} from '@/providers/data/user/user.provider'
 import axios, {AxiosInstance} from 'axios'
+import CommunityProvider from '@/providers/data/community/community.provider'
+import PicturesProvider from '@/providers/data/pictures/pictures.provider'
+import {ActivitiesProvider} from '@/providers/data/activities/activities.provider'
 
 const baseUrl = 'https://www.cleansomethingfornothing.com/server_csfn/api/usuarios/'
 
@@ -11,7 +13,9 @@ class DataProvider {
 
   auth: AuthProvider
   user: UserProvider
-  cleanups: CleanupsProvider
+  activities: ActivitiesProvider
+  community: CommunityProvider
+  pictures: PicturesProvider
 
   constructor() {
     this.axios = axios.create({
@@ -19,7 +23,9 @@ class DataProvider {
     })
     this.auth = new AuthProvider(this.axios)
     this.user = new UserProvider(this.axios)
-    this.cleanups = new CleanupsProvider(this.axios)
+    this.activities = new ActivitiesProvider(this.axios)
+    this.community = new CommunityProvider(this.axios)
+    this.pictures = new PicturesProvider(this.axios)
   }
 
   setToken(token: string) {

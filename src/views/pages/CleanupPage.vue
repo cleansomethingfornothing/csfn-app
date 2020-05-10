@@ -96,7 +96,7 @@
   import Component from 'vue-class-component'
   import {cleanupsModule} from '@/store/cleanupsModule'
   import {userModule} from '@/store/userModule'
-  import Cleanup from '@/types/Cleanup'
+  import Activity from '@/types/Activity'
   import User from '@/types/User'
   import ModalPresenter from '@/tools/ModalPresenter'
   import MapModal from '@/views/modals/MapModal.vue'
@@ -115,7 +115,7 @@
     width = 0
     scrolled = false
 
-    get cleanup(): Cleanup {
+    get cleanup(): Activity {
       return cleanupsModule.getCleanup(this.$route.params.id)
     }
 
@@ -137,7 +137,7 @@
     openMap() {
       ModalPresenter.present(this.$ionic, MapModal, {
         origin: this.cleanup.location.coords,
-        pin: this.cleanup.done ? '/img/cleanup_pin.png' : '/img/alert_pin.png'
+        pin: '/img/cleanup_pin.png'
       })
     }
 

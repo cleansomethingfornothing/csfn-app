@@ -8,7 +8,6 @@
   import Component from 'vue-class-component'
   import {userModule} from '@/store/userModule'
   import {authModule} from '@/store/authModule'
-  import {nativeProvider} from '@/providers/native/native.provider'
   import {appModule} from '@/store/appModule'
   import CurrentUserPage from '@/views/pages/CurrentUserPage.vue'
   import SelectCleanupType from '@/views/modals/CleanupTypeModal.vue'
@@ -40,9 +39,6 @@
 
     mounted() {
       appModule.initialize()
-        .then(() => {
-          nativeProvider.hideSplashScreen()
-        })
     }
 
     logout() {

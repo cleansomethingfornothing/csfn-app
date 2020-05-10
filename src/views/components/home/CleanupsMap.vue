@@ -24,7 +24,7 @@
   import Map from '@/tools/Map'
   import Component from 'vue-class-component'
   import {Emit, Prop, Watch} from 'vue-property-decorator'
-  import Cleanup from '@/types/Cleanup'
+  import Activity from '@/types/Activity'
   import Coords from '@/types/Coords'
   import MapCleanupCard from '@/views/components/home/MapCleanupCard.vue'
 
@@ -36,10 +36,10 @@
 
     map: Map = null
 
-    selectedCleanup: Cleanup = null
+    selectedCleanup: Activity = null
 
     @Prop(Object)
-    cleanups: { [id: string]: Cleanup }
+    cleanups: { [id: string]: Activity }
 
     @Prop(Object)
     origin: Coords
@@ -59,12 +59,12 @@
     }
 
     @Watch('cleanups')
-    cleanupsChanged(cleanups: { [id: string]: Cleanup }) {
-      if(!cleanups) return
+    cleanupsChanged(cleanups: { [id: string]: Activity }) {
+      if (!cleanups) return
       this.map.removeMarkers()
       for (const cleanup of Object.values(cleanups)) {
         this.map.addMarker(cleanup.location.coords,
-          cleanup.done ? '/img/cleanup_pin.png' : '/img/alert_pin.png',
+          '/img/cleanup_pin.png',
           () => {
             this.selectedCleanup = undefined
             this.map.moveCamera({lat: cleanup.location.coords.lat - 0.05, lng: cleanup.location.coords.lng})

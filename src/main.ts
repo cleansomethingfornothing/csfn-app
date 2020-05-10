@@ -6,10 +6,10 @@ import './icons'
 import {store} from '@/store'
 import {router} from '@/router'
 import {i18n} from '@/i18n'
-import './assets/style/tailwind.css'
 import {Plugins} from '@capacitor/core'
+import './assets/style/tailwind.css'
 
-const {App, SplashScreen, StatusBar, Device} = Plugins;
+const {App, SplashScreen, StatusBar, Device} = Plugins
 
 Vue.config.productionTip = false
 Vue.config.ignoredElements = [/^ion-/]
