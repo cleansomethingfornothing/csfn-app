@@ -1,7 +1,7 @@
 import {Action, Module, Mutation, VuexModule} from 'vuex-class-modules'
 import {store} from '@/store/index'
 import {authModule} from '@/store/authModule'
-import {cleanupsModule} from '@/store/cleanupsModule'
+import {cleanupsModule} from '@/store/activitiesModule'
 import {locationModule} from '@/store/locationModule'
 
 @Module

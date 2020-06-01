@@ -7,11 +7,13 @@ export default {
     'cleanups': 'Cleanups',
     'cleanups-and-alerts': 'Cleanups and alerts',
     'cleanup-in': 'Cleanup in',
-    'alert': 'Alert',
-    'alerts': 'Alerts',
-    'alert-in': 'Alert in',
     'write-description': 'Write a descrpition',
+    'title': 'Title',
     'description': 'Description',
+    'liters': 'Liters',
+    'volume': 'Volume',
+    'bags': 'bag | bags',
+    'of': 'of',
     'weight': 'Weight',
     'location': 'Location',
     'pictures': 'Pictures',
@@ -24,7 +26,7 @@ export default {
     'show-alerts': 'Show only alerts',
     'distance': 'Distance',
     'no-limits': 'No limits',
-    'no-cleanups': 'There are no cleanups yet'
+    'no-cleanups': 'You have no cleanups yet'
   },
   es: {
     'publish-cleanup': 'Publicar limpieza',
@@ -34,11 +36,13 @@ export default {
     'cleanup': 'Limpieza',
     'cleanups': 'Limpiezas',
     'cleanups-and-alerts': 'Limpiezas y alertas',
-    'alert': 'Alerta',
-    'alerts': 'Alertas',
-    'alert-in': 'Alerta en',
     'write-description': 'Escribe una descripción',
+    'title': 'Título',
     'description': 'Descripción',
+    'liters': 'Litros',
+    'volume': 'Volumen',
+    'bags': 'bolsa | bolsas',
+    'of': 'de',
     'weight': 'Peso',
     'location': 'Ubicación',
     'pictures': ' Fotos',
@@ -51,6 +55,6 @@ export default {
     'show-alerts': 'Mostrar solo las alertas',
     'distance': 'Distancia',
     'no-limits': 'Sin límites',
-    'no-cleanups': 'Todavía no hay limpiezas'
+    'no-cleanups': 'Todavía no tienes limpiezas'
   }
 }

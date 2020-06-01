@@ -1,13 +1,14 @@
 <template>
   <ion-app>
-    <router-view></router-view>
+    <div>
+      <router-view></router-view>
+    </div>
   </ion-app>
 </template>
 <script lang="ts">
   import Vue from 'vue'
   import Component from 'vue-class-component'
   import {userModule} from '@/store/userModule'
-  import {authModule} from '@/store/authModule'
   import {appModule} from '@/store/appModule'
   import CurrentUserPage from '@/views/pages/CurrentUserPage.vue'
   import SelectCleanupType from '@/views/modals/CleanupTypeModal.vue'
@@ -20,15 +21,6 @@
   })
   export default class Main extends Vue {
 
-    currentIndex = 1
-
-    tabIndex = {
-      'user': 0,
-      'community': 1,
-      'alerts': 2,
-      'events': 3
-    }
-
     get initialized() {
       return appModule.isInitialized
     }
@@ -39,11 +31,6 @@
 
     mounted() {
       appModule.initialize()
-    }
-
-    logout() {
-      authModule.doLogout()
-        .then(() => this.$router.push('/login'))
     }
   }
 </script>

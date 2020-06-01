@@ -10,7 +10,7 @@ import {locationModule} from '@/store/locationModule'
 const FILTERS_DISTANCE = 'CSFN_FILTERS_DISTANCE'
 
 @Module
-class CleanupsModule extends VuexModule {
+class ActivitiesModule extends VuexModule {
 
   cleanups: { [id: string]: Activity } = null
   userCleanups: { [id: string]: Activity } = null
@@ -98,4 +98,4 @@ class CleanupsModule extends VuexModule {
 
 }
 
-export const cleanupsModule = new CleanupsModule()
+export const cleanupsModule = new ActivitiesModule()

@@ -7,18 +7,23 @@
       </ion-toolbar>
       <ion-progress-bar v-if="searching" type="indeterminate" color="primary"></ion-progress-bar>
     </ion-header>
-    <ion-card class="search-results w-full absolute z-40 m-0">
-      <selection-list :elements="searchResults" element-key="id" icon="location"
-                      :element-value="(element) => element.toString()" @selected="selected">
-      </selection-list>
-    </ion-card>
     <ion-content>
+      <ion-card class="top-0 w-full absolute z-40 m-0">
+        <selection-list :elements="searchResults" element-key="id" icon="location"
+                        :element-value="(element) => element.toString()" @selected="selected">
+        </selection-list>
+      </ion-card>
       <div id="map_canvas" class="h-full w-full z-30"></div>
     </ion-content>
     <ion-footer mode="ios">
+      <ion-toolbar>
+        <ion-item>
+          <ion-range color="danger" pin="true"></ion-range>
+        </ion-item>
+      </ion-toolbar>
       <ion-toolbar class="px-1">
         <ion-buttons slot="start">
-          <ion-button fill="clear" color="medium" shape="round" @click="cancel">
+          <ion-button fill="clear" color="black" shape="round" @click="cancel">
             {{cancelText}}
           </ion-button>
         </ion-buttons>
@@ -130,6 +135,6 @@
   }
 
   .search-results {
-    top: 65px;
+    top: 100%;
   }
 </style>

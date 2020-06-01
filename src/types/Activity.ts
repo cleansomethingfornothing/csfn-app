@@ -30,7 +30,7 @@ export default class Activity {
 
   @ValidateIf(o => o.type === 'cleanup')
   @IsNotEmpty({message: 'required-error'})
-  liters: number
+  volume: number
 
   @ValidateIf(o => o.type === 'event')
   @IsNotEmpty({message: 'required-error'})

@@ -41,6 +41,7 @@
     "form-data": "^3.0.0",
     "ionicons": "^4.6.3",
     "jetifier": "^1.6.5",
+    "lodash": "^4.17.15",
     "moment": "^2.24.0",
     "qs": "^6.9.3",
     "reflect-metadata": "^0.1.13",
@@ -58,6 +59,7 @@
   },
   "devDependencies": {
     "@capacitor/cli": "1.5.1",
+    "@types/lodash": "^4.14.154",
     "@typescript-eslint/eslint-plugin": "^2.18.0",
     "@typescript-eslint/parser": "^2.18.0",
     "@vue/cli-plugin-babel": "^4.2.0",

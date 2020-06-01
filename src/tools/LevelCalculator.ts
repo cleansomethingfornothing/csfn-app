@@ -26,7 +26,7 @@ export default class LevelCalculator {
 
   static getUserLevelAndPercentage(cleanups: Activity[]): [UserLevel, number] {
     const userCleanups = cleanups.length
-    const userWeight = cleanups.reduce((acc, c) => acc + c.liters, 0)
+    const userWeight = cleanups.reduce((acc, c) => acc + c.volume, 0)
 
     let applyingRule
     let nextRule

@@ -2,6 +2,7 @@ export default {
   en: {
     'cancel': 'Cancel',
     'accept': 'Accept',
+    'confirm': 'Confirm',
     'apply': 'Apply',
     'send': 'Send',
     'save': 'Save',
@@ -9,12 +10,13 @@ export default {
     'my-cleanups': 'My cleanups',
     'statistics': 'Statistics',
     'select-location': 'Select location',
-    'search-place': 'Seach a place',
+    'search-place': 'Search a place',
     'filter-results': 'Filter results'
   },
   es: {
     'cancel': 'Cancelar',
     'accept': 'Aceptar',
+    'confirm': 'Confirmar',
     'apply': 'Aplicar',
     'send': 'Enviar',
     'save': 'Guardar',

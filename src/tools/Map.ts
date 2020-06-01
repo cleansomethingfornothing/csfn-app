@@ -87,10 +87,9 @@ export default class Map {
   }
 
   public positionSelected(position: Coords) {
-    const pin = this.markers[0].icon
     this.selected = position
     this.markers.splice(0, 1)[0].setMap(null)
-    this.addMarker(position, pin)
+    this.addMarker(position, '/img/pin.png')
   }
 
   public moveCamera(position) {

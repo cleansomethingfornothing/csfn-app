@@ -3,7 +3,9 @@ import {Plugins, StatusBarStyle} from '@capacitor/core';
 const {App, SplashScreen, StatusBar, Device} = Plugins;
 
 class NativeProvider {
+
   mobile: boolean
+  statusBarStyle: StatusBarStyle
 
   isMobile(): Promise<boolean> {
     return ((this.mobile === undefined)

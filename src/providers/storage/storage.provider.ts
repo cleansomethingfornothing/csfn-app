@@ -15,6 +15,7 @@ class StorageProvider {
   get(key: string): Promise<any> {
     return SecureStoragePlugin.get({key})
       .then(({value}) => JSON.parse(value))
+      .catch(() => null)
   }
 
   remove(key: string): Promise<void> {

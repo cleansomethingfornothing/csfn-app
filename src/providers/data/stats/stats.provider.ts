@@ -2,7 +2,7 @@ import {AxiosInstance} from 'axios'
 import MonthStats from '@/types/MonthStats'
 import TopUser from '@/types/TopUser'
 
-export default class CommunityProvider {
+export default class StatsProvider {
 
   axios: AxiosInstance
 

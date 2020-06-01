@@ -10,7 +10,7 @@ import {UserLevel} from '@/types/UserLevel'
       </template>
     </transparent-header>
 
-    <ion-content :scroll-events="true" @ionScroll="onScroll" class="fullscreen" color="lighter">
+    <ion-content :scroll-events="true" @ionScroll="onScroll($event.detail.scrollTop)" class="fullscreen" color="lighter">
       <div
         class="lg:w-2/3 xl:w-1/2 m-auto bg-white lg:rounded-lg lg:mt-16 lg:mb-8 overflow-hidden lg:shadow-lg min-h-full lg:min-h-auto">
         <div class="h-48 relative">
@@ -31,13 +31,13 @@ import {UserLevel} from '@/types/UserLevel'
           </div>
           <div class="flex justify-between items-center px-4">
             <div class="flex">
-              <img class="w-6 mr-2" src="@/assets/img/cleanups.svg">
+              <img class="w-6 mr-2" src="@/assets/img/icons/cleanups.svg">
               <ion-label class="economica text-2xl font-bold" color="dark">
                 {{Object.keys(userCleanups).length + ' ' + $t('cleanups')}}
               </ion-label>
             </div>
             <div class="flex mr-1">
-              <img class="w-6 mr-2" src="@/assets/img/weight.svg">
+              <img class="w-6 mr-2" src="@/assets/img/icons/weight.svg">
               <ion-label class="economica text-2xl font-bold" color="dark">{{userWeight}} Kg</ion-label>
             </div>
           </div>
@@ -92,10 +92,11 @@ import {UserLevel} from '@/types/UserLevel'
   import TransparentHeader from '@/views/components/common/TransparentHeader.vue'
   import Avatar from '@/views/components/common/Avatar.vue'
   import {userModule} from '@/store/userModule'
-  import {cleanupsModule} from '@/store/cleanupsModule'
+  import {cleanupsModule} from '@/store/activitiesModule'
   import ProgressBar from '@/views/components/user/ProgressBar.vue'
   import LevelCalculator from '@/tools/LevelCalculator'
   import {UserLevel} from '@/types/UserLevel'
+  import {Inject} from 'vue-property-decorator'
 
   @Component({
     name: "UserPage",
@@ -103,7 +104,8 @@ import {UserLevel} from '@/types/UserLevel'
   })
   export default class UserPage extends Vue {
 
-    scrolled = false
+    @Inject('onScroll')
+    onScroll: Function
 
     get currentUser() {
       return userModule.getCurrentUser
@@ -136,10 +138,6 @@ import {UserLevel} from '@/types/UserLevel'
 
     openCleanup(id: string) {
       this.$router.push({name: 'Cleanup', params: {id}})
-    }
-
-    onScroll(event: CustomEvent): void {
-      this.scrolled = event.detail.scrollTop > 0;
     }
 
   }

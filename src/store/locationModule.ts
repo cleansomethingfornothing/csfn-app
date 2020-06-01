@@ -45,7 +45,10 @@ class LocationModule extends VuexModule {
       .then((lastAddress) => this.setUserAddress(lastAddress))
       .then(() => this.updateAddressIfUserHasMoved())
       .then(() => storageProvider.set(LAST_COORDS, this.userCoords))
-      .catch(() => this.setUserAddress(null))
+      .catch((err) => {
+        console.log(err)
+        this.setUserAddress(null)
+      })
   }
 
   updateUserPosition(newCoords: Coords) {

@@ -1,6 +1,6 @@
 <template>
   <ion-page>
-    <ion-content :scroll-events="true" @ionScroll="onScroll" class="user-content min-h-screen">
+    <ion-content :scroll-events="true" class="user-content min-h-screen">
       <div class="bg-poly bg-poly-1 h-64 lg:h-88 ios:h-60 sm:ios:h-64 lg:ios:h-72 xl:ios:h-88"></div>
       <div class="-mt-24 pt-3 lg:-mt-32 xl:-mt-40 z-10 sm:ios:pt-4">
         <div class="sm:ios:pt-3"></div>
@@ -24,7 +24,7 @@
         <div class="flex justify-between items-center px-4">
           <div class="flex">
             <div class="w-6 mr-2 flex justify-center items-center">
-              <img src="@/assets/img/cleanups.svg">
+              <img src="@/assets/img/icons/cleanups.svg">
             </div>
             <ion-label class="economica text-2xl font-bold" color="dark">
               {{Object.keys(userCleanups).length + ' ' + $t('cleanups')}}
@@ -32,7 +32,7 @@
           </div>
           <div class="flex items-enter mr-1">
             <div class="w-6 mr-2 flex justify-center items-center">
-              <img src="@/assets/img/weight.svg">
+              <img src="@/assets/img/icons/weight.svg">
             </div>
             <ion-label class="economica text-2xl font-bold" color="dark">{{userWeight}} Kg</ion-label>
           </div>
@@ -53,23 +53,23 @@
         </ion-card>
       </div>
 
-      <hr class="mx-4">
+      <hr>
 
       <ion-list lines="inset">
-        <ion-item button detail="true">
-          <ion-icon slot="start" name="trash" size="large" color="dark"></ion-icon>
+        <ion-item button detail="true" @click="$router.push('/user-activities?type=cleanups')">
+          <ion-icon slot="start" name="trash" color="medium"></ion-icon>
           <ion-label class="my-4">{{$t('cleanups')}}</ion-label>
         </ion-item>
-        <ion-item button detail="true">
-          <ion-icon slot="start" name="alert" size="large" color="dark"></ion-icon>
+        <ion-item button detail="true" @click="$router.push('/user-activities?type=alerts')">
+          <ion-icon slot="start" name="alert" color="medium"></ion-icon>
           <ion-label class="my-4">{{$t('alerts')}}</ion-label>
         </ion-item>
-        <ion-item button detail="true">
-          <ion-icon slot="start" name="flag" size="large" color="dark"></ion-icon>
+        <ion-item button detail="true" @click="$router.push('/user-activities?type=events')">
+          <ion-icon slot="start" name="flag" color="medium"></ion-icon>
           <ion-label class="my-4">{{$t('events')}}</ion-label>
         </ion-item>
-        <ion-item button detail="true">
-          <ion-icon slot="start" name="settings" size="large" color="dark"></ion-icon>
+        <ion-item button detail="true" @click="$router.push('/settings')">
+          <ion-icon slot="start" name="settings" color="medium"></ion-icon>
           <ion-label class="my-4">{{$t('settings')}}</ion-label>
         </ion-item>
       </ion-list>
@@ -119,7 +119,7 @@
   import TransparentHeader from '@/views/components/common/TransparentHeader.vue'
   import Avatar from '@/views/components/common/Avatar.vue'
   import {userModule} from '@/store/userModule'
-  import {cleanupsModule} from '@/store/cleanupsModule'
+  import {cleanupsModule} from '@/store/activitiesModule'
   import ProgressBar from '@/views/components/user/ProgressBar.vue'
   import LevelCalculator from '@/tools/LevelCalculator'
   import {UserLevel} from '@/types/UserLevel'
@@ -131,8 +131,6 @@
     components: {CommunityMap, Wave, ProgressBar, Avatar, TransparentHeader}
   })
   export default class CurrentUserPage extends Vue {
-
-    scrolled = false
 
     get user() {
       return userModule.getCurrentUser
@@ -151,7 +149,7 @@
     }
 
     get userWeight() {
-      return Object.values(this.userCleanups).reduce((acc, c) => acc + c.liters, 0)
+      return Object.values(this.userCleanups).reduce((acc, c) => acc + c.volume, 0)
     }
 
     mounted(): void {
@@ -170,10 +168,6 @@
 
     openCleanup(id: string) {
       this.$router.push({name: 'Cleanup', params: {id}})
-    }
-
-    onScroll(event: CustomEvent): void {
-      this.scrolled = event.detail.scrollTop > 0;
     }
 
   }

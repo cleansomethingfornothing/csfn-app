@@ -125,4 +125,5 @@
     border-style: solid;
     border-color: var(--ion-color-dark) transparent transparent transparent;
   }
+
 </style>

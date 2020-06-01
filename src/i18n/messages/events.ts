@@ -1,8 +1,14 @@
 export default {
   en: {
-    'events': 'Events'
+    'events': 'Events',
+    'event': 'Event',
+    'create-event': 'Create event',
+    'no-events': 'You have no events yet'
   },
   es: {
-    'events': 'Eventos'
+    'events': 'Eventos',
+    'event': 'Evento',
+    'create-event': 'Crear evento',
+    'no-events': 'Todavía no tienes eventos'
   }
 }

@@ -2,11 +2,11 @@
   <div class="text-item cursor-pointer" :class="errors ? 'invalid-input': ''">
     <div class="overflow-hidden ion-activatable ripple-parent" :class="rounded ? 'rounded-full' : ''" @click="clicked">
       <ion-item :color="outline ? 'light': '' " :lines="noLines ? 'none' : 'full'">
-        <ion-icon v-if="icon" :name="icon" slot="start" color="dark"></ion-icon>
+        <ion-icon v-if="icon || iconSrc" :name="icon" :src="iconSrc" slot="start" color="dark"></ion-icon>
         <slot>
           <ion-input @ionChange="change" @ionInput="onInput" @ionFocus="clicked" @ionBlur="blur" :value="value"
                      ref="input" :type="type" :placeholder="placeholder" :clear-input="clear"
-                     :autocomplete="type === 'password' ? 'new-password' : 'off'"></ion-input>
+                     :autocomplete="type === 'password' ? 'new-password' : 'off'" :class="inputClass"></ion-input>
         </slot>
         <ion-note v-if="endNote" slot="end" class="m-auto"><b>{{endNote}}</b></ion-note>
       </ion-item>
@@ -36,10 +36,16 @@
     public readonly icon!: string;
 
     @Prop(String)
+    public readonly iconSrc!: string;
+
+    @Prop(String)
     public readonly type!: string;
 
     @Prop(String)
     public readonly placeholder!: string;
+
+    @Prop(String)
+    public readonly inputClass!: string;
 
     @Prop(String)
     public readonly endNote!: string;

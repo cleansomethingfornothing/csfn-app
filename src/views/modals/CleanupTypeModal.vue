@@ -13,7 +13,7 @@
         <ion-col class="h-85 ion-activatable ripple-parent rounded-full">
           <div @click="selected(false)" class="flex flex-col justify-center items-center h-full">
             <div class="w-24 mb-4">
-              <img alt="Icon cleanup not done" src="@/assets/img/alert.svg">
+              <img alt="Icon cleanup not done" src="@/assets/img/icons/alert.svg">
             </div>
             <ion-label class="text-center"><b>{{alert}}</b></ion-label>
           </div>
@@ -22,7 +22,7 @@
         <ion-col class="h-85 ion-activatable ripple-parent rounded-full">
           <div @click="selected(true)" class="flex flex-col justify-center items-center h-full">
             <div class="w-24 mb-4">
-              <img alt="Icon cleanup done" src="@/assets/img/cleanup.svg">
+              <img alt="Icon cleanup done" src="@/assets/img/icons/cleanup.svg">
             </div>
             <ion-label class="text-center"><b>{{cleanup}}</b></ion-label>
           </div>

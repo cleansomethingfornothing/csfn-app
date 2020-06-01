@@ -1,17 +1,17 @@
 <template>
-  <ion-segment @ionChange="unitChanged($event.detail.value)" mode="ios" value="kg">
-    <ion-segment-button value="kg" mode="ios">
-      <ion-label>Kg</ion-label>
-    </ion-segment-button>
+  <ion-segment @ionChange="unitChanged($event.detail.value)" mode="ios" :value="value">
     <ion-segment-button value="lt" mode="ios">
       <ion-label>Lt</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="kg" mode="ios">
+      <ion-label>Kg</ion-label>
     </ion-segment-button>
   </ion-segment>
 </template>
 <script lang=ts>
   import Vue from 'vue'
   import Component from 'vue-class-component'
-  import {Emit} from 'vue-property-decorator'
+  import {Emit, Prop} from 'vue-property-decorator'
 
   @Component({
     name: "units-switch"
@@ -22,6 +22,10 @@
     unitChanged(unit) {
       return unit
     }
+
+    @Prop(String)
+    value: string
+
   }
 </script>
 <style scoped>

@@ -1,5 +1,5 @@
 <template>
-  <ion-page class="ion-page publish-cleanup">
+  <ion-page class="ion-page publish-activity">
     <ion-header mode="ios" class="shadow-sm">
       <ion-toolbar mode="ios">
         <ion-buttons slot="start">
@@ -8,40 +8,50 @@
           </ion-button>
         </ion-buttons>
         <ion-title>
-          {{$t('publish')}} {{$t(cleanup.done ? 'cleanup': 'alert').toLowerCase()}}
+          {{$t('publish')}} {{$t(this.activity.type).toLowerCase()}}
         </ion-title>
       </ion-toolbar>
     </ion-header>
-    <ion-content fullscreen="true" color="lighter">
+    <ion-content color="lighter">
       <form
-        class="lg:w-2/3 xl:w-1/2 m-auto bg-white lg:rounded-lg lg:my-8 overflow-hidden lg:shadow-lg h-full lg:h-auto lg:pb-4">
+        class="lg:w-2/3 xl:w-1/2 m-auto bg-white lg:rounded-lg lg:my-8 lg:shadow-lg h-full lg:h-auto lg:pb-4">
         <ion-list lines="full" class="p-0">
+          <input-item v-if="isEvent" :errors="errors['title']" :placeholder="$t('title')" v-model="activity.title"
+                      input-class="font-bold"></input-item>
           <input-item :errors="errors['description']" :slotted-input="$refs['desc']" @focus="resetError('description')">
             <ion-textarea :placeholder="$t('write-description')" auto-grow="true" rows="3"
                           @ionChange="change('description', $event.target.value)" ref="desc"></ion-textarea>
           </input-item>
-          <input-item :errors="errors['weight']" icon="speedometer" end-note="Kg" :slotted-input="$refs.weight"
-                      @focus="resetError('weight')" v-if="cleanup.done">
+          <ion-picker-controller v-if="isCleanup"></ion-picker-controller>
+          <input-item :errors="errors['volume']" :icon-src="require('@/assets/img/icons/bag.svg')" end-note="Lt"
+                      @focus="openLitersPicker" v-if="isCleanup" type="number" class="liters">
+            <ion-label position="floating" class="fix-label">{{$t('volume')}}</ion-label>
+            <ion-input type="number" :value="activity.volume" readonly="true" @focus="openLitersPicker"></ion-input>
+          </input-item>
+          <input-item :errors="errors['weight']" :icon-src="require('@/assets/img/icons/weight.svg')" end-note="Kg"
+                      :slotted-input="$refs.weight"
+                      @focus="resetError('weight')" v-if="isCleanup">
             <ion-label position="floating" class="fix-label">{{$t('weight')}}</ion-label>
             <ion-input type="number" @ionChange="change('weight', $event.target.value)" ref="weight"></ion-input>
           </input-item>
           <input-item :errors="errors['location']" icon="location" @focus="openLocationSelection">
             <ion-label position="floating" class="fix-label">{{$t('location')}}</ion-label>
-            <ion-input type="text" :value="cleanup.location && cleanup.location.toString()" readonly="true"></ion-input>
+            <ion-input type="text" :value="activity.location && activity.location.toString()"
+                       readonly="true" @focus="openLocationSelection"></ion-input>
           </input-item>
           <input-item :errors="errors['date']" icon="calendar" @focus="resetError('date') || $refs.date.open()"
-                      v-if="cleanup.done">
+                      v-if="isCleanup">
             <ion-label position="floating" class="fix-label">{{$t('date')}}</ion-label>
             <ion-datetime display-format="DD/MM/YYYY" picker-format="DD MMMM YYYY"
-                          v-model="cleanup.date" ref="date" :readonly="true"
+                          v-model="activity.date" ref="date" :readonly="true"
                           @ionChange="change('date', new Date($event.target.value))"></ion-datetime>
           </input-item>
-          <input-item :errors="errors['pictures']" no-lines>
+          <input-item :errors="errors['pictures']" no-lines class="mb-16">
             <ion-label position="floating" class="publish-label">{{$t('pictures')}}</ion-label>
             <ion-row class="w-full mt-8 mb-2">
               <ion-col v-for="i of [0,1,2,3,4]" :key="i">
-                <upload-button :file="cleanup.pictures[i]" @click="cleanup.pictures[i] && openPreview(i)"
-                               @select="arrayChange(cleanup.pictures, $event)"></upload-button>
+                <upload-button :file="activity.pictures[i]" @click="activity.pictures[i] && openPreview(i)"
+                               @select="arrayChange(activity.pictures, $event)"></upload-button>
               </ion-col>
             </ion-row>
           </input-item>
@@ -73,17 +83,32 @@
   import ErrorMessage from '@/tools/ErrorMessage'
   import InputError from '@/views/components/common/InputError.vue'
   import InputItem from '@/views/components/common/InputItem.vue'
-  import {cleanupsModule} from '@/store/cleanupsModule'
+  import {cleanupsModule} from '@/store/activitiesModule'
+  import range from 'lodash/range'
 
   @Component({
-    name: 'publish-cleanup',
+    name: 'publish-activity',
     components: {InputItem, InputError, UploadButton}
   })
-  export default class PublishPage extends Vue {
+  export default class EditionPage extends Vue {
+
+    type = ''
 
     errors = {}
 
-    cleanup = new Activity()
+    activity = new Activity()
+
+    get isCleanup() {
+      return this.activity.type === 'cleanup'
+    }
+
+    get isAlert() {
+      return this.activity.type === 'alert'
+    }
+
+    get isEvent() {
+      return this.activity.type === 'event'
+    }
 
     get coords() {
       return locationModule.getCoords
@@ -94,14 +119,11 @@
     }
 
     mounted(): void {
-      this.$set(this.cleanup, 'done', this.$route.query['done'] == 'true')
-      if (this.cleanup) {
-        this.cleanup.date = new Date()
-      }
+      this.$set(this.activity, 'type', this.$route.query.type)
     }
 
     publish() {
-      cleanupsModule.publish(this.cleanup)
+      cleanupsModule.publish(this.activity)
         .then(() => {
           this.$router.back()
         })
@@ -117,37 +139,66 @@
     openLocationSelection() {
       this.resetError('location')
       ModalPresenter.present(this.$ionic, SelectLocation, {
-        currentCoords: this.cleanup.location?.coords || this.coords,
-        currentAddress: this.cleanup.location?.address || this.address,
+        currentCoords: this.activity.location?.coords || this.coords,
+        currentAddress: this.activity.location?.address || this.address,
         searchPlaceholder: this.$t('search-place'),
         cancelText: this.$t('cancel'),
-        acceptText: this.$t('save'),
-        pin: '/img/cleanup_pin.png'
+        acceptText: this.$t('confirm'),
+        pin: '/img/pin.png'
       }).then(({data}) => {
         if (data) {
           placesProvider.getAddress(data.selectedCoords)
             .then((address) => {
-              this.$set(this.cleanup, 'location', new Location(address, data.selectedCoords))
+              this.$set(this.activity, 'location', new Location(address, data.selectedCoords))
             })
         }
       })
     }
 
+    openLitersPicker() {
+      this.resetError('volume')
+      document.querySelector("ion-picker-controller").create({
+        cssClass: 'liters',
+        columns: [{
+          name: 'bags',
+          options: range(1, 31).map(i => ({value: i, text: `${i} ${this.$tc('bags', i)}`}))
+        }, {
+          name: 'of',
+          options: [{text: this.$t('of').toString()}]
+        }, {
+          name: 'capacity',
+          options: range(10, 110, 10).map(i => ({value: i, text: `${i} ${this.$t('liters').toString().toLowerCase()}`}))
+        }],
+        buttons: [
+          {
+            text: this.$t('cancel').toString(),
+            role: 'cancel'
+          },
+          {
+            text: this.$t('confirm').toString(),
+            handler: (value) => {
+              this.$set(this.activity, 'volume', value.bags.value * value.capacity.value)
+            }
+          }
+        ]
+      }).then((picker) => picker.present())
+    }
+
     openPreview(selected: number) {
       this.resetError('pictures')
       ModalPresenter.present(this.$ionic, PicturesModal, {
-        pictures: this.cleanup.pictures,
+        pictures: this.activity.pictures,
         selected,
         removable: true
       }).then(({data}) => {
         if (data) {
-          this.cleanup.pictures.splice(data.index, 1)
+          this.activity.pictures.splice(data.index, 1)
         }
       })
     }
 
     change(field, value) {
-      this.$set(this.cleanup, field, value)
+      this.$set(this.activity, field, value)
     }
 
     arrayChange(array, picture) {
@@ -160,7 +211,7 @@
   }
 </script>
 <style>
-  .publish-cleanup {
+  .publish-activity {
     display: flex;
     flex-direction: column;
   }
@@ -176,5 +227,18 @@
 
   .publish-label {
     margin-top: -0.5em !important;
+  }
+
+  .liters.ios .picker-columns .sc-ion-picker-ios:nth-child(2),
+  .liters.ios .picker-columns .sc-ion-picker-ios:nth-child(4) {
+    flex-grow: 1.5;
+  }
+
+  .liters.ios .picker-columns .sc-ion-picker-ios:nth-child(2) .picker-opt {
+    padding-left: 15px;
+  }
+
+  .liters.ios .picker-columns .sc-ion-picker-ios:nth-child(4) .picker-opt {
+    padding-right: 15px;
   }
 </style>

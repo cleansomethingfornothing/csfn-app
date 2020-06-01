@@ -125,6 +125,10 @@ ion-modal {
   opacity: 0.8 !important;
 }
 
+ion-toolbar {
+  --color: var(--ion-text-color);
+}
+
 ion-footer ion-toolbar {
   --border-width: 0;
   --border-color: #eee;
@@ -221,6 +225,14 @@ ion-slides {
 
 .bg-poly-4 {
   background-image: url("~@/assets/img/poly-04.png");
+}
+
+.fab-tab {
+  margin-bottom: 55px;
+}
+
+.gradient-button {
+  --background: linear-gradient(150deg, var(--ion-color-secondary-tint), var(--ion-color-primary-tint));
 }
 
 @media screen and (min-width: 700px) {

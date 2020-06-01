@@ -1,6 +1,6 @@
 <template>
   <ion-page class="ion-page cleanup-page">
-    <transparent-header :scrolled="scrolled">
+    <transparent-header>
       <template slot="end-buttons">
         <ion-button shape="round" fill="clear" :color="scrolled ? 'dark' : 'white'"
                     v-if="cleanup && cleanup.user.username === currentUser.username">
@@ -9,7 +9,7 @@
       </template>
     </transparent-header>
 
-    <ion-content class="fullscreen" color="lighter" :fullscreen="true" :scroll-events="true" @ionScroll="onScroll">
+    <ion-content class="fullscreen" color="lighter" :fullscreen="true" :scroll-events="true" @ionScroll="onScroll($event.detail.scrollTop)">
       <div class="lg:w-2/3 xl:w-1/2 m-auto bg-white lg:rounded-lg lg:my-16 overflow-hidden lg:shadow-lg">
 
         <!-- Pictures -->
@@ -32,7 +32,7 @@
           <!-- Weight -->
           <ion-skeleton-text v-if="!cleanup" animated style="width: 50%"></ion-skeleton-text>
           <div v-if="cleanup && cleanup.done" class="flex items-center">
-            <img src="@/assets/img/cleanup-done.svg" class="w-6 mr-2">
+            <img src="@/assets/img/icons/cleanup-done.svg" class="w-6 mr-2">
             <ion-label color="dark" class="text-md">{{$t('cleaned-weight', {param: cleanup.weight})}}
             </ion-label>
           </div>
@@ -94,7 +94,7 @@
 <script lang="ts">
   import Vue from 'vue'
   import Component from 'vue-class-component'
-  import {cleanupsModule} from '@/store/cleanupsModule'
+  import {cleanupsModule} from '@/store/activitiesModule'
   import {userModule} from '@/store/userModule'
   import Activity from '@/types/Activity'
   import User from '@/types/User'
@@ -103,6 +103,7 @@
   import moment from 'moment'
   import PicturesModal from '@/views/modals/PicturesModal.vue'
   import TransparentHeader from '@/views/components/common/TransparentHeader.vue'
+  import {Inject} from 'vue-property-decorator'
 
   @Component({
     name: 'cleanup-page',
@@ -113,7 +114,9 @@
     KEY = process.env.VUE_APP_GOOGLE_API_KEY
 
     width = 0
-    scrolled = false
+
+    @Inject('onScroll')
+    onScroll: Function
 
     get cleanup(): Activity {
       return cleanupsModule.getCleanup(this.$route.params.id)
@@ -147,10 +150,6 @@
 
     edit() {
       return
-    }
-
-    onScroll(event: CustomEvent): void {
-      this.scrolled = event.detail.scrollTop > 0;
     }
   }
 </script>

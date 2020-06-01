@@ -1,6 +1,25 @@
 <template>
   <ion-page class="home-page">
-    <ion-slides class="w-full h-full" ref="slider" :options="{initialSlide: 1, resistanceRatio: 1}"
+    <ion-fab vertical="bottom" horizontal="end" class="ios:mb-11 mb-13">
+      <ion-fab-button color="white">
+        <ion-icon color="primary" name="add" size="large"/>
+      </ion-fab-button>
+
+      <ion-fab-list side="top">
+        <ion-fab-button color="white" :data-desc="$t('event')" @click="$router.push('/publish?type=event')">
+          <ion-icon name="flag" color="secondary"/>
+        </ion-fab-button>
+        <ion-fab-button color="white" :data-desc="$t('alert')" @click="$router.push('/publish?type=alert')">
+          <ion-icon name="alert" color="secondary"/>
+        </ion-fab-button>
+        <ion-fab-button color="white" :data-desc="$t('cleanup')" @click="$router.push('/publish?type=cleanup')">
+          <ion-icon name="trash" color="secondary"/>
+        </ion-fab-button>
+      </ion-fab-list>
+    </ion-fab>
+
+    <ion-slides class="w-full h-full" ref="slider"
+                :options="{initialSlide: 2, resistanceRatio: 1, cssMode: true, centeredSlides: true}"
                 @ionSlideWillChange="slided">
       <ion-slide>
         <current-user-page ref="user"/>
@@ -19,9 +38,11 @@
     <ion-tab-bar>
       <ion-tab-button v-for="tab in ['user', 'community', 'alerts', 'events']" :key="tab" @click="changeTab(tab)"
                       :selected="selectedTab === tab">
-        <ion-icon v-if="selectedTab === tab" size="large"
-                  :src="require('@/assets/img/tabs/' + tab + '.svg')"></ion-icon>
-        <ion-icon  v-else size="large" :src="require('@/assets/img/tabs/' + tab + '_off.svg')"></ion-icon>
+        <transition name="fade">
+          <ion-icon v-if="selectedTab === tab" size="large"
+                    :src="require('@/assets/img/tabs/' + tab + '.svg')"></ion-icon>
+          <ion-icon v-else size="large" :src="require('@/assets/img/tabs/' + tab + '_off.svg')"></ion-icon>
+        </transition>
       </ion-tab-button>
     </ion-tab-bar>
   </ion-page>
@@ -62,10 +83,13 @@
     selectedTab = ''
 
     @Ref('slider')
-    slider: any
+    slider: HTMLIonSlidesElement
 
     mounted() {
-      this.slideTo(this.$route.params.tab)
+      console.log('home')
+      this.slideTo(this.$route.params.tab, true)
+      //this.slider.getSwiper().then((swiper) => swiper.init())
+      //this.enterTab(this.$route.params.tab)
     }
 
     changeTab(tab) {
@@ -73,8 +97,8 @@
       this.slideTo(tab)
     }
 
-    slideTo(tab) {
-      this.slider.slideTo(this.tabs.indexOf(tab))
+    slideTo(tab, init?) {
+      this.slider.slideTo(this.tabs.indexOf(tab), init && 0)
       this.enterTab(tab)
     }
 
@@ -108,5 +132,37 @@
 
   .tab-button {
     height: 150%;
+  }
+
+  ion-fab-button[data-desc] {
+    position: relative;
+  }
+
+  ion-fab-button[data-desc]::before {
+    position: absolute;
+    top: 6px;
+    content: attr(data-desc);
+    z-index: 1;
+    right: 50px;
+    /*background-color: var(--ion-color-dark);*/
+    background-color: #fff;
+    padding: 4px 8px;
+    border-radius: 4px;
+    color: var(--ion-text-color);
+    /*color: white;*/
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    opacity: 0.9;
+  }
+
+  ion-fab-button[data-desc]::after {
+    z-index: 1;
+    content: " ";
+    position: absolute;
+    top: 40%;
+    left: -25%;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent transparent #fff;
+    /*border-color: transparent transparent transparent var(--ion-color-dark);*/
   }
 </style>

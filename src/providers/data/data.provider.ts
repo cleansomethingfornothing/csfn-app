@@ -1,9 +1,9 @@
 import {AuthProvider} from '@/providers/data/auth/auth.provider'
 import {UserProvider} from '@/providers/data/user/user.provider'
 import axios, {AxiosInstance} from 'axios'
-import CommunityProvider from '@/providers/data/community/community.provider'
 import PicturesProvider from '@/providers/data/pictures/pictures.provider'
 import {ActivitiesProvider} from '@/providers/data/activities/activities.provider'
+import StatsProvider from '@/providers/data/stats/stats.provider'
 
 const baseUrl = 'https://www.cleansomethingfornothing.com/server_csfn/api/usuarios/'
 
@@ -14,7 +14,7 @@ class DataProvider {
   auth: AuthProvider
   user: UserProvider
   activities: ActivitiesProvider
-  community: CommunityProvider
+  stats: StatsProvider
   pictures: PicturesProvider
 
   constructor() {
@@ -24,7 +24,7 @@ class DataProvider {
     this.auth = new AuthProvider(this.axios)
     this.user = new UserProvider(this.axios)
     this.activities = new ActivitiesProvider(this.axios)
-    this.community = new CommunityProvider(this.axios)
+    this.stats = new StatsProvider(this.axios)
     this.pictures = new PicturesProvider(this.axios)
   }
 
