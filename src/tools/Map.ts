@@ -5,7 +5,7 @@ declare const google: any
 
 export default class Map {
 
-  static zoom = 15
+  static zoom = 14
 
   map: any
   zoom: number
@@ -13,6 +13,7 @@ export default class Map {
   selected: Coords
   markers: any[] = []
   isInput: boolean
+  circle: any
 
   constructor({element, origin, isInput, zoom, onTouch, onReady}: { element: string, origin: Coords, isInput: boolean, zoom?: number, onTouch?: Function, onReady?: Function }) {
     this.origin = origin
@@ -31,7 +32,7 @@ export default class Map {
 
     this.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(centerControlDiv);
 
-    if(onReady){
+    if (onReady) {
       this.map.addListener('ready', onReady)
     }
 
@@ -66,6 +67,26 @@ export default class Map {
     this.markers = []
   }
 
+  setCircle(coords: Coords, radius: number) {
+    this.circle = new google.maps.Circle({
+      strokeWeight: 0,
+      fillColor: '#59B14A',
+      fillOpacity: 0.35,
+      clickable: false,
+      map: this.map,
+      center: coords,
+      radius: radius * 1000
+    })
+  }
+
+  setCircleRadius(radius: number) {
+    this.circle && this.circle.setRadius(radius * 1000)
+  }
+
+  removeCircle() {
+    this.circle && this.circle.setMap(null)
+  }
+
   public getSelectedPosition(): Coords {
     return this.selected
   }
@@ -90,6 +111,7 @@ export default class Map {
     this.selected = position
     this.markers.splice(0, 1)[0].setMap(null)
     this.addMarker(position, '/img/pin.png')
+    this.circle.setCenter(position)
   }
 
   public moveCamera(position) {

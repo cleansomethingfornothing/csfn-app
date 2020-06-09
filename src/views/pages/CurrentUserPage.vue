@@ -55,7 +55,7 @@
 
       <hr>
 
-      <ion-list lines="inset">
+      <ion-list lines="inset" class="mb-28">
         <ion-item button detail="true" @click="$router.push('/user-activities?type=cleanups')">
           <ion-icon slot="start" name="trash" color="medium"></ion-icon>
           <ion-label class="my-4">{{$t('cleanups')}}</ion-label>
@@ -73,8 +73,6 @@
           <ion-label class="my-4">{{$t('settings')}}</ion-label>
         </ion-item>
       </ion-list>
-
-      <div class="pt-12"></div>
       <!--
       <ion-list lines="inset">
         <ion-list-header>

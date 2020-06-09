@@ -128,7 +128,7 @@ import {UserLevel} from '@/types/UserLevel'
     }
 
     get userWeight() {
-      return Object.values(this.userCleanups).reduce((acc, c) => acc + c.kilos, 0)
+      return Object.values(this.userCleanups).reduce((acc, c) => acc + c.weight, 0)
     }
 
     mounted(): void {

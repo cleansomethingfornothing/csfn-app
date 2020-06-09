@@ -17,7 +17,7 @@
         class="lg:w-2/3 xl:w-1/2 m-auto bg-white lg:rounded-lg lg:my-8 lg:shadow-lg h-full lg:h-auto lg:pb-4">
         <ion-list lines="full" class="p-0">
           <input-item v-if="isEvent" :errors="errors['title']" :placeholder="$t('title')" v-model="activity.title"
-                      input-class="font-bold"></input-item>
+                      input-class="font-bold" @focus="resetError('title')"></input-item>
           <input-item :errors="errors['description']" :slotted-input="$refs['desc']" @focus="resetError('description')">
             <ion-textarea :placeholder="$t('write-description')" auto-grow="true" rows="3"
                           @ionChange="change('description', $event.target.value)" ref="desc"></ion-textarea>
@@ -34,7 +34,23 @@
             <ion-label position="floating" class="fix-label">{{$t('weight')}}</ion-label>
             <ion-input type="number" @ionChange="change('weight', $event.target.value)" ref="weight"></ion-input>
           </input-item>
-          <input-item :errors="errors['location']" icon="location" @focus="openLocationSelection">
+          <input-item :errors="errors['targetVolume']" :icon-src="require('@/assets/img/icons/bag.svg')" end-note="Lt"
+                      :slotted-input="$refs.targetVolume"
+                      @focus="resetError('targetVolume')" v-if="isEvent">
+            <ion-label position="floating" class="fix-label">{{$t('targetVolume')}}</ion-label>
+            <ion-input type="number" @ionChange="change('targetVolume', $event.target.value)"
+                       ref="targetVolume"></ion-input>
+          </input-item>
+          <input-item :errors="errors['targetWeight']" :icon-src="require('@/assets/img/icons/weight.svg')"
+                      end-note="Kg"
+                      :slotted-input="$refs.targetWeight"
+                      @focus="resetError('targetWeight')" v-if="isEvent">
+            <ion-label position="floating" class="fix-label">{{$t('targetWeight')}}</ion-label>
+            <ion-input type="number" @ionChange="change('targetWeight', $event.target.value)"
+                       ref="targetWeight"></ion-input>
+          </input-item>
+          <input-item :errors="errors['location']" icon="location" @focus="openLocationSelection"
+                      :end-note="isEvent && activity.radius ? (`(${activity.radius} Km)`) : null">
             <ion-label position="floating" class="fix-label">{{$t('location')}}</ion-label>
             <ion-input type="text" :value="activity.location && activity.location.toString()"
                        readonly="true" @focus="openLocationSelection"></ion-input>
@@ -46,11 +62,30 @@
                           v-model="activity.date" ref="date" :readonly="true"
                           @ionChange="change('date', new Date($event.target.value))"></ion-datetime>
           </input-item>
-          <input-item :errors="errors['pictures']" no-lines class="mb-16">
+          <input-item :errors="eventDatesErrors" icon="calendar" @focus="resetError('date')" v-if="isEvent">
+            <ion-row class="w-full">
+              <ion-col class="w-1/2 ion-activatable p-0 hydrated" @click="$refs.startDate.open()"
+                       :class="!activity.startDate ? 'no-value' : ''">
+                <ion-label position="floating" class="fix-label">{{$t('startDate')}}</ion-label>
+                <ion-datetime display-format="DD/MM/YYYY" picker-format="DD MMMM YYYY" class="pl-0"
+                              v-model="activity.startDate" ref="startDate" :readonly="true" :max="nextYear"
+                              @ionChange="change('startDate', new Date($event.target.value))"></ion-datetime>
+              </ion-col>
+              <ion-col class="w-1/2 ion-activatable p-0 hydrated" @click="$refs.endDate.open()"
+                       :class="!activity.endDate ? 'no-value' : ''">
+                <ion-label position="floating" class="fix-label">{{$t('endDate')}}</ion-label>
+                <ion-datetime display-format="DD/MM/YYYY" picker-format="DD MMMM YYYY" class="pl-0"
+                              v-model="activity.endDate" ref="endDate" :readonly="true" :max="nextYear"
+                              @ionChange="change('endDate', new Date($event.target.value))"></ion-datetime>
+              </ion-col>
+            </ion-row>
+          </input-item>
+          <input-item :errors="errors['pictures']" no-lines class="mb-4">
             <ion-label position="floating" class="publish-label">{{$t('pictures')}}</ion-label>
             <ion-row class="w-full mt-8 mb-2">
               <ion-col v-for="i of [0,1,2,3,4]" :key="i">
-                <upload-button :file="activity.pictures[i]" @click="activity.pictures[i] && openPreview(i)"
+                <upload-button :file="activity.pictures[i]"
+                               @click="resetError('pictures') || activity.pictures[i] && openPreview(i)"
                                @select="arrayChange(activity.pictures, $event)"></upload-button>
               </ion-col>
             </ion-row>
@@ -118,6 +153,14 @@
       return locationModule.getAddress
     }
 
+    get nextYear() {
+      return new Date().getFullYear() + 1
+    }
+
+    get eventDatesErrors() {
+      return [...(this.errors['startDate'] || []), ...(this.errors['endDate']) || []]
+    }
+
     mounted(): void {
       this.$set(this.activity, 'type', this.$route.query.type)
     }
@@ -144,12 +187,14 @@
         searchPlaceholder: this.$t('search-place'),
         cancelText: this.$t('cancel'),
         acceptText: this.$t('confirm'),
+        showRadius: this.isEvent,
         pin: '/img/pin.png'
       }).then(({data}) => {
         if (data) {
           placesProvider.getAddress(data.selectedCoords)
             .then((address) => {
               this.$set(this.activity, 'location', new Location(address, data.selectedCoords))
+              this.$set(this.activity, 'radius', data.radius)
             })
         }
       })
@@ -240,5 +285,13 @@
 
   .liters.ios .picker-columns .sc-ion-picker-ios:nth-child(4) .picker-opt {
     padding-right: 15px;
+  }
+
+  ion-input[readonly = "true"] {
+    text-overflow: ellipsis;
+  }
+
+  .no-value .label-floating.sc-ion-label-md-h {
+    transform: translate3d(0, 100%, 0) scale(1);
   }
 </style>

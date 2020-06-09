@@ -1,5 +1,5 @@
 <template>
-  <div class="text-item cursor-pointer" :class="errors ? 'invalid-input': ''">
+  <div class="text-item cursor-pointer" :class="errors && errors.length ? 'invalid-input': ''">
     <div class="overflow-hidden ion-activatable ripple-parent" :class="rounded ? 'rounded-full' : ''" @click="clicked">
       <ion-item :color="outline ? 'light': '' " :lines="noLines ? 'none' : 'full'">
         <ion-icon v-if="icon || iconSrc" :name="icon" :src="iconSrc" slot="start" color="dark"></ion-icon>
@@ -8,7 +8,7 @@
                      ref="input" :type="type" :placeholder="placeholder" :clear-input="clear"
                      :autocomplete="type === 'password' ? 'new-password' : 'off'" :class="inputClass"></ion-input>
         </slot>
-        <ion-note v-if="endNote" slot="end" class="m-auto"><b>{{endNote}}</b></ion-note>
+        <ion-note v-if="endNote" slot="end" class="ml-0 mb-0 pb-0 pt-6 text-base">{{endNote}}</ion-note>
       </ion-item>
       <ion-ripple-effect></ion-ripple-effect>
     </div>

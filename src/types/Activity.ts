@@ -18,15 +18,15 @@ export default class Activity {
   @IsNotEmpty({message: 'required-error-f'})
   location: Location
 
+  @ValidateIf(o => o.type === 'cleanup')
   @IsNotEmpty({message: 'required-error-f'})
   date: Date
 
   @ArrayNotEmpty({message: 'select-some-picture'})
   pictures: string[] | Blob[] = []
 
-  @ValidateIf(o => o.type === 'cleanup')
   @IsNotEmpty({message: 'required-error'})
-  kilos: number
+  weight: number
 
   @ValidateIf(o => o.type === 'cleanup')
   @IsNotEmpty({message: 'required-error'})
@@ -38,7 +38,18 @@ export default class Activity {
 
   @ValidateIf(o => o.type === 'event')
   @IsNotEmpty({message: 'required-error'})
-  goal: number
+  startDate: Date
+
+  @ValidateIf(o => o.type === 'event')
+  @IsNotEmpty({message: 'required-error'})
+  endDate: Date
+
+  @ValidateIf(o => o.type === 'event')
+  @IsNotEmpty({message: 'required-error'})
+  targetVolume: number
+
+  @ValidateIf(o => o.type === 'event')
+  targetWeight: number
 
   @ValidateIf(o => o.type === 'event')
   @IsNotEmpty({message: 'required-error'})

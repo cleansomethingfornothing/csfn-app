@@ -16,9 +16,13 @@
       <div id="map_canvas" class="h-full w-full z-30"></div>
     </ion-content>
     <ion-footer mode="ios">
-      <ion-toolbar>
+      <ion-toolbar v-if="showRadius">
         <ion-item>
-          <ion-range color="danger" pin="true"></ion-range>
+          <ion-label>Radio</ion-label>
+          <ion-range min="1" max="10" color="primary" step="1" @ionChange="radiusChange($event.target.value)"
+                     :value="radius" mode="ios" class="pl-4">
+          </ion-range>
+          <ion-label class="ml-2">{{radius}} Km</ion-label>
         </ion-item>
       </ion-toolbar>
       <ion-toolbar class="px-1">
@@ -58,6 +62,9 @@
     @Prop(String)
     pin: string
 
+    @Prop(Boolean)
+    showRadius: boolean
+
     @Prop(Object)
     currentCoords: Coords
 
@@ -79,13 +86,23 @@
 
     selectedResult: Location
 
-    map: Map;
+    radius = 1
+
+    map: Map
 
     mounted() {
       setTimeout(() => {
         this.map = new Map({element: 'map_canvas', origin: this.currentCoords, isInput: true})
         this.map.addMarker(this.currentCoords, this.pin)
+        if (this.showRadius) {
+          this.map.setCircle(this.currentCoords, this.radius)
+        }
       })
+    }
+
+    radiusChange(radius) {
+      this.radius = radius
+      this.map.setCircleRadius(radius)
     }
 
     search() {
@@ -116,7 +133,8 @@
 
     save() {
       this.$ionic.modalController.dismiss({
-        selectedCoords: this.map.getSelectedPosition()
+        selectedCoords: this.map.getSelectedPosition(),
+        radius: this.radius
       })
     }
 

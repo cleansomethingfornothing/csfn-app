@@ -60,10 +60,9 @@
   import CommunityPage from '@/views/pages/CommunityPage.vue'
   import AlertsPage from '@/views/pages/AlertsPage.vue'
   import EventsPage from '@/views/pages/EventsPage.vue'
-  import {Ref} from 'vue-property-decorator'
 
   @Component({
-    name: 'HomePage.vue',
+    name: 'home-page',
     components: {
       EventsPage,
       AlertsPage,
@@ -82,14 +81,12 @@
 
     selectedTab = ''
 
-    @Ref('slider')
-    slider: HTMLIonSlidesElement
-
     mounted() {
-      console.log('home')
-      this.slideTo(this.$route.params.tab, true)
-      //this.slider.getSwiper().then((swiper) => swiper.init())
-      //this.enterTab(this.$route.params.tab)
+      this.slideTo(this.$route.params.tab)
+    }
+
+    activated(): void {
+      (this.$refs.slider as HTMLIonSlidesElement).forceUpdate()
     }
 
     changeTab(tab) {
@@ -97,8 +94,8 @@
       this.slideTo(tab)
     }
 
-    slideTo(tab, init?) {
-      this.slider.slideTo(this.tabs.indexOf(tab), init && 0)
+    slideTo(tab) {
+      (this.$refs.slider as HTMLIonSlidesElement).slideTo(this.tabs.indexOf(tab))
       this.enterTab(tab)
     }
 
@@ -113,7 +110,7 @@
     }
 
     slided() {
-      this.slider.getActiveIndex()
+      (this.$refs.slider as HTMLIonSlidesElement).getActiveIndex()
         .then(index => {
           const tab = this.tabs[index]
           if (this.selectedTab !== tab) {

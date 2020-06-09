@@ -25,8 +25,6 @@
   import Vue from 'vue'
   import Component from 'vue-class-component'
 
-  const rnd = () => Math.round(Math.random())
-
   @Component({
     name: "user-activities-page"
   })
