@@ -13,8 +13,4 @@ export default class Location {
   public equals(other: Location): boolean {
     return this.toString() == other.toString()
   }
-
-  public toString() {
-    return [this.address.city, this.address.state, this.address.country].filter(s => s !== undefined).join(', ')
-  }
 }

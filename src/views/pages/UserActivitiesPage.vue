@@ -1,5 +1,5 @@
 <template>
-  <ion-page v-if="type">
+  <ion-page v-if="type" class="ion-page">
     <ion-header mode="ios">
       <ion-toolbar mode="ios">
         <ion-buttons slot="start">
@@ -13,8 +13,8 @@
     <ion-content color="light">
       <div v-if="!activities.length" class="flex flex-col items-center justify-center p-8 text-center">
         <img class="w-3/4 mt-4" :src="activityType.placeholder.image"/>
-        <span class="mt-8 text-xl">{{this.$t(this.activityType.placeholder.text)}}</span>
-        <ion-button shape="round" class="mt-4">
+        <span class="mt-8">{{this.$t(this.activityType.placeholder.text)}}</span>
+        <ion-button shape="round" class="mt-4" @click="$router.push('/publish?type=' + activityType.sing)">
           {{this.$t(this.activityType.placeholder.button)}}
         </ion-button>
       </div>
@@ -33,6 +33,7 @@
     activityTypes = {
       cleanups: {
         title: 'cleanups',
+        sing: 'cleanup',
         placeholder: {
           text: 'no-cleanups',
           image: require(`@/assets/img/empty/cleanups_woman.png`),
@@ -41,6 +42,7 @@
       },
       alerts: {
         title: 'alerts',
+        sing: 'alert',
         placeholder: {
           text: 'no-alerts',
           image: require('@/assets/img/empty/alerts.png'),
@@ -49,6 +51,7 @@
       },
       events: {
         title: 'events',
+        sing: 'event',
         placeholder: {
           text: 'no-events',
           image: require('@/assets/img/empty/events.png'),

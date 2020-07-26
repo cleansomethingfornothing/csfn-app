@@ -3,7 +3,7 @@ import LoginPage from '@/views/pages/LoginPage.vue'
 import RegisterPage from '@/views/pages/RegisterPage.vue'
 import ForgottenPasswordPage from '@/views/pages/ForgottenPasswordPage.vue'
 import EditionPage from '@/views/pages/EditionPage.vue'
-import CleanupPage from '@/views/pages/CleanupPage.vue'
+import ActivityPage from '@/views/pages/ActivityPage.vue'
 import UserPage from '@/views/pages/UserPage.vue'
 import SettingsPage from '@/views/pages/SettingsPage.vue'
 import UserActivitiesPage from '@/views/pages/UserActivitiesPage.vue'
@@ -51,9 +51,9 @@ export default [
     name: 'UserActivities',
     component: UserActivitiesPage
   }, {
-    path: '/cleanup/:id',
+    path: '/activity/:id',
     name: 'Cleanup',
-    component: CleanupPage
+    component: ActivityPage
   }, {
     path: '/publish',
     name: 'Publish',

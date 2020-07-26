@@ -1,4 +1,4 @@
-export default class CleanupFilters {
+export default class ActivityFilters {
   alerts: boolean
   distance: number
 

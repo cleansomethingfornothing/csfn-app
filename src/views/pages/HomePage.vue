@@ -1,5 +1,5 @@
 <template>
-  <ion-page class="home-page">
+  <ion-page class="ion-page home-page">
     <ion-fab vertical="bottom" horizontal="end" class="ios:mb-11 mb-13">
       <ion-fab-button color="white">
         <ion-icon color="primary" name="add" size="large"/>
@@ -19,25 +19,25 @@
     </ion-fab>
 
     <ion-slides class="w-full h-full" ref="slider"
-                :options="{initialSlide: 2, resistanceRatio: 1, cssMode: true, centeredSlides: true}"
+                :options="{initialSlide: 3, resistanceRatio: 1, cssMode: true, centeredSlides: true}"
                 @ionSlideWillChange="slided">
       <ion-slide>
-        <current-user-page ref="user"/>
+        <current-user-page v-if="loaded || $route.params.tab === 'user'" ref="user"/>
       </ion-slide>
       <ion-slide>
-        <community-page ref="community"/>
+        <community-page v-if="loaded || $route.params.tab === 'community'" ref="community"/>
       </ion-slide>
       <ion-slide>
-        <alerts-page ref="alerts"/>
+        <alerts-page v-if="loaded || $route.params.tab === 'alerts'" ref="alerts"/>
       </ion-slide>
       <ion-slide>
-        <events-page ref="events"/>
+        <events-page v-if="loaded || $route.params.tab === 'events'" ref="events"/>
       </ion-slide>
     </ion-slides>
 
     <ion-tab-bar>
-      <ion-tab-button v-for="tab in ['user', 'community', 'alerts', 'events']" :key="tab" @click="changeTab(tab)"
-                      :selected="selectedTab === tab">
+      <ion-tab-button v-for="tab in ['user', 'community', 'alerts', 'events']" :key="tab"
+                      @click="slideTo(tab)" :selected="selectedTab === tab">
         <transition name="fade">
           <ion-icon v-if="selectedTab === tab" size="large"
                     :src="require('@/assets/img/tabs/' + tab + '.svg')"></ion-icon>
@@ -60,6 +60,7 @@
   import CommunityPage from '@/views/pages/CommunityPage.vue'
   import AlertsPage from '@/views/pages/AlertsPage.vue'
   import EventsPage from '@/views/pages/EventsPage.vue'
+  import {Ref, Watch} from 'vue-property-decorator'
 
   @Component({
     name: 'home-page',
@@ -77,45 +78,47 @@
   })
   export default class HomePage extends Vue {
 
+    loaded = false
+
     tabs = ['user', 'community', 'alerts', 'events']
 
     selectedTab = ''
 
+    @Ref('slider')
+    slider: HTMLIonSlidesElement
+
     mounted() {
-      this.slideTo(this.$route.params.tab)
+      this.changedRoute(this.$route)
+      this.slider.slideTo(this.tabs.indexOf(this.$route.params.tab), 0)
+      setTimeout(() => {
+        this.loaded = true
+      }, 2000)
     }
 
-    activated(): void {
-      (this.$refs.slider as HTMLIonSlidesElement).forceUpdate()
+    activated() {
+      this.slider.slideTo(this.tabs.indexOf(this.$route.params.tab), 0)
     }
 
-    changeTab(tab) {
-      this.leaveTab(tab)
-      this.slideTo(tab)
+    @Watch('$route')
+    changedRoute(route) {
+      if (route.params.tab !== this.selectedTab && route.name === 'HomePage') {
+        this.selectedTab && (this.$refs[this.selectedTab] as any).exit();
+        (this.$refs[route.params.tab] as any).init()
+        this.selectedTab = route.params.tab
+      }
     }
 
     slideTo(tab) {
-      (this.$refs.slider as HTMLIonSlidesElement).slideTo(this.tabs.indexOf(tab))
-      this.enterTab(tab)
-    }
-
-    leaveTab(tab) {
-      (this.$refs[this.selectedTab] as any).exit()
-      this.$router.replace('/home/' + tab)
-    }
-
-    enterTab(tab) {
-      Promise.resolve().then(() => (this.$refs[tab] as any).init())
-      this.selectedTab = tab
+      this.slider.slideTo(this.tabs.indexOf(tab))
     }
 
     slided() {
-      (this.$refs.slider as HTMLIonSlidesElement).getActiveIndex()
+      this.slider.isBeginning().then((beg) => this.slider.lockSwipeToPrev(beg))
+      this.slider.isEnd().then((end) => this.slider.lockSwipeToNext(end))
+      this.slider.getActiveIndex()
         .then(index => {
-          const tab = this.tabs[index]
-          if (this.selectedTab !== tab) {
-            this.leaveTab(tab)
-            this.enterTab(tab)
+          if (this.tabs[index] !== this.selectedTab) {
+            this.$router.replace('/home/' + this.tabs[index]);
           }
         })
     }

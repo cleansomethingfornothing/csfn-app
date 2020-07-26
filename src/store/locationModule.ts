@@ -4,6 +4,7 @@ import {storageProvider} from '@/providers/storage/storage.provider'
 import Coords from '@/types/Coords'
 import {placesProvider} from '@/providers/places/places.provider'
 import Address from '@/types/Address'
+import Location from '@/types/Location'
 import {locationProvider} from '@/providers/location/location.provider'
 
 const LAST_COORDS = 'CSFN_LAST_COORDS'

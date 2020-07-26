@@ -1,6 +1,6 @@
 import {UserLevel} from '@/types/UserLevel'
 <template>
-  <ion-page>
+  <ion-page class="ion-page">
     <transparent-header :scrolled="scrolled">
       <template slot="end-buttons">
         <ion-button v-if="currentUser && user && currentUser.username === user.username" shape="round" fill="clear"

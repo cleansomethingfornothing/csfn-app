@@ -27,6 +27,12 @@
 
 @font-face {
   font-family: Montserrat;
+  src: url("assets/fonts/Montserrat/Montserrat-Medium.ttf");
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: Montserrat;
   src: url("assets/fonts/Montserrat/Montserrat-ExtraBold.ttf");
   font-weight: 800;
 }
@@ -125,6 +131,10 @@ ion-modal {
   opacity: 0.8 !important;
 }
 
+ion-header {
+  z-index: 20;
+}
+
 ion-toolbar {
   --color: var(--ion-text-color);
 }
@@ -212,7 +222,12 @@ ion-slides {
 }
 
 .bg-poly-1 {
+  background-position-y: 38px;
   background-image: url("~@/assets/img/poly-01.png");
+}
+
+.ios .bg-poly-1 {
+  background-position-y: calc(var(--ion-safe-area-top) + 14px);
 }
 
 .bg-poly-2 {

@@ -4,7 +4,7 @@
       <transparent-header :title="$t('community')" :no-back="true" :no-gradient="true">
         <template slot="end-buttons">
           <transition name="fade">
-            <units-switch v-if="isScrolled" class="mr-1" @change="unitChanged" :value="unit"/>
+            <units-switch class="mr-2" @change="unitChanged" :value="unit"/>
           </transition>
         </template>
       </transparent-header>
@@ -16,15 +16,24 @@
           <!-- Total number -->
           <div class="h-toolbar-top sm:ios:mb-2"></div>
           <div class="flex flex-col justify-center h-full">
-            <div class="flex items-center justify-center">
-              <img src="@/assets/img/world.svg" class="w-10">
-              <span class="ml-4 text-4xl text-white">59</span>
+            <div class="flex justify-between items-center">
+              <div
+                class="flex flex-col items-center justify-center relative w-14 mb-6 sm:ml-4 md:ml-8 h-14 rounded-full ion-activatable overflow-hidden shadow-md">
+                <img src="@/assets/img/world.svg" class="w-12 sm:w-14 absolute">
+                <span class="text-3xl sm:text-4xl font-medium text-white absolute">59</span>
+                <ion-ripple-effect/>
+              </div>
+
+              <div class="text-right">
+                <number-display :number="unit === 'kg' ? 567890 : 1589678"></number-display>
+                <span class="text-lg lg:text-2xl text-white">{{$t(`total-${unit}`)}}</span>
+              </div>
             </div>
-            <number-display :number="45059443"></number-display>
+
             <!--
             <div class="flex justify-between total-title">
-              <span class="text-lg lg:text-2xl text-white">{{$t('total-collected')}}</span>
-              <units-switch @change="unitChanged" :value="unit"/>
+
+
             </div>
             -->
           </div>
@@ -45,26 +54,35 @@
         </div>
 
         <div class="p-4 lg:px-24">
-          <ion-label color="primary" class="ml-2 font-bold text-xl">{{$t('last-months')}}</ion-label>
+          <div class="flex justify-between items-center">
+            <ion-label color="primary" class="ml-2 font-bold text-xl">{{$t('last-months')}}</ion-label>
+            <ion-segment class="w-1/4 world-tabs">
+              <ion-segment-button value="sunny" checked>
+                <ion-label class="text-xs">World</ion-label>
+              </ion-segment-button>
+              <ion-segment-button value="rainy">
+                <ion-label class="text-xs">Spain</ion-label>
+              </ion-segment-button>
+            </ion-segment>
+          </div>
           <div class="pt-2"></div>
           <months-chart ref="chart"
                         :month-stats="[{month: 10, year: 2019, kilos: 1500},{month: 11, year: 2019, kilos: 1700},{month: 12, year: 2019, kilos: 900},{month: 1, year: 2020, kilos: 7000},{month: 2, year: 2020, kilos: 2000},
-          {month: 3, year: 2020, kilos: 4000},{month: 4, year: 2020, kilos: 3000},{month: 5, year: 2020, kilos: 4500}]"/>
+          {month: 3, year: 2020, kilos: 4000},{month: 4, year: 2020, kilos: 3000},{month: 5, year: 2020, kilos: 4500},{month: 6, year: 2020, kilos: 2500}]"/>
         </div>
 
-        <div class="p-4 lg:px-24">
+        <div class="mt-4 px-4 lg:px-24">
           <ion-label color="primary" class="ml-2 font-bold text-xl">{{$t('top-users')}}</ion-label>
         </div>
-        <ion-list class="lg:px-24" lines="none">
+        <ion-list class="lg:px-24 mb-20" lines="full">
           <ion-item v-for="i of [0, 1,2,3,4,5,6,7,8,9]" :key="i" class=" user lg:my-2 lg:rounded-full" button
                     :class="i === 0 ? 'user-gold' : i === 1 ? 'user-silver' : i === 2 ? 'user-bronze' : ''"
-                    :style="`--background: rgba(var(--ion-color-secondary-rgb), 0.${55 - (i/2 * 10)})`"
                     detail="false">
             <div class="user-bg"></div>
-            <span slot="start"
-                  class="w-6 h-6 flex justify-center items-center rounded-full font-bold num">
+            <span slot="start" :style="`background-color: rgba(var(--ion-color-secondary-rgb), 0.${90 - (i/2 * 10)})`"
+                  class="w-6 h-6 flex justify-center items-center rounded-full font-bold text-white">
             {{i + 1}}
-          </span>
+            </span>
             <ion-avatar slot="start" class="-ml-4">
               <img src="/img/user-placeholder.png">
             </ion-avatar>
@@ -104,7 +122,6 @@
   export default class CommunityPage extends Vue {
 
     loaded = false
-    isScrolled = false
     unit = 'lt'
 
     init() {
@@ -125,7 +142,6 @@
 
     scrolled(event) {
       (this.$refs['page'] as any).scrolled(event)
-      this.isScrolled = event.detail.scrollTop > 0
     }
   }
 </script>
@@ -133,6 +149,12 @@
   .no-border ion-toolbar {
     --border-width: 0 !important;
     --box-shadow: none !important;
+  }
+
+  .world-tabs ion-segment-button {
+    width: 20px;
+    --padding-start: 2px;
+    --padding-end: 2px;
   }
 
 </style>

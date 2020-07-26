@@ -51,13 +51,13 @@
 
   .front {
     width: var(--side);
-    background: linear-gradient(135deg, var(--ion-color-primary), var(--ion-color-secondary));
+    background: linear-gradient(135deg, var(--ion-color-primary), var(--ion-color-tertiary));
     transform: rotateY(-45deg) translateZ(calc(var(--side) / 2));
   }
 
   .side {
     width: var(--side);
-    background: linear-gradient(135deg, var(--ion-color-primary), var(--ion-color-secondary));
+    background: linear-gradient(135deg, var(--ion-color-primary), var(--ion-color-tertiary));
     transform: rotateY(45deg) translateZ(calc(var(--side) / 2));
   }
 </style>

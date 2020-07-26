@@ -1,8 +1,8 @@
 export default {
   en: {
-    'publish-cleanup': 'Publish cleanup',
+    'publish-cleanup': 'Publish activity',
     'cleaned-weight': '{param}kg of trash were cleaned',
-    'cleanup-type-selection': 'Do you want to publish an alert or a cleanup?',
+    'cleanup-type-selection': 'Do you want to publish an alert or a activity?',
     'cleanup': 'Cleanup',
     'cleanups': 'Cleanups',
     'cleanups-and-alerts': 'Cleanups and alerts',
@@ -26,7 +26,7 @@ export default {
     'show-alerts': 'Show only alerts',
     'distance': 'Distance',
     'no-limits': 'No limits',
-    'no-cleanups': 'You have no cleanups yet'
+    'no-cleanups': 'Get started publishing a activity and make it visible to all your community'
   },
   es: {
     'publish-cleanup': 'Publicar limpieza',
@@ -55,6 +55,6 @@ export default {
     'show-alerts': 'Mostrar solo las alertas',
     'distance': 'Distancia',
     'no-limits': 'Sin límites',
-    'no-cleanups': 'Todavía no tienes limpiezas'
+    'no-cleanups': 'Crea una limpieza y hazla visible en el mapa de toda tu comunidad'
   }
 }

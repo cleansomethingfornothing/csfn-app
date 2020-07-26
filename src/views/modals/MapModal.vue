@@ -1,11 +1,18 @@
 <template>
-  <div class="w-full h-full">
-    <div class="absolute left-0 top-0 mt-2 ml-2 z-50">
-      <ion-button @click="close" shape="round" color="dark" fill="clear" class="close-btn">
-        <ion-icon name="close" slot="icon-only"></ion-icon>
-      </ion-button>
+  <div>
+    <ion-header mode="ios">
+      <ion-toolbar mode="ios">
+        <ion-buttons slot="start">
+          <ion-button @click="close" shape="round" color="dark" fill="clear">
+            <ion-icon name="close" slot="icon-only"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+        <ion-title>{{title}}</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <div class="w-full h-full">
+      <div id="modal-map" class="h-full w-full"></div>
     </div>
-    <div id="modal-map" class="h-full w-full"></div>
   </div>
 </template>
 <script lang=ts>
@@ -19,6 +26,9 @@
     name: "map-modal"
   })
   export default class MapModal extends Vue {
+
+    @Prop(String)
+    title: string
 
     @Prop(Object)
     origin: Coords
@@ -38,9 +48,3 @@
     }
   }
 </script>
-<style>
-  ion-button.close-btn {
-    --padding-start: 6px;
-    --padding-end: 6px;
-  }
-</style>

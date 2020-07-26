@@ -2,21 +2,23 @@ export default {
   en: {
     'events': 'Events',
     'event': 'Event',
+    'radius': 'Radius',
     'create-event': 'Create event',
-    'targetVolume':'Goal volume',
-    'targetWeight': 'Goal weight',
+    'targetVolume':'Volume goal',
+    'targetWeight': 'Weight goal',
     'startDate': 'Start date',
     'endDate': 'End date',
-    'no-events': 'You have no events yet'
+    'no-events': 'Stablish a activity objective and let your community join you on this mission'
   },
   es: {
     'events': 'Eventos',
     'event': 'Evento',
+    'radius': 'Radio',
     'create-event': 'Crear evento',
-    'targetVolume':'Volumen Objetivo',
-    'targetWeight': 'Peso Objetivo',
+    'targetVolume':'Volumen objetivo',
+    'targetWeight': 'Peso objetivo',
     'startDate': 'Inicio',
     'endDate': 'Final',
-    'no-events': 'Todavía no tienes eventos'
+    'no-events': 'Establece un objetivo (en la zona) y permite que otros cleaners se unan a ti para limpiar juntos'
   }
 }

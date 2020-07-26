@@ -1,32 +1,42 @@
 import {Action, Module, Mutation, VuexModule} from 'vuex-class-modules'
 import Activity from '@/types/Activity'
-import CleanupFilters from '@/types/CleanupFilters'
+import CleanupFilters from '@/types/ActivityFilters'
 import {store} from '@/store/index'
 import Validator from '@/tools/Validator'
 import {dataProvider} from '@/providers/data/data.provider'
 import {storageProvider} from '@/providers/storage/storage.provider'
 import {locationModule} from '@/store/locationModule'
+import _ from 'lodash'
+import {ActivityType} from '@/types/ActivityType'
 
 const FILTERS_DISTANCE = 'CSFN_FILTERS_DISTANCE'
 
 @Module
 class ActivitiesModule extends VuexModule {
 
-  cleanups: { [id: string]: Activity } = null
+  activities: { [id: string]: Activity } = null
   userCleanups: { [id: string]: Activity } = null
 
   filters: CleanupFilters = new CleanupFilters()
 
   constructor() {
-    super({store, name: 'cleanups'})
+    super({store, name: 'activities'})
   }
 
   get getCleanups() {
-    return this.cleanups
+    return this.activities && _.pickBy(this.activities, (a) => a.type === ActivityType.cleanup)
+  }
+
+  get getAlerts() {
+    return this.activities && _.pickBy(this.activities, (a) => a.type === ActivityType.alert)
+  }
+
+  get getEvents() {
+    return this.activities && _.pickBy(this.activities, (a) => a.type === ActivityType.event)
   }
 
   get getCleanup() {
-    return (id) => this.cleanups[id]
+    return (id) => this.activities[id]
   }
 
   get getUserCleanups() {
@@ -39,12 +49,12 @@ class ActivitiesModule extends VuexModule {
 
   @Mutation
   setCleanups(cleanups: Activity[]) {
-    this.cleanups = cleanups && cleanups.reduce((acc, v) => ({...acc, [v.id]: v}), {})
+    this.activities = cleanups && cleanups.reduce((acc, v) => ({...acc, [v.id]: v}), {})
   }
 
   @Mutation
   setCleanup(cleanup: Activity) {
-    this.cleanups = {...(this.cleanups || {}), [cleanup.id]: cleanup}
+    this.activities = {...(this.activities || {}), [cleanup.id]: cleanup}
   }
 
   @Mutation
@@ -82,11 +92,7 @@ class ActivitiesModule extends VuexModule {
 
   @Action
   fetchOne(id: string): Promise<void> {
-    if (this.cleanups[id]) {
-      return Promise.resolve()
-    }
-    return dataProvider.activities.fetchOne(id)
-      .then((cleanup) => this.setCleanup(cleanup))
+    return this.fetch()
   }
 
 

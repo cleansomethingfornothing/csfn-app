@@ -1,14 +1,23 @@
 <template>
-  <page-transparent-header :content="content" ref="page">
-    <ion-page>
+  <page-transparent-header ref="page">
+    <ion-page class="ion-page">
       <transparent-header :title="$t('alerts')" :no-back="true" :no-gradient="true"></transparent-header>
 
       <ion-content ref="alerts-content" class="fullscreen " :scroll-events="true" color="white"
                    @ionScroll="$refs['page'].scrolled($event)">
         <div class="flex flex-col bg-poly bg-poly-3 h-64 lg:h-88 ios:h-60 sm:ios:h-64 lg:ios:h-72 xl:ios:h-88">
           <div class="h-toolbar-top sm:ios:mb-2"></div>
-          <div class="flex flex-col h-full p-4 pt-16">
-            <ion-label color="white" class="text-left mb-2">Las <b>alertas</b> indican zonas con gran concentración de basura.</ion-label>
+          <div class="flex flex-col h-full p-4 pt-20 text-left relative">
+            <img class="w-64 absolute" style="top: 10px; right: -10px" src="@/assets/img/empty/alerts.png"/>
+
+            <div class="rounded-full overflow-hidden shadow ion-activatable relative z-10" style="margin-top: 15%">
+              <ion-item>
+                <ion-icon name="location" slot="start" color="secondary"></ion-icon>
+                <ion-label>{{address}}</ion-label>
+              </ion-item>
+              <ion-ripple-effect></ion-ripple-effect>
+            </div>
+
             <!--
             <ion-button color="white" shape="round">
               <ion-label color="primary" class="font-bold">Publicar alerta</ion-label>
@@ -16,23 +25,14 @@
             -->
           </div>
         </div>
-        <div class="-mt-24 lg:-mt-32 xl:-mt-40 -mb-16 pt-4 sm:ios:pt-8">
+        <div class="-mt-24 lg:-mt-32 xl:-mt-40 -mb-16 pt-4 sm:ios:pt-8 relative">
           <div style="padding-top: 5px"></div>
           <wave :num="3"/>
         </div>
 
-        <placeholder-card></placeholder-card>
-        <placeholder-card></placeholder-card>
-        <placeholder-card></placeholder-card>
+        <cleanups-list :coords="coords" :cleanups="alerts" @click="open"/>
 
-        <div class="pt-16"></div>
-        <!--
-        <ion-fab vertical="bottom" horizontal="end" slot="fixed" class="fab-gradient">
-          <ion-fab-button color="white">
-            <ion-icon size="large" :src="require('@/assets/img/icons/exclamation.svg')"></ion-icon>
-          </ion-fab-button>
-        </ion-fab>
-        -->
+        <div class="pt-20"></div>
       </ion-content>
     </ion-page>
   </page-transparent-header>
@@ -48,6 +48,7 @@
   import {Ref} from 'vue-property-decorator'
   import PageTransparentHeader from '@/views/components/common/PageTransparentHeader.vue'
   import PlaceholderCard from '@/views/components/home/PlaceholderCard.vue'
+  import {addressToString} from '@/tools/Utils'
 
   @Component({
     name: "alerts-page",
@@ -55,11 +56,16 @@
   })
   export default class AlertsPage extends Vue {
 
+
     @Ref('alerts-content')
     content: HTMLIonContentElement
 
-    get cleanups() {
-      return cleanupsModule.getCleanups
+    get alerts() {
+      return cleanupsModule.getAlerts
+    }
+
+    get address() {
+      return locationModule.getAddress ? addressToString(locationModule.getAddress) : ''
     }
 
     get coords() {
@@ -68,6 +74,10 @@
 
     init() {
       cleanupsModule.fetch()
+    }
+
+    open(id) {
+      this.$router.push('/activity/' + id)
     }
 
     exit() {

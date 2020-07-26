@@ -52,7 +52,7 @@
           <input-item :errors="errors['location']" icon="location" @focus="openLocationSelection"
                       :end-note="isEvent && activity.radius ? (`(${activity.radius} Km)`) : null">
             <ion-label position="floating" class="fix-label">{{$t('location')}}</ion-label>
-            <ion-input type="text" :value="activity.location && activity.location.toString()"
+            <ion-input type="text" :value="addressString"
                        readonly="true" @focus="openLocationSelection"></ion-input>
           </input-item>
           <input-item :errors="errors['date']" icon="calendar" @focus="resetError('date') || $refs.date.open()"
@@ -120,6 +120,8 @@
   import InputItem from '@/views/components/common/InputItem.vue'
   import {cleanupsModule} from '@/store/activitiesModule'
   import range from 'lodash/range'
+  import {addressToString} from '@/tools/Utils'
+  import {ActivityType} from '@/types/ActivityType'
 
   @Component({
     name: 'publish-activity',
@@ -127,22 +129,20 @@
   })
   export default class EditionPage extends Vue {
 
-    type = ''
-
     errors = {}
 
     activity = new Activity()
 
     get isCleanup() {
-      return this.activity.type === 'cleanup'
+      return this.activity.type === ActivityType.cleanup
     }
 
     get isAlert() {
-      return this.activity.type === 'alert'
+      return this.activity.type === ActivityType.alert
     }
 
     get isEvent() {
-      return this.activity.type === 'event'
+      return this.activity.type === ActivityType.event
     }
 
     get coords() {
@@ -157,12 +157,16 @@
       return new Date().getFullYear() + 1
     }
 
+    get addressString() {
+      return this.activity.location && addressToString(this.activity.location.address)
+    }
+
     get eventDatesErrors() {
       return [...(this.errors['startDate'] || []), ...(this.errors['endDate']) || []]
     }
 
     mounted(): void {
-      this.$set(this.activity, 'type', this.$route.query.type)
+      this.$set(this.activity, 'type', ActivityType[(this.$route.query.type as string)])
     }
 
     publish() {

@@ -33,7 +33,7 @@
 
   .progress-bar {
     animation: grow 1s forwards;
-    background: linear-gradient(90deg, var(--ion-color-secondary), var(--ion-color-primary));
+    background: linear-gradient(90deg, var(--ion-color-tertiary), var(--ion-color-primary));
     width: 0;
   }
 </style>

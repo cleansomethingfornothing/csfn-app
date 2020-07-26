@@ -11,6 +11,5 @@ export default class Address {
     this.country = country
     this.countryCode = countryCode
   }
-
 }
 

@@ -7,7 +7,7 @@ export default {
     'send': 'Send',
     'save': 'Save',
     'settings': 'Settings',
-    'my-cleanups': 'My cleanups',
+    'my-cleanups': 'My activities',
     'statistics': 'Statistics',
     'select-location': 'Select location',
     'search-place': 'Search a place',

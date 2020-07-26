@@ -1,11 +1,10 @@
 <template>
   <div class="transparent-header"
-       :class="(alwaysTransparent ? 'always-transparent' : '') + ' '
-       + (noGradient ? 'no-gradient' : '')">
+       :class="{'always-transparent': alwaysTransparent, 'no-gradient': noGradient, 'no-content': noContent}">
     <ion-header mode="ios">
       <ion-toolbar mode="ios" ref="toolbar">
         <ion-buttons slot="start" v-if="!noBack">
-          <ion-button shape="round" fill="clear" @click="$router.back()" :color="scrolled ? 'dark' : 'white'">
+          <ion-button shape="round" fill="clear" @click="$router.back()">
             <ion-icon name="arrow-back"></ion-icon>
           </ion-button>
         </ion-buttons>
@@ -20,16 +19,12 @@
 <script lang=ts>
   import Vue from 'vue'
   import Component from 'vue-class-component'
-  import {Prop, Ref, Watch} from 'vue-property-decorator'
-  import {createAnimation} from '@ionic/core'
+  import {Prop, Ref} from 'vue-property-decorator'
 
   @Component({
     name: "TransparentHeader"
   })
   export default class TransparentHeader extends Vue {
-
-    isScrolled = false
-
     @Ref('toolbar')
     toolbar: any
 
@@ -45,17 +40,8 @@
     @Prop(Boolean)
     noBack: boolean
 
-    @Watch('scrolled')
-    onScrolled(scrolled) {
-      if (scrolled) {
-        createAnimation()
-          .addElement(this.toolbar)
-          .duration(300)
-          .iterations(1)
-          .direction('normal')
-          .fromTo('background', 'transparent', 'linear-gradient(135deg, var(--ion-color-secondary), var(--ion-color-primary))')
-      }
-    }
+    @Prop(Boolean)
+    noContent: boolean
   }
 </script>
 <style>
@@ -74,11 +60,24 @@
     --background: transparent !important;
   }
 
+  .transparent-header.no-content ion-toolbar{
+    height: 30px!important;
+  }
+
   .scrolled .transparent-header ion-toolbar {
     --background: #fff;
     --color: var(--ion-text-color-ligth);
     --border-width: 0 0 0.55px 0 !important;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  }
+
+  .transparent-header ion-button {
+    color: #fff !important;
+    transition: color 0.3s;
+  }
+
+  .scrolled .transparent-header ion-button {
+    color: var(--ion-color-dark) !important;
   }
 
   /*

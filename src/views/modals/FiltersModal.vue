@@ -31,7 +31,7 @@
   import Component from 'vue-class-component'
   import {Prop} from 'vue-property-decorator'
   import {cleanupsModule} from '@/store/activitiesModule'
-  import CleanupFilters from '@/types/CleanupFilters'
+  import CleanupFilters from '@/types/ActivityFilters'
 
   @Component({
     name: "FiltersModal"

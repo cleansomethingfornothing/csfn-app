@@ -1,7 +1,7 @@
 <template>
   <ion-app>
     <div>
-      <router-view></router-view>
+        <router-view></router-view>
     </div>
   </ion-app>
 </template>

@@ -1,9 +1,18 @@
 <template>
-  <div class="lg:w-2/3 xl:w-1/2 m-auto pb-4 cards flex flex-col justify-between">
-    <placeholder-card v-if="cleanups === null"></placeholder-card>
+  <div class="lg:w-2/3 xl:w-1/2 m-auto pb-4 cards flex flex-col justify-between relative">
+    <div class="bg-white w-full h-32 absolute mt-8">
 
-    <cleanup-card v-else v-for="cleanup in cleanups" :key="cleanup.id" :cleanup="cleanup"
-                  :distance="calcDistance(cleanup.location.coords)" @click="click(cleanup.id)"></cleanup-card>
+    </div>
+    <div  v-if="!cleanups" class="mt-8 py-20 bg-white z-50 w-full">
+      <ion-spinner color="primary" class="w-12 h-12"></ion-spinner>
+    </div>
+
+    <div class="relative">
+      <transition-group name="fade" tag="div">
+      <cleanup-card v-for="cleanup in cleanups" :key="cleanup.id" :cleanup="cleanup"
+                    :distance="calcDistance(cleanup.location.coords)" @click="click(cleanup.id)"></cleanup-card>
+      </transition-group>
+    </div>
   </div>
 </template>
 <script lang=ts>
@@ -29,7 +38,7 @@
     cleanups: { [id: string]: Activity }
 
     calcDistance(cleanupCoords: Coords) {
-      return Math.round(locationProvider.calculateDistance(this.coords, cleanupCoords))
+      return this.coords ? Math.round(locationProvider.calculateDistance(this.coords, cleanupCoords)) : 0
     }
 
     @Emit('click')

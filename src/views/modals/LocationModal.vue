@@ -1,7 +1,7 @@
 <template>
   <div class="select-location">
     <ion-header mode="ios" class="z-50">
-      <ion-toolbar class="p-2" @keyup.enter="search" mode="ios">
+      <ion-toolbar class="px-2 pb-2" @keyup.enter="search" mode="ios">
         <text-item class="mt-2" icon="search" :outline="true" :placeholder="searchPlaceholder" :rounded="true"
                    type="search" v-model="searchText" :clear="true" @cleared="clear" @blur="clear"></text-item>
       </ion-toolbar>
@@ -18,8 +18,8 @@
     <ion-footer mode="ios">
       <ion-toolbar v-if="showRadius">
         <ion-item>
-          <ion-label>Radio</ion-label>
-          <ion-range min="1" max="10" color="primary" step="1" @ionChange="radiusChange($event.target.value)"
+          <ion-label>{{$t('radius')}}</ion-label>
+          <ion-range min="0.5" max="5" color="primary" step="0.5" @ionChange="radiusChange($event.target.value)"
                      :value="radius" mode="ios" class="pl-4">
           </ion-range>
           <ion-label class="ml-2">{{radius}} Km</ion-label>

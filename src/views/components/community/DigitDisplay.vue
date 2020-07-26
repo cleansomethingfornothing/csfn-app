@@ -1,5 +1,5 @@
 <template>
-  <div class="digit-display bg-white rounded w-6 text-center relative shadow">
+  <div class="digit-display bg-white rounded w-6 text-center relative shadow-md">
     <div class="text-center relative font-bold text-primary text-2xl z-1">{{digit}}</div>
     <div class="split-line"></div>
   </div>

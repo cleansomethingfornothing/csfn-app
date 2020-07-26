@@ -4,15 +4,19 @@
       <img :src="cleanup.pictures[0]">
     </div>
     <ion-card-content>
-      <ion-label class="text-lg font-bold">{{$t(cleanup.done ? 'cleanup-in' : 'alert-in')}}
+      <ion-label v-if="cleanup.type !== 'event'" class="text-lg font-bold">{{$t(cleanup.done ? 'cleanup-in' : 'alert-in')}}
         {{cleanup.location.address.city}}
       </ion-label>
+      <ion-label v-else class="text-lg font-bold">{{cleanup.title}}</ion-label>
       <br>
       <ion-label color="medium" class="text-xs font-bold">{{distance}} Km</ion-label>
       <ion-text class="cleanup-card__description mt-1">
         {{cleanup.description}}
       </ion-text>
-      <div class="flex justify-between items-baseline">
+      <div v-if="cleanup.type === 'event'" class="mt-4">
+        <progress-bar :value="random"/>
+      </div>
+      <div class="flex justify-between items-baseline" v-else>
         <ion-chip class="-ml-1 mt-2" color="dark"
                   @click="$router.push({name: 'User', params:{ id: cleanup.user.username}})">
           <ion-avatar>
@@ -32,9 +36,12 @@
   import {Emit, Prop} from 'vue-property-decorator'
   import Activity from '@/types/Activity'
   import moment from 'moment'
+  import ProgressBar from '@/views/components/user/ProgressBar.vue'
+  import _ from 'lodash'
 
   @Component({
-    name: 'cleanup-card'
+    name: 'cleanup-card',
+    components: {ProgressBar}
   })
   export default class CleanupCard extends Vue {
 
@@ -51,6 +58,9 @@
       return s.charAt(0).toUpperCase() + s.slice(1)
     }
 
+    get random(){
+      return _.random(30, 90)
+    }
 
     @Emit('click')
     click() {
