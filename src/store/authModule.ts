@@ -1,11 +1,13 @@
-import UserRegistration from '@/types/UserRegistration'
+import User from '@/types/User'
 import UserLogin from '@/types/UserLogin'
 import {Action, Module, Mutation, VuexModule} from 'vuex-class-modules'
 import {store} from '@/store/index'
 import {userModule} from '@/store/userModule'
 import Validator from '@/tools/Validator'
 import {storageProvider} from '@/providers/storage/storage.provider'
-import {dataProvider} from '@/providers/data/data.provider'
+import {authProvider} from '@/providers/data/auth.provider'
+import {userProvider} from '@/providers/data/user.provider'
+import {imagesProvider} from '@/providers/data/images.provider'
 
 const SESSION = 'CSFN_SESSION'
 
@@ -35,8 +37,10 @@ class AuthModule extends VuexModule {
   }
 
   @Action
-  doRegister(userRegistration: UserRegistration): Promise<void> {
-    return dataProvider.auth.doRegister(userRegistration)
+  doRegister(userRegistration: User): Promise<void> {
+    return authProvider.doRegister(userRegistration)
+      .then((user) => imagesProvider.uploadImages([userRegistration.picture as File])
+        .then((images) => userProvider.updateUser(user.id, {picture: images[0]})))
       .then(() => this.doCredentialsLogin({
         username: userRegistration.username,
         password: userRegistration.password
@@ -46,15 +50,14 @@ class AuthModule extends VuexModule {
   @Action
   doCredentialsLogin(userLogin: UserLogin): Promise<void> {
     return Validator.validate(userLogin)
-      .then(() => dataProvider.auth.doLogin(userLogin))
+      .then(() => authProvider.doLogin(userLogin))
       .then((token) => storageProvider.set(SESSION, {token, username: userLogin.username})
         .then((token) => this.loggedIn({token, username: userLogin.username})))
   }
 
   @Action
   loggedIn({token, username}) {
-    dataProvider.setToken(token)
-    return dataProvider.user.fetchUser()
+    return userProvider.fetchUser()
       .then((user) => userModule.setCurrentUser(user))
       .then(() => {
         this.setLogged(true)
@@ -63,12 +66,12 @@ class AuthModule extends VuexModule {
 
   @Action
   doResetPassword(email: string): Promise<void> {
-    return dataProvider.auth.askPasswordResetCode(email)
+    return authProvider.askPasswordResetCode(email)
   }
 
   @Action
   doLogout(): Promise<void> {
-    return dataProvider.auth.doLogout()
+    return authProvider.doLogout()
       .then(() => storageProvider.remove(SESSION))
       .then(() => this.loggedOut())
   }
@@ -76,7 +79,6 @@ class AuthModule extends VuexModule {
   @Action
   loggedOut() {
     userModule.setCurrentUser(undefined)
-    dataProvider.removeToken()
     this.setLogged(false)
   }
 

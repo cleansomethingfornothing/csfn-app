@@ -17,13 +17,10 @@
                       @focus="resetError('password') || focus()"></input-item>
           <button-item color="primary" :text="$t('login')" :disabled="loading"
                        @click="credentialsLogin"></button-item>
-          <!--
           <hr class="z-10">
-          <button-item color="instagram" icon="instagram" :text="$t('continue-with', {'param': 'Instagram'})"
-                       @click="instagramLogin"></button-item>
           <button-item color="facebook" icon="facebook" :text="$t('continue-with', {'param': 'Facebook'})"
                        @click="facebookLogin"></button-item>
-           -->
+
         </form>
 
         <ion-footer>
@@ -46,64 +43,68 @@
   </ion-page>
 </template>
 <script lang="ts">
-  import Vue from 'vue'
-  import Component from 'vue-class-component'
-  import InputItem from '@/views/components/common/InputItem.vue'
-  import ButtonItem from '@/views/components/common/ButtonItem.vue'
-  import ForestBg from '@/views/components/common/ForestBg.vue'
-  import {authModule} from '@/store/authModule'
-  import UserLogin from '@/types/UserLogin'
-  import UnknownError from '@/types/errors/UnknownError'
-  import ErrorMessage from '@/tools/ErrorMessage'
-  import ToastPresenter from '@/tools/ToastPresenter'
-  import FormError from '@/types/errors/FormError'
+    import Vue from 'vue'
+    import Component from 'vue-class-component'
+    import InputItem from '@/views/components/common/InputItem.vue'
+    import ButtonItem from '@/views/components/common/ButtonItem.vue'
+    import ForestBg from '@/views/components/common/ForestBg.vue'
+    import {authModule} from '@/store/authModule'
+    import UserLogin from '@/types/UserLogin'
+    import UnknownError from '@/types/errors/UnknownError'
+    import ErrorMessage from '@/tools/ErrorMessage'
+    import ToastPresenter from '@/tools/ToastPresenter'
+    import FormError from '@/types/errors/FormError'
 
-  @Component({
-    name: 'login',
-    components: {ForestBg, ButtonItem, InputItem}
-  })
-  export default class LoginPage extends Vue {
+    @Component({
+        name: 'login',
+        components: {ForestBg, ButtonItem, InputItem}
+    })
+    export default class LoginPage extends Vue {
 
-    userLogin = new UserLogin()
+        userLogin = new UserLogin()
 
-    fieldErrors = {}
+        fieldErrors = {}
 
-    typing = false
+        typing = false
 
-    loading = false
+        loading = false
 
-    credentialsLogin() {
-      this.loading = true
-      authModule.doCredentialsLogin(this.userLogin)
-        .then(() => {
-          this.$router.push('/')
-        })
-        .catch(error => {
-          if (error instanceof FormError) {
-            error.fieldErrors.forEach((fieldError) => {
-              this.$set(this.fieldErrors, fieldError.param,
-                [ErrorMessage.getMessage(fieldError)])
-            })
-          }
-          if (error instanceof UnknownError) {
-            ToastPresenter.present(this.$ionic, ErrorMessage.getMessage(error))
-          }
-          this.loading = false
-        })
+        credentialsLogin() {
+            this.loading = true
+            authModule.doCredentialsLogin(this.userLogin)
+                .then(() => {
+                    this.$router.push('/')
+                })
+                .catch(error => {
+                    if (error instanceof FormError) {
+                        error.fieldErrors.forEach((fieldError) => {
+                            this.$set(this.fieldErrors, fieldError.param,
+                                [ErrorMessage.getMessage(fieldError)])
+                        })
+                    }
+                    if (error instanceof UnknownError) {
+                        ToastPresenter.present(this.$ionic, ErrorMessage.getMessage(error))
+                    }
+                    this.loading = false
+                })
+        }
+
+        facebookLogin() {
+          //
+        }
+
+        resetError(field) {
+            this.$set(this.fieldErrors, field, undefined)
+        }
+
+        focus() {
+            this.typing = true
+        }
+
+        blur() {
+            this.typing = false
+        }
     }
-
-    resetError(field) {
-      this.$set(this.fieldErrors, field, undefined)
-    }
-
-    focus() {
-      this.typing = true
-    }
-
-    blur() {
-      this.typing = false
-    }
-  }
 </script>
 <style>
   .login-page {

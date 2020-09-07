@@ -7,7 +7,7 @@ import {
 } from 'class-validator'
 import FormError from '@/types/errors/FormError'
 import FieldError from '@/types/errors/FieldError'
-import UserRegistration from '@/types/UserRegistration'
+import User from '@/types/User'
 
 export default class Validator {
   public static validate(object: any): Promise<void | FormError> {
@@ -31,6 +31,6 @@ export default class Validator {
 @ValidatorConstraint({name: 'passwordConfirmation', async: false})
 export class PasswordConfirmation implements ValidatorConstraintInterface {
   validate(value: any, validationArguments?: ValidationArguments): Promise<boolean> | boolean {
-    return value === (validationArguments.object as UserRegistration).password
+    return value === (validationArguments.object as User).password
   }
 }

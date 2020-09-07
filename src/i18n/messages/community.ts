@@ -5,7 +5,8 @@ export default {
     'total-kg': 'Total kilos collected',
     'total-lt': 'Total liters collected',
     'last-months': 'Last months',
-    'top-users': 'Top users'
+    'top-users': 'Top users',
+    'world-map': 'Global impact'
   },
   es: {
     'community': 'Comunidad',
@@ -13,6 +14,7 @@ export default {
     'total-kg': 'Kilos recogidos',
     'total-lt': 'Litros recogidos',
     'last-months': 'Últimos meses',
-    'top-users': 'Top usuarios'
+    'top-users': 'Top usuarios',
+    'world-map': 'Impacto global'
   }
 }

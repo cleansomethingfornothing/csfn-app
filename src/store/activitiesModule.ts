@@ -3,11 +3,11 @@ import Activity from '@/types/Activity'
 import CleanupFilters from '@/types/ActivityFilters'
 import {store} from '@/store/index'
 import Validator from '@/tools/Validator'
-import {dataProvider} from '@/providers/data/data.provider'
 import {storageProvider} from '@/providers/storage/storage.provider'
 import {locationModule} from '@/store/locationModule'
 import _ from 'lodash'
 import {ActivityType} from '@/types/ActivityType'
+import {activitiesProvider} from '@/providers/data/activities.provider'
 
 const FILTERS_DISTANCE = 'CSFN_FILTERS_DISTANCE'
 
@@ -86,7 +86,7 @@ class ActivitiesModule extends VuexModule {
 
   @Action
   fetch(): Promise<void> {
-    return dataProvider.activities.fetch(this.filters, locationModule.getCoords)
+    return activitiesProvider.fetch(this.filters, locationModule.getCoords)
       .then((cleanups) => this.setCleanups(cleanups))
   }
 
@@ -99,7 +99,7 @@ class ActivitiesModule extends VuexModule {
   @Action
   publish(cleanup: Activity): Promise<void> {
     return Validator.validate(cleanup)
-      .then(() => dataProvider.activities.publish(cleanup))
+      .then(() => activitiesProvider.publish(cleanup))
   }
 
 }

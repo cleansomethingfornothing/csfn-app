@@ -1,23 +1,19 @@
 import User from '@/types/User'
-import {AxiosInstance} from 'axios'
 import Activity from '@/types/Activity'
-import UserRegistration from '@/types/UserRegistration'
-import UserRegistrationResult from '@/types/UserRegistrationResult'
+import DataProvider from '@/providers/data/data.provider'
 
-export class UserProvider {
+export class UserProvider extends DataProvider {
 
-  axios: AxiosInstance
-
-  constructor(axios) {
-    this.axios = axios
+  constructor() {
+    super('/user')
   }
 
-  registerUser(user: UserRegistration): Promise<UserRegistrationResult> {
-    return Promise.resolve(undefined)
+  updateUser(id: number, update: User): Promise<void> {
+    return this.axios.patch('/' + id, update)
   }
 
   fetchUser(): Promise<User> {
-    return Promise.resolve(new User('@lester_prz', 'lester@gmail.com', '/img/user-placeholder.png'));
+    return Promise.resolve(undefined)
   }
 
   fetchUserCleanups(): Promise<Activity[]> {
@@ -41,3 +37,5 @@ export class UserProvider {
   }
 
 }
+
+export const userProvider = new UserProvider()

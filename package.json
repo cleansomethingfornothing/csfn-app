@@ -16,6 +16,7 @@
     "resources:ios": "capacitor-resources -p ios -i ./resources/icon_ios.png"
   },
   "dependencies": {
+    "@capacitor-community/http": "^0.2.1",
     "@capacitor/android": "^2.0.2",
     "@capacitor/core": "2.0.2",
     "@capacitor/ios": "2.0.2",
@@ -69,6 +70,7 @@
     "@vue/cli-plugin-vuex": "^4.2.0",
     "@vue/cli-service": "^4.2.0",
     "@vue/eslint-config-typescript": "^5.0.1",
+    "autoprefixer": "^9.8.5",
     "capacitor-resources": "^2.0.3",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.1.2",

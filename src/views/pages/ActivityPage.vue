@@ -1,4 +1,3 @@
-import {ActivityType} from '@/types/ActivityType'
 <template>
   <page-transparent-header ref="page">
     <ion-page class="ion-page">

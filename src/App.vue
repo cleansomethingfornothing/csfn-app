@@ -35,7 +35,7 @@
   }
 </script>
 <style lang="scss">
-  @import 'assets/style/main';
+  @import 'assets/style/main.scss';
 
   ion-tab-bar {
     border-top: 1px solid #ccc;

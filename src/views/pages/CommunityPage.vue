@@ -18,7 +18,8 @@
           <div class="flex flex-col justify-center h-full">
             <div class="flex justify-between items-center">
               <div
-                class="flex flex-col items-center justify-center relative w-14 mb-6 sm:ml-4 md:ml-8 h-14 rounded-full ion-activatable overflow-hidden shadow-md">
+                class="flex flex-col items-center justify-center relative w-14 mb-6 sm:ml-4 md:ml-8 h-14 rounded-full ion-activatable overflow-hidden shadow-md"
+              @click="$router.push('/world-map')">
                 <img src="@/assets/img/world.svg" class="w-12 sm:w-14 absolute">
                 <span class="text-3xl sm:text-4xl font-medium text-white absolute">59</span>
                 <ion-ripple-effect/>
@@ -55,8 +56,8 @@
 
         <div class="p-4 lg:px-24">
           <div class="flex justify-between items-center">
-            <ion-label color="primary" class="ml-2 font-bold text-xl">{{$t('last-months')}}</ion-label>
-            <ion-segment class="w-1/4 world-tabs">
+            <ion-label color="primary" class="ml-2 font-bold text-xl w-1/2">{{$t('last-months')}}</ion-label>
+            <ion-segment class="w-1/2 world-tabs">
               <ion-segment-button value="sunny" checked>
                 <ion-label class="text-xs">World</ion-label>
               </ion-segment-button>
@@ -78,12 +79,11 @@
           <ion-item v-for="i of [0, 1,2,3,4,5,6,7,8,9]" :key="i" class=" user lg:my-2 lg:rounded-full" button
                     :class="i === 0 ? 'user-gold' : i === 1 ? 'user-silver' : i === 2 ? 'user-bronze' : ''"
                     detail="false">
-            <div class="user-bg"></div>
             <span slot="start" :style="`background-color: rgba(var(--ion-color-secondary-rgb), 0.${90 - (i/2 * 10)})`"
                   class="w-6 h-6 flex justify-center items-center rounded-full font-bold text-white">
             {{i + 1}}
             </span>
-            <ion-avatar slot="start" class="-ml-4">
+            <ion-avatar slot="start">
               <img src="/img/user-placeholder.png">
             </ion-avatar>
             <ion-label class="font-bold my-6 lg:my-4">@user_name</ion-label>

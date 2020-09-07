@@ -1,7 +1,7 @@
 import User from '@/types/User'
 import {Action, Module, Mutation, VuexModule} from 'vuex-class-modules'
 import {store} from '@/store/index'
-import {dataProvider} from '@/providers/data/data.provider'
+import {userProvider} from '@/providers/data/user.provider'
 
 @Module
 class UserModule extends VuexModule {
@@ -37,7 +37,7 @@ class UserModule extends VuexModule {
       this.setViewingUser(this.currentUser)
       return Promise.resolve()
     }
-    return dataProvider.user.fetchUser()
+    return userProvider.fetchUser()
       .then((user) => {
         this.setViewingUser(user)
       })
@@ -45,7 +45,7 @@ class UserModule extends VuexModule {
 
   @Action
   fetchCurrentUser(id: string) {
-    return dataProvider.user.fetchUser()
+    return userProvider.fetchUser()
       .then((user) => {
         this.setCurrentUser(user)
       })

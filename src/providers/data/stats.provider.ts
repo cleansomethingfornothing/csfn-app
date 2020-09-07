@@ -6,8 +6,7 @@ export default class StatsProvider {
 
   axios: AxiosInstance
 
-  constructor(axios) {
-    this.axios = axios
+  constructor() {
   }
 
   fetchHistory(): Promise<MonthStats> {
@@ -19,3 +18,5 @@ export default class StatsProvider {
   }
 
 }
+
+export const statsProvider = new StatsProvider()

@@ -8,7 +8,9 @@
         <div class=" flex flex-col bg-poly bg-poly-4 h-64 lg:h-88 ios:h-60 sm:ios:h-64 lg:ios:h-72 xl:ios:h-88">
           <div class="h-toolbar-top sm:ios:mb-2"></div>
           <div class="flex flex-col h-full p-4 pt-20 text-left">
-            <img class="w-56 absolute" style="top: 20px; left: 0px" src="@/assets/img/empty/events.png"/>
+            <div class="w-56 absolute" style="top: 20px; left: 0px">
+              <img src="@/assets/img/empty/events.png"/>
+            </div>
             <div class="rounded-full overflow-hidden shadow ion-activatable relative z-10" style="margin-top: 15%">
               <ion-item>
                 <ion-icon name="location" slot="start" color="secondary"></ion-icon>

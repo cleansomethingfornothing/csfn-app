@@ -2,7 +2,7 @@
 const plugin = require('tailwindcss/plugin')
 
 module.exports = {
-  important: '.ion-page',
+  //important: '.ion-page',
   theme: {
     screens: {
       'sm': '350px',

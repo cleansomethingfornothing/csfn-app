@@ -17,32 +17,32 @@
   </div>
 </template>
 <script lang=ts>
-  import Vue from 'vue'
-  import Component from 'vue-class-component'
-  import {Prop, Ref} from 'vue-property-decorator'
+    import Vue from 'vue'
+    import Component from 'vue-class-component'
+    import {Prop, Ref} from 'vue-property-decorator'
 
-  @Component({
-    name: "TransparentHeader"
-  })
-  export default class TransparentHeader extends Vue {
-    @Ref('toolbar')
-    toolbar: any
+    @Component({
+        name: 'TransparentHeader'
+    })
+    export default class TransparentHeader extends Vue {
+        @Ref('toolbar')
+        toolbar: any
 
-    @Prop(String)
-    title: string
+        @Prop(String)
+        title: string
 
-    @Prop(Boolean)
-    alwaysTransparent: boolean
+        @Prop(Boolean)
+        alwaysTransparent: boolean
 
-    @Prop(Boolean)
-    noGradient: boolean
+        @Prop(Boolean)
+        noGradient: boolean
 
-    @Prop(Boolean)
-    noBack: boolean
+        @Prop(Boolean)
+        noBack: boolean
 
-    @Prop(Boolean)
-    noContent: boolean
-  }
+        @Prop(Boolean)
+        noContent: boolean
+    }
 </script>
 <style>
   .transparent-header ion-toolbar {
@@ -57,11 +57,12 @@
   }
 
   .transparent-header.always-transparent ion-toolbar {
+    --color: #FFFFFF !important;
     --background: transparent !important;
   }
 
-  .transparent-header.no-content ion-toolbar{
-    height: 30px!important;
+  .transparent-header.no-content ion-toolbar {
+    height: 30px !important;
   }
 
   .scrolled .transparent-header ion-toolbar {

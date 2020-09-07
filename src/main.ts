@@ -8,6 +8,7 @@ import {router} from '@/router'
 import {i18n} from '@/i18n'
 import {Plugins} from '@capacitor/core'
 import './assets/style/tailwind.css'
+import '@capacitor-community/http';
 
 const {App, SplashScreen, StatusBar, Device} = Plugins
 
