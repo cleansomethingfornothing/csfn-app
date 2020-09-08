@@ -75,7 +75,7 @@
           </ion-item>
           -->
           <ion-item button detail="true" @click="$router.push('/settings')">
-            <ion-icon slot="start" name="settings" color="medium"></ion-icon>
+            <ion-icon slot="start" name="settings-outline" color="dark"></ion-icon>
             <ion-label class="my-4">{{$t('settings')}}</ion-label>
           </ion-item>
         </ion-list>

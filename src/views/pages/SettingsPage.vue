@@ -10,10 +10,14 @@
         <ion-title>{{$t('settings')}}</ion-title>
       </ion-toolbar>
     </ion-header>
-    <ion-content class="settings-page">
+    <ion-content class="list-large-items">
       <ion-list>
-        <ion-item button @click="logout">
-          <ion-icon slot="start" name="arrow-left"></ion-icon>
+        <ion-item button @click="$router.push('/security-settings')">
+          <ion-icon slot="start" name="shield-outline" color="dark"></ion-icon>
+          <ion-label>{{$t('security')}}</ion-label>
+        </ion-item>
+        <ion-item button @click="logout" detail="false">
+          <ion-icon slot="start" name="power" color="dark"></ion-icon>
           <ion-label>{{$t('logout')}}</ion-label>
         </ion-item>
       </ion-list>
@@ -37,9 +41,3 @@
 
   }
 </script>
-<style scoped>
-  .settings-page ion-label {
-    margin-top: 1.3em;
-    margin-bottom: 1.3em;
-  }
-</style>

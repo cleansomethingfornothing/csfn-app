@@ -3,7 +3,7 @@ import {Toast} from '@ionic/core/dist/types/components/toast/toast'
 export default class ToastPresenter {
   private static toast: Toast
 
-  public static present(ionic, message: string) {
+  public static present(ionic, message: string, color = 'danger') {
     if (this.toast) {
       this.toast.dismiss()
     }
@@ -12,7 +12,8 @@ export default class ToastPresenter {
       message: message,
       position: 'top',
       mode: 'ios',
-      color: 'danger',
+      duration: 3000,
+      color,
       keyboardClose: true,
       buttons: [{
         text: 'Ok',

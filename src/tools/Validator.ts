@@ -10,8 +10,8 @@ import FieldError from '@/types/errors/FieldError'
 import User from '@/types/User'
 
 export default class Validator {
-  public static validate(object: any): Promise<void | FormError> {
-    return validateOrReject(object)
+  public static validate(object: any, ...groups: string[]): Promise<void | FormError> {
+    return validateOrReject(object, {groups})
       .catch((errors) => this.handleRejection(errors))
   }
 

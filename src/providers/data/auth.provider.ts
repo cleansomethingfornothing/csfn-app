@@ -1,6 +1,6 @@
-import UserLogin from '@/types/UserLogin'
+
 import User from '@/types/User'
-import {handleAuthError, handleBackError} from '@/tools/handleBackError'
+import {handleBackError} from '@/tools/handleBackError'
 import DataProvider from '@/providers/data/data.provider'
 
 export class AuthProvider extends DataProvider {
@@ -20,10 +20,10 @@ export class AuthProvider extends DataProvider {
       .then(({data}) => data)
   }
 
-  doLogin(login: UserLogin): Promise<User> {
+  doLogin(login: User): Promise<User> {
     return this.axios.post('/login', undefined, {auth: {username: login.email, password: login.password}})
       .then(({data}) => data)
-      .catch(handleAuthError('login'))
+      .catch(handleBackError('login'))
   }
 
   doLogout(): Promise<void> {
@@ -34,6 +34,17 @@ export class AuthProvider extends DataProvider {
 
   askPasswordResetCode(email: string): Promise<void> {
     return Promise.resolve(email && undefined)
+  }
+
+  changeEmail({currentEmail, currentPassword, newEmail}: { currentEmail: string, currentPassword: string, newEmail: string }): Promise<User> {
+    return this.axios.post('/change_email', {email: newEmail}, {
+      auth: {
+        username: currentEmail,
+        password: currentPassword
+      }
+    })
+      .then(({data}) => data)
+      .catch(handleBackError('change-email'))
   }
 
   validatePasswordResetCode(email: string, code: string): Promise<boolean> {

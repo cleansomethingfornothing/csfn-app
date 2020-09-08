@@ -1,5 +1,4 @@
 import User from '@/types/User'
-import UserLogin from '@/types/UserLogin'
 import {Action, Module, Mutation, VuexModule} from 'vuex-class-modules'
 import {store} from '@/store/index'
 import {userModule} from '@/store/userModule'
@@ -8,6 +7,7 @@ import {storageProvider} from '@/providers/storage/storage.provider'
 import {authProvider} from '@/providers/data/auth.provider'
 import {userProvider} from '@/providers/data/user.provider'
 import {imagesProvider} from '@/providers/data/images.provider'
+import {LOGIN, UPDATE_EMAIL} from '@/types/ValidationGroups'
 
 const SESSION = 'CSFN_SESSION'
 
@@ -31,8 +31,17 @@ class AuthModule extends VuexModule {
 
   @Action
   initialize(): Promise<void> {
-    return this.loggedIn()
+    return this.checkIsLogged()
       .catch(() => this.loggedOut())
+  }
+
+  @Action
+  checkIsLogged() {
+    return authProvider.fetchCurrentUser()
+      .then((user) => userModule.setCurrentUser(user))
+      .then(() => {
+        this.setLogged(true)
+      })
   }
 
   @Action
@@ -47,8 +56,8 @@ class AuthModule extends VuexModule {
   }
 
   @Action
-  doCredentialsLogin(userLogin: UserLogin): Promise<void> {
-    return Validator.validate(userLogin)
+  doCredentialsLogin(userLogin: User): Promise<void> {
+    return Validator.validate(userLogin, LOGIN)
       .then(() => authProvider.doLogin(userLogin))
       .then((user) => {
         this.setLogged(true)
@@ -58,11 +67,15 @@ class AuthModule extends VuexModule {
   }
 
   @Action
-  loggedIn() {
-    return authProvider.fetchCurrentUser()
-      .then((user) => userModule.setCurrentUser(user))
-      .then(() => {
-        this.setLogged(true)
+  changeEmail(change: User) {
+    return Validator.validate(change, UPDATE_EMAIL)
+      .then(() => authProvider.changeEmail({
+        currentEmail: userModule.getCurrentUser.email,
+        currentPassword: change.password,
+        newEmail: change.email
+      }))
+      .then(user => {
+        userModule.setCurrentUser(user)
       })
   }
 

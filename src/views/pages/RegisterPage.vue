@@ -17,7 +17,7 @@
                       :errors="fieldErrors.username" @focus="resetError('username')"></input-item>
           <input-item icon="mail" placeholder="Email" type="email" v-model="userRegistration.email" :rounded="true"
                       :errors="fieldErrors.email" @focus="resetError('email')"></input-item>
-          <input-item icon="lock" :placeholder="$t('password')" type="password" v-model="userRegistration.password"
+          <input-item icon="lock-closed" :placeholder="$t('password')" type="password" v-model="userRegistration.password"
                       :rounded="true"
                       :errors="fieldErrors.password" @focus="resetError('password')"></input-item>
           <button-item color="primary" :text="$t('create-account')" type="button" @click="register"></button-item>
@@ -47,6 +47,7 @@
     import ModalPresenter from '@/tools/ModalPresenter'
     import Cropper from '@/tools/Cropper'
     import Validator from '@/tools/Validator'
+    import {CREATE} from '@/types/ValidationGroups'
 
     @Component({
         name: 'register',
@@ -66,7 +67,7 @@
         loadingPicture = false
 
         register() {
-            Validator.validate(this.userRegistration)
+            Validator.validate(this.userRegistration, CREATE)
                 .then(() => Cropper.cropSquare(this.userRegistration.picture as Blob, true))
                 .then((croppedImage) =>
                     authModule.doRegister({...this.userRegistration, picture: croppedImage} as User))

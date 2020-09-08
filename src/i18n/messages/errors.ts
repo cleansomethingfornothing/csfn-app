@@ -20,6 +20,8 @@ export default {
   es: {
     'errors': {
       'isUnique': 'El {param} ya está en uso',
+      'invalidEmail': 'El email no existe',
+      'invalidPassword': 'La contraseña no es correcta',
       'login-user-not-found': 'El email no corresponde a ningún usuario',
       'login-wrong-password': 'La contraseña no es válida',
       'required-error': 'Por favor introduzca el {param}',

@@ -7,18 +7,18 @@
           <img alt="icon" src="@/assets/img/icon.png" width="35%" class="z-10">
           <img alt="title" src="@/assets/img/text_white.png" width="95%" class="z-10">
 
-          <input-item icon="person" :placeholder="$t('email')" type="text" v-model="userLogin.email"
+          <input-item icon="mail" :placeholder="$t('email')" type="text" v-model="userLogin.email"
                       :rounded="true"
                       :errors="fieldErrors.email" @blur="blur"
                       @focus="resetError('email') || focus()"></input-item>
-          <input-item icon="lock" :placeholder="$t('password')" type="password" v-model="userLogin.password"
+          <input-item icon="lock-closed" :placeholder="$t('password')" type="password" v-model="userLogin.password"
                       :rounded="true"
                       :errors="fieldErrors.password" @blur="blur"
                       @focus="resetError('password') || focus()"></input-item>
           <button-item color="primary" :text="$t('login')" :disabled="loading"
                        @click="credentialsLogin"></button-item>
           <hr class="z-10">
-          <button-item color="facebook" icon="facebook" :text="$t('continue-with', {'param': 'Facebook'})"
+          <button-item color="facebook" icon="logo-facebook" :text="$t('continue-with', {'param': 'Facebook'})"
                        @click="facebookLogin"></button-item>
 
         </form>
@@ -49,12 +49,12 @@
     import ButtonItem from '@/views/components/common/ButtonItem.vue'
     import ForestBg from '@/views/components/common/ForestBg.vue'
     import {authModule} from '@/store/authModule'
-    import UserLogin from '@/types/UserLogin'
     import UnknownError from '@/types/errors/UnknownError'
     import ErrorMessage from '@/tools/ErrorMessage'
     import ToastPresenter from '@/tools/ToastPresenter'
     import FormError from '@/types/errors/FormError'
     import {nativeProvider} from '@/providers/native/native.provider'
+    import User from '@/types/User'
 
     @Component({
         name: 'login',
@@ -63,7 +63,7 @@
     export default class LoginPage extends Vue {
 
         loaded = false
-        userLogin = new UserLogin()
+        userLogin = new User()
         fieldErrors = {}
         typing = false
         loading = false

@@ -249,6 +249,11 @@ ion-slides {
   --background: linear-gradient(150deg, var(--ion-color-secondary-tint), var(--ion-color-primary-tint));
 }
 
+.list-large-items ion-label, .large-item ion-label {
+  margin-top: 1.3em;
+  margin-bottom: 1.3em;
+}
+
 @media screen and (min-width: 700px) {
   :root {
     font-size: 1.2em;
