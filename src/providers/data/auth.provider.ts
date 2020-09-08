@@ -27,7 +27,9 @@ export class AuthProvider extends DataProvider {
   }
 
   doLogout(): Promise<void> {
-    return Promise.resolve()
+    return this.axios.post('/logout')
+      .then(() => undefined)
+      .catch(handleBackError('logout'))
   }
 
   askPasswordResetCode(email: string): Promise<void> {
