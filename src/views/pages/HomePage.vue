@@ -1,5 +1,8 @@
 <template>
   <ion-page class="ion-page home-page">
+    <current-user-page ref="user"/>
+    <!--
+    TODO
     <ion-fab vertical="bottom" horizontal="end" class="ios:mb-11 mb-13">
       <ion-fab-button color="white">
         <ion-icon color="primary" name="add" size="large"/>
@@ -45,84 +48,90 @@
         </transition>
       </ion-tab-button>
     </ion-tab-bar>
+    -->
   </ion-page>
 </template>
 
 <script lang="ts">
-  import Vue from 'vue'
-  import Component from 'vue-class-component'
-  import HomeHeader from '@/views/components/home/HomeHeader.vue'
-  import CleanupCard from '@/views/components/home/CleanupCard.vue'
-  import PlaceholderCard from '@/views/components/home/PlaceholderCard.vue'
-  import HomeCleanupsList from '@/views/components/home/CleanupsList.vue'
-  import CleanupsMap from '@/views/components/home/CleanupsMap.vue'
-  import CurrentUserPage from '@/views/pages/CurrentUserPage.vue'
-  import CommunityPage from '@/views/pages/CommunityPage.vue'
-  import AlertsPage from '@/views/pages/AlertsPage.vue'
-  import EventsPage from '@/views/pages/EventsPage.vue'
-  import {Ref, Watch} from 'vue-property-decorator'
+    import Vue from 'vue'
+    import Component from 'vue-class-component'
+    import HomeHeader from '@/views/components/home/HomeHeader.vue'
+    import CleanupCard from '@/views/components/home/CleanupCard.vue'
+    import PlaceholderCard from '@/views/components/home/PlaceholderCard.vue'
+    import HomeCleanupsList from '@/views/components/home/CleanupsList.vue'
+    import CleanupsMap from '@/views/components/home/CleanupsMap.vue'
+    import CurrentUserPage from '@/views/pages/CurrentUserPage.vue'
+    import CommunityPage from '@/views/pages/CommunityPage.vue'
+    import AlertsPage from '@/views/pages/AlertsPage.vue'
+    import EventsPage from '@/views/pages/EventsPage.vue'
+    import {Ref, Watch} from 'vue-property-decorator'
 
-  @Component({
-    name: 'home-page',
-    components: {
-      EventsPage,
-      AlertsPage,
-      CommunityPage,
-      CurrentUserPage,
-      HomeCleanupsMap: CleanupsMap,
-      HomeCleanupsList,
-      PlaceholderCard: PlaceholderCard,
-      CleanupCard: CleanupCard,
-      HomeHeader
+    @Component({
+        name: 'home-page',
+        components: {
+            EventsPage,
+            AlertsPage,
+            CommunityPage,
+            CurrentUserPage,
+            HomeCleanupsMap: CleanupsMap,
+            HomeCleanupsList,
+            PlaceholderCard: PlaceholderCard,
+            CleanupCard: CleanupCard,
+            HomeHeader
+        }
+    })
+    export default class HomePage extends Vue {
+
+        loaded = false
+
+        tabs = ['user', 'community', 'alerts', 'events']
+
+        selectedTab = ''
+
+        @Ref('slider')
+        slider: HTMLIonSlidesElement
+
+        mounted() {
+            /*
+            TODO
+            this.changedRoute(this.$route)
+            this.slider.slideTo(this.tabs.indexOf(this.$route.params.tab), 0)
+            setTimeout(() => {
+                this.loaded = true
+            }, 2000)
+             */
+        }
+
+        activated() {
+            this.slider.slideTo(this.tabs.indexOf(this.$route.params.tab), 0)
+        }
+
+        @Watch('$route')
+        changedRoute(/*route*/) {
+            /* TODO
+            if (route.params.tab !== this.selectedTab && route.name === 'HomePage') {
+              this.selectedTab && (this.$refs[this.selectedTab] as any).exit();
+              (this.$refs[route.params.tab] as any).init()
+              this.selectedTab = route.params.tab
+            }
+             */
+        }
+
+        slideTo(tab) {
+            this.slider.slideTo(this.tabs.indexOf(tab))
+        }
+
+        slided() {
+            this.slider.isBeginning().then((beg) => this.slider.lockSwipeToPrev(beg))
+            this.slider.isEnd().then((end) => this.slider.lockSwipeToNext(end))
+            this.slider.getActiveIndex()
+                .then(index => {
+                    if (this.tabs[index] !== this.selectedTab) {
+                        this.$router.replace('/home/' + this.tabs[index])
+                    }
+                })
+        }
     }
-  })
-  export default class HomePage extends Vue {
-
-    loaded = false
-
-    tabs = ['user', 'community', 'alerts', 'events']
-
-    selectedTab = ''
-
-    @Ref('slider')
-    slider: HTMLIonSlidesElement
-
-    mounted() {
-      this.changedRoute(this.$route)
-      this.slider.slideTo(this.tabs.indexOf(this.$route.params.tab), 0)
-      setTimeout(() => {
-        this.loaded = true
-      }, 2000)
-    }
-
-    activated() {
-      this.slider.slideTo(this.tabs.indexOf(this.$route.params.tab), 0)
-    }
-
-    @Watch('$route')
-    changedRoute(route) {
-      if (route.params.tab !== this.selectedTab && route.name === 'HomePage') {
-        this.selectedTab && (this.$refs[this.selectedTab] as any).exit();
-        (this.$refs[route.params.tab] as any).init()
-        this.selectedTab = route.params.tab
-      }
-    }
-
-    slideTo(tab) {
-      this.slider.slideTo(this.tabs.indexOf(tab))
-    }
-
-    slided() {
-      this.slider.isBeginning().then((beg) => this.slider.lockSwipeToPrev(beg))
-      this.slider.isEnd().then((end) => this.slider.lockSwipeToNext(end))
-      this.slider.getActiveIndex()
-        .then(index => {
-          if (this.tabs[index] !== this.selectedTab) {
-            this.$router.replace('/home/' + this.tabs[index]);
-          }
-        })
-    }
-  }
 </script>
 <style>
   .home-tabs {

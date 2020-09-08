@@ -2,6 +2,7 @@ import User from '@/types/User'
 import {Action, Module, Mutation, VuexModule} from 'vuex-class-modules'
 import {store} from '@/store/index'
 import {userProvider} from '@/providers/data/user.provider'
+import {authProvider} from '@/providers/data/auth.provider'
 
 @Module
 class UserModule extends VuexModule {
@@ -44,8 +45,8 @@ class UserModule extends VuexModule {
   }
 
   @Action
-  fetchCurrentUser(id: string) {
-    return userProvider.fetchUser()
+  fetchCurrentUser() {
+    return authProvider.fetchCurrentUser()
       .then((user) => {
         this.setCurrentUser(user)
       })

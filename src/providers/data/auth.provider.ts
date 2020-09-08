@@ -1,6 +1,6 @@
 import UserLogin from '@/types/UserLogin'
 import User from '@/types/User'
-import {handleBackError} from '@/tools/handleBackError'
+import {handleAuthError, handleBackError} from '@/tools/handleBackError'
 import DataProvider from '@/providers/data/data.provider'
 
 export class AuthProvider extends DataProvider {
@@ -12,11 +12,18 @@ export class AuthProvider extends DataProvider {
   doRegister(user: User): Promise<User> {
     return this.axios.post('/register', {...user, picture: undefined})
       .then(({data}) => data)
-      .catch(handleBackError)
+      .catch(handleBackError('register'))
+  }
+
+  fetchCurrentUser(): Promise<User> {
+    return this.axios.get('/user')
+      .then(({data}) => data)
   }
 
   doLogin(login: UserLogin): Promise<User> {
-    return Promise.resolve(undefined)
+    return this.axios.post('/login', undefined, {auth: {username: login.email, password: login.password}})
+      .then(({data}) => data)
+      .catch(handleAuthError('login'))
   }
 
   doLogout(): Promise<void> {

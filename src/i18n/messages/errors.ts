@@ -2,6 +2,8 @@ export default {
   en: {
     'errors': {
       'isUnique': 'The {param} is already in use',
+      'invalidEmail': 'The email does not exist',
+      'invalidPassword': 'The password is not correct',
       'login-user-not-found': 'There is no user with the given email',
       'login-wrong-password': 'The password is invalid',
       'required-error': 'Please enter the {param}',

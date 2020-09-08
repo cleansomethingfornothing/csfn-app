@@ -7,10 +7,10 @@
           <img alt="icon" src="@/assets/img/icon.png" width="35%" class="z-10">
           <img alt="title" src="@/assets/img/text_white.png" width="95%" class="z-10">
 
-          <input-item icon="person" :placeholder="$t('username')" type="text" v-model="userLogin.username"
+          <input-item icon="person" :placeholder="$t('email')" type="text" v-model="userLogin.email"
                       :rounded="true"
-                      :errors="fieldErrors.username" @blur="blur"
-                      @focus="resetError('username') || focus()"></input-item>
+                      :errors="fieldErrors.email" @blur="blur"
+                      @focus="resetError('email') || focus()"></input-item>
           <input-item icon="lock" :placeholder="$t('password')" type="password" v-model="userLogin.password"
                       :rounded="true"
                       :errors="fieldErrors.password" @blur="blur"
@@ -54,6 +54,7 @@
     import ErrorMessage from '@/tools/ErrorMessage'
     import ToastPresenter from '@/tools/ToastPresenter'
     import FormError from '@/types/errors/FormError'
+    import {nativeProvider} from '@/providers/native/native.provider'
 
     @Component({
         name: 'login',
@@ -61,13 +62,18 @@
     })
     export default class LoginPage extends Vue {
 
+        loaded = false
         userLogin = new UserLogin()
-
         fieldErrors = {}
-
         typing = false
-
         loading = false
+
+        mounted(): void {
+            if (!this.loaded) {
+                nativeProvider.hideSplashScreen()
+                this.loaded = true
+            }
+        }
 
         credentialsLogin() {
             this.loading = true
@@ -90,7 +96,7 @@
         }
 
         facebookLogin() {
-          //
+            //
         }
 
         resetError(field) {

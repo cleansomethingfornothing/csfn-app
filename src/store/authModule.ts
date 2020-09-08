@@ -31,8 +31,7 @@ class AuthModule extends VuexModule {
 
   @Action
   initialize(): Promise<void> {
-    return storageProvider.get(SESSION)
-      .then((session) => this.loggedIn(session))
+    return this.loggedIn()
       .catch(() => this.loggedOut())
   }
 
@@ -42,7 +41,7 @@ class AuthModule extends VuexModule {
       .then((user) => imagesProvider.uploadImages([userRegistration.picture as File])
         .then((images) => userProvider.updateUser(user.id, {picture: images[0]})))
       .then(() => this.doCredentialsLogin({
-        username: userRegistration.username,
+        email: userRegistration.email,
         password: userRegistration.password
       }))
   }
@@ -51,13 +50,16 @@ class AuthModule extends VuexModule {
   doCredentialsLogin(userLogin: UserLogin): Promise<void> {
     return Validator.validate(userLogin)
       .then(() => authProvider.doLogin(userLogin))
-      .then((token) => storageProvider.set(SESSION, {token, username: userLogin.username})
-        .then((token) => this.loggedIn({token, username: userLogin.username})))
+      .then((user) => {
+        this.setLogged(true)
+        userModule.setCurrentUser(user)
+        return Promise.resolve()
+      })
   }
 
   @Action
-  loggedIn({token, username}) {
-    return userProvider.fetchUser()
+  loggedIn() {
+    return authProvider.fetchCurrentUser()
       .then((user) => userModule.setCurrentUser(user))
       .then(() => {
         this.setLogged(true)

@@ -10,13 +10,13 @@
           <wave :num="1"/>
         </div>
         <div class="-mt-40 lg:-mt-48 flex flex-col justify-center items-center pt-4 ios:-mt-40  lg:ios:-mt-56">
-          <avatar class="w-32 lg:w-40" :src="user && user.picture"></avatar>
+          <avatar class="w-32 lg:w-40" :src="user && user.picture.publicUrl"></avatar>
           <ion-skeleton-text class="w-32" v-if="!user"></ion-skeleton-text>
           <ion-label v-else class="font-bold text-xl -ml-1">{{user.username}}</ion-label>
         </div>
 
         <hr class="mt-4 mx-4">
-
+      <!--
         <div class="ripple-parent ion-activatable py-4">
           <div class="flex items-baseline justify-center -ml-1">
             <div class="w-8">
@@ -46,9 +46,7 @@
           <ion-ripple-effect></ion-ripple-effect>
         </div>
 
-        <!--
         <hr class="mb-4 mb-2 mx-4">
-        -->
 
         <div class="p-2 lg:px-24 -mt-4">
           <ion-card button class="lg:h-64">
@@ -58,7 +56,11 @@
 
         <hr>
 
+        -->
+
+
         <ion-list lines="inset" class="mb-20">
+          <!--
           <ion-item button detail="true" @click="$router.push('/user-activities?type=cleanups')">
             <ion-icon slot="start" name="trash" color="medium"></ion-icon>
             <ion-label class="my-4">{{$t('cleanups')}}</ion-label>
@@ -71,6 +73,7 @@
             <ion-icon slot="start" name="flag" color="medium"></ion-icon>
             <ion-label class="my-4">{{$t('events')}}</ion-label>
           </ion-item>
+          -->
           <ion-item button detail="true" @click="$router.push('/settings')">
             <ion-icon slot="start" name="settings" color="medium"></ion-icon>
             <ion-label class="my-4">{{$t('settings')}}</ion-label>
@@ -156,8 +159,8 @@
     }
 
     mounted(): void {
-      const userId = this.$route.params.id
-      userModule.fetchViewingUser(userId)
+      //const userId = this.$route.params.id
+      //userModule.fetchCurrentUser()
       //cleanupsModule.fetchFromUser(userId)
     }
 

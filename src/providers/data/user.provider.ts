@@ -13,7 +13,7 @@ export class UserProvider extends DataProvider {
   }
 
   fetchUser(): Promise<User> {
-    return Promise.resolve(undefined)
+    return null
   }
 
   fetchUserCleanups(): Promise<Activity[]> {
