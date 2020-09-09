@@ -1,14 +1,14 @@
-import HomePage from '@/views/pages/HomePage.vue'
-import LoginPage from '@/views/pages/LoginPage.vue'
-import RegisterPage from '@/views/pages/RegisterPage.vue'
-import ForgottenPasswordPage from '@/views/pages/ForgottenPasswordPage.vue'
+import HomePage from '@/views/pages/home/HomePage.vue'
+import LoginPage from '@/views/pages/auth/LoginPage.vue'
+import RegisterPage from '@/views/pages/auth/RegisterPage.vue'
+import ForgottenPasswordPage from '@/views/pages/auth/ForgottenPasswordPage.vue'
 import EditionPage from '@/views/pages/EditionPage.vue'
 import ActivityPage from '@/views/pages/ActivityPage.vue'
 import UserPage from '@/views/pages/UserPage.vue'
-import SettingsPage from '@/views/pages/SettingsPage.vue'
+import SettingsPage from '@/views/pages/settings/SettingsPage.vue'
 import UserActivitiesPage from '@/views/pages/UserActivitiesPage.vue'
 import WorldMapPage from '@/views/pages/WorldMapPage.vue'
-import SecuritySettingsPage from '@/views/pages/SecuritySettingsPage.vue'
+import SecuritySettingsPage from '@/views/pages/settings/SecuritySettingsPage.vue'
 
 export default [
   {

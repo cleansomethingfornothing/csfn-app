@@ -6,10 +6,15 @@ export default {
     'delete-account': 'Delete account',
     'current-email': 'Current email',
     'new-email': 'New email',
+    'current-password': 'Current password',
+    'newPassword': 'New password',
     'new-email-message': 'Enter your new email',
-    'password-message': 'Enter your current password',
+    'current-password-message': 'Enter your current password',
+    'new-password-message': 'Enter your new password',
     'change-email-success': 'Email updated',
-    'same-email-error': 'Enter a different email'
+    'change-password-success': 'Password updated',
+    'same-email-error': 'Enter a different email',
+    'same-password-error': 'Enter a different password'
   },
   es: {
     'security': 'Seguridad',
@@ -18,10 +23,14 @@ export default {
     'delete-account': 'Eliminar cuenta',
     'current-email': 'Email actual',
     'new-email': 'Nuevo email',
+    'current-password': 'Contraseña actual',
+    'newPassword': 'Contraseña nueva',
     'new-email-message': 'Introduce tu nuevo email',
-    'password-message': 'Introduce to contraseña actual',
-    'change-email-success': 'Email actualizado',
-    'same-email-error': 'Introduce un email diferente'
+    'current-password-message': 'Introduce tu contraseña actual',
+    'new-password-message': 'Introduce tu nueva contraseña',
+    'change-email-success': 'Contraseña actualizada',
+    'same-email-error': 'Introduce un email diferente',
+    'same-password-error': 'Introduce una contraseña diferente'
   }
 }
 

@@ -11,8 +11,8 @@
                      :autocomplete="type === 'password' ? 'new-password' : 'off'" :class="inputClass"></ion-input>
         </slot>
         <ion-button slot="end" fill="clear" v-if="type === 'password'" @click="showPassword = !showPassword"
-                    color="medium" :class="{'mt-6 pt-1 mr-0': !rounded, '-mr-3': rounded}">
-          <ion-icon slot="icon-only" :name="showPassword ? 'md-eye-off' : 'md-eye'"/>
+                    color="medium" :class="{'mt-6 pt-1 mr-0': !rounded, '-mr-3': rounded}" shape="round">
+          <ion-icon slot="icon-only" :name="showPassword ? 'eye-off' : 'eye'" class="mr-0"/>
         </ion-button>
         <ion-note v-if="endNote" slot="end" class="ml-0 mb-0 pb-0 pt-6 text-base">{{endNote}}</ion-note>
       </ion-item>

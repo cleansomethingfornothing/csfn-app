@@ -60,10 +60,10 @@
     import PlaceholderCard from '@/views/components/home/PlaceholderCard.vue'
     import HomeCleanupsList from '@/views/components/home/CleanupsList.vue'
     import CleanupsMap from '@/views/components/home/CleanupsMap.vue'
-    import CurrentUserPage from '@/views/pages/CurrentUserPage.vue'
-    import CommunityPage from '@/views/pages/CommunityPage.vue'
-    import AlertsPage from '@/views/pages/AlertsPage.vue'
-    import EventsPage from '@/views/pages/EventsPage.vue'
+    import CurrentUserPage from '@/views/pages/home/CurrentUserPage.vue'
+    import CommunityPage from '@/views/pages/home/CommunityPage.vue'
+    import AlertsPage from '@/views/pages/home/AlertsPage.vue'
+    import EventsPage from '@/views/pages/home/EventsPage.vue'
     import {Ref, Watch} from 'vue-property-decorator'
 
     @Component({

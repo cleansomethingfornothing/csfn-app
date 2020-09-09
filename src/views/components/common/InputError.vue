@@ -1,6 +1,6 @@
 <template>
   <div class="error z-10" v-if="error">
-    <ion-icon name="alert" color="danger"></ion-icon>
+    <ion-icon class="text-lg" name="alert-circle-outline" color="danger"></ion-icon>
     <span color="danger" size="small"><b>{{error}}</b></span>
   </div>
 </template>
@@ -24,11 +24,11 @@
     display: flex;
     align-items: center;
     margin-bottom: -0.5em;
-    font-size: 0.8em;
+    font-size: 0.85em;
     color: var(--ion-color-danger);
   }
 
   .error span {
-    margin-left: 1em
+    margin-left: 0.5em
   }
 </style>

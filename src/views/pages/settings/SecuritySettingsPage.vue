@@ -39,6 +39,7 @@
     import ModalPresenter from '@/tools/ModalPresenter'
     import ChangeEmailModal from '@/views/modals/ChangeEmailModal.vue'
     import {userModule} from '@/store/userModule'
+    import ChangePasswordModal from '@/views/modals/ChangePasswordModal.vue'
 
     @Component({
         name: 'SecuritySettingsPage'
@@ -58,17 +59,38 @@
                     newEmailLabel: this.$t('new-email'),
                     passwordLabel: this.$t('password'),
                     newEmailMessage: this.$t('new-email-message'),
-                    passwordMessage: this.$t('password-message'),
+                    passwordMessage: this.$t('current-password-message'),
                     success: this.$t('change-email-success'),
                     sameEmailError: this.$t('same-email-error')
                 },
                 ionic: this.$ionic,
                 currentEmail: this.currentUser.email
-            }).then(() => this.$router.push('/home/user'))
+            }).then(({data}) => {
+                if (data) {
+                    this.$router.push('/home/user')
+                }
+            })
         }
 
         changePassword() {
-            //
+            ModalPresenter.present(this.$ionic, ChangePasswordModal, {
+                t: {
+                    title: this.$t('change-password'),
+                    save: this.$t('save'),
+                    currentPasswordLabel: this.$t('current-password'),
+                    currentPasswordMessage: this.$t('current-password-message'),
+                    newPasswordLabel: this.$t('newPassword'),
+                    newPasswordMessage: this.$t('new-password-message'),
+                    samePasswordError: this.$t('same-password-error'),
+                    success: this.$t('change-password-success')
+                },
+                ionic: this.$ionic,
+                currentEmail: this.currentUser.email
+            }).then(({data}) => {
+                if (data) {
+                    this.$router.push('/home/user')
+                }
+            })
         }
     }
 </script>

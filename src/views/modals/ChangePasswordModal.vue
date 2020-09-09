@@ -13,23 +13,11 @@
       </ion-toolbar>
     </ion-header>
     <ion-content>
-      <ion-item lines="full">
-        <ion-label>
-          <ion-text>
-            <span class="font-bold text-xs">{{t.currentEmailLabel}}</span>
-          </ion-text>
-          <ion-text>
-            <p>
-              {{currentEmail}}
-            </p>
-          </ion-text>
-        </ion-label>
-      </ion-item>
       <form @submit="save" @keyup.enter="save">
-        <input-item :label="t.newEmailLabel" :placeholder="t.newEmailMessage" v-model="change.email"
-                    :errors="fieldErrors.email" @focus="fieldErrors.email = undefined"/>
-        <input-item :label="t.passwordLabel" :placeholder="t.passwordMessage" v-model="change.password"
-                    :errors="fieldErrors.password" @focus="fieldErrors.password = undefined"
+        <input-item :label="t.currentPasswordLabel" :placeholder="t.currentPasswordMessage" v-model="password"
+                    :errors="fieldErrors.password" @focus="fieldErrors.password = undefined" type="password"/>
+        <input-item :label="t.newPasswordLabel" :placeholder="t.newPasswordMessage" v-model="newPassword"
+                    :errors="fieldErrors.newPassword" @focus="fieldErrors.newPassword = undefined"
                     type="password"/>
         <div class="flex justify-center mt-4">
           <ion-button mode="ios" shape="round" class="w-1/2" @click="save" :disabled="loading">
@@ -48,38 +36,45 @@
     import FormError from '@/types/errors/FormError'
     import UnknownError from '@/types/errors/UnknownError'
     import ToastPresenter from '@/tools/ToastPresenter'
-    import User from '@/types/User'
+    import FieldError from '@/types/errors/FieldError'
 
     @Component({
-        name: 'ChangeEmailModal',
+        name: 'ChangePasswordModal',
         components: {InputItem}
     })
-    export default class ChangeEmailModal extends Vue {
+    export default class ChangePasswordModal extends Vue {
 
         @Prop(Object)
         t: Record<string, string>
 
-        @Prop(String)
-        currentEmail: string
-
         @Prop(Object)
         ionic: any
 
-        change = new User()
+        password = ''
+        newPassword = ''
 
         fieldErrors = {
-            email: [],
-            password: []
+            password: [],
+            newPassword: []
         }
         loading = false
 
         save() {
-            if (this.change.email === this.currentEmail) {
-                this.fieldErrors.email = [this.t.sameEmailError]
+            if (!this.password) {
+                this.fieldErrors.password = [ErrorMessage.getMessage(new FieldError('password', 'required-error-f'))]
+            }
+            if (!this.newPassword) {
+                this.fieldErrors.newPassword = [ErrorMessage.getMessage(new FieldError('newPassword', 'required-error-f'))]
+            }
+            if (!this.password || !this.newPassword) {
+                return
+            }
+            if (this.password === this.newPassword) {
+                this.fieldErrors.newPassword = [this.t.samePasswordError]
                 return
             }
             this.loading = true
-            authModule.changeEmail(this.change)
+            authModule.changePassword({currentPassword: this.password, newPassword: this.newPassword})
                 .then(() => {
                     ToastPresenter.present(this.ionic, this.t.success, 'success')
                     this.dismiss(true)

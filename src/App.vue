@@ -10,11 +10,11 @@
   import Component from 'vue-class-component'
   import {userModule} from '@/store/userModule'
   import {appModule} from '@/store/appModule'
-  import CurrentUserPage from '@/views/pages/CurrentUserPage.vue'
+  import CurrentUserPage from '@/views/pages/home/CurrentUserPage.vue'
   import SelectCleanupType from '@/views/modals/CleanupTypeModal.vue'
-  import EventsPage from '@/views/pages/EventsPage.vue'
-  import AlertsPage from '@/views/pages/AlertsPage.vue'
-  import CommunityPage from '@/views/pages/CommunityPage.vue'
+  import EventsPage from '@/views/pages/home/EventsPage.vue'
+  import AlertsPage from '@/views/pages/home/AlertsPage.vue'
+  import CommunityPage from '@/views/pages/home/CommunityPage.vue'
 
   @Component({
     components: {CurrentUserPage, SelectCleanupType, EventsPage, AlertsPage, CommunityPage}

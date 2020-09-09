@@ -7,7 +7,7 @@ import {storageProvider} from '@/providers/storage/storage.provider'
 import {authProvider} from '@/providers/data/auth.provider'
 import {userProvider} from '@/providers/data/user.provider'
 import {imagesProvider} from '@/providers/data/images.provider'
-import {LOGIN, UPDATE_EMAIL} from '@/types/ValidationGroups'
+import {LOGIN, UPDATE_EMAIL, UPDATE_PASSWORD} from '@/types/ValidationGroups'
 
 const SESSION = 'CSFN_SESSION'
 
@@ -73,6 +73,18 @@ class AuthModule extends VuexModule {
         currentEmail: userModule.getCurrentUser.email,
         currentPassword: change.password,
         newEmail: change.email
+      }))
+      .then(user => {
+        userModule.setCurrentUser(user)
+      })
+  }
+
+  @Action
+  changePassword({currentPassword, newPassword}: { currentPassword: string, newPassword: string }) {
+    return Validator.validate({password: newPassword} as User, UPDATE_PASSWORD)
+      .then(() => authProvider.changePassword({
+        currentEmail: userModule.getCurrentUser.email,
+        currentPassword, newPassword
       }))
       .then(user => {
         userModule.setCurrentUser(user)

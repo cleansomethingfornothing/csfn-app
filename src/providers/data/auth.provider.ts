@@ -47,6 +47,17 @@ export class AuthProvider extends DataProvider {
       .catch(handleBackError('change-email'))
   }
 
+  changePassword({currentEmail, currentPassword, newPassword}: {currentEmail, currentPassword, newPassword}): Promise<User> {
+    return this.axios.post('/change_password', {password: newPassword}, {
+      auth: {
+        username: currentEmail,
+        password: currentPassword
+      }
+    })
+      .then(({data}) => data)
+      .catch(handleBackError('change-password'))
+  }
+
   validatePasswordResetCode(email: string, code: string): Promise<boolean> {
     return Promise.resolve(true)
   }
