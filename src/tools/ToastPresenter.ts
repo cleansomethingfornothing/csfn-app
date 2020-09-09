@@ -12,7 +12,7 @@ export default class ToastPresenter {
       message: message,
       position: 'top',
       mode: 'ios',
-      duration: 3000,
+      duration: 5000,
       color,
       keyboardClose: true,
       buttons: [{

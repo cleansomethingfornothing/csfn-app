@@ -32,10 +32,6 @@ export class AuthProvider extends DataProvider {
       .catch(handleBackError('logout'))
   }
 
-  askPasswordResetCode(email: string): Promise<void> {
-    return Promise.resolve(email && undefined)
-  }
-
   changeEmail({currentEmail, currentPassword, newEmail}: { currentEmail: string, currentPassword: string, newEmail: string }): Promise<User> {
     return this.axios.post('/change_email', {email: newEmail}, {
       auth: {

@@ -2,10 +2,9 @@ export default {
   en: {
     'errors': {
       'isUnique': 'The {param} is already in use',
+      'not-found': 'The {param} does not exist',
       'invalidEmail': 'The email does not exist',
       'invalidPassword': 'The password is not correct',
-      'login-user-not-found': 'There is no user with the given email',
-      'login-wrong-password': 'The password is invalid',
       'required-error': 'Please enter the {param}',
       'required-error-f': 'Please enter the {param}',
       'select-some-picture': 'Please select at least one picture',
@@ -20,10 +19,9 @@ export default {
   es: {
     'errors': {
       'isUnique': 'El {param} ya está en uso',
+      'not-found': 'El {param} no existe',
       'invalidEmail': 'El email no existe',
       'invalidPassword': 'La contraseña no es correcta',
-      'login-user-not-found': 'El email no corresponde a ningún usuario',
-      'login-wrong-password': 'La contraseña no es válida',
       'required-error': 'Por favor introduzca el {param}',
       'required-error-p': 'Por favor introduzca el {param}',
       'required-error-f': 'Por favor introduzca la {param}',

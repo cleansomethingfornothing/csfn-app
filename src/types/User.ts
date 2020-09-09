@@ -1,5 +1,5 @@
 import {IsEmail, IsNotEmpty, MinLength} from 'class-validator'
-import {CREATE, LOGIN, UPDATE_EMAIL, UPDATE_PASSWORD} from '@/types/ValidationGroups'
+import {CREATE, LOGIN, RESET_PASSWORD, UPDATE_EMAIL, UPDATE_PASSWORD} from '@/types/ValidationGroups'
 import Image from '@/types/Image'
 
 export default class User {
@@ -12,8 +12,8 @@ export default class User {
   @IsNotEmpty({groups: [CREATE], message: 'required-error'})
   username?: string
 
-  @IsEmail({}, {groups: [CREATE, LOGIN, UPDATE_EMAIL], message: 'invalid-email'})
-  @IsNotEmpty({groups: [CREATE, UPDATE_EMAIL], message: 'required-error'})
+  @IsEmail({}, {groups: [CREATE, LOGIN, UPDATE_EMAIL, RESET_PASSWORD], message: 'invalid-email'})
+  @IsNotEmpty({groups: [CREATE, UPDATE_EMAIL, RESET_PASSWORD], message: 'required-error'})
   email?: string
 
   @IsNotEmpty({groups: [CREATE, LOGIN, UPDATE_PASSWORD, UPDATE_EMAIL], message: 'required-error-f'})

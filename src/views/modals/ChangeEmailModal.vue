@@ -27,7 +27,7 @@
       </ion-item>
       <form @submit="save" @keyup.enter="save">
         <input-item :label="t.newEmailLabel" :placeholder="t.newEmailMessage" v-model="change.email"
-                    :errors="fieldErrors.email" @focus="fieldErrors.email = undefined"/>
+                    :errors="fieldErrors.email" @focus="fieldErrors.email = undefined" type="email"/>
         <input-item :label="t.passwordLabel" :placeholder="t.passwordMessage" v-model="change.password"
                     :errors="fieldErrors.password" @focus="fieldErrors.password = undefined"
                     type="password"/>
