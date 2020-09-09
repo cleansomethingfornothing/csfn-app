@@ -28,7 +28,7 @@
       </ion-list>
     </ion-content>
     <ion-footer>
-      <ion-item lines="none" button detail="false" class="large-item">
+      <ion-item lines="none" button detail="false" class="large-item" @click="deleteAccount">
         <ion-label class="text-center" color="danger">{{$t('delete-account')}}</ion-label>
       </ion-item>
     </ion-footer>
@@ -40,6 +40,7 @@
     import ChangeEmailModal from '@/views/modals/ChangeEmailModal.vue'
     import {userModule} from '@/store/userModule'
     import ChangePasswordModal from '@/views/modals/ChangePasswordModal.vue'
+    import DeleteAccountModal from '@/views/modals/DeleteAccountModal.vue'
 
     @Component({
         name: 'SecuritySettingsPage'
@@ -89,6 +90,27 @@
             }).then(({data}) => {
                 if (data) {
                     this.$router.push('/home/user')
+                }
+            })
+        }
+
+        deleteAccount() {
+            ModalPresenter.present(this.$ionic, DeleteAccountModal, {
+                t: {
+                    title: this.$t('delete-account'),
+                    password: this.$t('password'),
+                    currentPasswordMessage: this.$t('current-password-message'),
+                    delete: this.$t('delete'),
+                    deleteMessage: this.$t('delete-account-message'),
+                    deleteConfirmation: this.$t('delete-account-confirmation'),
+                    success: this.$t('Your account was deleted'),
+                    accept: this.$t('accept'),
+                    cancel: this.$t('cancel')
+                },
+                ionic: this.$ionic
+            }).then(({data}) => {
+                if (data) {
+                    this.$router.push('/login')
                 }
             })
         }

@@ -54,12 +54,10 @@ export class AuthProvider extends DataProvider {
       .catch(handleBackError('change-password'))
   }
 
-  validatePasswordResetCode(email: string, code: string): Promise<boolean> {
-    return Promise.resolve(true)
-  }
-
-  doPasswordReset(email: string, code: string, newPassword: string): Promise<void> {
-    return Promise.resolve()
+  deleteAccount({email, password}: {email: string, password: string}): Promise<void> {
+    return this.axios.post('delete_account', null, {auth: {username:email, password}})
+      .then(() => undefined)
+      .catch(handleBackError('delete-account'))
   }
 
 }

@@ -111,6 +111,13 @@ class AuthModule extends VuexModule {
     this.setLogged(false)
   }
 
+
+  @Action
+  deleteAccount(password: string) {
+    return authProvider.deleteAccount({email: userModule.getCurrentUser.email, password})
+      .then(() => this.loggedOut())
+  }
+
   /*
   doFacebookLogin(): Promise<void> {
 
