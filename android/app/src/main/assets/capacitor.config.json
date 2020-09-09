@@ -1,12 +1,12 @@
 {
-  "appId": "com.cleansomething.app",
+  "appId": "com.cleansomethingfornothing.app",
   "appName": "Clean Something For Nothing",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "dist",
   "backgroundColor": "#ffffffff",
   "server": {
-    "hostname": "cleansomething.com"
+    "hostname": "app.cleansomethingfornothing.com"
   },
   "plugins": {
     "SplashScreen": {

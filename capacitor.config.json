@@ -6,7 +6,7 @@
   "webDir": "dist",
   "backgroundColor": "#ffffffff",
   "server": {
-    "hostname": "native.cleansomethingfornothing.com"
+    "hostname": "app.cleansomethingfornothing.com"
   },
   "plugins": {
     "SplashScreen": {
