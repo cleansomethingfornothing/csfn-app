@@ -4,7 +4,7 @@
       <ion-toolbar mode="ios">
         <ion-buttons slot="start">
           <ion-button @click="close" shape="round">
-            <ion-icon name="close"></ion-icon>
+            <ion-icon name="close-outline"></ion-icon>
           </ion-button>
         </ion-buttons>
         <ion-title>{{titleText}}</ion-title>

@@ -35,8 +35,8 @@ class AppModule extends VuexModule {
       authModule.initialize(),
       cleanupsModule.initialize(),
     ]).then(() => {
-      locationModule.initialize()
       this.setInitializedDone()
+      return Promise.resolve()
     })
   }
 }

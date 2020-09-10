@@ -2,7 +2,7 @@
   <ion-content class="menu-items">
     <ion-list lines="none" class="ion-no-margin ion-no-padding">
       <ion-item button>
-        <ion-icon name="trash" slot="start" color="primary"></ion-icon>
+        <ion-icon name="trash-outline" slot="start" color="primary"></ion-icon>
         <ion-label>{{$t('my-cleanups')}}</ion-label>
       </ion-item>
       <ion-item button>

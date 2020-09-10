@@ -5,7 +5,7 @@
         <template slot="end-buttons">
           <ion-button shape="round" fill="clear"
                       v-if="activity && activity.user.username === currentUser.username">
-            <ion-icon name="create"></ion-icon>
+            <ion-icon name="pencil-outline"></ion-icon>
           </ion-button>
         </template>
       </transparent-header>

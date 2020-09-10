@@ -39,7 +39,7 @@
           </div>
           <div class="home-bubble">
             <home-header-button :icon-only="true" @click="click('filters')">
-              <ion-icon name="filter"></ion-icon>
+              <ion-icon name="filter-outline"></ion-icon>
             </home-header-button>
           </div>
           <div class="home-bubble">

@@ -144,7 +144,7 @@ export default class Map {
     controlText.style.paddingTop = '6px';
     controlText.style.paddingLeft = '7px';
     controlText.style.paddingRight = '7px';
-    controlText.innerHTML = '<ion-icon name="locate" color="dark"></ion-icon><ion-ripple-effect></ion-ripple-effect>';
+    controlText.innerHTML = '<ion-icon :src="require(\'@/assets/ionicons/locate.svg\')" color="dark"></ion-icon><ion-ripple-effect></ion-ripple-effect>';
     controlUI.appendChild(controlText);
 
     // Setup the click event listeners: simply set the map to Chicago.

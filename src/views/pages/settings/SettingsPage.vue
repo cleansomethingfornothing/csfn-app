@@ -17,7 +17,7 @@
           <ion-label>{{$t('security')}}</ion-label>
         </ion-item>
         <ion-item button @click="logout" detail="false">
-          <ion-icon slot="start" name="power" color="dark"></ion-icon>
+          <ion-icon slot="start" name="power-outline" color="dark"></ion-icon>
           <ion-label>{{$t('logout')}}</ion-label>
         </ion-item>
       </ion-list>

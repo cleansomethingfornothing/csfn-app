@@ -7,6 +7,7 @@
           <img alt="icon" src="@/assets/img/icon.png" width="35%" class="z-10">
           <img alt="title" src="@/assets/img/text_white.png" width="95%" class="z-10">
 
+          <ion-icon name="logo-google" color="danger"/>
           <input-item icon="mail" :placeholder="$t('email')" type="text" v-model="userLogin.email"
                       :rounded="true"
                       :errors="fieldErrors.email" @blur="blur"
@@ -17,9 +18,11 @@
                       @focus="resetError('password') || focus()"></input-item>
           <button-item color="primary" :text="$t('login')" :disabled="loading"
                        @click="credentialsLogin"></button-item>
+          <!--
           <hr class="z-10">
-          <button-item color="facebook" icon="logo-facebook" :text="$t('continue-with', {'param': 'Facebook'})"
+          <button-item color="facebook" icon="facebook" :text="$t('continue-with', {'param': 'Facebook'})"
                        @click="facebookLogin"></button-item>
+         -->
 
         </form>
 

@@ -185,7 +185,7 @@ ion-skeleton-text {
 }
 
 .md {
-  --ion-safe-area-top: var(--ion-statusbar-padding, 24px);
+  --ion-safe-area-top: var(--ion-statusbar-padding, 30px);
 }
 
 ion-content.fullscreen {
@@ -252,6 +252,10 @@ ion-slides {
 .list-large-items ion-label, .large-item ion-label {
   margin-top: 1.3em;
   margin-bottom: 1.3em;
+}
+
+.s-ion-icon path {
+  stroke: var(--ion-color-base) !important;
 }
 
 @media screen and (min-width: 700px) {

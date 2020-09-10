@@ -8,9 +8,10 @@
           <ion-label class="password-message z-10" color="white">
             {{$t('recover-password-text')}}
           </ion-label>
-          <input-item icon="mail" placeholder="Email" type="email" v-model="email" :rounded="true" :errors="error ? [error] : undefined"
+          <input-item icon="mail" placeholder="Email" type="email" v-model="email"
+                      :rounded="true" :errors="error ? [error] : undefined"
                       @focus="error = undefined"></input-item>
-          <button-item color="primary" :text="$t('send')"></button-item>
+          <button-item color="primary" :text="$t('send')" @click="resetPassword"></button-item>
         </form>
       </div>
     </ion-content>

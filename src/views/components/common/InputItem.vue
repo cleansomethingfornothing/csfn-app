@@ -2,7 +2,7 @@
   <div class="text-item cursor-pointer" :class="errors && errors.length ? 'invalid-input': ''">
     <div class="overflow-hidden ion-activatable ripple-parent" :class="rounded ? 'rounded-full' : ''" @click="clicked">
       <ion-item :color="outline ? 'light': '' " :lines="noLines ? 'none' : 'full'">
-        <ion-icon v-if="icon || iconSrc" :name="icon" :src="iconSrc" slot="start" color="dark"></ion-icon>
+        <ion-icon v-if="icon" :name="icon" slot="start" color="dark"></ion-icon>
         <ion-label position="floating" v-if="label" class="font-bold">{{label}}</ion-label>
         <slot>
           <ion-input @ionChange="change" @ionInput="onInput" @ionFocus="clicked" @ionBlur="blur" :value="value"
@@ -12,7 +12,8 @@
         </slot>
         <ion-button slot="end" fill="clear" v-if="type === 'password'" @click="showPassword = !showPassword"
                     color="medium" :class="{'mt-6 pt-1 mr-0': !rounded, '-mr-1': rounded}" shape="round">
-          <ion-icon slot="icon-only" :name="showPassword ? 'eye-off' : 'eye'" class="mr-0"/>
+          <ion-icon v-if="!showPassword" slot="icon-only" name="eye" class="mr-0"/>
+          <ion-icon v-else slot="icon-only" name="eye-off" class="mr-0"/>
         </ion-button>
         <ion-note v-if="endNote" slot="end" class="ml-0 mb-0 pb-0 pt-6 text-base">{{endNote}}</ion-note>
       </ion-item>
@@ -40,9 +41,6 @@
 
         @Prop(String)
         public readonly icon!: string
-
-        @Prop(String)
-        public readonly iconSrc!: string
 
         @Prop(String)
         public readonly type!: string

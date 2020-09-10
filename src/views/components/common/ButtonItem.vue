@@ -1,7 +1,7 @@
 <template>
   <ion-item class="button-item" expand="full" shape="round" mode="ios" :color="color"
             @click="$emit('click')" button :disabled="disabled">
-    <ion-icon v-if="icon" :name="icon" slot="start"></ion-icon>
+    <ion-icon v-if="icon || iconSrc" :src="iconSrc" :name="icon" slot="start" color="white"></ion-icon>
     <span class="full-width text-center">{{text}}</span>
   </ion-item>
 </template>
@@ -17,6 +17,9 @@
 
     @Prop(String)
     public readonly icon!: string;
+
+    @Prop(String)
+    public readonly iconSrc!: string
 
     @Prop(String)
     public readonly type!: string;

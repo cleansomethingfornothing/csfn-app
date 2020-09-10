@@ -3,6 +3,10 @@ const plugin = require('tailwindcss/plugin')
 
 module.exports = {
   //important: '.ion-page',
+  purge: [
+    './src/**/*.html',
+    './src/**/*.vue'
+  ],
   theme: {
     screens: {
       'sm': '350px',

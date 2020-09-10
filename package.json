@@ -5,6 +5,7 @@
   "postinstall": "jetifier",
   "scripts": {
     "ionic:serve": "vue-cli-service serve",
+    "ionic:serve:prod": "vue-cli-service serve --mode production",
     "ionic:build": "vue-cli-service build && npx cap copy",
     "open:android": "npx cap open android",
     "open:ios": "npx cap open ios",
@@ -41,6 +42,7 @@
     "core-js": "^3.6.4",
     "form-data": "^3.0.0",
     "ionicons": "^4.6.3",
+    "ionicons5": "npm:ionicons@^5.1.2",
     "jetifier": "^1.6.5",
     "lodash": "^4.17.15",
     "moment": "^2.24.0",

@@ -4,7 +4,7 @@
       <ion-toolbar color="black" mode="ios">
         <ion-buttons>
           <ion-button @click="close" fill="clear" shape="round" color="white">
-            <ion-icon name="close" slot="icon-only"></ion-icon>
+            <ion-icon name="close-outline" slot="icon-only"></ion-icon>
           </ion-button>
         </ion-buttons>
       </ion-toolbar>
@@ -26,7 +26,7 @@
       <ion-toolbar color="black" mode="ios">
         <div class="w-full flex justify-center">
           <ion-button @click="remove" fill="clear" shape="round" color="white" v-if="removable">
-            <ion-icon name="trash" slot="icon-only"></ion-icon>
+            <ion-icon name="trash-outline" slot="icon-only"></ion-icon>
           </ion-button>
         </div>
       </ion-toolbar>

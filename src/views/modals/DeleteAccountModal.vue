@@ -50,7 +50,7 @@
         t: Record<string, string>
 
         @Prop(Object)
-        ionic: Controllers
+        ionic: any
 
         password = ''
         error = ''

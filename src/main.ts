@@ -2,12 +2,11 @@ import "reflect-metadata"; // Siempre en la primera línea
 import Vue from 'vue'
 import Main from './App.vue'
 import Ionic from '@ionic/vue'
-//import './icons'
-import 'ionicons/dist/ionicons.js'
 import {store} from '@/store'
 import {router} from '@/router'
 import {i18n} from '@/i18n'
 import {Plugins} from '@capacitor/core'
+import './icons'
 import './assets/style/tailwind.css'
 import '@capacitor-community/http';
 

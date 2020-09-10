@@ -1,15 +1,13 @@
 <template>
   <ion-app>
-    <div>
-        <router-view></router-view>
-    </div>
+    <transition name="fade" mode="in-out">
+      <router-view></router-view>
+    </transition>
   </ion-app>
 </template>
 <script lang="ts">
   import Vue from 'vue'
   import Component from 'vue-class-component'
-  import {userModule} from '@/store/userModule'
-  import {appModule} from '@/store/appModule'
   import CurrentUserPage from '@/views/pages/home/CurrentUserPage.vue'
   import SelectCleanupType from '@/views/modals/CleanupTypeModal.vue'
   import EventsPage from '@/views/pages/home/EventsPage.vue'
@@ -21,17 +19,6 @@
   })
   export default class Main extends Vue {
 
-    get initialized() {
-      return appModule.isInitialized
-    }
-
-    get user() {
-      return userModule.getCurrentUser
-    }
-
-    mounted() {
-      appModule.initialize()
-    }
   }
 </script>
 <style lang="scss">

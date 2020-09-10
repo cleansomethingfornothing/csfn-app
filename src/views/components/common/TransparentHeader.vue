@@ -5,7 +5,7 @@
       <ion-toolbar mode="ios" ref="toolbar">
         <ion-buttons slot="start" v-if="!noBack">
           <ion-button shape="round" fill="clear" @click="$router.back()">
-            <ion-icon name="arrow-back"></ion-icon>
+            <ion-icon color="light" name="arrow-back"></ion-icon>
           </ion-button>
         </ion-buttons>
         <ion-title class="lg:text-lg xl:text-xl" v-if="title">{{title}}</ion-title>
