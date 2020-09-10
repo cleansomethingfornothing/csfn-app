@@ -47,52 +47,24 @@
     }
 
     getPicture() {
-      this.pickSource()
-        .then((source) => {
-          this.loading = true
-          if (source == 'camera') BackgroundMode.enable()
-          Camera.getPicture({
-              quality: 100,
-              correctOrientation: true,
-              destinationType: DestinationType.DATA_URL,
-              sourceType: source == 'camera' ? PictureSourceType.CAMERA : PictureSourceType.PHOTOLIBRARY
-            })
-            .then((image) => {
-              if (source == 'camera') BackgroundMode.disable()
-              return fetch('data:image/jpeg;base64,' + image)
-            })
-            .then((res) => res.blob())
-            .then((blob) => {
-              this.loading = false
-              this.fileSelected(blob)
-            })
-            .catch(error => {
-              this.loading = false
-              console.log(error)
-              if (source == 'camera') BackgroundMode.disable()
-            })
+      this.loading = true
+      Camera.getPicture({
+          quality: 100,
+          correctOrientation: true,
+          destinationType: DestinationType.DATA_URL,
+          sourceType: PictureSourceType.PHOTOLIBRARY
         })
-    }
-
-    pickSource() {
-      return new Promise(resolve => {
-        this.$ionic.actionSheetController
-          .create({
-            buttons: [{
-              text: this.$t('camera').toString(),
-              icon: 'camera',
-              handler() {
-                resolve('camera')
-              }
-            }, {
-              text: this.$t('gallery').toString(),
-              icon: 'images',
-              handler() {
-                resolve('gallery')
-              }
-            }]
-          }).then(a => a.present())
-      })
+        .then((image) => {
+          return fetch('data:image/jpeg;base64,' + image)
+        })
+        .then((res) => res.blob())
+        .then((blob) => {
+          this.loading = false
+          this.fileSelected(blob)
+        })
+        .catch(() => {
+          this.loading = false
+        })
     }
 
     @Emit('select')
