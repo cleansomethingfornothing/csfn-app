@@ -48,22 +48,20 @@ class AuthModule extends VuexModule {
   @Action
   doRegister(userRegistration: User): Promise<void> {
     return authProvider.doRegister(userRegistration)
-      .then((user) => imagesProvider.uploadImages([userRegistration.picture as File])
-        .then((images) => userProvider.updateUser(user.id, {picture: images[0]})))
-      .then(() => this.doCredentialsLogin({
-        email: userRegistration.email,
-        password: userRegistration.password
-      }))
+      .then((user) => imagesProvider.uploadImages([userRegistration.picture as File], 'register')
+        .then((images) => userProvider.updateUser(user.id, {picture: {id: images[0].id}})))
+      .then((user) => userModule.setCurrentUser(user))
+      .then(() => this.setLogged(true))
   }
 
   @Action
-  doCredentialsLogin(userLogin: User): Promise<void> {
+  doCredentialsLogin(userLogin: User): Promise<User> {
     return Validator.validate(userLogin, LOGIN)
       .then(() => authProvider.doLogin(userLogin))
       .then((user) => {
         this.setLogged(true)
         userModule.setCurrentUser(user)
-        return Promise.resolve()
+        return Promise.resolve(user)
       })
   }
 

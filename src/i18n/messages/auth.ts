@@ -1,6 +1,7 @@
 export default {
   en: {
     'login': 'Login',
+    'login-with': 'Login with {param}',
     'logout': 'Logout',
     'register': 'Register',
     'create-account': 'Create account',
@@ -13,6 +14,7 @@ export default {
   },
   es: {
     'login': 'Iniciar sesión',
+    'login-with': 'Iniciar sesión con {param}',
     'logout': 'Cerrar sesión',
     'register': 'Registrarse',
     'create-account': 'Crear cuenta',

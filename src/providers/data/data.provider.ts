@@ -1,11 +1,11 @@
-import axios, {AxiosInstance} from 'axios'
+import HttpTool from '@/tools/HttpTool'
 
 export default abstract class DataProvider {
 
-  protected axios: AxiosInstance
+  public http: HttpTool
 
   protected constructor(path: string) {
-    this.axios = axios.create({baseURL: process.env.VUE_APP_BACK_URL + path, withCredentials: true})
+    this.http = new HttpTool(path)
   }
 
 }

@@ -29,72 +29,76 @@
   </ion-page>
 </template>
 <script lang="ts">
-    import {Component, Prop, Vue} from 'vue-property-decorator'
-    import InputItem from '@/views/components/common/InputItem.vue'
-    import {authModule} from '@/store/authModule'
-    import ErrorMessage from '@/tools/ErrorMessage'
-    import FormError from '@/types/errors/FormError'
-    import UnknownError from '@/types/errors/UnknownError'
-    import ToastPresenter from '@/tools/ToastPresenter'
-    import FieldError from '@/types/errors/FieldError'
+  import {Component, Prop, Vue} from 'vue-property-decorator'
+  import InputItem from '@/views/components/common/InputItem.vue'
+  import {authModule} from '@/store/authModule'
+  import ErrorMessage from '@/tools/ErrorMessage'
+  import FormError from '@/types/errors/FormError'
+  import UnknownError from '@/types/errors/UnknownError'
+  import ToastPresenter from '@/tools/ToastPresenter'
+  import FieldError from '@/types/errors/FieldError'
+  import {appModule} from '@/store/appModule'
 
-    @Component({
-        name: 'ChangePasswordModal',
-        components: {InputItem}
-    })
-    export default class ChangePasswordModal extends Vue {
+  @Component({
+    name: 'ChangePasswordModal',
+    components: {InputItem}
+  })
+  export default class ChangePasswordModal extends Vue {
 
-        @Prop(Object)
-        t: Record<string, string>
+    @Prop(Object)
+    t: Record<string, string>
 
-        @Prop(Object)
-        ionic: any
+    @Prop(Object)
+    ionic: any
 
-        password = ''
-        newPassword = ''
+    password = ''
+    newPassword = ''
 
-        fieldErrors = {
-            password: [],
-            newPassword: []
-        }
-        loading = false
-
-        save() {
-            if (!this.password) {
-                this.fieldErrors.password = [ErrorMessage.getMessage(new FieldError('password', 'required-error-f'))]
-            }
-            if (!this.newPassword) {
-                this.fieldErrors.newPassword = [ErrorMessage.getMessage(new FieldError('newPassword', 'required-error-f'))]
-            }
-            if (!this.password || !this.newPassword) {
-                return
-            }
-            if (this.password === this.newPassword) {
-                this.fieldErrors.newPassword = [this.t.samePasswordError]
-                return
-            }
-            this.loading = true
-            authModule.changePassword({currentPassword: this.password, newPassword: this.newPassword})
-                .then(() => {
-                    ToastPresenter.present(this.ionic, this.t.success, 'success')
-                    this.dismiss(true)
-                })
-                .catch(error => {
-                    if (error instanceof FormError) {
-                        error.fieldErrors.forEach((fieldError) => {
-                            this.$set(this.fieldErrors, fieldError.param,
-                                [ErrorMessage.getMessage(fieldError)])
-                        })
-                    }
-                    if (error instanceof UnknownError) {
-                        ToastPresenter.present(this.ionic, ErrorMessage.getMessage(error))
-                    }
-                    this.loading = false
-                })
-        }
-
-        dismiss(updated: boolean) {
-            this.$ionic.modalController.dismiss(updated)
-        }
+    fieldErrors = {
+      password: [],
+      newPassword: []
     }
+    loading = false
+
+    save() {
+      if (!this.password) {
+        this.fieldErrors.password = [ErrorMessage.getMessage(new FieldError('password', 'required-error-f'))]
+      }
+      if (!this.newPassword) {
+        this.fieldErrors.newPassword = [ErrorMessage.getMessage(new FieldError('newPassword', 'required-error-f'))]
+      }
+      if (!this.password || !this.newPassword) {
+        return
+      }
+      if (this.password === this.newPassword) {
+        this.fieldErrors.newPassword = [this.t.samePasswordError]
+        return
+      }
+      this.loading = true
+      appModule.showLoader(this.ionic)
+        .then(() => authModule.changePassword({currentPassword: this.password, newPassword: this.newPassword}))
+        .then(() => {
+          appModule.hideLoader()
+          ToastPresenter.present(this.ionic, this.t.success, 'success')
+          this.dismiss(true)
+        })
+        .catch(error => {
+          appModule.hideLoader()
+          if (error instanceof FormError) {
+            error.fieldErrors.forEach((fieldError) => {
+              this.$set(this.fieldErrors, fieldError.param,
+                [ErrorMessage.getMessage(fieldError)])
+            })
+          }
+          if (error instanceof UnknownError) {
+            ToastPresenter.present(this.ionic, ErrorMessage.getMessage(error))
+          }
+          this.loading = false
+        })
+    }
+
+    dismiss(updated: boolean) {
+      this.$ionic.modalController.dismiss(updated)
+    }
+  }
 </script>

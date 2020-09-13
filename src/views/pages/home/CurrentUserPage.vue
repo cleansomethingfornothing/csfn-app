@@ -10,7 +10,7 @@
           <wave :num="1"/>
         </div>
         <div class="-mt-40 lg:-mt-48 flex flex-col justify-center items-center pt-4 ios:-mt-40  lg:ios:-mt-56">
-          <avatar class="w-32 lg:w-40" :src="user && user.picture.publicUrl"></avatar>
+          <avatar class="w-32 lg:w-40" :src="user && user.picture && user.picture.publicUrl"></avatar>
           <ion-skeleton-text class="w-32" v-if="!user"></ion-skeleton-text>
           <ion-label v-else class="font-bold text-xl -ml-1">{{user.username}}</ion-label>
         </div>
@@ -75,7 +75,7 @@
           </ion-item>
           -->
           <ion-item button detail="true" @click="$router.push('/settings')">
-            <ion-icon slot="start" name="settings-outline" color="dark"></ion-icon>
+            <ion-icon slot="start" :src="require('ionicons5/dist/svg/settings-outline.svg')" color="dark"></ion-icon>
             <ion-label class="my-4">{{$t('settings')}}</ion-label>
           </ion-item>
         </ion-list>

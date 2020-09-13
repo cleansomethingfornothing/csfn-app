@@ -8,7 +8,7 @@
           <img alt="title" src="@/assets/img/text_white.png" width="95%" class="z-10">
 
           <ion-icon name="logo-google" color="danger"/>
-          <input-item icon="mail" :placeholder="$t('email')" type="text" v-model="userLogin.email"
+          <input-item icon="mail" :placeholder="$t('email')" type="email" v-model="userLogin.email"
                       :rounded="true"
                       :errors="fieldErrors.email" @blur="blur"
                       @focus="resetError('email') || focus()"></input-item>
@@ -18,11 +18,9 @@
                       @focus="resetError('password') || focus()"></input-item>
           <button-item color="primary" :text="$t('login')" :disabled="loading"
                        @click="credentialsLogin"></button-item>
-          <!--
           <hr class="z-10">
           <button-item color="facebook" icon="facebook" :text="$t('continue-with', {'param': 'Facebook'})"
                        @click="facebookLogin"></button-item>
-         -->
 
         </form>
 
@@ -46,74 +44,87 @@
   </ion-page>
 </template>
 <script lang="ts">
-    import Vue from 'vue'
-    import Component from 'vue-class-component'
-    import InputItem from '@/views/components/common/InputItem.vue'
-    import ButtonItem from '@/views/components/common/ButtonItem.vue'
-    import ForestBg from '@/views/components/common/ForestBg.vue'
-    import {authModule} from '@/store/authModule'
-    import UnknownError from '@/types/errors/UnknownError'
-    import ErrorMessage from '@/tools/ErrorMessage'
-    import ToastPresenter from '@/tools/ToastPresenter'
-    import FormError from '@/types/errors/FormError'
-    import {nativeProvider} from '@/providers/native/native.provider'
-    import User from '@/types/User'
+  import Vue from 'vue'
+  import Component from 'vue-class-component'
+  import InputItem from '@/views/components/common/InputItem.vue'
+  import ButtonItem from '@/views/components/common/ButtonItem.vue'
+  import ForestBg from '@/views/components/common/ForestBg.vue'
+  import {authModule} from '@/store/authModule'
+  import UnknownError from '@/types/errors/UnknownError'
+  import ErrorMessage from '@/tools/ErrorMessage'
+  import ToastPresenter from '@/tools/ToastPresenter'
+  import FormError from '@/types/errors/FormError'
+  import {nativeProvider} from '@/providers/native/native.provider'
+  import User from '@/types/User'
+  import {Plugins} from '@capacitor/core';
+  import {appModule} from '@/store/appModule'
 
-    @Component({
-        name: 'login',
-        components: {ForestBg, ButtonItem, InputItem}
-    })
-    export default class LoginPage extends Vue {
+  const {FacebookLogin} = Plugins;
 
-        loaded = false
-        userLogin = new User()
-        fieldErrors = {}
-        typing = false
-        loading = false
+  @Component({
+    name: 'login',
+    components: {ForestBg, ButtonItem, InputItem}
+  })
+  export default class LoginPage extends Vue {
 
-        mounted(): void {
-            if (!this.loaded) {
-                nativeProvider.hideSplashScreen()
-                this.loaded = true
-            }
-        }
+    loaded = false
+    userLogin = new User()
+    fieldErrors = {}
+    typing = false
+    loading = false
 
-        credentialsLogin() {
-            this.loading = true
-            authModule.doCredentialsLogin(this.userLogin)
-                .then(() => {
-                    this.$router.push('/')
-                })
-                .catch(error => {
-                    if (error instanceof FormError) {
-                        error.fieldErrors.forEach((fieldError) => {
-                            this.$set(this.fieldErrors, fieldError.param,
-                                [ErrorMessage.getMessage(fieldError)])
-                        })
-                    }
-                    if (error instanceof UnknownError) {
-                        ToastPresenter.present(this.$ionic, ErrorMessage.getMessage(error))
-                    }
-                    this.loading = false
-                })
-        }
-
-        facebookLogin() {
-            //
-        }
-
-        resetError(field) {
-            this.$set(this.fieldErrors, field, undefined)
-        }
-
-        focus() {
-            this.typing = true
-        }
-
-        blur() {
-            this.typing = false
-        }
+    mounted(): void {
+      if (!this.loaded) {
+        nativeProvider.hideSplashScreen()
+        this.loaded = true
+      }
     }
+
+    credentialsLogin() {
+      this.loading = true
+      appModule.showLoader(this.$ionic)
+        .then(() => authModule.doCredentialsLogin(this.userLogin))
+        .then(() => {
+          appModule.hideLoader()
+          this.$router.push('/')
+        })
+        .catch(error => {
+          appModule.hideLoader()
+          if (error instanceof FormError) {
+            error.fieldErrors.forEach((fieldError) => {
+              this.$set(this.fieldErrors, fieldError.param,
+                [ErrorMessage.getMessage(fieldError)])
+            })
+          }
+          if (error instanceof UnknownError) {
+            ToastPresenter.present(this.$ionic, ErrorMessage.getMessage(error))
+          }
+          this.loading = false
+        })
+    }
+
+    facebookLogin() {
+      FacebookLogin.login({permissions: ['email']})
+        .then((result) => {
+          console.log(result)
+        })
+        .catch(() => {
+          ToastPresenter.present(this.$ionic, this.$t('errors.unknown-error', {param: this.$t('login-with', {param: 'Facebook'})}))
+        })
+    }
+
+    resetError(field) {
+      this.$set(this.fieldErrors, field, undefined)
+    }
+
+    focus() {
+      this.typing = true
+    }
+
+    blur() {
+      this.typing = false
+    }
+  }
 </script>
 <style>
   .login-page {

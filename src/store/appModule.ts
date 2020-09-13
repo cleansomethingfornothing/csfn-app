@@ -2,12 +2,17 @@ import {Action, Module, Mutation, VuexModule} from 'vuex-class-modules'
 import {store} from '@/store/index'
 import {authModule} from '@/store/authModule'
 import {cleanupsModule} from '@/store/activitiesModule'
-import {locationModule} from '@/store/locationModule'
+import {nativeProvider} from '@/providers/native/native.provider'
+import {facebookProvider} from '@/providers/facebook/facebook.provider'
+import {Controllers} from '@ionic/vue'
+import {HTMLIonOverlayElement} from '@ionic/core'
+import Vue from 'vue'
 
 @Module
 class AppModule extends VuexModule {
 
   initialized = false
+  loader: HTMLIonOverlayElement = null
 
   constructor() {
     super({store, name: 'app'})
@@ -22,6 +27,11 @@ class AppModule extends VuexModule {
     this.initialized = true
   }
 
+  @Mutation
+  setLoader(loader: HTMLIonOverlayElement) {
+    Vue.set(this, 'loader', loader)
+  }
+
   @Action
   initialize() {
     return this.initialized
@@ -31,6 +41,13 @@ class AppModule extends VuexModule {
 
   @Action
   doInitialize() {
+    nativeProvider.isMobile()
+      .then((isMobile) => {
+        if (!isMobile) {
+          facebookProvider.initWeb()
+        }
+      })
+
     return Promise.all([
       authModule.initialize(),
       cleanupsModule.initialize(),
@@ -38,6 +55,20 @@ class AppModule extends VuexModule {
       this.setInitializedDone()
       return Promise.resolve()
     })
+  }
+
+  @Action
+  showLoader(ionic: Controllers) {
+    return ionic.loadingController.create()
+      .then((loader) => loader.present()
+        .then(() => this.setLoader(loader)))
+  }
+
+  @Action
+  hideLoader() {
+    if (this.loader) {
+      this.loader.dismiss().then(() => ({}))
+    }
   }
 }
 

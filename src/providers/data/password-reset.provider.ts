@@ -8,7 +8,7 @@ export class PasswordResetProvider extends DataProvider {
   }
 
   request(email: string): Promise<void> {
-    return this.axios.post('/request', {email})
+    return this.http.post('/request', {email})
       .then(() => undefined)
       .catch(handleBackError('recover-password'))
   }

@@ -1,6 +1,6 @@
 <template>
   <div class="error z-10" v-if="error">
-    <ion-icon class="text-lg" name="alert-circle-outline" color="danger"></ion-icon>
+    <ion-icon name="alert-circle" color="danger"></ion-icon>
     <span color="danger" size="small"><b>{{error}}</b></span>
   </div>
 </template>

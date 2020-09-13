@@ -2,6 +2,8 @@
 <resources>
     <string name="app_name">Clean Something For Nothing</string>
     <string name="title_activity_main">Clean Something For Nothing</string>
-    <string name="package_name">com.cleansomething.app</string>
-    <string name="custom_url_scheme">com.cleansomething.app</string>
+    <string name="package_name">com.cleansomethingfornothing.app</string>
+    <string name="custom_url_scheme">com.cleansomethingfornothing.app</string>
+    <string name="facebook_app_id">328579138196679</string>
+    <string name="fb_login_protocol_scheme">fb328579138196679</string>
 </resources>

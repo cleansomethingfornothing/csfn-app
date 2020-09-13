@@ -1,6 +1,7 @@
 import DataProvider from '@/providers/data/data.provider'
 import {handleBackError} from '@/tools/handleBackError'
 import Image from '@/types/Image'
+import {AxiosError} from 'axios'
 
 export default class ImagesProvider extends DataProvider {
 
@@ -8,14 +9,10 @@ export default class ImagesProvider extends DataProvider {
     super('/images')
   }
 
-  uploadImages(images: File[]): Promise<Image[]> {
-    const data = new FormData()
-
-    images.forEach((image) => data.append('images', image, 'profile.jpg'))
-
-    return this.axios.post('/', data)
+  uploadImages(images: File[], action: string): Promise<Image[]> {
+    return this.http.postFile('', images)
       .then(({data}) => data)
-      .catch(handleBackError)
+      .catch((error: AxiosError) => handleBackError(action)(error.response))
   }
 
 }

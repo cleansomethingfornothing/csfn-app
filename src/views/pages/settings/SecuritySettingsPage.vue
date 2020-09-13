@@ -9,7 +9,7 @@
         </ion-buttons>
         <ion-title>
           <span class="flex items-center justify-center">
-          <ion-icon name="shield-outline" class="mr-2 -ml-2"></ion-icon>
+          <ion-icon :src="require('ionicons5/dist/svg/shield-outline.svg')" class="mr-2 -ml-2"></ion-icon>
           {{$t('security')}}
           </span>
         </ion-title>
@@ -18,11 +18,11 @@
     <ion-content class="flex flex-col justify-between">
       <ion-list class="list-large-items">
         <ion-item button @click="changeEmail">
-          <ion-icon slot="start" name="mail-outline" color="dark"></ion-icon>
+          <ion-icon slot="start" :src="require('ionicons5/dist/svg/mail-outline.svg')" color="dark"></ion-icon>
           <ion-label>{{$t('change-email')}}</ion-label>
         </ion-item>
         <ion-item button @click="changePassword">
-          <ion-icon slot="start" name="lock-closed-outline" color="dark"></ion-icon>
+          <ion-icon slot="start" :src="require('ionicons5/dist/svg/lock-closed-outline.svg')" color="dark"></ion-icon>
           <ion-label>{{$t('change-password')}}</ion-label>
         </ion-item>
       </ion-list>

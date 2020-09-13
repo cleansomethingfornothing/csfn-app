@@ -19,7 +19,6 @@
   import {Emit, Prop} from 'vue-property-decorator'
   import {nativeProvider} from '@/providers/native/native.provider'
   import {Camera, DestinationType, PictureSourceType} from '@ionic-native/camera'
-  import {BackgroundMode} from '@ionic-native/background-mode'
 
   @Component({
     name: 'upload-button'
@@ -47,7 +46,7 @@
     }
 
     getPicture() {
-      this.loading = true
+      this.emitLoading(true)
       Camera.getPicture({
           quality: 100,
           correctOrientation: true,
@@ -59,11 +58,11 @@
         })
         .then((res) => res.blob())
         .then((blob) => {
-          this.loading = false
+          this.emitLoading(false)
           this.fileSelected(blob)
         })
         .catch(() => {
-          this.loading = false
+          this.emitLoading(false)
         })
     }
 
@@ -75,6 +74,11 @@
     @Emit('click')
     click() {
       return
+    }
+
+    @Emit('loading')
+    emitLoading(loading) {
+      return loading
     }
   }
 </script>

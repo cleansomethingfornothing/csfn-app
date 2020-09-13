@@ -6,6 +6,7 @@ class NativeProvider {
 
   mobile: boolean
   statusBarStyle: StatusBarStyle
+  hidden = false
 
   isMobile(): Promise<boolean> {
     return ((this.mobile === undefined)
@@ -16,14 +17,18 @@ class NativeProvider {
   }
 
   hideSplashScreen() {
-    this.isMobile()
-      .then((isMobile) => {
-        if (isMobile) {
-          StatusBar.setStyle({style: StatusBarStyle.Light})
-          StatusBar.setOverlaysWebView({overlay: true})
-          SplashScreen.hide()
-        }
-      })
+    if (!this.hidden) {
+      this.isMobile()
+        .then((isMobile) => {
+          if (isMobile) {
+            window.screen.orientation.lock('portrait');
+            StatusBar.setStyle({style: StatusBarStyle.Light})
+            StatusBar.setOverlaysWebView({overlay: true})
+            SplashScreen.hide()
+            this.hidden = true
+          }
+        })
+    }
   }
 }
 

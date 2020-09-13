@@ -8,7 +8,8 @@
           <div class="w-full">
             <div class="w-2/5 m-auto ">
               <upload-button :file="userRegistration.picture" @click="userRegistration.picture && openPreview()"
-                             @select="fileSelected" :rounded="true" :loading="loadingPicture"></upload-button>
+                             @select="fileSelected" :rounded="true" :loading="loadingPicture"
+                             @loading="loadingPicture = $event"></upload-button>
             </div>
             <input-error :error="this.fieldErrors.picture && this.fieldErrors.picture[0]"></input-error>
           </div>
@@ -17,7 +18,8 @@
                       :errors="fieldErrors.username" @focus="resetError('username')"></input-item>
           <input-item icon="mail" placeholder="Email" type="email" v-model="userRegistration.email" :rounded="true"
                       :errors="fieldErrors.email" @focus="resetError('email')"></input-item>
-          <input-item icon="lock-closed" :placeholder="$t('password')" type="password" v-model="userRegistration.password"
+          <input-item icon="lock-closed" :placeholder="$t('password')" type="password"
+                      v-model="userRegistration.password"
                       :rounded="true"
                       :errors="fieldErrors.password" @focus="resetError('password')"></input-item>
           <button-item color="primary" :text="$t('create-account')" type="button" @click="register"></button-item>
@@ -28,89 +30,94 @@
   </ion-page>
 </template>
 <script lang="ts">
-    import Vue from 'vue'
-    import {Component} from 'vue-property-decorator'
-    import ButtonItem from '@/views/components/common/ButtonItem.vue'
-    import ForestBg from '@/views/components/common/ForestBg.vue'
-    import InputItem from '@/views/components/common/InputItem.vue'
-    import Avatar from '@/views/components/common/Avatar.vue'
-    import TransparentHeader from '@/views/components/common/TransparentHeader.vue'
-    import User from '@/types/User'
-    import {authModule} from '@/store/authModule'
-    import FormError from '@/types/errors/FormError'
-    import InputError from '@/views/components/common/InputError.vue'
-    import UnknownError from '@/types/errors/UnknownError'
-    import ToastPresenter from '@/tools/ToastPresenter'
-    import ErrorMessage from '@/tools/ErrorMessage'
-    import UploadButton from '@/views/components/common/UploadButton.vue'
-    import PicturesModal from '@/views/modals/PicturesModal.vue'
-    import ModalPresenter from '@/tools/ModalPresenter'
-    import Cropper from '@/tools/Cropper'
-    import Validator from '@/tools/Validator'
-    import {CREATE} from '@/types/ValidationGroups'
+  import Vue from 'vue'
+  import {Component} from 'vue-property-decorator'
+  import ButtonItem from '@/views/components/common/ButtonItem.vue'
+  import ForestBg from '@/views/components/common/ForestBg.vue'
+  import InputItem from '@/views/components/common/InputItem.vue'
+  import Avatar from '@/views/components/common/Avatar.vue'
+  import TransparentHeader from '@/views/components/common/TransparentHeader.vue'
+  import User from '@/types/User'
+  import {authModule} from '@/store/authModule'
+  import FormError from '@/types/errors/FormError'
+  import InputError from '@/views/components/common/InputError.vue'
+  import UnknownError from '@/types/errors/UnknownError'
+  import ToastPresenter from '@/tools/ToastPresenter'
+  import ErrorMessage from '@/tools/ErrorMessage'
+  import UploadButton from '@/views/components/common/UploadButton.vue'
+  import PicturesModal from '@/views/modals/PicturesModal.vue'
+  import ModalPresenter from '@/tools/ModalPresenter'
+  import Cropper from '@/tools/Cropper'
+  import Validator from '@/tools/Validator'
+  import {CREATE} from '@/types/ValidationGroups'
+  import {appModule} from '@/store/appModule'
 
-    @Component({
-        name: 'register',
-        components: {UploadButton, InputError, TransparentHeader, Avatar, ButtonItem, ForestBg, InputItem}
-    })
-    export default class RegisterPage extends Vue {
+  @Component({
+    name: 'register',
+    components: {UploadButton, InputError, TransparentHeader, Avatar, ButtonItem, ForestBg, InputItem}
+  })
+  export default class RegisterPage extends Vue {
 
-        userRegistration = new User()
+    userRegistration = new User()
 
-        fieldErrors = {
-            email: [],
-            password: [],
-            picture: [],
-            username: []
-        }
-
-        loadingPicture = false
-
-        register() {
-            Validator.validate(this.userRegistration, CREATE)
-                .then(() => Cropper.cropSquare(this.userRegistration.picture as Blob, true))
-                .then((croppedImage) =>
-                    authModule.doRegister({...this.userRegistration, picture: croppedImage} as User))
-                .then(() => this.$router.replace('/'))
-                .catch(error => {
-                    if (error instanceof FormError) {
-                        error.fieldErrors.forEach((fieldError) => {
-                            this.$set(this.fieldErrors, fieldError.param, [ErrorMessage.getMessage(fieldError)])
-                        })
-                    } else if (error instanceof UnknownError) {
-                        ToastPresenter.present(this.$ionic, ErrorMessage.getMessage(error))
-                    }
-                })
-
-        }
-
-        resetError(field) {
-            this.fieldErrors[field] = undefined
-        }
-
-        fileSelected(file: Blob) {
-            this.loadingPicture = true
-            this.fieldErrors['picture'] = undefined
-            Cropper.cropSquare(file)
-                .then((cropped) => {
-                    this.loadingPicture = false
-                    this.$set(this.userRegistration, 'picture', cropped)
-                })
-        }
-
-        openPreview() {
-            this.resetError('pictures')
-            ModalPresenter.present(this.$ionic, PicturesModal, {
-                pictures: [this.userRegistration.picture],
-                selected: 0,
-                removable: true
-            }).then(({data}) => {
-                if (data?.index !== undefined) {
-                    this.$set(this.userRegistration, 'picture', undefined)
-                }
-            })
-        }
+    fieldErrors = {
+      email: [],
+      password: [],
+      picture: [],
+      username: []
     }
+
+    loadingPicture = false
+
+    register() {
+      Validator.validate(this.userRegistration, CREATE)
+        .then(() => Cropper.cropSquare(this.userRegistration.picture as Blob, true))
+        .then((croppedImage) => appModule.showLoader(this.$ionic)
+          .then(() => authModule.doRegister({...this.userRegistration, picture: croppedImage} as User)))
+        .then(() => {
+          appModule.hideLoader()
+          this.$router.replace('/')
+        })
+        .catch(error => {
+          appModule.hideLoader()
+          if (error instanceof FormError) {
+            error.fieldErrors.forEach((fieldError) => {
+              this.$set(this.fieldErrors, fieldError.param, [ErrorMessage.getMessage(fieldError)])
+            })
+          } else if (error instanceof UnknownError) {
+            ToastPresenter.present(this.$ionic, ErrorMessage.getMessage(error))
+          }
+        })
+
+    }
+
+    resetError(field) {
+      this.fieldErrors[field] = undefined
+    }
+
+    fileSelected(file: Blob) {
+      this.loadingPicture = true
+      this.fieldErrors['picture'] = undefined
+      Cropper.cropSquare(file)
+        .then((cropped) => {
+          this.loadingPicture = false
+          this.$set(this.userRegistration, 'picture', cropped)
+        })
+    }
+
+    openPreview() {
+      this.resetError('pictures')
+      ModalPresenter.present(this.$ionic, PicturesModal, {
+        pictures: [this.userRegistration.picture],
+        selected: 0,
+        removable: true
+      }).then(({data}) => {
+        if (data?.index !== undefined) {
+          this.$set(this.userRegistration, 'picture', undefined)
+        }
+      })
+    }
+  }
 </script>
 <style>
   .name-input {

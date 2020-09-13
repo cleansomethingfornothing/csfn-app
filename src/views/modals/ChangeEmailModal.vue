@@ -41,65 +41,69 @@
   </ion-page>
 </template>
 <script lang="ts">
-    import {Component, Prop, Vue} from 'vue-property-decorator'
-    import InputItem from '@/views/components/common/InputItem.vue'
-    import {authModule} from '@/store/authModule'
-    import ErrorMessage from '@/tools/ErrorMessage'
-    import FormError from '@/types/errors/FormError'
-    import UnknownError from '@/types/errors/UnknownError'
-    import ToastPresenter from '@/tools/ToastPresenter'
-    import User from '@/types/User'
+  import {Component, Prop, Vue} from 'vue-property-decorator'
+  import InputItem from '@/views/components/common/InputItem.vue'
+  import {authModule} from '@/store/authModule'
+  import ErrorMessage from '@/tools/ErrorMessage'
+  import FormError from '@/types/errors/FormError'
+  import UnknownError from '@/types/errors/UnknownError'
+  import ToastPresenter from '@/tools/ToastPresenter'
+  import User from '@/types/User'
+  import {appModule} from '@/store/appModule'
 
-    @Component({
-        name: 'ChangeEmailModal',
-        components: {InputItem}
-    })
-    export default class ChangeEmailModal extends Vue {
+  @Component({
+    name: 'ChangeEmailModal',
+    components: {InputItem}
+  })
+  export default class ChangeEmailModal extends Vue {
 
-        @Prop(Object)
-        t: Record<string, string>
+    @Prop(Object)
+    t: Record<string, string>
 
-        @Prop(String)
-        currentEmail: string
+    @Prop(String)
+    currentEmail: string
 
-        @Prop(Object)
-        ionic: any
+    @Prop(Object)
+    ionic: any
 
-        change = new User()
+    change = new User()
 
-        fieldErrors = {
-            email: [],
-            password: []
-        }
-        loading = false
-
-        save() {
-            if (this.change.email === this.currentEmail) {
-                this.fieldErrors.email = [this.t.sameEmailError]
-                return
-            }
-            this.loading = true
-            authModule.changeEmail(this.change)
-                .then(() => {
-                    ToastPresenter.present(this.ionic, this.t.success, 'success')
-                    this.dismiss(true)
-                })
-                .catch(error => {
-                    if (error instanceof FormError) {
-                        error.fieldErrors.forEach((fieldError) => {
-                            this.$set(this.fieldErrors, fieldError.param,
-                                [ErrorMessage.getMessage(fieldError)])
-                        })
-                    }
-                    if (error instanceof UnknownError) {
-                        ToastPresenter.present(this.ionic, ErrorMessage.getMessage(error))
-                    }
-                    this.loading = false
-                })
-        }
-
-        dismiss(updated: boolean) {
-            this.$ionic.modalController.dismiss(updated)
-        }
+    fieldErrors = {
+      email: [],
+      password: []
     }
+    loading = false
+
+    save() {
+      if (this.change.email === this.currentEmail) {
+        this.fieldErrors.email = [this.t.sameEmailError]
+        return
+      }
+      this.loading = true
+      appModule.showLoader(this.ionic)
+        .then(() => authModule.changeEmail(this.change))
+        .then(() => {
+          appModule.hideLoader()
+          ToastPresenter.present(this.ionic, this.t.success, 'success')
+          this.dismiss(true)
+        })
+        .catch(error => {
+          appModule.hideLoader()
+          if (error instanceof FormError) {
+            error.fieldErrors.forEach((fieldError) => {
+              this.$set(this.fieldErrors, fieldError.param,
+                [ErrorMessage.getMessage(fieldError)])
+            })
+          }
+          if (error instanceof UnknownError) {
+            ToastPresenter.present(this.ionic, ErrorMessage.getMessage(error))
+          }
+          this.loading = false
+        })
+    }
+
+    dismiss(updated: boolean) {
+      this.$ionic.modalController.dismiss(updated)
+    }
+  }
 </script>

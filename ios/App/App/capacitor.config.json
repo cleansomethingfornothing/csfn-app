@@ -1,12 +1,21 @@
 {
-  "appId": "com.cleansomethingfornothing.app",
+  "appId": "com.cleansomething.app",
   "appName": "Clean Something For Nothing",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "dist",
   "backgroundColor": "#ffffffff",
   "server": {
-    "hostname": "app.cleansomethingfornothing.com"
+    "url": "http://192.168.1.100:8080",
+    "cleartext": true,
+    "hostname": "native.cleansomethingfornothing.com",
+    "androidScheme": "https",
+    "allowNavigation": [
+      "app.cleansomethingfornothing.com"
+    ]
+  },
+  "android": {
+    "allowMixedContent": true
   },
   "plugins": {
     "SplashScreen": {

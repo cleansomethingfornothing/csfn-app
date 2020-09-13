@@ -7,7 +7,10 @@ android {
   }
 }
 
+apply from: "../capacitor-cordova-android-plugins/cordova.variables.gradle"
 dependencies {
+    implementation project(':capacitor-community-facebook-login')
+    implementation project(':capacitor-community-http')
     implementation project(':capacitor-secure-storage-plugin')
     implementation "com.android.support:support-v4:27.+"
 }

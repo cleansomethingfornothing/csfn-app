@@ -65,6 +65,7 @@
     import AlertsPage from '@/views/pages/home/AlertsPage.vue'
     import EventsPage from '@/views/pages/home/EventsPage.vue'
     import {Ref, Watch} from 'vue-property-decorator'
+    import {nativeProvider} from '@/providers/native/native.provider'
 
     @Component({
         name: 'home-page',
@@ -92,6 +93,7 @@
         slider: HTMLIonSlidesElement
 
         mounted() {
+          nativeProvider.hideSplashScreen()
             /*
             TODO
             this.changedRoute(this.$route)

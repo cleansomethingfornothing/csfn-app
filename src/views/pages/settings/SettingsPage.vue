@@ -13,11 +13,11 @@
     <ion-content class="list-large-items">
       <ion-list>
         <ion-item button @click="$router.push('/security-settings')">
-          <ion-icon slot="start" name="shield-outline" color="dark"></ion-icon>
+          <ion-icon slot="start" :src="require('ionicons5/dist/svg/shield-outline.svg')" color="dark"></ion-icon>
           <ion-label>{{$t('security')}}</ion-label>
         </ion-item>
         <ion-item button @click="logout" detail="false">
-          <ion-icon slot="start" name="power-outline" color="dark"></ion-icon>
+          <ion-icon slot="start" name="power" color="black"></ion-icon>
           <ion-label>{{$t('logout')}}</ion-label>
         </ion-item>
       </ion-list>
@@ -28,6 +28,7 @@
   import Vue from 'vue'
   import Component from 'vue-class-component'
   import {authModule} from '@/store/authModule'
+  import {appModule} from '@/store/appModule'
 
   @Component({
     name: "SettingsPage"
@@ -35,8 +36,12 @@
   export default class SettingsPage extends Vue {
 
     logout() {
+      appModule.showLoader(this.$ionic)
       authModule.doLogout()
-        .then(() => this.$router.replace('/login'))
+        .then(() => {
+          appModule.hideLoader()
+          this.$router.replace('/login')
+        })
     }
 
   }

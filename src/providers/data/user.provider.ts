@@ -8,8 +8,9 @@ export class UserProvider extends DataProvider {
     super('/user')
   }
 
-  updateUser(id: number, update: User): Promise<void> {
-    return this.axios.patch('/' + id, update)
+  updateUser(id: number, update: User): Promise<User> {
+    return this.http.patch('/' + id, update)
+      .then(({data}) => data)
   }
 
   fetchUser(): Promise<User> {

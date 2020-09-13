@@ -1,4 +1,3 @@
-
 import User from '@/types/User'
 import {handleBackError} from '@/tools/handleBackError'
 import DataProvider from '@/providers/data/data.provider'
@@ -10,52 +9,48 @@ export class AuthProvider extends DataProvider {
   }
 
   doRegister(user: User): Promise<User> {
-    return this.axios.post('/register', {...user, picture: undefined})
+    return this.http.post('/register', {...user, picture: undefined})
       .then(({data}) => data)
       .catch(handleBackError('register'))
   }
 
   fetchCurrentUser(): Promise<User> {
-    return this.axios.get('/user')
+    return this.http.get('/user')
       .then(({data}) => data)
   }
 
   doLogin(login: User): Promise<User> {
-    return this.axios.post('/login', undefined, {auth: {username: login.email, password: login.password}})
+    return this.http.post('/login', undefined, {username: login.email, password: login.password})
       .then(({data}) => data)
       .catch(handleBackError('login'))
   }
 
   doLogout(): Promise<void> {
-    return this.axios.post('/logout')
+    return this.http.post('/logout')
       .then(() => undefined)
       .catch(handleBackError('logout'))
   }
 
   changeEmail({currentEmail, currentPassword, newEmail}: { currentEmail: string, currentPassword: string, newEmail: string }): Promise<User> {
-    return this.axios.post('/change_email', {email: newEmail}, {
-      auth: {
+    return this.http.post('/change_email', {email: newEmail}, {
         username: currentEmail,
         password: currentPassword
-      }
-    })
+      })
       .then(({data}) => data)
       .catch(handleBackError('change-email'))
   }
 
-  changePassword({currentEmail, currentPassword, newPassword}: {currentEmail, currentPassword, newPassword}): Promise<User> {
-    return this.axios.post('/change_password', {password: newPassword}, {
-      auth: {
+  changePassword({currentEmail, currentPassword, newPassword}: { currentEmail, currentPassword, newPassword }): Promise<User> {
+    return this.http.post('/change_password', {password: newPassword}, {
         username: currentEmail,
         password: currentPassword
-      }
-    })
+      })
       .then(({data}) => data)
       .catch(handleBackError('change-password'))
   }
 
-  deleteAccount({email, password}: {email: string, password: string}): Promise<void> {
-    return this.axios.post('delete_account', null, {auth: {username:email, password}})
+  deleteAccount({email, password}: { email: string, password: string }): Promise<void> {
+    return this.http.post('/delete_account', null, {username: email, password})
       .then(() => undefined)
       .catch(handleBackError('delete-account'))
   }
