@@ -25,6 +25,12 @@ export class AuthProvider extends DataProvider {
       .catch(handleBackError('login'))
   }
 
+  doFacebookLogin(token: string): Promise<User> {
+    return this.http.post('/login_facebook', {token})
+      .then(({data}) => data)
+      .catch(handleBackError('login'))
+  }
+
   doLogout(): Promise<void> {
     return this.http.post('/logout')
       .then(() => undefined)

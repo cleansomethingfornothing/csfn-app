@@ -66,6 +66,16 @@ class AuthModule extends VuexModule {
   }
 
   @Action
+  doFacebookLogin(token: string): Promise<User> {
+    return authProvider.doFacebookLogin(token)
+      .then((user) => {
+        this.setLogged(true)
+        userModule.setCurrentUser(user)
+        return Promise.resolve(user)
+      })
+  }
+
+  @Action
   changeEmail(change: User) {
     return Validator.validate(change, UPDATE_EMAIL)
       .then(() => authProvider.changeEmail({

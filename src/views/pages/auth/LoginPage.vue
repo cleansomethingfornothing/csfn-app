@@ -7,7 +7,6 @@
           <img alt="icon" src="@/assets/img/icon.png" width="35%" class="z-10">
           <img alt="title" src="@/assets/img/text_white.png" width="95%" class="z-10">
 
-          <ion-icon name="logo-google" color="danger"/>
           <input-item icon="mail" :placeholder="$t('email')" type="email" v-model="userLogin.email"
                       :rounded="true"
                       :errors="fieldErrors.email" @blur="blur"
@@ -58,6 +57,7 @@
   import User from '@/types/User'
   import {Plugins} from '@capacitor/core';
   import {appModule} from '@/store/appModule'
+  import {FacebookLoginResponse} from '@capacitor-community/facebook-login'
 
   const {FacebookLogin} = Plugins;
 
@@ -104,11 +104,17 @@
     }
 
     facebookLogin() {
+
       FacebookLogin.login({permissions: ['email']})
-        .then((result) => {
-          console.log(result)
+        .then((result: FacebookLoginResponse) =>
+          appModule.showLoader(this.$ionic)
+            .then(() => authModule.doFacebookLogin(result.accessToken.token)))
+        .then(() => {
+          appModule.hideLoader()
+          this.$router.push('/')
         })
         .catch(() => {
+          appModule.hideLoader()
           ToastPresenter.present(this.$ionic, this.$t('errors.unknown-error', {param: this.$t('login-with', {param: 'Facebook'})}))
         })
     }

@@ -18,7 +18,8 @@ export default {
     'delete': 'Delete',
     'delete-account-message': 'You are about to delete your account, you will lose all your achievements and you will not be able to recover them.',
     'delete-account-confirmation': 'Are you sure you want to delete your account?',
-    'delete-account-success': 'Your account was deleted'
+    'delete-account-success': 'Your account was deleted',
+    'privacy-policy': 'Privacy Policy'
   },
   es: {
     'security': 'Seguridad',
@@ -39,7 +40,8 @@ export default {
     'delete': 'Eliminar',
     'delete-account-message': 'Estás a punto de borrar tu cuenta, perderás todos tus logros y no podrás recuperarlos.',
     'delete-account-confirmation': 'Seguro que deseas borrar tu cuenta',
-    'delete-account-success': 'Tu cuenta ha sido eliminada'
+    'delete-account-success': 'Tu cuenta ha sido eliminada',
+    'privacy-policy': 'Política de privacidad'
   }
 }
 
