@@ -1,6 +1,6 @@
 {
   "appId": "com.cleansomething.app",
-  "appName": "Clean Something For Nothing",
+  "appName": "CSFN",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "dist",

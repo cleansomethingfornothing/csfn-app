@@ -6,10 +6,7 @@
   "webDir": "dist",
   "backgroundColor": "#ffffffff",
   "server": {
-    "url": "http://192.168.1.100:8080",
-    "cleartext": true,
     "hostname": "native.cleansomethingfornothing.com",
-    "androidScheme": "https",
     "allowNavigation": [
       "app.cleansomethingfornothing.com"
     ]
