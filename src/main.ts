@@ -1,13 +1,14 @@
-import "reflect-metadata"; // Siempre en la primera línea
+import 'reflect-metadata' // Siempre en la primera línea
 import Vue from 'vue'
 import Main from './App.vue'
 import Ionic from '@ionic/vue'
 import {store} from '@/store'
 import {router} from '@/router'
 import {i18n} from '@/i18n'
-import {Plugins, registerWebPlugin} from '@capacitor/core'
-import {FacebookLogin} from '@capacitor-community/facebook-login';
-import { defineCustomElements } from '@ionic/pwa-elements/loader';
+import {registerWebPlugin} from '@capacitor/core'
+import {FacebookLogin} from '@capacitor-community/facebook-login'
+import '@codetrix-studio/capacitor-google-auth'
+import {defineCustomElements} from '@ionic/pwa-elements/loader'
 import './icons'
 import './assets/style/tailwind.css'
 

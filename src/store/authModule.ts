@@ -3,7 +3,6 @@ import {Action, Module, Mutation, VuexModule} from 'vuex-class-modules'
 import {store} from '@/store/index'
 import {userModule} from '@/store/userModule'
 import Validator from '@/tools/Validator'
-import {storageProvider} from '@/providers/storage/storage.provider'
 import {authProvider} from '@/providers/data/auth.provider'
 import {userProvider} from '@/providers/data/user.provider'
 import {imagesProvider} from '@/providers/data/images.provider'
@@ -76,6 +75,17 @@ class AuthModule extends VuexModule {
   }
 
   @Action
+  doGoogleLogin(token: string): Promise<User> {
+    return authProvider.doGoogleLogin(token)
+      .then((user) => {
+        this.setLogged(true)
+        userModule.setCurrentUser(user)
+        return Promise.resolve(user)
+      })
+  }
+
+
+  @Action
   changeEmail(change: User) {
     return Validator.validate(change, UPDATE_EMAIL)
       .then(() => authProvider.changeEmail({
@@ -109,7 +119,6 @@ class AuthModule extends VuexModule {
   @Action
   doLogout(): Promise<void> {
     return authProvider.doLogout()
-      .then(() => storageProvider.remove(SESSION))
       .then(() => this.loggedOut())
   }
 

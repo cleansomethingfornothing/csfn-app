@@ -11,7 +11,7 @@
           <input-item icon="mail" placeholder="Email" type="email" v-model="email"
                       :rounded="true" :errors="error ? [error] : undefined"
                       @focus="error = undefined"></input-item>
-          <button-item color="primary" :text="$t('send')" @click="resetPassword"></button-item>
+          <button-item class="text-center" color="primary" :text="$t('send')" @click="resetPassword"></button-item>
         </form>
       </div>
     </ion-content>

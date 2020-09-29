@@ -2,6 +2,7 @@ package com.cleansomething.app;
 
 import android.os.Bundle;
 
+import com.codetrixstudio.capacitor.GoogleAuth.GoogleAuth;
 import com.getcapacitor.BridgeActivity;
 import com.getcapacitor.Plugin;
 import com.getcapacitor.community.facebooklogin.FacebookLogin;
@@ -19,6 +20,7 @@ public class MainActivity extends BridgeActivity {
       // Additional plugins you've installed go here
       // Ex: add(TotallyAwesomePlugin.class);
       add(FacebookLogin.class);
+      add(GoogleAuth.class);
       add(Http.class);
     }});
   }

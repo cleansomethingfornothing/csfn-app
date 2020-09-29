@@ -2,10 +2,12 @@
   <ion-page class="ion-page">
     <ion-content fullscreen="true">
       <forest-bg></forest-bg>
-      <div class="w-full h-full flex flex-col justify-between items-center">
-        <form class="auth-form" @submit="credentialsLogin" @keyup.enter="credentialsLogin">
+      <div class="w-full h-full flex flex-col justify-between items-center pb-2">
+        <div class="pt-0 md:pt-24"></div>
+        <form class="auth-form justify-end h-full pb-8" @submit="credentialsLogin" @keyup.enter="credentialsLogin">
           <img alt="icon" src="@/assets/img/icon.png" width="35%" class="z-10">
           <img alt="title" src="@/assets/img/text_white.png" width="95%" class="z-10">
+          <div></div>
 
           <input-item icon="mail" :placeholder="$t('email')" type="email" v-model="userLogin.email"
                       :rounded="true"
@@ -15,14 +17,16 @@
                       :rounded="true"
                       :errors="fieldErrors.password" @blur="blur"
                       @focus="resetError('password') || focus()"></input-item>
-          <button-item color="primary" :text="$t('login')" :disabled="loading"
+          <button-item color="primary" :text="$t('login')" :disabled="loading" :center="true"
                        @click="credentialsLogin"></button-item>
           <hr class="z-10">
-          <button-item color="facebook" icon="facebook" :text="$t('continue-with', {'param': 'Facebook'})"
+          <button-item color="white" :iconSrc="require('@/assets/img/icons/google-icon.svg')"
+                       :text="$t('continue-with', {'param': 'Google'})" class="google-button text-left"
+                       @click="googleLogin"></button-item>
+          <button-item color="facebook" :iconSrc="require('@/assets/img/icons/facebook-icon.svg')"
+                       :text="$t('continue-with', {'param': 'Facebook'})"
                        @click="facebookLogin"></button-item>
-
         </form>
-
         <ion-footer>
           <ion-toolbar class="flex justify-between transparent-footer z-10">
             <ion-buttons slot="start">
@@ -43,99 +47,122 @@
   </ion-page>
 </template>
 <script lang="ts">
-  import Vue from 'vue'
-  import Component from 'vue-class-component'
-  import InputItem from '@/views/components/common/InputItem.vue'
-  import ButtonItem from '@/views/components/common/ButtonItem.vue'
-  import ForestBg from '@/views/components/common/ForestBg.vue'
-  import {authModule} from '@/store/authModule'
-  import UnknownError from '@/types/errors/UnknownError'
-  import ErrorMessage from '@/tools/ErrorMessage'
-  import ToastPresenter from '@/tools/ToastPresenter'
-  import FormError from '@/types/errors/FormError'
-  import {nativeProvider} from '@/providers/native/native.provider'
-  import User from '@/types/User'
-  import {Plugins} from '@capacitor/core';
-  import {appModule} from '@/store/appModule'
-  import {FacebookLoginResponse} from '@capacitor-community/facebook-login'
+    import Vue from 'vue'
+    import Component from 'vue-class-component'
+    import InputItem from '@/views/components/common/InputItem.vue'
+    import ButtonItem from '@/views/components/common/ButtonItem.vue'
+    import ForestBg from '@/views/components/common/ForestBg.vue'
+    import {authModule} from '@/store/authModule'
+    import UnknownError from '@/types/errors/UnknownError'
+    import ErrorMessage from '@/tools/ErrorMessage'
+    import ToastPresenter from '@/tools/ToastPresenter'
+    import FormError from '@/types/errors/FormError'
+    import {nativeProvider} from '@/providers/native/native.provider'
+    import User from '@/types/User'
+    import {Plugins} from '@capacitor/core'
+    import {appModule} from '@/store/appModule'
+    import {FacebookLoginResponse} from '@capacitor-community/facebook-login'
 
-  const {FacebookLogin} = Plugins;
+    const {FacebookLogin, GoogleAuth} = Plugins
 
-  @Component({
-    name: 'login',
-    components: {ForestBg, ButtonItem, InputItem}
-  })
-  export default class LoginPage extends Vue {
+    @Component({
+        name: 'login',
+        components: {ForestBg, ButtonItem, InputItem}
+    })
+    export default class LoginPage extends Vue {
 
-    loaded = false
-    userLogin = new User()
-    fieldErrors = {}
-    typing = false
-    loading = false
+        loaded = false
+        userLogin = new User()
+        fieldErrors = {}
+        typing = false
+        loading = false
 
-    mounted(): void {
-      if (!this.loaded) {
-        nativeProvider.hideSplashScreen()
-        this.loaded = true
-      }
+        mounted(): void {
+            if (!this.loaded) {
+                nativeProvider.hideSplashScreen()
+                this.loaded = true
+            }
+        }
+
+        credentialsLogin() {
+            this.loading = true
+            appModule.showLoader(this.$ionic)
+                .then(() => authModule.doCredentialsLogin(this.userLogin))
+                .then(() => {
+                    appModule.hideLoader()
+                    this.$router.push('/')
+                })
+                .catch(error => {
+                    appModule.hideLoader()
+                    if (error instanceof FormError) {
+                        error.fieldErrors.forEach((fieldError) => {
+                            this.$set(this.fieldErrors, fieldError.param,
+                                [ErrorMessage.getMessage(fieldError)])
+                        })
+                    }
+                    if (error instanceof UnknownError) {
+                        ToastPresenter.present(this.$ionic, ErrorMessage.getMessage(error))
+                    }
+                    this.loading = false
+                })
+        }
+
+        facebookLogin() {
+            FacebookLogin.login({permissions: ['email']})
+                .then((result: FacebookLoginResponse) =>
+                    result && result.accessToken && result.accessToken.token ? appModule.showLoader(this.$ionic)
+                        .then(() => authModule.doFacebookLogin(result.accessToken.token)) : Promise.reject(true))
+                .then(() => {
+                    appModule.hideLoader()
+                    this.$router.push('/')
+                })
+                .catch((controlled) => {
+                    if (!controlled) {
+                        appModule.hideLoader()
+                        ToastPresenter.present(this.$ionic, this.$t('errors.unknown-error', {param: this.$t('login-with', {param: 'Facebook'}).toString().toLowerCase()}))
+                    }
+                })
+        }
+
+        googleLogin() {
+            GoogleAuth.signIn()
+                .then((result) =>
+                    result && result.authentication && result.authentication.idToken ? appModule.showLoader(this.$ionic)
+                        .then(() => authModule.doGoogleLogin(result.authentication.idToken)) : Promise.reject(true))
+                .then(() => {
+                    appModule.hideLoader()
+                    this.$router.push('/')
+                })
+                .catch((controlled) => {
+                    if (!controlled) {
+                        appModule.hideLoader()
+                        ToastPresenter.present(this.$ionic, this.$t('errors.unknown-error', {param: this.$t('login-with', {param: 'Google'}).toString().toLowerCase()}))
+                    }
+                })
+        }
+
+        resetError(field) {
+            this.$set(this.fieldErrors, field, undefined)
+        }
+
+        focus() {
+            this.typing = true
+        }
+
+        blur() {
+            this.typing = false
+        }
     }
-
-    credentialsLogin() {
-      this.loading = true
-      appModule.showLoader(this.$ionic)
-        .then(() => authModule.doCredentialsLogin(this.userLogin))
-        .then(() => {
-          appModule.hideLoader()
-          this.$router.push('/')
-        })
-        .catch(error => {
-          appModule.hideLoader()
-          if (error instanceof FormError) {
-            error.fieldErrors.forEach((fieldError) => {
-              this.$set(this.fieldErrors, fieldError.param,
-                [ErrorMessage.getMessage(fieldError)])
-            })
-          }
-          if (error instanceof UnknownError) {
-            ToastPresenter.present(this.$ionic, ErrorMessage.getMessage(error))
-          }
-          this.loading = false
-        })
-    }
-
-    facebookLogin() {
-
-      FacebookLogin.login({permissions: ['email']})
-        .then((result: FacebookLoginResponse) =>
-          appModule.showLoader(this.$ionic)
-            .then(() => authModule.doFacebookLogin(result.accessToken.token)))
-        .then(() => {
-          appModule.hideLoader()
-          this.$router.push('/')
-        })
-        .catch(() => {
-          appModule.hideLoader()
-          ToastPresenter.present(this.$ionic, this.$t('errors.unknown-error', {param: this.$t('login-with', {param: 'Facebook'})}))
-        })
-    }
-
-    resetError(field) {
-      this.$set(this.fieldErrors, field, undefined)
-    }
-
-    focus() {
-      this.typing = true
-    }
-
-    blur() {
-      this.typing = false
-    }
-  }
 </script>
 <style>
   .login-page {
     background-color: #3e6137;
     min-height: 635px;
+  }
+
+  .google-button ion-icon {
+    width: 23px !important;
+    margin-right: 18px;
   }
 
   .password-button {

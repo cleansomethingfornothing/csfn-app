@@ -1,11 +1,12 @@
 {
   "appId": "com.cleansomething.app",
-  "appName": "Clean Something For Nothing",
+  "appName": "CSFN",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "dist",
   "backgroundColor": "#ffffffff",
   "server": {
+    "url": "http://192.168.1.22:8080/",
     "hostname": "native.cleansomethingfornothing.com",
     "allowNavigation": [
       "app.cleansomethingfornothing.com"
@@ -16,7 +17,14 @@
   },
   "plugins": {
     "SplashScreen": {
-      "launchAutoHide": false
+      "launchShowDuration": 10000,
+      "splashFullScreen": false,
+      "splashImmersive": false
+    },
+    "GoogleAuth": {
+      "scopes": ["profile", "email"],
+      "serverClientId": "871904238312-rabbaf1jtvm97h9vb4hd0ufnj82orpuu.apps.googleusercontent.com",
+      "forceCodeForRefreshToken" : true
     }
   }
 }

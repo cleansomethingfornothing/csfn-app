@@ -22,7 +22,7 @@
                       v-model="userRegistration.password"
                       :rounded="true"
                       :errors="fieldErrors.password" @focus="resetError('password')"></input-item>
-          <button-item color="primary" :text="$t('create-account')" type="button" @click="register"></button-item>
+          <button-item class="text-center" color="primary" :text="$t('create-account')" type="button" @click="register"></button-item>
         </form>
         <i></i>
       </div>

@@ -11,4 +11,4 @@ const ionicons5 = Object.keys(icons).reduce((acc, key) => ({
   [`ios-${kebabCase(key)}`]: icons[key]
 }), {})
 
-addIcons({...ionicons5, 'md-facebook': icons.logoFacebook, 'ios-facebook': icons.logoFacebook})
+addIcons({...ionicons5, 'md-fb': icons.logoFacebook, 'ios-fb': icons.logoFacebook})
