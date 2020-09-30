@@ -1,7 +1,7 @@
-import '@capacitor-community/http';
+import '@capacitor-community/http'
 import axios from 'axios'
 
-import {Plugins} from '@capacitor/core';
+import {Plugins} from '@capacitor/core'
 
 export default class HttpTool {
 
@@ -11,14 +11,15 @@ export default class HttpTool {
     this.baseUrl = baseUrl
   }
 
-  public post(path: string, data?: Record<string, any>, auth?: { username: string, password: string }) {
+  public post(path: string, data?: Record<string, any>, options?: { auth?: { username: string, password: string }, headers?: Record<string, string> }) {
     return this.request({
       path,
       method: 'POST',
       data,
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': auth && 'Basic ' + btoa(auth.username + ':' + auth.password)
+        'Authorization': options && options.auth && 'Basic ' + btoa(options.auth.username + ':' + options.auth.password),
+        ...(options && options.headers ? options.headers : {})
       }
     })
   }
@@ -40,7 +41,7 @@ export default class HttpTool {
   }
 
   private request({path, method, data, headers}: { path: string, method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE', data?: any, headers?: Record<string, string> }) {
-    const {Http} = Plugins;
+    const {Http} = Plugins
     return Http.request({
       method,
       url: process.env.VUE_APP_BACK_URL + this.baseUrl + path,

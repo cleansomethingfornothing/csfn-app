@@ -8,6 +8,7 @@ import {userProvider} from '@/providers/data/user.provider'
 import {imagesProvider} from '@/providers/data/images.provider'
 import {LOGIN, RESET_PASSWORD, UPDATE_EMAIL, UPDATE_PASSWORD} from '@/types/ValidationGroups'
 import {passwordResetProvider} from '@/providers/data/password-reset.provider'
+import {nativeProvider} from '@/providers/native/native.provider'
 
 const SESSION = 'CSFN_SESSION'
 
@@ -76,7 +77,8 @@ class AuthModule extends VuexModule {
 
   @Action
   doGoogleLogin(token: string): Promise<User> {
-    return authProvider.doGoogleLogin(token)
+    return nativeProvider.isIOS()
+      .then((ios) => authProvider.doGoogleLogin(token, ios))
       .then((user) => {
         this.setLogged(true)
         userModule.setCurrentUser(user)

@@ -5,6 +5,7 @@ const {App, SplashScreen, StatusBar, Device} = Plugins;
 class NativeProvider {
 
   mobile: boolean
+  ios: boolean
   statusBarStyle: StatusBarStyle
   hidden = false
 
@@ -14,6 +15,14 @@ class NativeProvider {
         this.mobile = platform !== 'web'
       }) : Promise.resolve())
       .then(() => this.mobile)
+  }
+
+  isIOS(): Promise<boolean> {
+    return ((this.ios === undefined)
+      ? Device.getInfo().then(({platform}) => {
+        this.ios = platform === 'ios'
+      }) : Promise.resolve())
+      .then(() => this.ios)
   }
 
   hideSplashScreen() {

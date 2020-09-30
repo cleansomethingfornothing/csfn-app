@@ -20,7 +20,7 @@ export class AuthProvider extends DataProvider {
   }
 
   doLogin(login: User): Promise<User> {
-    return this.http.post('/login', undefined, {username: login.email, password: login.password})
+    return this.http.post('/login', undefined, {auth: {username: login.email, password: login.password}})
       .then(({data}) => data)
       .catch(handleBackError('login'))
   }
@@ -31,8 +31,8 @@ export class AuthProvider extends DataProvider {
       .catch(handleBackError('login'))
   }
 
-  doGoogleLogin(token: string): Promise<User> {
-    return this.http.post('/login_google', {token})
+  doGoogleLogin(token: string, ios: boolean): Promise<User> {
+    return this.http.post('/login_google', {token}, {headers: {'ios': String(ios)}})
       .then(({data}) => data)
       .catch(handleBackError('login'))
   }
@@ -45,24 +45,28 @@ export class AuthProvider extends DataProvider {
 
   changeEmail({currentEmail, currentPassword, newEmail}: { currentEmail: string, currentPassword: string, newEmail: string }): Promise<User> {
     return this.http.post('/change_email', {email: newEmail}, {
+      auth: {
         username: currentEmail,
         password: currentPassword
-      })
+      }
+    })
       .then(({data}) => data)
       .catch(handleBackError('change-email'))
   }
 
   changePassword({currentEmail, currentPassword, newPassword}: { currentEmail, currentPassword, newPassword }): Promise<User> {
     return this.http.post('/change_password', {password: newPassword}, {
+      auth: {
         username: currentEmail,
         password: currentPassword
-      })
+      }
+    })
       .then(({data}) => data)
       .catch(handleBackError('change-password'))
   }
 
   deleteAccount({email, password}: { email: string, password: string }): Promise<void> {
-    return this.http.post('/delete_account', null, {username: email, password})
+    return this.http.post('/delete_account', null, {auth: {username: email, password}})
       .then(() => undefined)
       .catch(handleBackError('delete-account'))
   }

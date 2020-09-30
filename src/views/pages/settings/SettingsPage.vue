@@ -30,30 +30,33 @@
   </ion-page>
 </template>
 <script lang=ts>
-  import Vue from 'vue'
-  import Component from 'vue-class-component'
-  import {authModule} from '@/store/authModule'
-  import {appModule} from '@/store/appModule'
+    import Vue from 'vue'
+    import Component from 'vue-class-component'
+    import {authModule} from '@/store/authModule'
+    import {appModule} from '@/store/appModule'
 
-  @Component({
-    name: "SettingsPage"
-  })
-  export default class SettingsPage extends Vue {
+    @Component({
+        name: 'SettingsPage'
+    })
+    export default class SettingsPage extends Vue {
 
 
-    openPrivacyPolicy() {
-      window.open('https://www.cleansomethingfornothing.com/app-privacy-policy/', '_system', 'location=yes')
+        openPrivacyPolicy() {
+            window.open('https://www.cleansomethingfornothing.com/app-privacy-policy/', '_system', 'location=yes')
+        }
+
+
+        logout() {
+            appModule.showLoader(this.$ionic)
+                .then(() => authModule.doLogout())
+                .then(() => {
+                    appModule.hideLoader()
+                    this.$router.replace('/login')
+                })
+                .catch(() => {
+                    appModule.hideLoader()
+                })
+        }
+
     }
-
-
-    logout() {
-      appModule.showLoader(this.$ionic)
-        .then(() => authModule.doLogout())
-        .then(() => {
-          appModule.hideLoader()
-          this.$router.replace('/login')
-        })
-    }
-
-  }
 </script>
