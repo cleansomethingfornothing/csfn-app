@@ -76,7 +76,7 @@
           .then(() => authModule.doRegister({...this.userRegistration, picture: croppedImage} as User)))
         .then(() => {
           appModule.hideLoader()
-          this.$router.replace('/')
+          this.$router.replace('/welcome')
         })
         .catch(error => {
           appModule.hideLoader()

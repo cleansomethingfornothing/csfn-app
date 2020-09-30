@@ -88,9 +88,9 @@
             this.loading = true
             appModule.showLoader(this.$ionic)
                 .then(() => authModule.doCredentialsLogin(this.userLogin))
-                .then(() => {
+                .then((user) => {
                     appModule.hideLoader()
-                    this.$router.push('/')
+                    this.$router.replace('/home')
                 })
                 .catch(error => {
                     appModule.hideLoader()
@@ -112,9 +112,13 @@
                 .then((result: FacebookLoginResponse) =>
                     result && result.accessToken && result.accessToken.token ? appModule.showLoader(this.$ionic)
                         .then(() => authModule.doFacebookLogin(result.accessToken.token)) : Promise.reject(null))
-                .then(() => {
+                .then((user) => {
                     appModule.hideLoader()
-                    this.$router.push('/')
+                    if((user as any).isNew){
+                        this.$router.push('/welcome')
+                    } else {
+                        this.$router.push('/home')
+                    }
                 })
                 .catch((error) => {
                     if (error !== null) {
@@ -129,9 +133,13 @@
                 .then((result) =>
                     result && result.authentication && result.authentication.idToken ? appModule.showLoader(this.$ionic)
                         .then(() => authModule.doGoogleLogin(result.authentication.idToken)) : Promise.reject(null))
-                .then(() => {
+                .then((user) => {
                     appModule.hideLoader()
-                    this.$router.push('/')
+                    if((user as any).isNew){
+                        this.$router.push('/welcome')
+                    } else {
+                        this.$router.push('/home')
+                    }
                 })
                 .catch((err) => {
                     if (err !== null) {

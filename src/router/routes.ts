@@ -9,6 +9,7 @@ import SettingsPage from '@/views/pages/settings/SettingsPage.vue'
 import UserActivitiesPage from '@/views/pages/UserActivitiesPage.vue'
 import WorldMapPage from '@/views/pages/WorldMapPage.vue'
 import SecuritySettingsPage from '@/views/pages/settings/SecuritySettingsPage.vue'
+import WelcomePage from '@/views/pages/auth/WelcomePage.vue'
 
 export default [
   {
@@ -34,6 +35,10 @@ export default [
     meta: {
       public: true
     }
+  }, {
+    path: '/welcome',
+    name: 'WelcomePage',
+    component: WelcomePage
   }, {
     path: '/',
     redirect: '/home/community'
