@@ -3,7 +3,7 @@
     <transparent-header :title="$t('recover-password')" :always-transparent="true"></transparent-header>
     <ion-content class="fullscreen h-screen">
       <forest-bg clazz="login-bg-image"></forest-bg>
-      <div class="flex flex-col justify-between items-center w-full h-full">
+      <div class="flex flex-col justify-center items-center w-full h-full">
         <form class="auth-form" @submit.prevent="resetPassword">
           <ion-label class="password-message z-10" color="white">
             {{$t('recover-password-text')}}

@@ -5,12 +5,16 @@
         <ion-icon v-if="icon" :name="icon" slot="start" color="dark"></ion-icon>
         <ion-label position="floating" v-if="label" class="font-bold">{{label}}</ion-label>
         <slot>
-          <ion-input @ionChange="change" @ionInput="onInput" @ionFocus="clicked" @ionBlur="blur" :value="value"
+          <ion-input @ionChange="change" @ionInput="onInput" @ionFocus="focused" @ionBlur="blur" :value="value"
                      ref="input" :type="type === 'password' && showPassword ? 'text' : type" :placeholder="placeholder"
-                     :clear-input="clear"
+                     :clear-input="clear" :readonly="readonly"
                      :autocomplete="type === 'password' ? 'new-password' : 'off'" :class="inputClass"></ion-input>
         </slot>
-        <ion-button slot="end" fill="clear" v-if="type === 'password'" @click="showPassword = !showPassword"
+        <div slot="end" v-if="$scopedSlots['end']">
+          <slot name="end"/>
+        </div>
+        <ion-button slot="end" fill="clear" v-if="type === 'password' && !$scopedSlots['end']"
+                    @click="showPassword = !showPassword"
                     color="medium" :class="{'mt-6 pt-1 mr-0': !rounded, '-mr-1': rounded}" shape="round">
           <ion-icon v-if="!showPassword" slot="icon-only" name="eye" class="mr-0"/>
           <ion-icon v-else slot="icon-only" name="eye-off" class="mr-0"/>
@@ -75,6 +79,9 @@
         @Prop(HTMLElement)
         public readonly slottedInput!: any
 
+        @Prop(Boolean)
+        public readonly readonly: boolean
+
         @Ref('input')
         public input!: any
 
@@ -96,16 +103,24 @@
             return
         }
 
-        @Emit('focus')
-        clicked() {
+        clicked(){
             this.input?.setFocus()
             this.slottedInput?.setFocus()
+            return
+        }
+
+        @Emit('focus')
+        focused() {
             return
         }
 
         @Emit('blur')
         blur() {
             return
+        }
+
+        focus() {
+            this.input?.setFocus()
         }
     }
 </script>

@@ -21,4 +21,6 @@ export default class User {
   password?: string
 
   creation?: Date
+
+  country?: string
 }

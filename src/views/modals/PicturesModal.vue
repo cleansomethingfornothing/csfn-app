@@ -4,7 +4,7 @@
       <ion-toolbar color="black" mode="ios">
         <ion-buttons>
           <ion-button @click="close" fill="clear" shape="round" color="white">
-            <ion-icon name="close-outline" slot="icon-only"></ion-icon>
+            <ion-icon name="close" slot="icon-only"></ion-icon>
           </ion-button>
         </ion-buttons>
       </ion-toolbar>

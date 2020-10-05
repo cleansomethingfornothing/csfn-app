@@ -4,8 +4,8 @@ import {storageProvider} from '@/providers/storage/storage.provider'
 import Coords from '@/types/Coords'
 import {placesProvider} from '@/providers/places/places.provider'
 import Address from '@/types/Address'
-import Location from '@/types/Location'
 import {locationProvider} from '@/providers/location/location.provider'
+import Vue from 'vue'
 
 const LAST_COORDS = 'CSFN_LAST_COORDS'
 const LAST_ADDRESS = 'CSFN_LAST_ADDRESS'
@@ -13,8 +13,8 @@ const LAST_ADDRESS = 'CSFN_LAST_ADDRESS'
 @Module
 class LocationModule extends VuexModule {
 
-  userCoords: Coords = undefined
-  userAddress: Address = undefined
+  userCoords: Coords = new Coords(null, null)
+  userAddress: Address = new Address('', '', '', '')
 
   constructor() {
     super({store, name: 'location'})
@@ -30,12 +30,12 @@ class LocationModule extends VuexModule {
 
   @Mutation
   setUserCoords(coords: Coords) {
-    this.userCoords = coords
+    Vue.set(this, 'userCoords', coords)
   }
 
   @Mutation
   setUserAddress(address: Address) {
-    this.userAddress = address
+    Vue.set(this, 'userAddress', address)
   }
 
   @Action
@@ -50,6 +50,12 @@ class LocationModule extends VuexModule {
         console.log(err)
         this.setUserAddress(null)
       })
+  }
+
+  @Action
+  initializeByIp(): Promise<void> {
+    return locationProvider.getLocationByIp()
+      .then((location) => this.setUserAddress(location.address ))
   }
 
   updateUserPosition(newCoords: Coords) {

@@ -7,6 +7,7 @@ import {facebookProvider} from '@/providers/facebook/facebook.provider'
 import {Controllers} from '@ionic/vue'
 import {HTMLIonOverlayElement} from '@ionic/core'
 import Vue from 'vue'
+import {locationModule} from '@/store/locationModule'
 
 @Module
 class AppModule extends VuexModule {

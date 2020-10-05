@@ -3,6 +3,7 @@ import {Action, Module, Mutation, VuexModule} from 'vuex-class-modules'
 import {store} from '@/store/index'
 import {userProvider} from '@/providers/data/user.provider'
 import {authProvider} from '@/providers/data/auth.provider'
+import {imagesProvider} from '@/providers/data/images.provider'
 
 @Module
 class UserModule extends VuexModule {
@@ -52,6 +53,19 @@ class UserModule extends VuexModule {
       })
   }
 
+  @Action
+  updateUserPicture(picture) {
+    return imagesProvider.uploadImages([picture as File], 'update-profile')
+      .then((images) => this.updateUser({picture: {id: images[0].id}}))
+  }
+
+  @Action
+  updateUser(user: User) {
+    return userProvider.updateUser(this.currentUser.id, user)
+      .then((user) => {
+        this.setCurrentUser(user)
+      })
+  }
 }
 
 export const userModule = new UserModule()

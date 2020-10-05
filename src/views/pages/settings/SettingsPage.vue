@@ -12,6 +12,10 @@
     </ion-header>
     <ion-content class="list-large-items">
       <ion-list>
+        <ion-item button @click="$router.push('/profile-settings')">
+          <ion-icon :src="require('ionicons5/dist/svg/person-outline.svg')" color="back" slot="start"></ion-icon>
+          <ion-label>{{$t('profile')}}</ion-label>
+        </ion-item>
         <ion-item button @click="$router.push('/security-settings')">
           <ion-icon :src="require('ionicons5/dist/svg/shield-outline.svg')" color="back" slot="start"></ion-icon>
           <ion-label>{{$t('security')}}</ion-label>

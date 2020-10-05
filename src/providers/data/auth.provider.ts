@@ -8,8 +8,8 @@ export class AuthProvider extends DataProvider {
     super('/auth')
   }
 
-  doRegister(user: User): Promise<User> {
-    return this.http.post('/register', {...user, picture: undefined})
+  doRegister(country: string, user: User): Promise<User> {
+    return this.http.post('/register', {...user, picture: undefined}, {headers: {country}})
       .then(({data}) => data)
       .catch(handleBackError('register'))
   }
@@ -25,14 +25,14 @@ export class AuthProvider extends DataProvider {
       .catch(handleBackError('login'))
   }
 
-  doFacebookLogin(token: string): Promise<User> {
-    return this.http.post('/login_facebook', {token})
+  doFacebookLogin(country: string, token: string): Promise<User> {
+    return this.http.post('/login_facebook', {token}, {headers: {country}})
       .then(({data}) => data)
       .catch(handleBackError('login'))
   }
 
-  doGoogleLogin(token: string, ios: boolean): Promise<User> {
-    return this.http.post('/login_google', {token}, {headers: {'ios': String(ios)}})
+  doGoogleLogin(country: string, token: string, ios: boolean): Promise<User> {
+    return this.http.post('/login_google', {token}, {headers: {'ios': String(ios), country}})
       .then(({data}) => data)
       .catch(handleBackError('login'))
   }

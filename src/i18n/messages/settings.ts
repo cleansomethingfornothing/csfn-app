@@ -1,5 +1,6 @@
 export default {
   en: {
+    'profile': 'Profile',
     'security': 'Security',
     'change-email': 'Change email',
     'change-password': 'Change password',
@@ -11,8 +12,11 @@ export default {
     'new-email-message': 'Enter your new email',
     'current-password-message': 'Enter your current password',
     'new-password-message': 'Enter your new password',
+    'new-username-message': 'Enter your new username:',
     'change-email-success': 'Email updated',
     'change-password-success': 'Password updated',
+    'update-profile': 'Update your profile',
+    'update-profile-success': 'Profile updated',
     'same-email-error': 'Enter a different email',
     'same-password-error': 'Enter a different password',
     'delete': 'Delete',
@@ -22,6 +26,7 @@ export default {
     'privacy-policy': 'Privacy Policy'
   },
   es: {
+    'profile': 'Perfil',
     'security': 'Seguridad',
     'change-email': 'Cambiar email',
     'change-password': 'Cambiar contraseña',
@@ -30,9 +35,12 @@ export default {
     'new-email': 'Nuevo email',
     'current-password': 'Contraseña actual',
     'newPassword': 'Contraseña nueva',
+    'update-profile': 'Actualizar tu perfil',
+    'update-profile-success': 'Perfil actualizado',
     'new-email-message': 'Introduce tu nuevo email',
     'current-password-message': 'Introduce tu contraseña actual',
     'new-password-message': 'Introduce tu nueva contraseña',
+    'new-username-message': 'Introduce tu nuevo nombre de usuario:',
     'change-email-success': 'Email actualizado',
     'change-password-success': 'Contraseña actualizada',
     'same-email-error': 'Introduce un email diferente',

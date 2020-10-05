@@ -104,7 +104,6 @@ ion-button {
   align-items: center;
   justify-content: center;
   width: 90%;
-  margin: auto;
   max-width: 400px;
 }
 
@@ -256,6 +255,13 @@ ion-slides {
 
 .s-ion-icon path {
   stroke: var(--ion-color-base) !important;
+}
+
+.p-0 {
+  --padding-bottom: 0;
+  --padding-end: 0;
+  --padding-start: 0;
+  --padding-top: 0;
 }
 
 @media screen and (min-width: 700px) {

@@ -9,6 +9,7 @@ import {imagesProvider} from '@/providers/data/images.provider'
 import {LOGIN, RESET_PASSWORD, UPDATE_EMAIL, UPDATE_PASSWORD} from '@/types/ValidationGroups'
 import {passwordResetProvider} from '@/providers/data/password-reset.provider'
 import {nativeProvider} from '@/providers/native/native.provider'
+import {locationModule} from '@/store/locationModule'
 
 const SESSION = 'CSFN_SESSION'
 
@@ -46,44 +47,31 @@ class AuthModule extends VuexModule {
   }
 
   @Action
-  doRegister(userRegistration: User): Promise<void> {
-    return authProvider.doRegister(userRegistration)
-      .then((user) => imagesProvider.uploadImages([userRegistration.picture as File], 'register')
-        .then((images) => userProvider.updateUser(user.id, {picture: {id: images[0].id}})))
-      .then((user) => userModule.setCurrentUser(user))
-      .then(() => this.setLogged(true))
+  doRegister(user: User): Promise<void> {
+    return authProvider.doRegister(locationModule.getAddress.countryCode, user)
+      .then((registered) => imagesProvider.uploadImages([user.picture as File], 'register')
+        .then((images) => userProvider.updateUser(registered.id, {picture: {id: images[0].id}})))
+      .then((logged) => this.loggedIn(logged))
   }
 
   @Action
   doCredentialsLogin(userLogin: User): Promise<User> {
     return Validator.validate(userLogin, LOGIN)
       .then(() => authProvider.doLogin(userLogin))
-      .then((user) => {
-        this.setLogged(true)
-        userModule.setCurrentUser(user)
-        return Promise.resolve(user)
-      })
+      .then((user) => this.loggedIn(user))
   }
 
   @Action
   doFacebookLogin(token: string): Promise<User> {
-    return authProvider.doFacebookLogin(token)
-      .then((user) => {
-        this.setLogged(true)
-        userModule.setCurrentUser(user)
-        return Promise.resolve(user)
-      })
+    return authProvider.doFacebookLogin(locationModule.getAddress.countryCode, token)
+      .then((user) => this.loggedIn(user))
   }
 
   @Action
   doGoogleLogin(token: string): Promise<User> {
     return nativeProvider.isIOS()
-      .then((ios) => authProvider.doGoogleLogin(token, ios))
-      .then((user) => {
-        this.setLogged(true)
-        userModule.setCurrentUser(user)
-        return Promise.resolve(user)
-      })
+      .then((ios) => authProvider.doGoogleLogin(locationModule.getAddress.countryCode, token, ios))
+      .then((user) => this.loggedIn(user))
   }
 
 
@@ -125,6 +113,14 @@ class AuthModule extends VuexModule {
   }
 
   @Action
+  loggedIn(user) {
+    userModule.setCurrentUser(user)
+    this.setLogged(true)
+    locationModule.initialize()
+    return Promise.resolve(user)
+  }
+
+  @Action
   loggedOut() {
     userModule.setCurrentUser(undefined)
     this.setLogged(false)
@@ -136,16 +132,6 @@ class AuthModule extends VuexModule {
     return authProvider.deleteAccount({email: userModule.getCurrentUser.email, password})
       .then(() => this.loggedOut())
   }
-
-  /*
-  doFacebookLogin(): Promise<void> {
-
-  }
-
-  doInstagramLogin(): Promise<void> {
-
-  }
-  */
 }
 
 export const authModule = new AuthModule()

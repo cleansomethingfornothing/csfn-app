@@ -3,6 +3,8 @@ import Coords from '@/types/Coords'
 import {Plugins} from '@capacitor/core'
 import LocationError from '@/types/errors/LocationError'
 import distance from '@turf/distance'
+import Location from '@/types/Location'
+import Address from '@/types/Address'
 
 const {Geolocation} = Plugins;
 
@@ -14,12 +16,13 @@ export default class LocationProvider {
     return Geolocation.getCurrentPosition()
       .then((position) => new Coords(position.coords.latitude, position.coords.longitude))
       .catch(() => this.getLocationByIp())
+      .then((location: Location) => location.coords)
       .catch(() => Promise.reject(new LocationError()))
   }
 
-  private getLocationByIp(): Promise<Coords> {
+  public getLocationByIp(): Promise<Location> {
     return axios.get(ipLocationURL)
-      .then(({data}) => new Coords(data.latitude, data.longitude))
+      .then(({data}) => new Location(new Address(data.city, data.region, data.country, data.country_code), new Coords(data.latitude, data.longitude)))
   }
 
   public calculateDistance(frm: Coords, to: Coords): number {

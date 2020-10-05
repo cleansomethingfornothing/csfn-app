@@ -10,7 +10,7 @@
           <wave :num="1"/>
         </div>
         <div class="-mt-40 lg:-mt-48 flex flex-col justify-center items-center pt-4 ios:-mt-40  lg:ios:-mt-56">
-          <avatar class="w-32 lg:w-40" :src="user && user.picture && user.picture.publicUrl"></avatar>
+          <avatar class="w-32 lg:w-40" :src="(user && user.picture && user.picture.publicUrl) || '/img/user-placeholder.png'"></avatar>
           <ion-skeleton-text class="w-32" v-if="!user"></ion-skeleton-text>
           <ion-label v-else class="font-bold text-xl -ml-1">{{user.username}}</ion-label>
         </div>
@@ -59,7 +59,7 @@
         -->
 
 
-        <ion-list lines="inset" class="mb-20">
+        <ion-list lines="inset" class="pt-0 mb-20 list-large-items">
           <!--
           <ion-item button detail="true" @click="$router.push('/user-activities?type=cleanups')">
             <ion-icon slot="start" name="trash" color="medium"></ion-icon>

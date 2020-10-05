@@ -1,6 +1,7 @@
 import User from '@/types/User'
 import Activity from '@/types/Activity'
 import DataProvider from '@/providers/data/data.provider'
+import {handleBackError} from '@/tools/handleBackError'
 
 export class UserProvider extends DataProvider {
 
@@ -11,6 +12,7 @@ export class UserProvider extends DataProvider {
   updateUser(id: number, update: User): Promise<User> {
     return this.http.patch('/' + id, update)
       .then(({data}) => data)
+      .catch(handleBackError('update-profile'))
   }
 
   fetchUser(): Promise<User> {

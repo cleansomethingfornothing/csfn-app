@@ -1,16 +1,17 @@
-import { CameraResultType } from '@capacitor/core'
-import { CameraSource } from '@capacitor/core'
 <template>
   <div class="picture-button w-full ion-activatable ripple-parent" @click="click" :class="rounded ? 'rounded' : ''">
-    <img v-if="file" alt="Cleanup picture" :src="fileUrl" class="absolute w-full h-full">
-    <div v-else class="background w-full h-full absolute">
-      <div v-if="isMobile" class="w-full h-full absolute cursor-pointer" @click="getPicture"></div>
-      <label v-else class="w-full h-full absolute cursor-pointer">
+    <div class="w-full h-full absolute">
+      <div v-if="isMobile" class="w-full h-full absolute cursor-pointer z-10" @click="getPicture"></div>
+      <label v-else class="w-full h-full absolute cursor-pointer z-10">
         <input class="hidden" type="file" @change="fileSelected($event.target.files[0])" accept=".png,.jpg"
                name="file">
       </label>
-      <ion-spinner v-if="loading" class="absolute w-full h-full opacity-50" color="primary"
+      <ion-spinner v-if="loading" class="absolute w-full h-full opacity-50 z-50" color="primary"
                    name="crescent"></ion-spinner>
+      <div class="z-1 w-full h-full">
+        <img v-if="file || url" alt="Cleanup picture" :src="url || fileUrl" class="absolute w-full h-full">
+        <div v-else class="background w-full h-full"></div>
+      </div>
     </div>
     <ion-ripple-effect></ion-ripple-effect>
   </div>
@@ -39,6 +40,9 @@ import { CameraSource } from '@capacitor/core'
         @Prop(Blob)
         file: Blob
 
+        @Prop(String)
+        url: string
+
         get fileUrl() {
             return URL.createObjectURL(this.file)
         }
@@ -49,6 +53,10 @@ import { CameraSource } from '@capacitor/core'
         }
 
         getPicture() {
+            console.log(this.file)
+            if (this.file) {
+                return
+            }
             this.emitLoading(true)
             Camera.getPhoto({
                 quality: 100,

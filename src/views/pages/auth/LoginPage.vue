@@ -3,10 +3,9 @@
     <ion-content fullscreen="true">
       <forest-bg></forest-bg>
       <div class="w-full h-full flex flex-col justify-between items-center pb-2">
-        <div class="pt-0 md:pt-24"></div>
         <form class="auth-form justify-end h-full pb-8" @submit="credentialsLogin" @keyup.enter="credentialsLogin">
-          <img alt="icon" src="@/assets/img/icon.png" width="35%" class="z-10">
-          <img alt="title" src="@/assets/img/text_white.png" width="95%" class="z-10">
+          <img alt="icon" src="@/assets/img/icon.png" width="35%" class="z-10 hidden sm:block">
+          <img alt="title" src="@/assets/img/text_white.png" width="95%" class="z-10 hidden sm:block">
           <div></div>
 
           <input-item icon="mail" :placeholder="$t('email')" type="email" v-model="userLogin.email"
@@ -62,6 +61,7 @@
     import {Plugins} from '@capacitor/core'
     import {appModule} from '@/store/appModule'
     import {FacebookLoginResponse} from '@capacitor-community/facebook-login'
+    import {locationModule} from '@/store/locationModule'
 
     const {FacebookLogin, GoogleAuth} = Plugins
 
@@ -82,6 +82,11 @@
                 nativeProvider.hideSplashScreen()
                 this.loaded = true
             }
+            locationModule.initializeByIp()
+        }
+
+        get userCountry() {
+            return locationModule.getAddress.countryCode
         }
 
         credentialsLogin() {
@@ -121,6 +126,7 @@
                     }
                 })
                 .catch((error) => {
+                    console.error(error)
                     if (error !== null) {
                         appModule.hideLoader()
                         ToastPresenter.present(this.$ionic, this.$t('errors.unknown-error', {param: this.$t('login-with', {param: 'Facebook'}).toString().toLowerCase()}))
@@ -142,6 +148,7 @@
                     }
                 })
                 .catch((err) => {
+                    console.error(err)
                     if (err !== null) {
                         appModule.hideLoader()
                         ToastPresenter.present(this.$ionic, this.$t('errors.unknown-error', {param: this.$t('login-with', {param: 'Google'}).toString().toLowerCase()}))

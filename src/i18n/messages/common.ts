@@ -11,7 +11,8 @@ export default {
     'statistics': 'Statistics',
     'select-location': 'Select location',
     'search-place': 'Search a place',
-    'filter-results': 'Filter results'
+    'filter-results': 'Filter results',
+    'country': 'Country',
   },
   es: {
     'cancel': 'Cancelar',
@@ -25,6 +26,7 @@ export default {
     'statistics': 'Estadísticas',
     'select-location': 'Seleccionar ubicación',
     'search-place': 'Buscar un lugar',
-    'filter-results': 'Filtrar resultados'
+    'filter-results': 'Filtrar resultados',
+    'country': 'País'
   }
 }
