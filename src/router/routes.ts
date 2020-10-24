@@ -2,7 +2,7 @@ import HomePage from '@/views/pages/home/HomePage.vue'
 import LoginPage from '@/views/pages/auth/LoginPage.vue'
 import RegisterPage from '@/views/pages/auth/RegisterPage.vue'
 import ForgottenPasswordPage from '@/views/pages/auth/ForgottenPasswordPage.vue'
-import EditionPage from '@/views/pages/EditionPage.vue'
+import EditionPage from '@/views/pages/edition/EditionPage.vue'
 import ActivityPage from '@/views/pages/ActivityPage.vue'
 import UserPage from '@/views/pages/UserPage.vue'
 import SettingsPage from '@/views/pages/settings/SettingsPage.vue'
@@ -42,10 +42,10 @@ export default [
     component: WelcomePage
   }, {
     path: '/',
-    redirect: '/home/community'
+    redirect: '/home/user'
   }, {
     path: '/home',
-    redirect: '/home/community'
+    redirect: '/home/user'
   }, {
     path: '/home/:tab',
     name: 'HomePage',

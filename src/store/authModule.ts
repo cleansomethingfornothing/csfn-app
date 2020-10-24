@@ -48,7 +48,8 @@ class AuthModule extends VuexModule {
 
   @Action
   doRegister(user: User): Promise<void> {
-    return authProvider.doRegister(locationModule.getAddress.countryCode, user)
+    return locationModule.getLocationByIp()
+      .then((location) => authProvider.doRegister(location.address.countryCode, user))
       .then((registered) => imagesProvider.uploadImages([user.picture as File], 'register')
         .then((images) => userProvider.updateUser(registered.id, {picture: {id: images[0].id}})))
       .then((logged) => this.loggedIn(logged))

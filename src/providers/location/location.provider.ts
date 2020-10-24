@@ -26,7 +26,7 @@ export default class LocationProvider {
   }
 
   public calculateDistance(frm: Coords, to: Coords): number {
-    return distance([frm.lat, frm.lng], [to.lat, to.lng])
+    return frm && to ? distance([frm.lat, frm.lng], [to.lat, to.lng]) : Infinity
   }
 
 }

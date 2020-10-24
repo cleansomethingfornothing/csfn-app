@@ -1,20 +1,21 @@
 <template>
   <ion-page class="ion-page home-page">
-    <current-user-page ref="user"/>
-    <!--
-    TODO
-    <ion-fab vertical="bottom" horizontal="end" class="ios:mb-11 mb-13">
+
+
+    <ion-fab vertical="bottom" horizontal="end" class="ios:mb-11 mb-13" mode="ios">
       <ion-fab-button color="white">
-        <ion-icon color="primary" name="add" size="large"/>
+        <ion-icon color="primary" size="large" name="add-outline" style="stroke: var(--ion-color-primary); stroke-width: 50px"/>
       </ion-fab-button>
 
       <ion-fab-list side="top">
+        <!--
         <ion-fab-button color="white" :data-desc="$t('event')" @click="$router.push('/publish?type=event')">
           <ion-icon name="flag" color="secondary"/>
         </ion-fab-button>
         <ion-fab-button color="white" :data-desc="$t('alert')" @click="$router.push('/publish?type=alert')">
           <ion-icon name="alert" color="secondary"/>
         </ion-fab-button>
+        -->
         <ion-fab-button color="white" :data-desc="$t('cleanup')" @click="$router.push('/publish?type=cleanup')">
           <ion-icon name="trash" color="secondary"/>
         </ion-fab-button>
@@ -39,7 +40,7 @@
     </ion-slides>
 
     <ion-tab-bar>
-      <ion-tab-button v-for="tab in ['user', 'community', 'alerts', 'events']" :key="tab"
+      <ion-tab-button v-for="tab in tabs" :key="tab"
                       @click="slideTo(tab)" :selected="selectedTab === tab">
         <transition name="fade">
           <ion-icon v-if="selectedTab === tab" size="large"
@@ -48,7 +49,6 @@
         </transition>
       </ion-tab-button>
     </ion-tab-bar>
-    -->
   </ion-page>
 </template>
 
@@ -85,7 +85,7 @@
 
         loaded = false
 
-        tabs = ['user', 'community', 'alerts', 'events']
+        tabs = ['user' , 'community', 'alerts', 'events']
 
         selectedTab = ''
 
@@ -94,14 +94,11 @@
 
         mounted() {
           nativeProvider.hideSplashScreen()
-            /*
-            TODO
             this.changedRoute(this.$route)
             this.slider.slideTo(this.tabs.indexOf(this.$route.params.tab), 0)
             setTimeout(() => {
                 this.loaded = true
             }, 2000)
-             */
         }
 
         activated() {
@@ -109,14 +106,12 @@
         }
 
         @Watch('$route')
-        changedRoute(/*route*/) {
-            /* TODO
+        changedRoute(route) {
             if (route.params.tab !== this.selectedTab && route.name === 'HomePage') {
               this.selectedTab && (this.$refs[this.selectedTab] as any).exit();
               (this.$refs[route.params.tab] as any).init()
               this.selectedTab = route.params.tab
             }
-             */
         }
 
         slideTo(tab) {

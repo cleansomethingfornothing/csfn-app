@@ -6,7 +6,7 @@
   "webDir": "dist",
   "backgroundColor": "#ffffffff",
   "server": {
-    "url": "http://localhost:8080",
+    "url": "http://192.168.1.22:8080",
     "hostname": "native.cleansomethingfornothing.com",
     "allowNavigation": [
       "app.cleansomethingfornothing.com"

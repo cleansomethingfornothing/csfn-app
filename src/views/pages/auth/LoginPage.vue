@@ -82,7 +82,6 @@
                 nativeProvider.hideSplashScreen()
                 this.loaded = true
             }
-            locationModule.initializeByIp()
         }
 
         get userCountry() {
@@ -148,8 +147,7 @@
                     }
                 })
                 .catch((err) => {
-                    console.error(err)
-                    if (err !== null) {
+                    if (err !== null && !err.message.contains('user canceled')) {
                         appModule.hideLoader()
                         ToastPresenter.present(this.$ionic, this.$t('errors.unknown-error', {param: this.$t('login-with', {param: 'Google'}).toString().toLowerCase()}))
                     }

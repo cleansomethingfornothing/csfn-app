@@ -3,6 +3,7 @@ import {store} from '@/store/index'
 import {storageProvider} from '@/providers/storage/storage.provider'
 import Coords from '@/types/Coords'
 import {placesProvider} from '@/providers/places/places.provider'
+import Location from '@/types/Location'
 import Address from '@/types/Address'
 import {locationProvider} from '@/providers/location/location.provider'
 import Vue from 'vue'
@@ -53,9 +54,8 @@ class LocationModule extends VuexModule {
   }
 
   @Action
-  initializeByIp(): Promise<void> {
+  getLocationByIp(): Promise<Location> {
     return locationProvider.getLocationByIp()
-      .then((location) => this.setUserAddress(location.address ))
   }
 
   updateUserPosition(newCoords: Coords) {

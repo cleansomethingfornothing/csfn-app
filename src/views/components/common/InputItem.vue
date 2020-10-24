@@ -2,7 +2,7 @@
   <div class="text-item cursor-pointer" :class="errors && errors.length ? 'invalid-input': ''">
     <div class="overflow-hidden ion-activatable ripple-parent" :class="rounded ? 'rounded-full' : ''" @click="clicked">
       <ion-item :color="outline ? 'light': '' " :lines="noLines ? 'none' : 'full'">
-        <ion-icon v-if="icon" :name="icon" slot="start" color="dark"></ion-icon>
+        <ion-icon v-if="icon || iconSrc" :name="icon" :src="iconSrc" slot="start" color="dark"></ion-icon>
         <ion-label position="floating" v-if="label" class="font-bold">{{label}}</ion-label>
         <slot>
           <ion-input @ionChange="change" @ionInput="onInput" @ionFocus="focused" @ionBlur="blur" :value="value"
@@ -45,6 +45,9 @@
 
         @Prop(String)
         public readonly icon!: string
+
+        @Prop(String)
+        public readonly iconSrc: string
 
         @Prop(String)
         public readonly type!: string

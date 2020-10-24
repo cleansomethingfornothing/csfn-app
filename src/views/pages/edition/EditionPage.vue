@@ -19,7 +19,7 @@
           <input-item v-if="isEvent" :errors="errors['title']" :placeholder="$t('title')" v-model="activity.title"
                       input-class="font-bold" @focus="resetError('title')"></input-item>
           <input-item :errors="errors['description']" :slotted-input="$refs['desc']" @focus="resetError('description')">
-            <ion-textarea :placeholder="$t('write-description')" auto-grow="true" rows="3"
+            <ion-textarea :placeholder="$t('write-description')" auto-grow="true" rows="3" maxlength="1024"
                           @ionChange="change('description', $event.target.value)" ref="desc"></ion-textarea>
           </input-item>
           <ion-picker-controller v-if="isCleanup"></ion-picker-controller>
