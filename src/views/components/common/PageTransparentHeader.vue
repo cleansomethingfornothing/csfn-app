@@ -4,21 +4,21 @@
   </div>
 </template>
 <script lang=ts>
-  import Vue from 'vue'
-  import Component from 'vue-class-component'
+import Vue from 'vue'
+import Component from 'vue-class-component'
 
-  @Component({
-    name: "page-transparent-header"
-  })
-  export default class PageTransparentHeader extends Vue {
+@Component({
+  name: "page-transparent-header"
+})
+export default class PageTransparentHeader extends Vue {
 
-    isScrolled = false
+  isScrolled = false
 
-    scrolled(event) {
-      this.isScrolled = event.detail.scrollTop > 0
-    }
-
+  scrolled(event) {
+    this.isScrolled = event.detail.scrollTop > 0
   }
+
+}
 </script>
 <style scoped>
 

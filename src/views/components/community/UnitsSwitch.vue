@@ -13,39 +13,39 @@
   </ion-segment>
 </template>
 <script lang=ts>
-  import Vue from 'vue'
-  import Component from 'vue-class-component'
-  import {Emit, Prop} from 'vue-property-decorator'
+import Vue from 'vue'
+import Component from 'vue-class-component'
+import {Emit, Prop} from 'vue-property-decorator'
 
-  @Component({
-    name: "units-switch"
-  })
-  export default class UnitsSwitch extends Vue {
+@Component({
+  name: "units-switch"
+})
+export default class UnitsSwitch extends Vue {
 
-    @Emit('change')
-    unitChanged(unit) {
-      return unit
-    }
-
-    @Prop(String)
-    value: string
-
+  @Emit('change')
+  unitChanged(unit) {
+    return unit
   }
+
+  @Prop(String)
+  value: string
+
+}
 </script>
 <style scoped>
-  ion-segment {
-    width: 68px;
-    border: 2px solid var(--ion-color-light);
-    background-color: var(--ion-color-light);
-    overflow: hidden;
-  }
+ion-segment {
+  width: 68px;
+  border: 2px solid var(--ion-color-light);
+  background-color: var(--ion-color-light);
+  overflow: hidden;
+}
 
-  ion-segment-button {
-    height: 30px;
-    --background-checked: white;
-    --color-checked: var(--ion-color-primary);
-    font-weight: bold;
-  }
+ion-segment-button {
+  height: 30px;
+  --background-checked: white;
+  --color-checked: var(--ion-color-primary);
+  font-weight: bold;
+}
 
 
 </style>

@@ -12,22 +12,22 @@ const ipLocationURL = 'https://get.geojs.io/v1/ip/geo.json'
 
 export default class LocationProvider {
 
-  getCurrentCoords(): Promise<Coords> {
-    return Geolocation.getCurrentPosition()
-      .then((position) => new Coords(position.coords.latitude, position.coords.longitude))
-      .catch(() => this.getLocationByIp())
-      .then((location: Location) => location.coords)
-      .catch(() => Promise.reject(new LocationError()))
-  }
+    getCurrentCoords(): Promise<Coords> {
+        return Geolocation.getCurrentPosition()
+            .then(({coords}) => new Coords(coords.latitude, coords.longitude))
+            .catch(() => this.getLocationByIp()
+                .then((location: Location) => location.coords))
+            .catch(() => Promise.reject(new LocationError()))
+    }
 
-  public getLocationByIp(): Promise<Location> {
-    return axios.get(ipLocationURL)
-      .then(({data}) => new Location(new Address(data.city, data.region, data.country, data.country_code), new Coords(data.latitude, data.longitude)))
-  }
+    public getLocationByIp(): Promise<Location> {
+        return axios.get(ipLocationURL)
+            .then(({data}) => new Location(new Address(data.city, data.region, data.country, data.country_code), new Coords(data.latitude, data.longitude)))
+    }
 
-  public calculateDistance(frm: Coords, to: Coords): number {
-    return frm && to ? distance([frm.lat, frm.lng], [to.lat, to.lng]) : Infinity
-  }
+    public calculateDistance(frm: Coords, to: Coords): number {
+        return frm && to ? distance([frm.lat, frm.lng], [to.lat, to.lng]) : Infinity
+    }
 
 }
 

@@ -2,61 +2,63 @@
   <page-transparent-header ref="page">
     <ion-page class="ion-page">
       <transparent-header :no-back="true" :no-gradient="true" :no-content="true"></transparent-header>
-      <ion-content :scroll-events="true" class="user-content min-h-screen fullscreen" @ionScroll="$refs['page'].scrolled($event)">
+      <ion-content :scroll-events="true" class="user-content min-h-screen fullscreen"
+                   @ionScroll="$refs['page'].scrolled($event)">
         <div class="bg-poly bg-poly-1 h-72 lg:h-88 ios:h-72 sm:ios:h-72 lg:ios:h-72 xl:ios:h-88"></div>
         <div class="mb-1 ios:mb-3" style="padding-top: 2px"/>
-        <div class="-mt-24 pt-3 sm:ios:-mt-32 lg:-mt-32 xl:-mt-40 z-10 sm:ios:pt-4">
-          <div class="sm:ios:pt-3"></div>
+        <div class="-mt-24 pt-4 sm:ios:-mt-32 lg:-mt-32 xl:-mt-40 z-10 sm:ios:pt-4">
+          <div class="sm:ios:pt-3" style="padding-top: 2px"></div>
           <wave :num="1"/>
         </div>
         <div class="-mt-40 lg:-mt-48 flex flex-col justify-center items-center pt-4 ios:-mt-40  lg:ios:-mt-56">
-          <avatar class="w-32 lg:w-40" :src="(user && user.picture && user.picture.publicUrl) || '/img/user-placeholder.png'"></avatar>
+          <avatar class="w-32 lg:w-40"
+                  :src="(user && user.picture && user.picture.publicUrl) || '/img/user-placeholder.png'"></avatar>
           <ion-skeleton-text class="w-32" v-if="!user"></ion-skeleton-text>
-          <ion-label v-else class="font-bold text-xl -ml-1">{{user.username}}</ion-label>
+          <ion-label v-else class="font-bold text-xl -ml-1">{{ user.username }}</ion-label>
         </div>
 
         <hr class="mt-4 mx-4">
-      <!--
-        <div class="ripple-parent ion-activatable py-4">
-          <div class="flex items-baseline justify-center -ml-1">
-            <div class="w-8">
-              <img :src="require(`@/assets/img/levels/${userLevelAndPercentage[0]}.svg`)">
-            </div>
-            <ion-label class="ml-2 text-3xl economica">{{$t(userLevelAndPercentage[0])}}</ion-label>
-          </div>
-          <div class="flex justify-between items-center px-4">
-            <div class="flex">
-              <div class="w-6 mr-2 flex justify-center items-center">
-                <img src="@/assets/img/icons/trash.svg">
+        <!--
+          <div class="ripple-parent ion-activatable py-4">
+            <div class="flex items-baseline justify-center -ml-1">
+              <div class="w-8">
+                <img :src="require(`@/assets/img/levels/${userLevelAndPercentage[0]}.svg`)">
               </div>
-              <ion-label class="economica text-2xl font-bold" color="dark">
-                {{6 + ' ' + $t('cleanups').toLowerCase()}}
-              </ion-label>
+              <ion-label class="ml-2 text-3xl economica">{{$t(userLevelAndPercentage[0])}}</ion-label>
             </div>
-            <div class="flex items-enter mr-1">
-              <div class="w-6 mr-2 flex justify-center items-center">
-                <img src="@/assets/img/icons/liters_outline.svg">
+            <div class="flex justify-between items-center px-4">
+              <div class="flex">
+                <div class="w-6 mr-2 flex justify-center items-center">
+                  <img src="@/assets/img/icons/trash.svg">
+                </div>
+                <ion-label class="economica text-2xl font-bold" color="dark">
+                  {{6 + ' ' + $t('cleanups').toLowerCase()}}
+                </ion-label>
               </div>
-              <ion-label class="economica text-2xl font-bold" color="dark">25 {{$t('liters').toLowerCase()}}</ion-label>
+              <div class="flex items-enter mr-1">
+                <div class="w-6 mr-2 flex justify-center items-center">
+                  <img src="@/assets/img/icons/liters_outline.svg">
+                </div>
+                <ion-label class="economica text-2xl font-bold" color="dark">25 {{$t('liters').toLowerCase()}}</ion-label>
+              </div>
             </div>
+            <div class="mt-2 px-3">
+              <progress-bar :value="56"></progress-bar>
+            </div>
+            <ion-ripple-effect></ion-ripple-effect>
           </div>
-          <div class="mt-2 px-3">
-            <progress-bar :value="56"></progress-bar>
+
+          <hr class="mb-4 mb-2 mx-4">
+
+          <div class="p-2 lg:px-24 -mt-4">
+            <ion-card button class="lg:h-64">
+              <community-map/>
+            </ion-card>
           </div>
-          <ion-ripple-effect></ion-ripple-effect>
-        </div>
 
-        <hr class="mb-4 mb-2 mx-4">
+          <hr>
 
-        <div class="p-2 lg:px-24 -mt-4">
-          <ion-card button class="lg:h-64">
-            <community-map/>
-          </ion-card>
-        </div>
-
-        <hr>
-
-        -->
+          -->
 
 
         <ion-list lines="inset" class="pt-0 mb-20 list-large-items">
@@ -76,7 +78,7 @@
           -->
           <ion-item button detail="true" @click="$router.push('/settings')">
             <ion-icon slot="start" :src="require('ionicons5/dist/svg/settings-outline.svg')" color="dark"></ion-icon>
-            <ion-label class="my-4">{{$t('settings')}}</ion-label>
+            <ion-label class="my-4">{{ $t('settings') }}</ion-label>
           </ion-item>
         </ion-list>
         <!--
@@ -119,62 +121,49 @@
   </page-transparent-header>
 </template>
 <script lang=ts>
-  import Vue from 'vue'
-  import Component from 'vue-class-component'
-  import TransparentHeader from '@/views/components/common/TransparentHeader.vue'
-  import Avatar from '@/views/components/common/Avatar.vue'
-  import {userModule} from '@/store/userModule'
-  import {cleanupsModule} from '@/store/activitiesModule'
-  import ProgressBar from '@/views/components/user/ProgressBar.vue'
-  import LevelCalculator from '@/tools/LevelCalculator'
-  import {UserLevel} from '@/types/UserLevel'
-  import Wave from '@/views/components/common/Wave.vue'
-  import CommunityMap from '@/views/components/community/CommunityMap.vue'
-  import PageTransparentHeader from '@/views/components/common/PageTransparentHeader.vue'
+import Vue from 'vue'
+import Component from 'vue-class-component'
+import TransparentHeader from '@/views/components/common/TransparentHeader.vue'
+import Avatar from '@/views/components/common/Avatar.vue'
+import {userModule} from '@/store/userModule'
+import ProgressBar from '@/views/components/user/ProgressBar.vue'
+import {UserLevel} from '@/types/UserLevel'
+import Wave from '@/views/components/common/Wave.vue'
+import CommunityMap from '@/views/components/community/CommunityMap.vue'
+import PageTransparentHeader from '@/views/components/common/PageTransparentHeader.vue'
 
-  @Component({
-    name: "current-user-page",
-    components: {PageTransparentHeader, CommunityMap, Wave, ProgressBar, Avatar, TransparentHeader}
-  })
-  export default class CurrentUserPage extends Vue {
+@Component({
+  name: "current-user-page",
+  components: {PageTransparentHeader, CommunityMap, Wave, ProgressBar, Avatar, TransparentHeader}
+})
+export default class CurrentUserPage extends Vue {
 
-    get user() {
-      return userModule.getCurrentUser
-    }
-
-    get userLevelAndPercentage(): [UserLevel, number] {
-      return LevelCalculator.getUserLevelAndPercentage(Object.values(this.userCleanups))
-    }
-
-    get userCleanups() {
-      return cleanupsModule.getUserCleanups || {}
-    }
-
-    get sortedCleanups() {
-      return Object.values(this.userCleanups).sort((a, b) => a.date.getMilliseconds() - b.date.getMilliseconds())
-    }
-
-    get userWeight() {
-      return Object.values(this.userCleanups).reduce((acc, c) => acc + c.volume, 0)
-    }
-
-    mounted(): void {
-      //const userId = this.$route.params.id
-      //userModule.fetchCurrentUser()
-      //cleanupsModule.fetchFromUser(userId)
-    }
-
-    init() {
-      return
-    }
-
-    exit() {
-      return
-    }
-
-    openCleanup(id: string) {
-      this.$router.push({name: 'Cleanup', params: {id}})
-    }
-
+  get user() {
+    return userModule.getCurrentUser
   }
+
+  get userLevelAndPercentage(): [UserLevel, number] {
+    return [UserLevel.BUSH, 0]
+    //return LevelCalculator.getUserLevelAndPercentage(Object.values(this.userCleanups))
+  }
+
+  mounted(): void {
+    //const userId = this.$route.params.id
+    //userModule.fetchCurrentUser()
+    //cleanupsModule.fetchFromUser(userId)
+  }
+
+  init() {
+    return
+  }
+
+  exit() {
+    return
+  }
+
+  openCleanup(id: string) {
+    this.$router.push({name: 'Cleanup', params: {id}})
+  }
+
+}
 </script>

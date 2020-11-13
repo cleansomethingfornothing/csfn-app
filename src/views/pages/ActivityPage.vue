@@ -27,7 +27,7 @@
             <!-- Title -->
             <ion-skeleton-text v-if="!activity" animated style="width: 70%"></ion-skeleton-text>
             <ion-label v-else class="text-xl font-bold">
-              {{title}}
+              {{ title }}
             </ion-label>
             <hr class="my-3" v-if="!activity || activity.done">
 
@@ -35,7 +35,7 @@
             <ion-skeleton-text v-if="!activity" animated style="width: 50%"></ion-skeleton-text>
             <div v-if="activity && activity.done" class="flex items-center">
               <img src="@/assets/img/icons/cleanup-done.svg" class="w-6 mr-2">
-              <ion-label color="dark" class="text-md">{{$t('cleaned-weight', {param: activity.weight})}}
+              <ion-label color="dark" class="text-md">{{ $t('cleaned-weight', {param: activity.weight}) }}
               </ion-label>
             </div>
             <hr class="my-3" v-if="!activity || activity.done">
@@ -47,14 +47,14 @@
               <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
               <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
             </div>
-            <ion-text v-else>{{activity.description}}</ion-text>
+            <ion-text v-else>{{ activity.description }}</ion-text>
             <br>
             <ion-skeleton-text v-if="!activity" class="mb-3 mt-2" animated style="width: 30%"></ion-skeleton-text>
             <ion-chip v-else class="-ml-1 mt-4" color="dark" @click="$router.push('/user/' + activity.user.username)">
               <ion-avatar>
                 <img :src="activity.user.picture">
               </ion-avatar>
-              <ion-label class="mr-2">{{activity.user.username}}</ion-label>
+              <ion-label class="mr-2">{{ activity.user.username }}</ion-label>
             </ion-chip>
 
             <hr class="mt-3 mb-1">
@@ -64,7 +64,7 @@
             <ion-item v-else class="pl-0" lines="none">
               <ion-icon name="calendar" color="dark" class="mr-2"></ion-icon>
               <ion-label color="dark">
-                {{$t('published-on')}} {{formattedDate}}
+                {{ $t('published-on') }} {{ formattedDate }}
               </ion-label>
             </ion-item>
 
@@ -74,8 +74,8 @@
             <ion-skeleton-text class="my-4" v-if="!activity" animated style="width: 60%"></ion-skeleton-text>
             <ion-item v-else class="pl-0" lines="none">
               <ion-icon name="location" color="primary" class="mr-2"></ion-icon>
-              <ion-label class="font-bold">{{activity.location.address.city}}, {{activity.location.address.state}},
-                {{activity.location.address.country}}
+              <ion-label class="font-bold">{{ activity.location.address.city }}, {{ activity.location.address.state }},
+                {{ activity.location.address.country }}
               </ion-label>
             </ion-item>
 
@@ -95,95 +95,95 @@
   </page-transparent-header>
 </template>
 <script lang="ts">
-  import Vue from 'vue'
-  import Component from 'vue-class-component'
-  import {cleanupsModule} from '@/store/activitiesModule'
-  import {userModule} from '@/store/userModule'
-  import Activity from '@/types/Activity'
-  import User from '@/types/User'
-  import ModalPresenter from '@/tools/ModalPresenter'
-  import MapModal from '@/views/modals/MapModal.vue'
-  import moment from 'moment'
-  import PicturesModal from '@/views/modals/PicturesModal.vue'
-  import TransparentHeader from '@/views/components/common/TransparentHeader.vue'
-  import {Ref} from 'vue-property-decorator'
-  import PageTransparentHeader from '@/views/components/common/PageTransparentHeader.vue'
-  import {ActivityType} from '@/types/ActivityType'
+import Vue from 'vue'
+import Component from 'vue-class-component'
+import {userModule} from '@/store/userModule'
+import User from '@/types/User'
+import ModalPresenter from '@/tools/ModalPresenter'
+import MapModal from '@/views/modals/MapModal.vue'
+import moment from 'moment'
+import PicturesModal from '@/views/modals/PicturesModal.vue'
+import TransparentHeader from '@/views/components/common/TransparentHeader.vue'
+import {Ref} from 'vue-property-decorator'
+import PageTransparentHeader from '@/views/components/common/PageTransparentHeader.vue'
+import Cleanup from "@/types/Cleanup";
 
-  @Component({
-    name: 'cleanup-page',
-    components: {PageTransparentHeader, TransparentHeader}
-  })
-  export default class ActivityPage extends Vue {
+@Component({
+  name: 'cleanup-page',
+  components: {PageTransparentHeader, TransparentHeader}
+})
+export default class ActivityPage extends Vue {
 
-    KEY = process.env.VUE_APP_GOOGLE_API_KEY
+  KEY = process.env.VUE_APP_GOOGLE_API_KEY
 
-    width = 0
+  width = 0
 
-    @Ref('activity-content')
-    content: HTMLIonContentElement
+  @Ref('activity-content')
+  content: HTMLIonContentElement
 
-    get activity(): Activity {
-      return cleanupsModule.getCleanup(this.$route.params.id)
-    }
-
-    get title(): string {
-      return this.activity.type === ActivityType.event ? this.activity.title : `${this.$t(this.activity.type + '-in')} ${this.activity.location.address.city}`
-    }
-
-    get currentUser(): User {
-      return userModule.getCurrentUser
-    }
-
-    get formattedDate() {
-      return this.activity && moment(this.activity.date).format('D MMMM YYYY')
-    }
-
-    mounted() {
-      cleanupsModule.fetchOne(this.$route.params.id)
-      setTimeout(() => {
-        this.width = window.innerWidth
-      })
-    }
-
-    openMap() {
-      ModalPresenter.present(this.$ionic, MapModal, {
-        title: this.title,
-        origin: this.activity.location.coords,
-        pin: '/img/cleanup_pin.png'
-      })
-    }
-
-    openPictures(selected) {
-      ModalPresenter.present(this.$ionic, PicturesModal, {pictures: this.activity.pictures, selected})
-    }
-
-    edit() {
-      return
-    }
+  get activity(): Cleanup {
+    return null
+    //return cleanupsModule.getCleanup(this.$route.params.id)
   }
+
+  get title(): string {
+    return null
+    //return this.activity.type === ActivityType.event ? this.activity.title : `${this.$t(this.activity.type + '-in')} ${this.activity.location.address.city}`
+  }
+
+  get currentUser(): User {
+    return userModule.getCurrentUser
+  }
+
+  get formattedDate() {
+    return this.activity && moment(this.activity.date).format('D MMMM YYYY')
+  }
+
+  mounted() {
+    //cleanupsModule.fetchOne(this.$route.params.id)
+    setTimeout(() => {
+      this.width = window.innerWidth
+    })
+  }
+
+  openMap() {
+    ModalPresenter.present(this.$ionic, MapModal, {
+      title: this.title,
+      origin: this.activity.location.coords,
+      pin: '/img/cleanup_pin.png'
+    })
+  }
+
+  openPictures(selected) {
+    ModalPresenter.present(this.$ionic, PicturesModal, {pictures: this.activity.pictures, selected})
+  }
+
+  edit() {
+    return
+  }
+}
 </script>
 <style>
-  .cleanup-page__picture {
-    background-color: var(--ion-color-light);
-  }
+.cleanup-page__picture {
+  background-color: var(--ion-color-light);
+}
 
-  .cleanup-page__picture img {
-    width: 100%;
-    object-fit: cover;
-    object-position: center center;
-  }
+.cleanup-page__picture img {
+  width: 100%;
+  object-fit: cover;
+  object-position: center center;
+}
 
-  ion-item.pl-0 {
-    --padding-start: 0;
-  }
+ion-item.pl-0 {
+  --padding-start: 0;
+}
 
-  .map-wrapper {
-    background-color: var(--ion-color-light);
-  }
+.map-wrapper {
+  background-color: var(--ion-color-light);
+}
 
-  .map-wrapper > img {
-    object-position: center center;
-    object-fit: cover;
-  }
+.map-wrapper > img {
+  object-position: center center;
+  object-fit: cover;
+}
 </style>

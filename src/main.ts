@@ -21,6 +21,6 @@ registerWebPlugin(FacebookLogin)
 Vue.use(Ionic)
 
 new Vue({store, router, i18n, render: h => h(Main)})
-  .$mount('#app')
+    .$mount('#app')
 
 defineCustomElements(window)

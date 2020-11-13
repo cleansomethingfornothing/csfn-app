@@ -20,50 +20,50 @@
   </div>
 </template>
 <script lang=ts>
-  import Vue from 'vue'
-  import Map from '@/tools/Map'
-  import Component from 'vue-class-component'
-  import {Emit, Prop, Watch} from 'vue-property-decorator'
-  import Activity from '@/types/Activity'
-  import Coords from '@/types/Coords'
-  import MapCleanupCard from '@/views/components/home/MapCleanupCard.vue'
+import Vue from 'vue'
+import Map from '@/tools/Map'
+import Component from 'vue-class-component'
+import {Emit, Prop, Watch} from 'vue-property-decorator'
+import Coords from '@/types/Coords'
+import MapCleanupCard from '@/views/components/home/MapCleanupCard.vue'
+import Cleanup from "@/types/Cleanup";
 
-  @Component({
-    name: "cleanups-map",
-    components: {MapCleanupCard}
-  })
-  export default class CleanupsMap extends Vue {
+@Component({
+  name: "cleanups-map",
+  components: {MapCleanupCard}
+})
+export default class CleanupsMap extends Vue {
 
-    map: Map = null
+  map: Map = null
 
-    selectedCleanup: Activity = null
+  selectedCleanup: Cleanup = null
 
-    @Prop(Object)
-    cleanups: { [id: string]: Activity }
+  @Prop(Object)
+  cleanups: { [id: string]: Cleanup }
 
-    @Prop(Object)
-    origin: Coords
+  @Prop(Object)
+  origin: Coords
 
-    @Watch('origin')
-    originChange(origin) {
-      if (!this.map) {
-        this.init()
-      } else {
-        this.map.setOrigin(origin)
-      }
+  @Watch('origin')
+  originChange(origin) {
+    if (!this.map) {
+      this.init()
+    } else {
+      this.map.setOrigin(origin)
     }
+  }
 
-    @Emit('click')
-    click() {
-      return this.selectedCleanup.id
-    }
+  @Emit('click')
+  click() {
+    return this.selectedCleanup.id
+  }
 
-    @Watch('cleanups')
-    cleanupsChanged(cleanups: { [id: string]: Activity }) {
-      if (!cleanups) return
-      this.map.removeMarkers()
-      for (const cleanup of Object.values(cleanups)) {
-        this.map.addMarker(cleanup.location.coords,
+  @Watch('cleanups')
+  cleanupsChanged(cleanups: { [id: string]: Cleanup }) {
+    if (!cleanups) return
+    this.map.removeMarkers()
+    for (const cleanup of Object.values(cleanups)) {
+      this.map.addMarker(cleanup.location.coords,
           '/img/cleanup_pin.png',
           () => {
             this.selectedCleanup = undefined
@@ -72,31 +72,31 @@
               this.selectedCleanup = cleanup
             }, 100)
           })
-      }
     }
-
-    mounted(): void {
-      if (this.origin) {
-        this.init()
-      }
-    }
-
-    init() {
-      this.map = new Map({
-        element: 'home-map',
-        isInput: false,
-        origin: this.origin,
-        zoom: 10,
-        onTouch: () => this.selectedCleanup = undefined
-      })
-      this.cleanupsChanged(this.cleanups)
-    }
-
-    openCleanup(id: string) {
-      this.$router.push({name: 'Cleanup', params: {id}})
-    }
-
   }
+
+  mounted(): void {
+    if (this.origin) {
+      this.init()
+    }
+  }
+
+  init() {
+    this.map = new Map({
+      element: 'home-map',
+      isInput: false,
+      origin: this.origin,
+      zoom: 10,
+      onTouch: () => this.selectedCleanup = undefined
+    })
+    this.cleanupsChanged(this.cleanups)
+  }
+
+  openCleanup(id: string) {
+    this.$router.push({name: 'Cleanup', params: {id}})
+  }
+
+}
 </script>
 <style scoped>
 

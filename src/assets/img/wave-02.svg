@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 width="800px" height="205px" viewBox="0 0 800 205" enable-background="new 0 0 800 205" xml:space="preserve">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" x="0px"
+     y="0px"
+     width="800px" height="205px" viewBox="0 0 800 205" enable-background="new 0 0 800 205" xml:space="preserve">
 <polygon id="WAVE3" fill="#FFFFFF" points="1342.841,63.258 1189.44,118.386 1052.817,36.893 801,137.561 801,139 800,138.166 
 	800,205 1600,205 1600,22.511 1481.86,113.594 "/>
-<polygon id="WAVE2" fill="#FFFFFF" points="491.25,87.935 326.224,32.889 165.75,90.328 0,0 0,139 0,205 800,205 800,138.166 
+    <polygon id="WAVE2" fill="#FFFFFF" points="491.25,87.935 326.224,32.889 165.75,90.328 0,0 0,139 0,205 800,205 800,138.166
 	653.637,16.135 "/>
-<polygon id="WAVE1" fill="#FFFFFF" points="0,0.395 0,139 0,0.395 -158.308,95.663 -329.585,16.562 -517.14,114.823 
+    <polygon id="WAVE1" fill="#FFFFFF" points="0,0.395 0,139 0,0.395 -158.308,95.663 -329.585,16.562 -517.14,114.823
 	-681.327,42.898 -799,116.166 -799,204 1,204 1,0.545 0.344,0.188 "/>
 </svg>

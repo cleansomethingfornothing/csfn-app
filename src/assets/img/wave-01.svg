@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 width="800px" height="203.812px" viewBox="0 0 800 203.812" enable-background="new 0 0 800 203.812" xml:space="preserve">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" x="0px"
+     y="0px"
+     width="800px" height="203.812px" viewBox="0 0 800 203.812" enable-background="new 0 0 800 203.812"
+     xml:space="preserve">
 <polygon id="WAVE2" fill="#FFFFFF" points="1290.25,87.747 1125.224,32.702 964.75,90.141 799,-0.188 799,138.812 799,204.812 
 	1599,204.812 1599,137.979 1452.637,15.948 "/>
-<polygon id="WAVE1" fill="#FFFFFF" points="799,0.207 799,138.812 799,0.207 640.692,95.476 469.415,16.375 281.86,114.636 
+    <polygon id="WAVE1" fill="#FFFFFF" points="799,0.207 799,138.812 799,0.207 640.692,95.476 469.415,16.375 281.86,114.636
 	117.673,42.71 0,115.978 0,203.812 800,203.812 800,0.357 799.344,0 "/>
 </svg>

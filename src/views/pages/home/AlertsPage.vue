@@ -13,7 +13,7 @@
             <div class="rounded-full overflow-hidden shadow ion-activatable relative z-10" style="margin-top: 15%">
               <ion-item>
                 <ion-icon name="location" slot="start" color="secondary"></ion-icon>
-                <ion-label>{{address}}</ion-label>
+                <ion-label>{{ address }}</ion-label>
               </ion-item>
               <ion-ripple-effect></ion-ripple-effect>
             </div>
@@ -38,52 +38,52 @@
   </page-transparent-header>
 </template>
 <script lang=ts>
-  import Vue from 'vue'
-  import Component from 'vue-class-component'
-  import Wave from '@/views/components/common/Wave.vue'
-  import TransparentHeader from '@/views/components/common/TransparentHeader.vue'
-  import {cleanupsModule} from '@/store/activitiesModule'
-  import CleanupsList from '@/views/components/home/CleanupsList.vue'
-  import {locationModule} from '@/store/locationModule'
-  import {Ref} from 'vue-property-decorator'
-  import PageTransparentHeader from '@/views/components/common/PageTransparentHeader.vue'
-  import PlaceholderCard from '@/views/components/home/PlaceholderCard.vue'
-  import {addressToString} from '@/tools/Utils'
+import Vue from 'vue'
+import Component from 'vue-class-component'
+import Wave from '@/views/components/common/Wave.vue'
+import TransparentHeader from '@/views/components/common/TransparentHeader.vue'
+import CleanupsList from '@/views/components/home/CleanupsList.vue'
+import {locationModule} from '@/store/locationModule'
+import {Ref} from 'vue-property-decorator'
+import PageTransparentHeader from '@/views/components/common/PageTransparentHeader.vue'
+import PlaceholderCard from '@/views/components/home/PlaceholderCard.vue'
+import {addressToString} from '@/tools/Utils'
 
-  @Component({
-    name: "alerts-page",
-    components: {PlaceholderCard, PageTransparentHeader, CleanupsList, TransparentHeader, Wave}
-  })
-  export default class AlertsPage extends Vue {
+@Component({
+  name: "alerts-page",
+  components: {PlaceholderCard, PageTransparentHeader, CleanupsList, TransparentHeader, Wave}
+})
+export default class AlertsPage extends Vue {
 
 
-    @Ref('alerts-content')
-    content: HTMLIonContentElement
+  @Ref('alerts-content')
+  content: HTMLIonContentElement
 
-    get alerts() {
-      return cleanupsModule.getAlerts
-    }
-
-    get address() {
-      return locationModule.getAddress ? addressToString(locationModule.getAddress) : ''
-    }
-
-    get coords() {
-      return locationModule.getCoords
-    }
-
-    init() {
-      cleanupsModule.fetch()
-    }
-
-    open(id) {
-      this.$router.push('/activity/' + id)
-    }
-
-    exit() {
-      return
-    }
+  get alerts() {
+    return []
+    //return cleanupsModule.getAlerts
   }
+
+  get address() {
+    return locationModule.getAddress ? addressToString(locationModule.getAddress) : ''
+  }
+
+  get coords() {
+    return locationModule.getCoords
+  }
+
+  init() {
+    //cleanupsModule.fetch()
+  }
+
+  open(id) {
+    this.$router.push('/activity/' + id)
+  }
+
+  exit() {
+    return
+  }
+}
 </script>
 <style scoped>
 

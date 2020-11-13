@@ -22,30 +22,30 @@
   </ion-page>
 </template>
 <script lang="ts">
-    import {Component, Vue} from 'vue-property-decorator'
+import {Component, Vue} from 'vue-property-decorator'
 
-    @Component({
-        name: 'welcome-page'
-    })
-    export default class WelcomePage extends Vue {
+@Component({
+  name: 'welcome-page'
+})
+export default class WelcomePage extends Vue {
 
-        isEnd = false
+  isEnd = false
 
-        slideChange() {
-            (this.$refs['slider'] as HTMLIonSlidesElement).isEnd()
-                .then((end) => {
-                    if (this.isEnd && end) {
-                        this.$router.replace('/home')
-                    }
-                    this.isEnd = end
-                })
-        }
+  slideChange() {
+    (this.$refs['slider'] as HTMLIonSlidesElement).isEnd()
+        .then((end) => {
+          if (this.isEnd && end) {
+            this.$router.replace('/home')
+          }
+          this.isEnd = end
+        })
+  }
 
-    }
+}
 </script>
 <style scoped>
-  .welcome-slider {
-    --bullet-background: #222222 !important;
-    --bullet-background-active: #999 !important;
-  }
+.welcome-slider {
+  --bullet-background: #222222 !important;
+  --bullet-background-active: #999 !important;
+}
 </style>

@@ -34,59 +34,59 @@
   </div>
 </template>
 <script lang="ts">
-  import Vue from 'vue'
-  import Component from 'vue-class-component'
-  import {Prop, Ref} from 'vue-property-decorator'
+import Vue from 'vue'
+import Component from 'vue-class-component'
+import {Prop, Ref} from 'vue-property-decorator'
 
-  @Component({
-    name: 'image-preview'
-  })
-  export default class PicturesModal extends Vue {
-    @Prop(Array)
-    public readonly pictures: string[] | Blob[]
+@Component({
+  name: 'image-preview'
+})
+export default class PicturesModal extends Vue {
+  @Prop(Array)
+  public readonly pictures: string[] | Blob[]
 
-    @Prop(Number)
-    public readonly selected: number
+  @Prop(Number)
+  public readonly selected: number
 
-    @Prop(Boolean)
-    public readonly removable: boolean
+  @Prop(Boolean)
+  public readonly removable: boolean
 
-    @Ref('slider')
-    public readonly slider: any
+  @Ref('slider')
+  public readonly slider: any
 
-    get picturesAreBlobs() {
-      return this.pictures[0] instanceof Blob
+  get picturesAreBlobs() {
+    return this.pictures[0] instanceof Blob
+  }
+
+  get pics() {
+    return this.picturesAreBlobs ? (this.pictures as Blob[]).map(p => URL.createObjectURL(p)) : this.pictures
+  }
+
+  mounted() {
+    if (this.pictures.length > 1) {
+      setTimeout(() => {
+        this.slider.update()
+        this.slider.slideTo(this.selected)
+      }, 100)
     }
+  }
 
-    get pics() {
-      return this.picturesAreBlobs ? (this.pictures as Blob[]).map(p => URL.createObjectURL(p)) : this.pictures
-    }
-
-    mounted() {
-      if (this.pictures.length > 1) {
-        setTimeout(() => {
-          this.slider.update()
-          this.slider.slideTo(this.selected)
-        }, 100)
-      }
-    }
-
-    remove() {
-      (this.slider ? this.slider.getActiveIndex() : Promise.resolve(0))
+  remove() {
+    (this.slider ? this.slider.getActiveIndex() : Promise.resolve(0))
         .then((index) => {
           this.$ionic.modalController.dismiss({
             index
           })
         })
-    }
-
-    close() {
-      this.$ionic.modalController.dismiss()
-    }
   }
+
+  close() {
+    this.$ionic.modalController.dismiss()
+  }
+}
 </script>
 <style>
-  .picture-modal ion-toolbar {
-    --border-width: 0 !important;
-  }
+.picture-modal ion-toolbar {
+  --border-width: 0 !important;
+}
 </style>

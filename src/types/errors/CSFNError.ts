@@ -1,4 +1,4 @@
 export default interface CSFNError {
-  message: string
-  param: string
+    message: string
+    param: string
 }

@@ -17,112 +17,111 @@
   </div>
 </template>
 <script lang="ts">
-    import Vue from 'vue'
-    import Component from 'vue-class-component'
-    import {Emit, Prop} from 'vue-property-decorator'
-    import {nativeProvider} from '@/providers/native/native.provider'
-    import {CameraResultType, CameraSource, Plugins} from '@capacitor/core'
+import Vue from 'vue'
+import Component from 'vue-class-component'
+import {Emit, Prop} from 'vue-property-decorator'
+import {nativeProvider} from '@/providers/native/native.provider'
+import {CameraResultType, CameraSource, Plugins} from '@capacitor/core'
 
-    const {Camera} = Plugins
-    @Component({
-        name: 'upload-button'
-    })
-    export default class UploadButton extends Vue {
+const {Camera} = Plugins
+@Component({
+  name: 'upload-button'
+})
+export default class UploadButton extends Vue {
 
-        isMobile = false
+  isMobile = false
 
-        @Prop(Boolean)
-        rounded: boolean
+  @Prop(Boolean)
+  rounded: boolean
 
-        @Prop(Boolean)
-        loading: boolean
+  @Prop(Boolean)
+  loading: boolean
 
-        @Prop(Blob)
-        file: Blob
+  @Prop(Blob)
+  file: Blob
 
-        @Prop(String)
-        url: string
+  @Prop(String)
+  url: string
 
-        get fileUrl() {
-            return URL.createObjectURL(this.file)
-        }
+  get fileUrl() {
+    return URL.createObjectURL(this.file)
+  }
 
-        mounted() {
-            nativeProvider.isMobile()
-                .then((isMobile) => this.isMobile = isMobile)
-        }
+  mounted() {
+    nativeProvider.isMobile()
+        .then((isMobile) => this.isMobile = isMobile)
+  }
 
-        getPicture() {
-            console.log(this.file)
-            if (this.file) {
-                return
-            }
-            this.emitLoading(true)
-            Camera.getPhoto({
-                quality: 100,
-                correctOrientation: true,
-                source: CameraSource.Photos,
-                resultType: CameraResultType.DataUrl
-            })
-                .then((image) => {
-                    return fetch(image.dataUrl)
-                })
-                .then((res) => res.blob())
-                .then((blob) => {
-                    this.emitLoading(false)
-                    this.fileSelected(blob)
-                })
-                .catch(() => {
-                    this.emitLoading(false)
-                })
-        }
-
-        @Emit('select')
-        fileSelected(file: Blob) {
-            return file
-        }
-
-        @Emit('click')
-        click() {
-            return
-        }
-
-        @Emit('loading')
-        emitLoading(loading) {
-            return loading
-        }
+  getPicture() {
+    if (this.file) {
+      return
     }
+    this.emitLoading(true)
+    Camera.getPhoto({
+      quality: 100,
+      correctOrientation: true,
+      source: CameraSource.Photos,
+      resultType: CameraResultType.DataUrl
+    })
+        .then((image) => {
+          return fetch(image.dataUrl)
+        })
+        .then((res) => res.blob())
+        .then((blob) => {
+          this.emitLoading(false)
+          this.fileSelected(blob)
+        })
+        .catch(() => {
+          this.emitLoading(false)
+        })
+  }
+
+  @Emit('select')
+  fileSelected(file: Blob) {
+    return file
+  }
+
+  @Emit('click')
+  click() {
+    return
+  }
+
+  @Emit('loading')
+  emitLoading(loading) {
+    return loading
+  }
+}
 </script>
 <style>
-  .picture-button {
-    border-radius: 1rem;
-  }
+.picture-button {
+  border-radius: 1rem;
+}
 
-  .picture-button.rounded {
-    border-radius: 50%;
-    border: 4px solid #fff;
-    background-color: #eee;
-  }
+.picture-button.rounded {
+  border-radius: 50%;
+  border: 4px solid #fff;
+  background-color: #eee;
+}
 
-  .picture-button .background {
-    border-radius: 1rem;
-    border: 2px dashed #b0b0b0;
-    background: url("/add-picture.png") center center/cover;
-  }
+.picture-button .background {
+  border-radius: 1rem;
+  border: 2px dashed #b0b0b0;
+  background: url("/add-picture.png") center center/cover;
+}
 
-  .picture-button.rounded .background {
-    border-radius: 50%;
-    border: none;
-  }
+.picture-button.rounded .background {
+  border-radius: 50%;
+  border: none;
+}
 
-  .picture-button:after {
-    content: '';
-    display: block;
-    padding-top: 100%;
-  }
+.picture-button:after {
+  content: '';
+  display: block;
+  padding-top: 100%;
+}
 
-  .picture-button img {
-    object-position: center center;
-    object-fit: cover;
-  }
+.picture-button img {
+  object-position: center center;
+  object-fit: cover;
+}
 </style>

@@ -15,33 +15,33 @@
   </ion-card>
 </template>
 <script lang="ts">
-  import Vue from 'vue'
-  import Component from 'vue-class-component'
+import Vue from 'vue'
+import Component from 'vue-class-component'
 
-  @Component({
-    name: 'placeholder-card'
-  })
-  export default class PlaceholderCard extends Vue {
+@Component({
+  name: 'placeholder-card'
+})
+export default class PlaceholderCard extends Vue {
 
-  }
+}
 </script>
 <style>
-  .placeholder-card__image {
-    position: relative;
-    background-color: #eee;
-  }
+.placeholder-card__image {
+  position: relative;
+  background-color: #eee;
+}
 
-  .placeholder-card__image > img {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center center;
-  }
+.placeholder-card__image > img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+}
 
-  .placeholder-card__image:after {
-    content: '';
-    padding-top: 66%;
-    display: block;
-  }
+.placeholder-card__image:after {
+  content: '';
+  padding-top: 66%;
+  display: block;
+}
 </style>

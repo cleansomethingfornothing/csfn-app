@@ -8,64 +8,64 @@ import {imagesProvider} from '@/providers/data/images.provider'
 @Module
 class UserModule extends VuexModule {
 
-  currentUser: User = null
-  viewingUser: User = null
+    currentUser: User = null
+    viewingUser: User = null
 
-  constructor() {
-    super({store, name: 'user'})
-  }
-
-  get getCurrentUser(): User {
-    return this.currentUser
-  }
-
-  get getViewingUser(): User {
-    return this.viewingUser
-  }
-
-  @Mutation
-  setCurrentUser(user: User) {
-    this.currentUser = user
-  }
-
-  @Mutation
-  setViewingUser(user: User) {
-    this.viewingUser = user
-  }
-
-  @Action
-  fetchViewingUser(id: string) {
-    if (id === this.currentUser.username) {
-      this.setViewingUser(this.currentUser)
-      return Promise.resolve()
+    constructor() {
+        super({store, name: 'user'})
     }
-    return userProvider.fetchUser()
-      .then((user) => {
-        this.setViewingUser(user)
-      })
-  }
 
-  @Action
-  fetchCurrentUser() {
-    return authProvider.fetchCurrentUser()
-      .then((user) => {
-        this.setCurrentUser(user)
-      })
-  }
+    get getCurrentUser(): User {
+        return this.currentUser
+    }
 
-  @Action
-  updateUserPicture(picture) {
-    return imagesProvider.uploadImages([picture as File], 'update-profile')
-      .then((images) => this.updateUser({picture: {id: images[0].id}}))
-  }
+    get getViewingUser(): User {
+        return this.viewingUser
+    }
 
-  @Action
-  updateUser(user: User) {
-    return userProvider.updateUser(this.currentUser.id, user)
-      .then((user) => {
-        this.setCurrentUser(user)
-      })
-  }
+    @Mutation
+    setCurrentUser(user: User) {
+        this.currentUser = user
+    }
+
+    @Mutation
+    setViewingUser(user: User) {
+        this.viewingUser = user
+    }
+
+    @Action
+    fetchViewingUser(id: string) {
+        if (id === this.currentUser.username) {
+            this.setViewingUser(this.currentUser)
+            return Promise.resolve()
+        }
+        return userProvider.fetchUser()
+            .then((user) => {
+                this.setViewingUser(user)
+            })
+    }
+
+    @Action
+    fetchCurrentUser() {
+        return authProvider.fetchCurrentUser()
+            .then((user) => {
+                this.setCurrentUser(user)
+            })
+    }
+
+    @Action
+    updateUserPicture(picture) {
+        return imagesProvider.uploadImages([picture as File], 'update-profile')
+            .then((images) => this.updateUser({picture: {id: images[0].id}}))
+    }
+
+    @Action
+    updateUser(user: User) {
+        return userProvider.updateUser(this.currentUser.id, user)
+            .then((user) => {
+                this.setCurrentUser(user)
+            })
+    }
 }
 
 export const userModule = new UserModule()

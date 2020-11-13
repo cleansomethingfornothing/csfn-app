@@ -16,7 +16,7 @@
         -->
         <ion-buttons slot="end">
           <div
-            class="mr-2 mt-1 sm:mt-0 ion-activatable ripple-parent w-8 h-8 rounded-full overflow-hidden flex justify-center items-center cursor-pointer">
+              class="mr-2 mt-1 sm:mt-0 ion-activatable ripple-parent w-8 h-8 rounded-full overflow-hidden flex justify-center items-center cursor-pointer">
             <img alt="Profile picture" :src="user.picture" class="w-full h-full object-cover object-center"
                  @click="$router.push({name: 'User', params:{ id: user.username}})">
             <ion-ripple-effect></ion-ripple-effect>
@@ -30,9 +30,9 @@
             <home-header-button @click="click('location')">
               <ion-icon name="location" color="primary"></ion-icon>
               <ion-spinner name="dots" v-if="address === undefined"></ion-spinner>
-              <ion-label v-if="address === null">{{$t('select-location')}}</ion-label>
+              <ion-label v-if="address === null">{{ $t('select-location') }}</ion-label>
               <ion-label class="ion-color-dark" v-if="address">
-                {{address.city}}, {{address.state}}
+                {{ address.city }}, {{ address.state }}
               </ion-label>
               <i></i>
             </home-header-button>
@@ -56,67 +56,67 @@
   </div>
 </template>
 <script lang="ts">
-  import Vue from 'vue'
-  import Component from 'vue-class-component'
-  import {Emit, Prop} from 'vue-property-decorator'
-  import HomeHeaderButton from '@/views/components/home/HomeHeaderButton.vue'
-  import Address from '@/types/Address'
-  import User from '@/types/User'
+import Vue from 'vue'
+import Component from 'vue-class-component'
+import {Emit, Prop} from 'vue-property-decorator'
+import HomeHeaderButton from '@/views/components/home/HomeHeaderButton.vue'
+import Address from '@/types/Address'
+import User from '@/types/User'
 
-  @Component({
-    name: 'home-header',
-    components: {HomeHeaderButton}
-  })
-  export default class HomeHeader extends Vue {
-    @Prop(Boolean)
-    readonly hideTopToolbar!: boolean
+@Component({
+  name: 'home-header',
+  components: {HomeHeaderButton}
+})
+export default class HomeHeader extends Vue {
+  @Prop(Boolean)
+  readonly hideTopToolbar!: boolean
 
-    @Prop(Object)
-    readonly address: Address
+  @Prop(Object)
+  readonly address: Address
 
-    @Prop(Object)
-    user: User
+  @Prop(Object)
+  user: User
 
-    @Prop(Boolean)
-    showMap: boolean
+  @Prop(Boolean)
+  showMap: boolean
 
-    @Emit('click')
-    click(modal) {
-      return modal
-    }
+  @Emit('click')
+  click(modal) {
+    return modal
   }
+}
 </script>
 <style>
-  .home-header > ion-header {
-    transition: margin-top 0.4s;
-  }
+.home-header > ion-header {
+  transition: margin-top 0.4s;
+}
 
-  .home-header.scrolled > ion-header {
-    margin-top: -41px;
-  }
+.home-header.scrolled > ion-header {
+  margin-top: -41px;
+}
 
-  .md .home-header.scrolled > ion-header {
-    margin-top: -50px !important;
-  }
+.md .home-header.scrolled > ion-header {
+  margin-top: -50px !important;
+}
 
-  .home-header > ion-toolbar:nth-child(2) {
-    border-bottom: 1px solid #ddd;
-  }
+.home-header > ion-toolbar:nth-child(2) {
+  border-bottom: 1px solid #ddd;
+}
 
-  .home-bubbles {
-    display: flex;
-    align-items: center;
-  }
+.home-bubbles {
+  display: flex;
+  align-items: center;
+}
 
-  .home-bubble {
-    display: inline;
-  }
+.home-bubble {
+  display: inline;
+}
 
-  .home-bubble + .home-bubble {
-    margin-left: 0.5em;
-  }
+.home-bubble + .home-bubble {
+  margin-left: 0.5em;
+}
 
-  .home-location-button {
-    width: calc(100% - 36px - 36px - 1em);
-  }
+.home-location-button {
+  width: calc(100% - 36px - 36px - 1em);
+}
 </style>

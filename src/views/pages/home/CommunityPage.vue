@@ -12,14 +12,14 @@
       <ion-content ref="community-content" class="fullscreen text-left" :scroll-events="true" color="white"
                    @ionScroll="scrolled">
         <div
-          class="p-4 lg:p-16 bg-poly bg-poly-2 h-64 lg:h-88 ios:h-60 sm:ios:h-64 lg:ios:h-72 xl:ios:p-24 xl:ios:h-88 flex flex-col">
+            class="p-4 lg:p-16 bg-poly bg-poly-2 h-64 lg:h-88 ios:h-60 sm:ios:h-64 lg:ios:h-72 xl:ios:p-24 xl:ios:h-88 flex flex-col">
           <!-- Total number -->
           <div class="h-toolbar-top sm:ios:mb-2"></div>
           <div class="flex flex-col justify-center h-full">
             <div class="flex justify-between items-center">
               <div
-                class="flex flex-col items-center justify-center relative w-14 mb-6 sm:ml-4 md:ml-8 h-14 rounded-full ion-activatable overflow-hidden shadow-md"
-              @click="$router.push('/world-map')">
+                  class="flex flex-col items-center justify-center relative w-14 mb-6 sm:ml-4 md:ml-8 h-14 rounded-full ion-activatable overflow-hidden shadow-md"
+                  @click="$router.push('/world-map')">
                 <img src="@/assets/img/world.svg" class="w-12 sm:w-14 absolute">
                 <span class="text-3xl sm:text-4xl font-medium text-white absolute">59</span>
                 <ion-ripple-effect/>
@@ -27,7 +27,7 @@
 
               <div class="text-right">
                 <number-display :number="unit === 'kg' ? 567890 : 1589678"></number-display>
-                <span class="text-lg lg:text-2xl text-white">{{$t(`total-${unit}`)}}</span>
+                <span class="text-lg lg:text-2xl text-white">{{ $t(`total-${unit}`) }}</span>
               </div>
             </div>
 
@@ -56,7 +56,7 @@
 
         <div class="p-4 lg:px-24">
           <div class="flex justify-between items-center">
-            <ion-label color="primary" class="ml-2 font-bold text-xl w-1/2">{{$t('last-months')}}</ion-label>
+            <ion-label color="primary" class="ml-2 font-bold text-xl w-1/2">{{ $t('last-months') }}</ion-label>
             <ion-segment class="w-1/2 world-tabs">
               <ion-segment-button value="sunny" checked>
                 <ion-label class="text-xs">World</ion-label>
@@ -73,7 +73,7 @@
         </div>
 
         <div class="mt-4 px-4 lg:px-24">
-          <ion-label color="primary" class="ml-2 font-bold text-xl">{{$t('top-users')}}</ion-label>
+          <ion-label color="primary" class="ml-2 font-bold text-xl">{{ $t('top-users') }}</ion-label>
         </div>
         <ion-list class="lg:px-24 mb-20" lines="full">
           <ion-item v-for="i of [0, 1,2,3,4,5,6,7,8,9]" :key="i" class=" user lg:my-2 lg:rounded-full" button
@@ -81,7 +81,7 @@
                     detail="false">
             <span slot="start" :style="`background-color: rgba(var(--ion-color-secondary-rgb), 0.${90 - (i/2 * 10)})`"
                   class="w-6 h-6 flex justify-center items-center rounded-full font-bold text-white">
-            {{i + 1}}
+            {{ i + 1 }}
             </span>
             <ion-avatar slot="start">
               <img src="/img/user-placeholder.png">
@@ -104,57 +104,57 @@
   </page-transparent-header>
 </template>
 <script lang=ts>
-  import Vue from 'vue'
-  import Component from 'vue-class-component'
-  import CommunityMap from '@/views/components/community/CommunityMap.vue'
-  import MonthsChart from '@/views/components/community/MonthsChart.vue'
-  import TransparentHeader from '@/views/components/common/TransparentHeader.vue'
-  import Wave from '@/views/components/common/Wave.vue'
-  import {nativeProvider} from '@/providers/native/native.provider'
-  import UnitsSwitch from '@/views/components/community/UnitsSwitch.vue'
-  import PageTransparentHeader from '@/views/components/common/PageTransparentHeader.vue'
-  import NumberDisplay from '@/views/components/community/NumberDisplay.vue'
+import Vue from 'vue'
+import Component from 'vue-class-component'
+import CommunityMap from '@/views/components/community/CommunityMap.vue'
+import MonthsChart from '@/views/components/community/MonthsChart.vue'
+import TransparentHeader from '@/views/components/common/TransparentHeader.vue'
+import Wave from '@/views/components/common/Wave.vue'
+import {nativeProvider} from '@/providers/native/native.provider'
+import UnitsSwitch from '@/views/components/community/UnitsSwitch.vue'
+import PageTransparentHeader from '@/views/components/common/PageTransparentHeader.vue'
+import NumberDisplay from '@/views/components/community/NumberDisplay.vue'
 
-  @Component({
-    name: "community-page",
-    components: {NumberDisplay, PageTransparentHeader, UnitsSwitch, Wave, TransparentHeader, MonthsChart, CommunityMap}
-  })
-  export default class CommunityPage extends Vue {
+@Component({
+  name: "community-page",
+  components: {NumberDisplay, PageTransparentHeader, UnitsSwitch, Wave, TransparentHeader, MonthsChart, CommunityMap}
+})
+export default class CommunityPage extends Vue {
 
-    loaded = false
-    unit = 'lt'
+  loaded = false
+  unit = 'lt'
 
-    init() {
-      (this.$refs['chart'] as any).init()
-      if (!this.loaded) {
-        nativeProvider.hideSplashScreen()
-        this.loaded = true
-      }
-    }
-
-    unitChanged(unit) {
-      this.unit = unit
-    }
-
-    exit() {
-      (this.$refs['chart'] as any).exit()
-    }
-
-    scrolled(event) {
-      (this.$refs['page'] as any).scrolled(event)
+  init() {
+    (this.$refs['chart'] as any).init()
+    if (!this.loaded) {
+      nativeProvider.hideSplashScreen()
+      this.loaded = true
     }
   }
+
+  unitChanged(unit) {
+    this.unit = unit
+  }
+
+  exit() {
+    (this.$refs['chart'] as any).exit()
+  }
+
+  scrolled(event) {
+    (this.$refs['page'] as any).scrolled(event)
+  }
+}
 </script>
 <style scoped>
-  .no-border ion-toolbar {
-    --border-width: 0 !important;
-    --box-shadow: none !important;
-  }
+.no-border ion-toolbar {
+  --border-width: 0 !important;
+  --box-shadow: none !important;
+}
 
-  .world-tabs ion-segment-button {
-    width: 20px;
-    --padding-start: 2px;
-    --padding-end: 2px;
-  }
+.world-tabs ion-segment-button {
+  width: 20px;
+  --padding-start: 2px;
+  --padding-end: 2px;
+}
 
 </style>

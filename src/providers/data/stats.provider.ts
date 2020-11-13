@@ -4,18 +4,18 @@ import TopUser from '@/types/TopUser'
 
 export default class StatsProvider {
 
-  axios: AxiosInstance
+    axios: AxiosInstance
 
-  constructor() {
-  }
+    constructor() {
+    }
 
-  fetchHistory(): Promise<MonthStats> {
-    return Promise.resolve(undefined)
-  }
+    fetchHistory(): Promise<MonthStats> {
+        return Promise.resolve(undefined)
+    }
 
-  fetchTopUsers(units: 'kilos' | 'liters'): Promise<TopUser[]> {
-    return Promise.resolve(undefined)
-  }
+    fetchTopUsers(units: 'kilos' | 'liters'): Promise<TopUser[]> {
+        return Promise.resolve(undefined)
+    }
 
 }
 
