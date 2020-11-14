@@ -214,12 +214,12 @@ ion-slides {
 }
 
 .bg-poly {
-  background-size: calc(100% + 2px);
+  background-size: 100%;
   background-repeat: no-repeat;
 }
 
 .bg-poly-1 {
-  background-position-y: 38px;
+  background-position-y: 40px;
   background-image: url("~@/assets/img/poly-01.png");
 }
 

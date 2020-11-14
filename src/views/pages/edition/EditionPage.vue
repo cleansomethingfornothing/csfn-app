@@ -12,7 +12,7 @@
         </ion-title>
       </ion-toolbar>
     </ion-header>
-    <ion-content color="lighter">
+    <ion-content>
       <form v-if="activity"
             class="lg:w-2/3 xl:w-1/2 m-auto bg-white lg:rounded-lg lg:my-8 lg:shadow-lg h-full lg:h-auto lg:pb-4">
         <ion-list lines="full" class="p-0">

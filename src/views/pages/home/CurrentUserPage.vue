@@ -4,10 +4,10 @@
       <transparent-header :no-back="true" :no-gradient="true" :no-content="true"></transparent-header>
       <ion-content :scroll-events="true" class="user-content min-h-screen fullscreen"
                    @ionScroll="$refs['page'].scrolled($event)">
-        <div class="bg-poly bg-poly-1 h-72 lg:h-88 ios:h-72 sm:ios:h-72 lg:ios:h-72 xl:ios:h-88"></div>
-        <div class="mb-1 ios:mb-3" style="padding-top: 2px"/>
-        <div class="-mt-24 pt-4 sm:ios:-mt-32 lg:-mt-32 xl:-mt-40 z-10 sm:ios:pt-4">
-          <div class="sm:ios:pt-3" style="padding-top: 2px"></div>
+        <div class="bg-poly bg-poly-1 h-72 lg:h-88 ios:h-72 sm:ios:h-72 lg:ios:h-72 xl:ios:h-88" style="margin-top: 4px"></div>
+        <div class="mb-1 ios:mb-3" style="padding-top: 4px"/>
+        <div class="-mt-24 pt-3 sm:ios:-mt-32 lg:-mt-32 xl:-mt-40 z-10 sm:ios:pt-4">
+          <div class="sm:ios:pt-3"></div>
           <wave :num="1"/>
         </div>
         <div class="-mt-40 lg:-mt-48 flex flex-col justify-center items-center pt-4 ios:-mt-40  lg:ios:-mt-56">

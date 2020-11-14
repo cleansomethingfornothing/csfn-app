@@ -11,7 +11,7 @@ import '@codetrix-studio/capacitor-google-auth'
 import {defineCustomElements} from '@ionic/pwa-elements/loader'
 import './icons'
 import './assets/style/tailwind.css'
-
+import * as _ from 'lodash'
 
 Vue.config.productionTip = false
 Vue.config.ignoredElements = [/^ion-/]
@@ -19,6 +19,10 @@ Vue.config.ignoredElements = [/^ion-/]
 registerWebPlugin(FacebookLogin)
 
 Vue.use(Ionic)
+
+Vue.filter('capitalize', function (value) {
+    return _.capitalize(value)
+})
 
 new Vue({store, router, i18n, render: h => h(Main)})
     .$mount('#app')

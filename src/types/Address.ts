@@ -4,7 +4,6 @@ export default class Address {
     country: string
     countryCode: string
 
-
     constructor(city: string, state: string, country: string, countryCode: string) {
         this.city = city
         this.state = state

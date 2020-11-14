@@ -2,8 +2,8 @@ export default {
     en: {
         'community': 'Community',
         'total-collected': 'Total {unit} collected',
-        'total-kg': 'Total kilos collected',
-        'total-lt': 'Total liters collected',
+        'total-weight': 'Total kilos collected',
+        'total-volume': 'Total liters collected',
         'last-months': 'Last months',
         'top-users': 'Top users',
         'world-map': 'Global impact'
@@ -11,8 +11,8 @@ export default {
     es: {
         'community': 'Comunidad',
         'total-collected': '{unit} total recogida',
-        'total-kg': 'Kilos recogidos',
-        'total-lt': 'Litros recogidos',
+        'total-volume': 'Kilos recogidos',
+        'total-weight': 'Litros recogidos',
         'last-months': 'Últimos meses',
         'top-users': 'Top usuarios',
         'world-map': 'Impacto global'

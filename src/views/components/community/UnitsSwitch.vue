@@ -1,11 +1,11 @@
 <template>
   <ion-segment @ionChange="unitChanged($event.detail.value)" mode="ios" :value="value" class="rounded-full">
-    <ion-segment-button value="lt" mode="ios" class="ion-activatable rounded-full">
+    <ion-segment-button value="volume" mode="ios" class="ion-activatable rounded-full">
       <ion-icon class="text-xl" :src="require('@/assets/img/icons/liters.svg')"/>
       <!--<ion-label>Lt</ion-label>-->
       <ion-ripple-effect/>
     </ion-segment-button>
-    <ion-segment-button value="kg" mode="ios" class="ion-activatable rounded-full">
+    <ion-segment-button value="weight" mode="ios" class="ion-activatable rounded-full">
       <ion-icon class="text-xl" :src="require('@/assets/img/icons/kilos.svg')"/>
       <!--<ion-label>Kg</ion-label>-->
       <ion-ripple-effect/>
