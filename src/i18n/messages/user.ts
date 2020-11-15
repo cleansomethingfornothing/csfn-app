@@ -10,7 +10,8 @@ export default {
         'seed': 'Seed',
         'sprout': 'Sprout',
         'bush': 'Bush',
-        'tree': 'Tree'
+        'tree': 'Tree',
+        'users': 'User | Users'
     },
     es: {
         'continue-with': 'Continuar con {param}',
@@ -24,6 +25,7 @@ export default {
         'seed': 'Semilla',
         'sprout': 'Brote',
         'bush': 'Arbusto',
-        'tree': 'Árbol'
+        'tree': 'Árbol',
+        'users': 'Usuario | Usuarios'
     }
 }

@@ -21,7 +21,9 @@
                                 class="flex flex-col items-center justify-center relative w-14 mb-6 sm:ml-4 md:ml-8 h-14 rounded-full ion-activatable overflow-hidden shadow-md"
                                 @click="$router.push('/world-map')">
                                 <img src="@/assets/img/world.svg" class="w-12 sm:w-14 absolute">
-                                <span class="text-3xl sm:text-4xl font-medium text-white absolute">59</span>
+                                <span class="text-3xl sm:text-4xl font-medium text-white absolute">
+                                    {{ countriesCount }}
+                                </span>
                                 <ion-ripple-effect/>
                             </div>
 
@@ -131,6 +133,10 @@ export default class CommunityPage extends Vue {
         return this.country && countries[this.country].name
     }
 
+    get countriesCount() {
+        return statsModule.getCountriesCount
+    }
+
     get totalStats(): TotalStats {
         return statsModule.getTotalStats
     }
@@ -149,6 +155,11 @@ export default class CommunityPage extends Vue {
             nativeProvider.hideSplashScreen()
             this.loaded = true
         }
+
+        statsModule.fetchCountriesCount()
+            .catch(error => {
+                ToastPresenter.present(this.$ionic, ErrorMessage.getMessage(error))
+            })
 
         if (this.country) {
             this.fetch()
@@ -170,7 +181,7 @@ export default class CommunityPage extends Vue {
 
     fetchTopUsers(area) {
         this.area = area
-        statsModule.fetchTopUsers(this.country, this.measure)
+        statsModule.fetchTopUsers({country: this.country, measure: this.measure})
             .catch(error => {
                 ToastPresenter.present(this.$ionic, ErrorMessage.getMessage(error))
             })

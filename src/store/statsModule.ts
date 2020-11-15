@@ -1,17 +1,18 @@
-import {Action, Module, Mutation, VuexModule} from "vuex-class-modules";
-import TotalStats from "@/types/TotalStats";
-import MonthStats from "@/types/MonthStats";
-import TopUsers from "@/types/TopUsers";
-import {statsProvider} from "@/providers/data/stats.provider";
-import {Measure} from "@/types/Measure";
-import {store} from "@/store/index";
+import {Action, Module, Mutation, VuexModule} from 'vuex-class-modules'
+import TotalStats from '@/types/TotalStats'
+import MonthStats from '@/types/MonthStats'
+import TopUsers from '@/types/TopUsers'
+import {statsProvider} from '@/providers/data/stats.provider'
+import {store} from '@/store/index'
 import Vue from 'vue'
+import CountryStats from '@/types/CountryStats'
+import {Measure} from '@/types/Measure'
 
 @Module
 class StatsModule extends VuexModule {
 
     constructor() {
-        super({store, name: 'stats'});
+        super({store, name: 'stats'})
     }
 
     private totalStats: TotalStats = {
@@ -29,6 +30,10 @@ class StatsModule extends VuexModule {
         world: []
     }
 
+    private countries: CountryStats[] = []
+
+    private countriesCount = 0
+
     get getTotalStats() {
         return this.totalStats
     }
@@ -39,6 +44,14 @@ class StatsModule extends VuexModule {
 
     get getTopUsers() {
         return this.topUsers
+    }
+
+    get getCountriesCount() {
+        return this.countriesCount
+    }
+
+    get getCountries() {
+        return this.countries
     }
 
     @Mutation
@@ -56,6 +69,16 @@ class StatsModule extends VuexModule {
         Vue.set(this, 'topUsers', topUsers)
     }
 
+    @Mutation
+    private setCountries(countries: CountryStats[]) {
+        Vue.set(this, 'countries', countries)
+    }
+
+    @Mutation
+    private setCountriesCount(countriesCount) {
+        this.countriesCount = countriesCount
+    }
+
     @Action
     fetchTotalStats() {
         return statsProvider.fetchTotalStats()
@@ -68,10 +91,24 @@ class StatsModule extends VuexModule {
             .then((monthStats) => this.setMonthStats(monthStats))
     }
 
-    fetchTopUsers(country: string, measure: Measure) {
+    @Action
+    fetchTopUsers({country, measure}: { country: string, measure: Measure }) {
         return statsProvider.fetchTopUsers(country, measure)
             .then((topUsers) => this.setTopUsers(topUsers))
     }
+
+    @Action
+    fetchCountries() {
+        return statsProvider.fetchCountries()
+            .then((countries) => this.setCountries(countries))
+    }
+
+    @Action
+    fetchCountriesCount() {
+        return statsProvider.fetchCountriesCount()
+            .then((count) => this.setCountriesCount(count))
+    }
+
 }
 
 export const statsModule = new StatsModule()

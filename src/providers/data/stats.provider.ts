@@ -1,11 +1,12 @@
 import {AxiosInstance} from 'axios'
 import MonthStats from '@/types/MonthStats'
 import TopUsers from '@/types/TopUsers'
-import TotalStats from "@/types/TotalStats";
-import DataProvider from "@/providers/data/data.provider";
-import {Measure} from "@/types/Measure";
-import {handleBackError} from "@/tools/handleBackError";
+import TotalStats from '@/types/TotalStats'
+import DataProvider from '@/providers/data/data.provider'
+import {Measure} from '@/types/Measure'
+import {handleBackError} from '@/tools/handleBackError'
 import * as _ from 'lodash'
+import CountryStats from '@/types/CountryStats'
 
 export default class StatsProvider extends DataProvider {
 
@@ -33,6 +34,17 @@ export default class StatsProvider extends DataProvider {
             .catch(handleBackError('fetch-top-users'))
     }
 
+    fetchCountriesCount(): Promise<number> {
+        return this.http.get('/countries_count')
+            .then(({data}) => data.count)
+            .catch(handleBackError('fetch-countries-count'))
+    }
+
+    fetchCountries(): Promise<CountryStats[]> {
+        return this.http.get('/countries')
+            .then(({data}) => data)
+            .catch(handleBackError('fetch-countries'))
+    }
 }
 
 export const statsProvider = new StatsProvider()
