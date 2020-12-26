@@ -1,16 +1,26 @@
 <template>
-  <img
-      :src="'https://maps.googleapis.com/maps/api/staticmap?center=Brooklyn+Bridge,New+York,NY&zoom=13&size=600x500&maptype=roadmap&markers=color:blue%7Clabel:S%7C40.702147,-74.015794&markers=color:green%7Clabel:G%7C40.711614,-74.012318&markers=color:red%7Clabel:C%7C40.718217,-73.998284&key=' + KEY">
+    <img
+        :src="`https://maps.googleapis.com/maps/api/staticmap?size=600x500&key=${KEY}&markers=${cleanupMarkers}`">
 </template>
 <script lang=ts>
 import Vue from 'vue'
 import Component from 'vue-class-component'
+import Coords from '@/types/Coords'
+import {Prop} from 'vue-property-decorator'
+import Cleanup from '@/types/Cleanup'
 
 @Component({
-  name: "community-map"
+    name: 'community-map'
 })
 export default class CommunityMap extends Vue {
-  KEY = process.env.VUE_APP_GOOGLE_API_KEY
+    KEY = process.env.VUE_APP_GOOGLE_API_KEY
+
+    @Prop(Array)
+    cleanups: Cleanup[]
+
+    get cleanupMarkers () {
+        return encodeURI('color:green|' + this.cleanups.map(({location}) => `${location.coords.lat},${location.coords.lng}`).join('|'))
+    }
 }
 </script>
 <style scoped>

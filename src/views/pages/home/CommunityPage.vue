@@ -20,8 +20,8 @@
                             <div
                                 class="flex flex-col items-center justify-center relative w-14 mb-6 sm:ml-4 md:ml-8 h-14 rounded-full ion-activatable overflow-hidden shadow-md"
                                 @click="$router.push('/world-map')">
-                                <img src="@/assets/img/world.svg" class="w-12 sm:w-14 absolute">
-                                <span class="text-3xl sm:text-4xl font-medium text-white absolute">
+                                <img src="@/assets/img/world.svg" class="w-12 sm:w-14 absolute opacity-75">
+                                <span class="text-3xl sm:text-4xl font-medium text-white absolute roboto">
                                     {{ countriesCount }}
                                 </span>
                                 <ion-ripple-effect/>
@@ -39,9 +39,9 @@
                     <div class="sm:ios:pt-4"></div>
                     <wave :num="2"/>
                 </div>
-                <div class="-mt-14 ios:-mt-16 lg:-mt-18 p-2 lg:px-24">
+                <div class="-mt-16 ios:-mt-16 lg:-mt-32 p-2 lg:px-24">
                     <ion-card button class="lg:h-64">
-                        <community-map/>
+                        <community-map :current-coords="currentCords" :cleanups="cleanupsMarkers"/>
                     </ion-card>
                 </div>
 
@@ -77,7 +77,7 @@
             {{ i + 1 }}
             </span>
                         <ion-avatar slot="start">
-                            <img :src="user.picture.publicUrl">
+                            <img v-if="user.picture" :src="user.picture.publicUrl">
                         </ion-avatar>
                         <ion-label class="font-bold my-6 lg:my-4">{{ user.username }}</ion-label>
                         <p class="pr-2">{{ user['total' + capitalize(measure)] }} {{ units }}</p>
@@ -110,6 +110,7 @@ import TopUsers from '@/types/TopUsers'
 import {countries} from 'countries-list'
 import {Watch} from 'vue-property-decorator'
 import * as _ from 'lodash'
+import {cleanupsModule} from '@/store/cleanupsModule'
 
 @Component({
     name: 'community-page',
@@ -149,6 +150,14 @@ export default class CommunityPage extends Vue {
         return statsModule.getTopUsers
     }
 
+    get currentCords() {
+        return locationModule.getCoords
+    }
+
+    get cleanupsMarkers() {
+        return cleanupsModule.markers
+    }
+
     init() {
         (this.$refs['chart'] as any).init()
         if (!this.loaded) {
@@ -161,13 +170,18 @@ export default class CommunityPage extends Vue {
                 ToastPresenter.present(this.$ionic, ErrorMessage.getMessage(error))
             })
 
+        cleanupsModule.fetchMarkers()
+            .catch(error => {
+                ToastPresenter.present(this.$ionic, ErrorMessage.getMessage(error))
+            })
+
         if (this.country) {
-            this.fetch()
+            this.fetchStats()
         }
     }
 
     @Watch('country')
-    fetch() {
+    fetchStats() {
         this.fetchTopUsers(this.area)
         statsModule.fetchTotalStats()
             .catch(error => {

@@ -1,6 +1,7 @@
 export default {
     en: {
         'publish-cleanup': 'Publish cleanup',
+        'fetch-cleanups': 'Obtain cleanups',
         'publish-the-cleanup': 'Publish the cleanup',
         'cleaned-weight': '{param}kg of trash were cleaned',
         'cleanup-type-selection': 'Do you want to publish an alert or a activity?',
@@ -32,6 +33,7 @@ export default {
     },
     es: {
         'publish-cleanup': 'Publicar cleanup',
+        'fetch-cleanups': 'Obtener cleanups',
         'publish-the-cleanup': 'Publicar el cleanup',
         'cleaned-weight': 'Se recogieron {param}kg de basura',
         'cleanup-type-selection': '¿Quieres publicar una alerta o un cleanup?',
