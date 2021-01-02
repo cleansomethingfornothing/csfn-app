@@ -19,7 +19,7 @@
                         <div class="flex justify-between items-center">
                             <div
                                 class="flex flex-col items-center justify-center relative w-14 mb-6 sm:ml-4 md:ml-8 h-14 rounded-full ion-activatable overflow-hidden shadow-md"
-                                @click="$router.push('/world-map')">
+                                @click="$router.push('/global-impact')">
                                 <img src="@/assets/img/world.svg" class="w-12 sm:w-14 absolute opacity-75">
                                 <span class="text-3xl sm:text-4xl font-medium text-white absolute roboto">
                                     {{ countriesCount }}
@@ -40,7 +40,7 @@
                     <wave :num="2"/>
                 </div>
                 <div class="-mt-16 ios:-mt-16 lg:-mt-32 p-2 lg:px-24">
-                    <ion-card button class="lg:h-64">
+                    <ion-card button class="lg:h-64" @click="$router.push('/map')">
                         <community-map :current-coords="currentCords" :cleanups="cleanupsMarkers"/>
                     </ion-card>
                 </div>
@@ -111,6 +111,8 @@ import {countries} from 'countries-list'
 import {Watch} from 'vue-property-decorator'
 import * as _ from 'lodash'
 import {cleanupsModule} from '@/store/cleanupsModule'
+import ModalPresenter from '@/tools/ModalPresenter'
+import CleanupsMapModal from '@/views/pages/home/CleanupsMapPage.vue'
 
 @Component({
     name: 'community-page',
@@ -158,6 +160,10 @@ export default class CommunityPage extends Vue {
         return cleanupsModule.markers
     }
 
+    mounted() {
+        this.init()
+    }
+
     init() {
         (this.$refs['chart'] as any).init()
         if (!this.loaded) {
@@ -170,10 +176,7 @@ export default class CommunityPage extends Vue {
                 ToastPresenter.present(this.$ionic, ErrorMessage.getMessage(error))
             })
 
-        cleanupsModule.fetchMarkers()
-            .catch(error => {
-                ToastPresenter.present(this.$ionic, ErrorMessage.getMessage(error))
-            })
+
 
         if (this.country) {
             this.fetchStats()
@@ -182,6 +185,10 @@ export default class CommunityPage extends Vue {
 
     @Watch('country')
     fetchStats() {
+        cleanupsModule.fetchMarkers()
+            .catch(error => {
+                ToastPresenter.present(this.$ionic, ErrorMessage.getMessage(error))
+            })
         this.fetchTopUsers(this.area)
         statsModule.fetchTotalStats()
             .catch(error => {
@@ -206,7 +213,7 @@ export default class CommunityPage extends Vue {
     }
 
     exit() {
-        (this.$refs['chart'] as any).exit()
+        //
     }
 
     scrolled(event) {
@@ -215,6 +222,18 @@ export default class CommunityPage extends Vue {
 
     capitalize(value) {
         return _.capitalize(value)
+    }
+
+    openCleanupsMap() {
+        ModalPresenter.present(this.$ionic, CleanupsMapModal, {
+            router: this.$router,
+            txt: {
+                cleanupIn: this.$t('cleanup-in'),
+                searchPlaceholder: this.$t('search-place'),
+                liters: this.$t('liters'),
+                kilos: this.$t('kilos')
+            }
+        })
     }
 }
 </script>

@@ -1,5 +1,6 @@
 import Coords from '@/types/Coords'
 import {locationProvider} from '@/providers/location/location.provider'
+import {isEqual} from 'lodash'
 
 declare const google: any
 
@@ -37,7 +38,6 @@ export default class Map {
         }
 
         if (onTouch) {
-            this.map.addListener('click', onTouch)
             this.map.addListener('dragend', onTouch)
             this.map.addListener('zoom_changed', onTouch)
             this.map.addListener('tilt_changed', onTouch)
@@ -49,6 +49,10 @@ export default class Map {
     }
 
     public addMarker(position: Coords, pin: string, onClick?: Function) {
+        if (this.markers.filter(marker => isEqual(marker.getPosition(), position)).length > 0) {
+            return
+        }
+
         const marker = new google.maps.Marker({
             position,
             icon: pin,
@@ -89,6 +93,10 @@ export default class Map {
 
     public getSelectedPosition(): Coords {
         return this.selected
+    }
+
+    public getBounds(): string {
+        return this.map.getBounds()?.toUrlValue()
     }
 
     private mapClicked({latLng}) {

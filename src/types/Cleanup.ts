@@ -1,10 +1,11 @@
 import {ArrayNotEmpty, IsNotEmpty} from 'class-validator'
 import Location from '@/types/Location'
 import User from '@/types/User'
+import Image from '@/types/Image'
 
 export default class Cleanup {
 
-    id?: string
+    id?: number
 
     user?: User
 
@@ -18,7 +19,7 @@ export default class Cleanup {
     date: Date
 
     @ArrayNotEmpty({message: 'select-some-picture'})
-    pictures: string[] | Blob[] = []
+    pictures: (string | Blob | Image)[] = []
 
     weight?: number
 

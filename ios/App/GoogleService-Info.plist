@@ -3,36 +3,12 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>871904238312-2hljmacjk2j8smsbflpk380011p8gbm6.apps.googleusercontent.com</string>
+	<string>597121035718-tdtmou2st9barjom4g395hbchrj4vmkl.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.871904238312-2hljmacjk2j8smsbflpk380011p8gbm6</string>
-	<key>ANDROID_CLIENT_ID</key>
-	<string>871904238312-rabbaf1jtvm97h9vb4hd0ufnj82orpuu.apps.googleusercontent.com</string>
-	<key>API_KEY</key>
-	<string>AIzaSyAUCidMoTqsZtK9AVe8ba82hmVlfsboROk</string>
-	<key>GCM_SENDER_ID</key>
-	<string>871904238312</string>
+	<string>com.googleusercontent.apps.597121035718-tdtmou2st9barjom4g395hbchrj4vmkl</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.cleansomething.app</string>
-	<key>PROJECT_ID</key>
-	<string>c-s-f-n</string>
-	<key>STORAGE_BUCKET</key>
-	<string>c-s-f-n.appspot.com</string>
-	<key>IS_ADS_ENABLED</key>
-	<false></false>
-	<key>IS_ANALYTICS_ENABLED</key>
-	<false></false>
-	<key>IS_APPINVITE_ENABLED</key>
-	<true></true>
-	<key>IS_GCM_ENABLED</key>
-	<true></true>
-	<key>IS_SIGNIN_ENABLED</key>
-	<true></true>
-	<key>GOOGLE_APP_ID</key>
-	<string>1:871904238312:ios:37074b8646278ff9f5c75d</string>
-	<key>DATABASE_URL</key>
-	<string>https://c-s-f-n.firebaseio.com</string>
 </dict>
 </plist>

@@ -1,18 +1,18 @@
 <template>
-    <div class="flex overflow-x-auto months-chart" ref="chart" @touchstart="scrolled">
-        <div class="min-w-1/5 lg:min-w-1/6 flex flex-col justify-between items-center h-64 relative"
-             v-for="(month, i) of monthStats[area]"
-             :key="month.month + '-' + month.year">
-            <ion-label color="medium" v-if="showYear(i)" class="text-xs font-bold">{{ month.year }}</ion-label>
+    <div ref="chart" class="flex overflow-x-auto months-chart" @touchstart="scrolled">
+        <div v-for="(month, i) of monthStats[area]"
+             :key="month.month + '-' + month.year"
+             class="min-w-1/5 lg:min-w-1/6 flex flex-col justify-between items-center h-64 relative">
+            <ion-label v-if="showYear(i)" class="text-xs font-bold" color="medium">{{ month.year }}</ion-label>
             <div class="pt-6"></div>
             <div class="relative h-full flex flex-col justify-end items-center">
                 <transition name="fade">
-                    <div v-if="showData === i" class="tooltip text-sm" :style="`bottom: ${heights[i] + 1}%`">
+                    <div v-if="showData === i" :style="`bottom: ${heights[i] + 1}%`" class="tooltip text-sm">
                         <span>{{ month[measure] }} {{ units }}</span>
                     </div>
                 </transition>
-                <div :class="showData === i ? 'selected' : ''" :tabindex="i" :style="`height: ${heights[i]}%`"
-                     class="-ml-4 bar" @focus="focus(i)" @blur="blur(i)">
+                <div :class="showData === i ? 'selected' : ''" :style="`height: ${heights[i]}%`" :tabindex="i"
+                     class="-ml-4 bar" @blur="blur(i)" @focus="focus(i)">
                     <month-bar/>
                 </div>
             </div>
@@ -49,7 +49,10 @@ export default class MonthsChart extends Vue {
 
     showData = null
 
-    heights = []
+    get heights() {
+        return this.monthStats[this.area].map(month => this.percentage(month[this.measure]))
+    }
+
 
     get units() {
         return this.measure === Measure.volume ? 'Lt' : 'Kg'
@@ -62,21 +65,13 @@ export default class MonthsChart extends Vue {
     mounted(): void {
         setTimeout(() => {
             this.init()
-        }, 1000)
+        }, 500)
     }
 
     @Watch('area')
     @Watch('measure')
     init() {
         this.chart.scrollTo(this.chart.scrollWidth, 0)
-        this.heights = this.monthStats[this.area].map(() => 0)
-        setTimeout(() => {
-            this.heights = this.monthStats[this.area].map(month => this.percentage(month[this.measure]))
-        }, 100)
-    }
-
-    exit() {
-        this.heights = this.monthStats[this.area].map(() => 0)
     }
 
     monthName(monthIndex) {
@@ -119,24 +114,24 @@ export default class MonthsChart extends Vue {
 
 .tooltip {
     background-color: var(--ion-color-dark);
-    color: white;
-    padding: 0 4px;
     border-radius: 5px;
-    position: absolute;
+    color: white;
     font-weight: bold;
-    white-space: nowrap;
     outline: none;
+    padding: 0 4px;
+    position: absolute;
+    white-space: nowrap;
 }
 
 .tooltip::after {
+    border-color: var(--ion-color-dark) transparent transparent transparent;
+    border-style: solid;
+    border-width: 5px;
     content: " ";
-    position: absolute;
-    top: 100%; /* At the bottom of the tooltip */
     left: 50%;
     margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: var(--ion-color-dark) transparent transparent transparent;
+    position: absolute;
+    top: 100%; /* At the bottom of the tooltip */
 }
 
 </style>

@@ -10,7 +10,6 @@ export default class ModalPresenter {
                     propsData: props
                 }
             })
-            .then(modal => modal.present()
-                .then(() => modal.onWillDismiss()))
+            .then(modal => modal.present().then(() => modal.onWillDismiss()))
     }
 }

@@ -7,10 +7,11 @@ import ActivityPage from '@/views/pages/ActivityPage.vue'
 import UserPage from '@/views/pages/UserPage.vue'
 import SettingsPage from '@/views/pages/settings/SettingsPage.vue'
 import UserActivitiesPage from '@/views/pages/UserActivitiesPage.vue'
-import WorldMapPage from '@/views/pages/GlobalImpactPage.vue'
+import GlobalImpactPage from '@/views/pages/GlobalImpactPage.vue'
 import SecuritySettingsPage from '@/views/pages/settings/SecuritySettingsPage.vue'
 import WelcomePage from '@/views/pages/auth/WelcomePage.vue'
 import ProfileSettingsPage from '@/views/pages/settings/ProfileSettingsPage.vue'
+import CleanupsMapPage from '@/views/pages/home/CleanupsMapPage.vue'
 
 export default [
     {
@@ -42,14 +43,18 @@ export default [
         component: WelcomePage
     }, {
         path: '/',
-        redirect: '/home/user'
+        redirect: '/home/community'
     }, {
         path: '/home',
-        redirect: '/home/user'
+        redirect: '/home/community'
     }, {
         path: '/home/:tab',
         name: 'HomePage',
         component: HomePage
+    }, {
+        path: '/map',
+        name: 'Map',
+        component: CleanupsMapPage
     }, {
         path: '/user/:id',
         name: 'User',
@@ -63,17 +68,17 @@ export default [
         name: 'Cleanup',
         component: ActivityPage
     }, {
-        path: '/publish',
-        name: 'Publish',
+        path: '/edit',
+        name: 'Edition',
         component: EditionPage
     }, {
         path: '/settings',
         name: 'Settings',
         component: SettingsPage
     }, {
-        path: '/world-map',
-        name: 'WorldMap',
-        component: WorldMapPage
+        path: '/global-impact',
+        name: 'GlobalImpact',
+        component: GlobalImpactPage
     }, {
         path: '/security-settings',
         name: 'SecuritySettings',

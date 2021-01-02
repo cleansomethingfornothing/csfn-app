@@ -3,7 +3,7 @@
 
 
         <ion-fab vertical="bottom" horizontal="end" class="ios:mb-11 mb-13" mode="ios">
-            <ion-fab-button color="white" @click="$router.push('/publish?type=cleanup')">
+            <ion-fab-button color="white" @click="$router.push('/edit?type=cleanup')">
                 <ion-icon color="primary" size="large" name="add-outline"
                           style="stroke: var(--ion-color-primary); stroke-width: 50px"/>
             </ion-fab-button>
@@ -61,13 +61,13 @@ import HomeHeader from '@/views/components/home/HomeHeader.vue'
 import CleanupCard from '@/views/components/home/CleanupCard.vue'
 import PlaceholderCard from '@/views/components/home/PlaceholderCard.vue'
 import HomeCleanupsList from '@/views/components/home/CleanupsList.vue'
-import CleanupsMap from '@/views/components/home/CleanupsMap.vue'
 import CurrentUserPage from '@/views/pages/home/CurrentUserPage.vue'
 import CommunityPage from '@/views/pages/home/CommunityPage.vue'
 import AlertsPage from '@/views/pages/home/AlertsPage.vue'
 import EventsPage from '@/views/pages/home/EventsPage.vue'
 import {Ref, Watch} from 'vue-property-decorator'
 import {nativeProvider} from '@/providers/native/native.provider'
+import {cleanupsModule} from '@/store/cleanupsModule'
 
 @Component({
     name: 'home-page',
@@ -76,7 +76,6 @@ import {nativeProvider} from '@/providers/native/native.provider'
         AlertsPage,
         CommunityPage,
         CurrentUserPage,
-        HomeCleanupsMap: CleanupsMap,
         HomeCleanupsList,
         PlaceholderCard: PlaceholderCard,
         CleanupCard: CleanupCard,
@@ -95,7 +94,9 @@ export default class HomePage extends Vue {
     slider: HTMLIonSlidesElement
 
     mounted() {
+        console.log('mounted')
         nativeProvider.hideSplashScreen()
+        cleanupsModule.setCleanup(null)
         this.changedRoute(this.$route)
         this.slider.slideTo(this.tabs.indexOf(this.$route.params.tab), 0)
         setTimeout(() => {
@@ -104,6 +105,7 @@ export default class HomePage extends Vue {
     }
 
     activated() {
+        console.log('activated')
         this.slider.slideTo(this.tabs.indexOf(this.$route.params.tab), 0)
     }
 

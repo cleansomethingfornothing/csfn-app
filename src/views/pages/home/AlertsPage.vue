@@ -1,41 +1,42 @@
 <template>
-  <page-transparent-header ref="page">
-    <ion-page class="ion-page">
-      <transparent-header :title="$t('alerts')" :no-back="true" :no-gradient="true"></transparent-header>
+    <page-transparent-header ref="page">
+        <ion-page class="ion-page">
+            <transparent-header :no-back="true" :no-gradient="true" :title="$t('alerts')"></transparent-header>
 
-      <ion-content ref="alerts-content" class="fullscreen " :scroll-events="true" color="white"
-                   @ionScroll="$refs['page'].scrolled($event)">
-        <div class="flex flex-col bg-poly bg-poly-3 h-64 lg:h-88 ios:h-60 sm:ios:h-64 lg:ios:h-72 xl:ios:h-88">
-          <div class="h-toolbar-top sm:ios:mb-2"></div>
-          <div class="flex flex-col h-full p-4 pt-20 text-left relative">
-            <img class="w-64 absolute" style="top: 10px; right: -10px" src="@/assets/img/empty/alerts.png"/>
+            <ion-content ref="alerts-content" :scroll-events="true" class="fullscreen " color="white"
+                         @ionScroll="$refs['page'].scrolled($event)">
+                <div class="flex flex-col bg-poly bg-poly-3 h-64 lg:h-88 ios:h-60 sm:ios:h-64 lg:ios:h-72 xl:ios:h-88">
+                    <div class="h-toolbar-top sm:ios:mb-2"></div>
+                    <div class="flex flex-col h-full p-4 pt-20 text-left relative">
+                        <img class="w-64 absolute" src="@/assets/img/empty/alerts.png" style="top: 10px; right: -10px"/>
 
-            <div class="rounded-full overflow-hidden shadow ion-activatable relative z-10" style="margin-top: 15%">
-              <ion-item>
-                <ion-icon name="location" slot="start" color="secondary"></ion-icon>
-                <ion-label>{{ address }}</ion-label>
-              </ion-item>
-              <ion-ripple-effect></ion-ripple-effect>
-            </div>
+                        <div class="rounded-full overflow-hidden shadow ion-activatable relative z-10"
+                             style="margin-top: 15%">
+                            <ion-item>
+                                <ion-icon slot="start" color="secondary" name="location"></ion-icon>
+                                <ion-label>{{ address }}</ion-label>
+                            </ion-item>
+                            <ion-ripple-effect></ion-ripple-effect>
+                        </div>
 
-            <!--
-            <ion-button color="white" shape="round">
-              <ion-label color="primary" class="font-bold">Publicar alerta</ion-label>
-            </ion-button>
-            -->
-          </div>
-        </div>
-        <div class="-mt-24 lg:-mt-32 xl:-mt-40 -mb-16 pt-4 sm:ios:pt-8 relative">
-          <div style="padding-top: 5px"></div>
-          <wave :num="3"/>
-        </div>
+                        <!--
+                        <ion-button color="white" shape="round">
+                          <ion-label color="primary" class="font-bold">Publicar alerta</ion-label>
+                        </ion-button>
+                        -->
+                    </div>
+                </div>
+                <div class="-mt-24 lg:-mt-32 xl:-mt-40 -mb-16 pt-4 sm:ios:pt-8 relative">
+                    <div style="padding-top: 5px"></div>
+                    <wave :num="3"/>
+                </div>
 
-        <cleanups-list :coords="coords" :cleanups="alerts" @click="open"/>
+                <cleanups-list :cleanups="alerts" :coords="coords" @click="open"/>
 
-        <div class="pt-20"></div>
-      </ion-content>
-    </ion-page>
-  </page-transparent-header>
+                <div class="pt-20"></div>
+            </ion-content>
+        </ion-page>
+    </page-transparent-header>
 </template>
 <script lang=ts>
 import Vue from 'vue'
@@ -50,39 +51,39 @@ import PlaceholderCard from '@/views/components/home/PlaceholderCard.vue'
 import {addressToString} from '@/tools/Utils'
 
 @Component({
-  name: "alerts-page",
-  components: {PlaceholderCard, PageTransparentHeader, CleanupsList, TransparentHeader, Wave}
+    name: "alerts-page",
+    components: {PlaceholderCard, PageTransparentHeader, CleanupsList, TransparentHeader, Wave}
 })
 export default class AlertsPage extends Vue {
 
 
-  @Ref('alerts-content')
-  content: HTMLIonContentElement
+    @Ref('alerts-content')
+    content: HTMLIonContentElement
 
-  get alerts() {
-    return []
-    //return cleanupsModule.getAlerts
-  }
+    get alerts() {
+        return []
+        //return cleanupsModule.getAlerts
+    }
 
-  get address() {
-    return locationModule.getAddress ? addressToString(locationModule.getAddress) : ''
-  }
+    get address() {
+        return locationModule.getAddress ? addressToString(locationModule.getAddress) : ''
+    }
 
-  get coords() {
-    return locationModule.getCoords
-  }
+    get coords() {
+        return locationModule.getCoords
+    }
 
-  init() {
-    //cleanupsModule.fetch()
-  }
+    init() {
+        //cleanupsModule.fetch()
+    }
 
-  open(id) {
-    this.$router.push('/activity/' + id)
-  }
+    open(id) {
+        this.$router.push('/activity/' + id)
+    }
 
-  exit() {
-    return
-  }
+    exit() {
+        return
+    }
 }
 </script>
 <style scoped>

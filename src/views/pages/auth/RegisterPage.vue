@@ -1,36 +1,42 @@
 <template>
-  <ion-page class="ion-page register-page">
-    <transparent-header :title="$t('create-account')" :always-transparent="true"></transparent-header>
-    <ion-content class="fullscreen">
-      <forest-bg></forest-bg>
-      <div class="w-full h-full flex flex-col justify-center items-center"
-           :style="'--keyboard-height: ' + keyboardHeight + 'px'">
-        <form class="auth-form register-form z-10" :class="{'translate-form': focused}"
-              @keyup.enter="register" action="javascript:void(0)">
-          <div class="w-full">
-            <div class="w-2/5 m-auto">
-              <upload-button :file="userRegistration.picture" @click="userRegistration.picture && openPreview($event)"
-                             @select="fileSelected" :rounded="true" :loading="loadingPicture"
-                             @loading="loadingPicture = $event"></upload-button>
+    <ion-page class="ion-page register-page">
+        <transparent-header :always-transparent="true" :title="$t('create-account')"></transparent-header>
+        <ion-content class="fullscreen">
+            <forest-bg></forest-bg>
+            <div :style="'--keyboard-height: ' + keyboardHeight + 'px'"
+                 class="w-full h-full flex flex-col justify-center items-center">
+                <form :class="{'translate-form': focused}" action="javascript:void(0)"
+                      class="auth-form register-form z-10" @keyup.enter="register">
+                    <div class="w-full">
+                        <div class="w-2/5 m-auto">
+                            <upload-button :file="userRegistration.picture"
+                                           :loading="loadingPicture"
+                                           :rounded="true" @click="userRegistration.picture && openPreview($event)"
+                                           @loading="loadingPicture = $event"
+                                           @select="fileSelected"></upload-button>
+                        </div>
+                        <input-error :error="this.fieldErrors.picture && this.fieldErrors.picture[0]"></input-error>
+                    </div>
+                    <input-item v-model="userRegistration.username" :errors="fieldErrors.username"
+                                :placeholder="$t('username')"
+                                :rounded="true"
+                                icon="person"
+                                type="text" @focus="resetError('username')"></input-item>
+                    <input-item v-model="userRegistration.email" :errors="fieldErrors.email" :rounded="true" icon="mail"
+                                placeholder="Email"
+                                type="email" @focus="resetError('email')"></input-item>
+                    <input-item v-model="userRegistration.password" :errors="fieldErrors.password"
+                                :placeholder="$t('password')"
+                                :rounded="true"
+                                icon="lock-closed"
+                                type="password" @focus="resetError('password')"></input-item>
+                    <button-item :text="$t('create-account')" class="text-center" color="primary" type="button"
+                                 @click="register"></button-item>
+                </form>
+                <i></i>
             </div>
-            <input-error :error="this.fieldErrors.picture && this.fieldErrors.picture[0]"></input-error>
-          </div>
-          <input-item icon="person" :placeholder="$t('username')" type="text" v-model="userRegistration.username"
-                      :rounded="true"
-                      :errors="fieldErrors.username" @focus="resetError('username')"></input-item>
-          <input-item icon="mail" placeholder="Email" type="email" v-model="userRegistration.email" :rounded="true"
-                      :errors="fieldErrors.email" @focus="resetError('email')"></input-item>
-          <input-item icon="lock-closed" :placeholder="$t('password')" type="password"
-                      v-model="userRegistration.password"
-                      :rounded="true"
-                      :errors="fieldErrors.password" @focus="resetError('password')"></input-item>
-          <button-item class="text-center" color="primary" :text="$t('create-account')" type="button"
-                       @click="register"></button-item>
-        </form>
-        <i></i>
-      </div>
-    </ion-content>
-  </ion-page>
+        </ion-content>
+    </ion-page>
 </template>
 <script lang="ts">
 import Vue from 'vue'
@@ -59,103 +65,103 @@ import {KeyboardInfo, Plugins} from '@capacitor/core'
 const {Keyboard} = Plugins
 
 @Component({
-  name: 'register',
-  components: {UploadButton, InputError, TransparentHeader, Avatar, ButtonItem, ForestBg, InputItem}
+    name: 'register',
+    components: {UploadButton, InputError, TransparentHeader, Avatar, ButtonItem, ForestBg, InputItem}
 })
 export default class RegisterPage extends Vue {
 
-  userRegistration = new User()
-  focused = false
-  keyboardHeight = 0
+    userRegistration = new User()
+    focused = false
+    keyboardHeight = 0
 
-  fieldErrors = {
-    email: [],
-    password: [],
-    picture: [],
-    username: []
-  }
+    fieldErrors = {
+        email: [],
+        password: [],
+        picture: [],
+        username: []
+    }
 
-  loadingPicture = false
+    loadingPicture = false
 
-  mounted() {
-    Keyboard.addListener('keyboardWillShow', (info: KeyboardInfo) => {
-      this.focused = true
-      this.keyboardHeight = info.keyboardHeight
-    })
-    Keyboard.addListener('keyboardWillHide', () => {
-      this.focused = false
-    })
-  }
-
-  destroyed(): void {
-    Keyboard.removeAllListeners()
-  }
-
-  register() {
-    Validator.validate(this.userRegistration, CREATE)
-        .then(() => Cropper.cropSquare(this.userRegistration.picture as Blob, true))
-        .then((croppedImage) => appModule.showLoader(this.$ionic)
-            .then(() => authModule.doRegister({...this.userRegistration, picture: croppedImage} as User)))
-        .then(() => {
-          appModule.hideLoader()
-          this.$router.replace('/welcome')
+    mounted() {
+        Keyboard.addListener('keyboardWillShow', (info: KeyboardInfo) => {
+            this.focused = true
+            this.keyboardHeight = info.keyboardHeight
         })
-        .catch(error => {
-          console.error(error)
-          appModule.hideLoader()
-          if (error instanceof FormError) {
-            error.fieldErrors.forEach((fieldError) => {
-              this.$set(this.fieldErrors, fieldError.param, [ErrorMessage.getMessage(fieldError)])
+        Keyboard.addListener('keyboardWillHide', () => {
+            this.focused = false
+        })
+    }
+
+    destroyed(): void {
+        Keyboard.removeAllListeners()
+    }
+
+    register() {
+        Validator.validate(this.userRegistration, CREATE)
+            .then(() => Cropper.cropSquare(this.userRegistration.picture as Blob, true))
+            .then((croppedImage) => appModule.showLoader(this.$ionic)
+                .then(() => authModule.doRegister({...this.userRegistration, picture: croppedImage} as User)))
+            .then(() => {
+                appModule.hideLoader()
+                this.$router.replace('/welcome')
             })
-          } else if (error instanceof UnknownError) {
-            ToastPresenter.present(this.$ionic, ErrorMessage.getMessage(error))
-          }
+            .catch(error => {
+                console.error(error)
+                appModule.hideLoader()
+                if (error instanceof FormError) {
+                    error.fieldErrors.forEach((fieldError) => {
+                        this.$set(this.fieldErrors, fieldError.param, [ErrorMessage.getMessage(fieldError)])
+                    })
+                } else if (error instanceof UnknownError) {
+                    ToastPresenter.present(this.$ionic, ErrorMessage.getMessage(error))
+                }
+            })
+
+    }
+
+    resetError(field) {
+        this.fieldErrors[field] = undefined
+    }
+
+    fileSelected(file: Blob) {
+        this.loadingPicture = true
+        this.fieldErrors['picture'] = undefined
+        Cropper.cropSquare(file)
+            .then((cropped) => {
+                this.loadingPicture = false
+                this.$set(this.userRegistration, 'picture', cropped)
+            })
+    }
+
+    openPreview(event) {
+        event.preventDefault()
+        this.resetError('pictures')
+        ModalPresenter.present(this.$ionic, PicturesModal, {
+            pictures: [this.userRegistration.picture],
+            selected: 0,
+            removable: true
+        }).then(({data}) => {
+            if (data?.index !== undefined) {
+                this.$set(this.userRegistration, 'picture', undefined)
+            }
         })
-
-  }
-
-  resetError(field) {
-    this.fieldErrors[field] = undefined
-  }
-
-  fileSelected(file: Blob) {
-    this.loadingPicture = true
-    this.fieldErrors['picture'] = undefined
-    Cropper.cropSquare(file)
-        .then((cropped) => {
-          this.loadingPicture = false
-          this.$set(this.userRegistration, 'picture', cropped)
-        })
-  }
-
-  openPreview(event) {
-    event.preventDefault()
-    this.resetError('pictures')
-    ModalPresenter.present(this.$ionic, PicturesModal, {
-      pictures: [this.userRegistration.picture],
-      selected: 0,
-      removable: true
-    }).then(({data}) => {
-      if (data?.index !== undefined) {
-        this.$set(this.userRegistration, 'picture', undefined)
-      }
-    })
-  }
+    }
 }
 </script>
 <style>
 .name-input {
-  border-right: 2px solid #eee;
+    border-right: 2px solid #eee;
 }
 
 .register-form {
-  transition: all 0.3s;
-  position: absolute;
-  bottom: calc(50% - 200px);
+    bottom: calc(50% - 200px);
+    position: absolute;
+    transition: all 0.3s;
 }
 
 .translate-form {
-  top: auto;
-  bottom: calc(var(--keyboard-height) + 10px);
+    bottom: calc(var(--keyboard-height) + 10px);
+    top: auto;
 }
 </style>

@@ -10,9 +10,9 @@ export default class ImagesProvider extends DataProvider {
     }
 
     uploadImages(images: File[], action: string): Promise<Image[]> {
-        return this.http.postFile('', images)
+        return images.length ? this.http.postFile('', images)
             .then(({data}) => data)
-            .catch((error: AxiosError) => handleBackError(action)(error.response))
+            .catch((error: AxiosError) => handleBackError(action)(error.response)) : Promise.resolve([])
     }
 
 }

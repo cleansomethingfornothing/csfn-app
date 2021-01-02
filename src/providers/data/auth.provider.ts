@@ -45,22 +45,22 @@ export class AuthProvider extends DataProvider {
 
     changeEmail({currentEmail, currentPassword, newEmail}: { currentEmail: string, currentPassword: string, newEmail: string }): Promise<User> {
         return this.http.post('/change_email', {email: newEmail}, {
-            auth: {
-                username: currentEmail,
-                password: currentPassword
-            }
-        })
+                auth: {
+                    username: currentEmail,
+                    password: currentPassword
+                }
+            })
             .then(({data}) => data)
             .catch(handleBackError('change-email'))
     }
 
     changePassword({currentEmail, currentPassword, newPassword}: { currentEmail, currentPassword, newPassword }): Promise<User> {
         return this.http.post('/change_password', {password: newPassword}, {
-            auth: {
-                username: currentEmail,
-                password: currentPassword
-            }
-        })
+                auth: {
+                    username: currentEmail,
+                    password: currentPassword
+                }
+            })
             .then(({data}) => data)
             .catch(handleBackError('change-password'))
     }

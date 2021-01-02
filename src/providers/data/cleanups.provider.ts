@@ -14,10 +14,21 @@ export class CleanupsProvider extends DataProvider {
             .catch(() => Promise.reject(new UnknownError('publish-the-cleanup')))
     }
 
-    fetchMarkers(origin: Coords): Promise<Cleanup[]> {
-        return this.http.get(`?onlyCoords=true&origin=${origin.lat},${origin.lng}`)
+    update(id: number, cleanup: Cleanup): Promise<void> {
+        return this.http.patch('/' + id, cleanup)
+            .catch(() => Promise.reject(new UnknownError('update-the-cleanup')))
+    }
+
+    fetchMarkers(origin: Coords, bounds?: string): Promise<Cleanup[]> {
+        return this.http.get(`?onlyCoords=true&origin=${origin.lat},${origin.lng}${bounds ? '&bounds=' + bounds : ''}`)
             .then(({data}) => data)
             .catch(() => Promise.reject(new UnknownError('fetch-cleanups')))
+    }
+
+    fetchCleanup(id: number): Promise<Cleanup> {
+        return this.http.get('/' + id)
+            .then(({data}) => data)
+            .catch(() => Promise.reject(new UnknownError('fetch-cleanup')))
     }
 }
 

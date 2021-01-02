@@ -29,26 +29,25 @@ const {Camera} = Plugins
 })
 export default class UploadButton extends Vue {
 
-  isMobile = false
+    isMobile = false
 
-  @Prop(Boolean)
-  rounded: boolean
+    @Prop(Boolean)
+    rounded: boolean
 
-  @Prop(Boolean)
-  loading: boolean
+    loading = false
 
-  @Prop(Blob)
-  file: Blob
+    @Prop()
+    file: any
 
-  @Prop(String)
-  url: string
+    @Prop(String)
+    url: string
 
-  get fileUrl() {
-    return URL.createObjectURL(this.file)
-  }
+    get fileUrl() {
+        return URL.createObjectURL(this.file)
+    }
 
-  mounted() {
-    nativeProvider.isMobile()
+    mounted() {
+        nativeProvider.isMobile()
         .then((isMobile) => this.isMobile = isMobile)
   }
 
@@ -56,23 +55,23 @@ export default class UploadButton extends Vue {
     if (this.file) {
       return
     }
-    this.emitLoading(true)
-    Camera.getPhoto({
-      quality: 100,
-      correctOrientation: true,
-      source: CameraSource.Photos,
-      resultType: CameraResultType.DataUrl
-    })
-        .then((image) => {
-          return fetch(image.dataUrl)
-        })
-        .then((res) => res.blob())
+      this.loading = true
+      Camera.getPhoto({
+              quality: 100,
+              correctOrientation: true,
+              source: CameraSource.Photos,
+              resultType: CameraResultType.DataUrl
+          })
+          .then((image) => {
+              return fetch(image.dataUrl)
+          })
+          .then((res) => res.blob())
         .then((blob) => {
-          this.emitLoading(false)
-          this.fileSelected(blob)
+            this.loading = false
+            this.fileSelected(blob)
         })
         .catch(() => {
-          this.emitLoading(false)
+            this.loading = false
         })
   }
 
@@ -86,10 +85,6 @@ export default class UploadButton extends Vue {
     return
   }
 
-  @Emit('loading')
-  emitLoading(loading) {
-    return loading
-  }
 }
 </script>
 <style>

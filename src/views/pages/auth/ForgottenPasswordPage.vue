@@ -1,21 +1,22 @@
 <template>
-  <ion-page class="ion-page register-page">
-    <transparent-header :title="$t('recover-password')" :always-transparent="true"></transparent-header>
-    <ion-content class="fullscreen h-screen">
-      <forest-bg clazz="login-bg-image"></forest-bg>
-      <div class="flex flex-col justify-center items-center w-full h-full">
-        <form class="auth-form" @submit.prevent="resetPassword">
-          <ion-label class="password-message z-10" color="white">
-            {{ $t('recover-password-text') }}
-          </ion-label>
-          <input-item icon="mail" placeholder="Email" type="email" v-model="email"
-                      :rounded="true" :errors="error ? [error] : undefined"
-                      @focus="error = undefined"></input-item>
-          <button-item class="text-center" color="primary" :text="$t('send')" @click="resetPassword"></button-item>
-        </form>
-      </div>
-    </ion-content>
-  </ion-page>
+    <ion-page class="ion-page register-page">
+        <transparent-header :always-transparent="true" :title="$t('recover-password')"></transparent-header>
+        <ion-content class="fullscreen h-screen">
+            <forest-bg clazz="login-bg-image"></forest-bg>
+            <div class="flex flex-col justify-center items-center w-full h-full">
+                <form class="auth-form" @submit.prevent="resetPassword">
+                    <ion-label class="password-message z-10" color="white">
+                        {{ $t('recover-password-text') }}
+                    </ion-label>
+                    <input-item v-model="email" :errors="error ? [error] : undefined" :rounded="true" icon="mail"
+                                placeholder="Email" type="email"
+                                @focus="error = undefined"></input-item>
+                    <button-item :text="$t('send')" class="text-center" color="primary"
+                                 @click="resetPassword"></button-item>
+                </form>
+            </div>
+        </ion-content>
+    </ion-page>
 </template>
 <script lang="ts">
 import Vue from 'vue'
@@ -34,44 +35,44 @@ import User from '@/types/User'
 import {appModule} from '@/store/appModule'
 
 @Component({
-  name: 'forgotten-password',
-  components: {TransparentHeader, Avatar, ButtonItem, ForestBg, InputItem}
+    name: 'forgotten-password',
+    components: {TransparentHeader, Avatar, ButtonItem, ForestBg, InputItem}
 })
 export default class ForgottenPasswordPage extends Vue {
 
-  loading = false
+    loading = false
 
-  public email = ''
+    public email = ''
 
-  error = ''
+    error = ''
 
-  resetPassword() {
-    const reset = new User()
-    reset.email = this.email
-    appModule.showLoader(this.$ionic)
-        .then(() => authModule.doPasswordReset(reset))
-        .then(() => {
-          appModule.hideLoader()
-          ToastPresenter.present(this.$ionic, this.$t('recover-password-success').toString(), 'success')
-          this.$router.back()
-        })
-        .catch(error => {
-          appModule.hideLoader()
-          if (error instanceof FormError) {
-            error.fieldErrors.forEach((fieldError) => {
-              this.error = ErrorMessage.getMessage(fieldError)
+    resetPassword() {
+        const reset = new User()
+        reset.email = this.email
+        appModule.showLoader(this.$ionic)
+            .then(() => authModule.doPasswordReset(reset))
+            .then(() => {
+                appModule.hideLoader()
+                ToastPresenter.present(this.$ionic, this.$t('recover-password-success').toString(), 'success')
+                this.$router.back()
             })
-          }
-          if (error instanceof UnknownError) {
-            ToastPresenter.present(this.$ionic, ErrorMessage.getMessage(error))
-          }
-          this.loading = false
-        })
-  }
+            .catch(error => {
+                appModule.hideLoader()
+                if (error instanceof FormError) {
+                    error.fieldErrors.forEach((fieldError) => {
+                        this.error = ErrorMessage.getMessage(fieldError)
+                    })
+                }
+                if (error instanceof UnknownError) {
+                    ToastPresenter.present(this.$ionic, ErrorMessage.getMessage(error))
+                }
+                this.loading = false
+            })
+    }
 }
 </script>
 <style>
 .password-message {
-  font-size: 1.1em;
+    font-size: 1.1em;
 }
 </style>

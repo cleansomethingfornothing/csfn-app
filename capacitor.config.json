@@ -6,11 +6,7 @@
   "webDir": "dist",
   "backgroundColor": "#ffffffff",
   "server": {
-    "url": "http://192.168.1.24:8080",
-    "hostname": "native.cleansomethingfornothing.com",
-    "allowNavigation": [
-      "app.cleansomethingfornothing.com"
-    ]
+    "url": "http://192.168.1.24:8080"
   },
   "android": {
     "allowMixedContent": true
@@ -26,7 +22,7 @@
         "profile",
         "email"
       ],
-      "serverClientId": "871904238312-rabbaf1jtvm97h9vb4hd0ufnj82orpuu.apps.googleusercontent.com",
+      "serverClientId": "597121035718-nsc9jbk02v6s0ul8jmmsodhgr4n898gv.apps.googleusercontent.com",
       "forceCodeForRefreshToken": true
     },
     "Keyboard": {

@@ -39,6 +39,15 @@ class NativeProvider {
                 })
         }
     }
+
+    setStatusBarStyle(style: StatusBarStyle) {
+        this.statusBarStyle = style
+        StatusBar.setStyle({style})
+    }
+
+    getStatusBarStyle() {
+        return this.statusBarStyle
+    }
 }
 
 export const nativeProvider = new NativeProvider()
