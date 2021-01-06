@@ -30,7 +30,7 @@
     "@turf/distance": "^6.0.1",
     "@types/compose-function": "0.0.30",
     "@types/qs": "^6.9.1",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "base64-blob": "^1.4.1",
     "capacitor-secure-storage-plugin": "^0.4.0",
     "chart.js": "^2.9.3",
