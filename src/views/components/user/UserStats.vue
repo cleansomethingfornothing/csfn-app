@@ -68,14 +68,21 @@ export default class UserStats extends Vue {
                 },
                 scales: {
                     xAxes: [{
-                        type: this.groupBy === 'month' ? 'time' : undefined,
-                        time: this.groupBy === 'month' ? {
-                            unit: 'month',
-                            parser: 'YYYY-MM',
-                            displayFormats: {
-                                month: 'MMM'
-                            }
-                        } : undefined,
+                        type: 'time',
+                        time: this.groupBy === 'month'
+                            ? {
+                                unit: 'month',
+                                parser: 'YYYY-MM',
+                                displayFormats: {
+                                    month: 'MMM'
+                                }
+                            } : {
+                                unit: 'day',
+                                parser: 'YYYY-MM-DD',
+                                displayFormats: {
+                                    day: 'DD/MM/YYYY'
+                                }
+                            },
                         gridLines: {
                             offsetGridLines: false,
                             zeroLineColor: '#ddd'

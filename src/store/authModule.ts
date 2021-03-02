@@ -63,7 +63,7 @@ class AuthModule extends VuexModule {
 
     @Action
     doCredentialsLogin(userLogin: User): Promise<User> {
-        return Validator.validate(userLogin, LOGIN)
+        return Validator.validate(userLogin, {groups: [LOGIN]})
             .then(() => authProvider.doLogin(userLogin))
             .then((user) => {
                 FirebaseAnalytics.logEvent({name: 'login', params: {method: 'credentials'}})
@@ -88,7 +88,7 @@ class AuthModule extends VuexModule {
 
     @Action
     changeEmail(change: User) {
-        return Validator.validate(change, UPDATE_EMAIL)
+        return Validator.validate(change, {groups: [UPDATE_EMAIL]})
             .then(() => authProvider.changeEmail({
                 currentEmail: userModule.getCurrentUser.email,
                 currentPassword: change.password,
@@ -102,7 +102,7 @@ class AuthModule extends VuexModule {
 
     @Action
     changePassword({currentPassword, newPassword}: { currentPassword: string, newPassword: string }) {
-        return Validator.validate({password: newPassword} as User, UPDATE_PASSWORD)
+        return Validator.validate({password: newPassword} as User, {groups: [UPDATE_PASSWORD]})
             .then(() => authProvider.changePassword({
                 currentEmail: userModule.getCurrentUser.email,
                 currentPassword, newPassword
@@ -115,7 +115,7 @@ class AuthModule extends VuexModule {
 
     @Action
     doPasswordReset(reset: User): Promise<void> {
-        return Validator.validate(reset, RESET_PASSWORD)
+        return Validator.validate(reset, {groups: [RESET_PASSWORD]})
             .then(() => {
                 FirebaseAnalytics.logEvent({name: 'reset_password'})
                 return passwordResetProvider.request(reset.email)

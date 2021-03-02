@@ -1,6 +1,6 @@
 {
   "name": "csfn-app",
-  "version": "1.0.0-beta",
+  "version": "1.0.0-alpha.1",
   "private": true,
   "postinstall": "jetifier",
   "scripts": {
@@ -46,7 +46,7 @@
     "es6-promise-plugin": "^4.2.2",
     "form-data": "^3.0.0",
     "ionicons": "^4.6.3",
-    "ionicons5": "npm:ionicons@5.0.0",
+    "ionicons5": "npm:ionicons@5.4.0",
     "jetifier": "^1.6.5",
     "lodash": "^4.17.20",
     "moment": "^2.29.1",

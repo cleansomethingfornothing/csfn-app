@@ -1,5 +1,5 @@
-import {IsEmail, IsNotEmpty, MinLength} from 'class-validator'
-import {CREATE, LOGIN, RESET_PASSWORD, UPDATE_EMAIL, UPDATE_PASSWORD} from '@/types/ValidationGroups'
+import {IsAlphanumeric, IsEmail, IsNotEmpty, MinLength} from 'class-validator'
+import {CREATE, LOGIN, RESET_PASSWORD, UPDATE, UPDATE_EMAIL, UPDATE_PASSWORD} from '@/types/ValidationGroups'
 import Image from '@/types/Image'
 
 export default class User {
@@ -9,7 +9,9 @@ export default class User {
     @IsNotEmpty({message: 'required-error-f', groups: [CREATE]})
     picture?: File | Image
 
-    @IsNotEmpty({groups: [CREATE], message: 'required-error'})
+    @IsNotEmpty({groups: [CREATE, UPDATE], message: 'required-error'})
+    @IsAlphanumeric(undefined, {groups: [CREATE], message: 'alphanumeric-error-short'})
+    @IsAlphanumeric(undefined, {groups: [UPDATE], message: 'alphanumeric-error'})
     username?: string
 
     @IsEmail({}, {groups: [CREATE, LOGIN, UPDATE_EMAIL, RESET_PASSWORD], message: 'invalid-email'})

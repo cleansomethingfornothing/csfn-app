@@ -3,15 +3,16 @@ import {
     ValidationArguments,
     ValidationError,
     ValidatorConstraint,
-    ValidatorConstraintInterface
+    ValidatorConstraintInterface,
+    ValidatorOptions
 } from 'class-validator'
 import FormError from '@/types/errors/FormError'
 import FieldError from '@/types/errors/FieldError'
 import User from '@/types/User'
 
 export default class Validator {
-    public static validate(object: any, ...groups: string[]): Promise<void | FormError> {
-        return validateOrReject(object, {groups})
+    public static validate(object: any, options?: ValidatorOptions): Promise<void | FormError> {
+        return validateOrReject(object, options)
             .catch((errors) => this.handleRejection(errors))
     }
 

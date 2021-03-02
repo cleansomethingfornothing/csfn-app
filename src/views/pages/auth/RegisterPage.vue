@@ -98,7 +98,7 @@ export default class RegisterPage extends Vue {
     }
 
     register() {
-        Validator.validate(this.userRegistration, CREATE)
+        Validator.validate(this.userRegistration, {groups: [CREATE]})
             .then(() => Cropper.cropSquare(this.userRegistration.picture as Blob, true))
             .then((croppedImage) => appModule.showLoader(this.$ionic)
                 .then(() => authModule.doRegister({...this.userRegistration, picture: croppedImage} as User)))

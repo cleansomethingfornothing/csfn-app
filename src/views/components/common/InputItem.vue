@@ -1,36 +1,36 @@
 <template>
-  <div :class="errors && errors.length ? 'invalid-input': ''" class="text-item cursor-pointer">
-      <div class="overflow-hidden ion-activatable ripple-parent" :class="rounded ? 'rounded-full' : ''"
-           @click="clicked">
-          <ion-item :color="outline ? 'light': '' " :lines="noLines ? 'none' : 'full'">
-              <ion-icon v-if="icon || iconSrc" slot="start" :name="icon" :src="iconSrc" color="dark"></ion-icon>
-              <ion-label v-if="label" class="font-bold" position="floating">{{ label }}</ion-label>
-              <slot>
-                  <ion-input ref="input" :autocomplete="type === 'password' ? 'new-password' : 'off'"
-                             :class="inputClass" :clear-input="clear" :placeholder="placeholder"
-                             :readonly="readonly" :type="type === 'password' && showPassword ? 'text' : type"
-                             :value="value"
-                             @ionBlur="blur" @ionChange="change"
-                             @ionFocus="focused" @ionInput="onInput"></ion-input>
-              </slot>
-              <div v-if="$scopedSlots['end']" slot="end">
-                  <slot name="end"/>
-              </div>
-              <ion-button v-if="type === 'password' && !$scopedSlots['end']" slot="end"
-                          :class="{'mt-6 pt-1 mr-0': !rounded, '-mr-1': rounded}"
-                          color="medium"
-                          fill="clear" shape="round" @click="showPassword = !showPassword">
-                  <ion-icon v-if="!showPassword" slot="icon-only" class="mr-0" name="eye"/>
-                  <ion-icon v-else slot="icon-only" class="mr-0" name="eye-off"/>
-              </ion-button>
-              <ion-note v-if="endNote" slot="end" class="ml-0 mb-0 pb-0 pt-6 text-base">{{ endNote }}</ion-note>
-          </ion-item>
-      <ion-ripple-effect></ion-ripple-effect>
+    <div :class="errors && errors.length ? 'invalid-input': ''" class="text-item cursor-pointer">
+        <div :class="rounded ? 'rounded-full' : ''" class="overflow-hidden ion-activatable ripple-parent"
+             @click="clicked">
+            <ion-item :color="outline ? 'light': '' " :lines="noLines ? 'none' : 'full'">
+                <ion-icon v-if="icon || iconSrc" slot="start" :name="icon" :src="iconSrc" color="dark"></ion-icon>
+                <ion-label v-if="label" class="font-bold" position="floating">{{ label }}</ion-label>
+                <slot>
+                    <ion-input ref="input" :autocomplete="type === 'password' ? 'new-password' : 'off'"
+                               :class="inputClass" :clear-input="clear" :placeholder="placeholder"
+                               :readonly="readonly" :type="type === 'password' && showPassword ? 'text' : type"
+                               :value="value"
+                               @ionBlur="blur" @ionChange="change"
+                               @ionFocus="focused" @ionInput="onInput"></ion-input>
+                </slot>
+                <div v-if="$scopedSlots['end']" slot="end">
+                    <slot name="end"/>
+                </div>
+                <ion-button v-if="type === 'password' && !$scopedSlots['end']" slot="end"
+                            :class="{'mt-6 pt-1 mr-0': !rounded, '-mr-1': rounded}"
+                            color="medium"
+                            fill="clear" shape="round" @click="showPassword = !showPassword">
+                    <ion-icon v-if="!showPassword" slot="icon-only" class="mr-0" name="eye"/>
+                    <ion-icon v-else slot="icon-only" class="mr-0" name="eye-off"/>
+                </ion-button>
+                <ion-note v-if="endNote" slot="end" class="ml-0 mb-0 pb-0 pt-6 text-base">{{ endNote }}</ion-note>
+            </ion-item>
+            <ion-ripple-effect></ion-ripple-effect>
+        </div>
+        <div v-for="error in errors" :key="error" :class="!rounded ? 'mb-2' : ''">
+            <input-error :error="error"></input-error>
+        </div>
     </div>
-    <div v-for="error in errors" :key="error" :class="!rounded ? 'mb-2' : ''">
-      <input-error :error="error"></input-error>
-    </div>
-  </div>
 </template>
 <script lang="ts">
 import Vue from 'vue'

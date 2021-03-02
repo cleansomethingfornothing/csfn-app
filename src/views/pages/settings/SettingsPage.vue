@@ -8,6 +8,11 @@
                     </ion-button>
                 </ion-buttons>
                 <ion-title>{{ $t('settings') }}</ion-title>
+                <ion-buttons slot="end">
+                    <ion-button fill="clear" shape="round" @click="openInfo">
+                        <ion-icon :src="require('ionicons5/dist/svg/information-circle-outline.svg')"></ion-icon>
+                    </ion-button>
+                </ion-buttons>
             </ion-toolbar>
         </ion-header>
         <ion-content class="list-large-items">
@@ -19,11 +24,11 @@
                 </ion-item>
                 <ion-item button @click="$router.push('/security-settings')">
                     <ion-icon slot="start" :src="require('ionicons5/dist/svg/shield-outline.svg')"
-                              color="back"></ion-icon>
+                              color="black"></ion-icon>
                     <ion-label>{{ $t('security') }}</ion-label>
                 </ion-item>
                 <ion-item button @click="openPrivacyPolicy">
-                    <ion-icon slot="start" :src="require('ionicons5/dist/svg/information-circle-outline.svg')"
+                    <ion-icon slot="start" :src="require('ionicons5/dist/svg/document-lock-outline.svg')"
                               color="black"></ion-icon>
                     <ion-label>{{ $t('privacy-policy') }}</ion-label>
                 </ion-item>
@@ -40,6 +45,9 @@ import Vue from 'vue'
 import Component from 'vue-class-component'
 import {authModule} from '@/store/authModule'
 import {appModule} from '@/store/appModule'
+import {Plugins} from '@capacitor/core';
+
+const {Device} = Plugins;
 
 @Component({
     name: 'SettingsPage'
@@ -51,6 +59,17 @@ export default class SettingsPage extends Vue {
         window.open('https://www.cleansomethingfornothing.com/app-privacy-policy/', '_system', 'location=yes')
     }
 
+    openInfo() {
+        Device.getInfo()
+            .then((info) => this.$ionic.alertController.create({
+                message: '<div class="text-center text-xl economica text-black mt-4">Clean Something For Nothing</div>' +
+                    '<div class="text-xl text-black text-center my-3">v' + info.appVersion + '</div>' +
+                    '<span class="text-sm">Idea by César González</span><br>' +
+                    '<span class="text-sm">Developed by Lester Pérez</span>',
+                cssClass: 'alert-no-header'
+            }))
+            .then((alert) => alert.present())
+    }
 
     logout() {
         appModule.showLoader(this.$ionic)
@@ -66,3 +85,8 @@ export default class SettingsPage extends Vue {
 
 }
 </script>
+<style>
+.alert-no-header .alert-head {
+    display: none !important;
+}
+</style>

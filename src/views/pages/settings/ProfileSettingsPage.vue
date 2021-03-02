@@ -56,6 +56,8 @@ import UnknownError from '@/types/errors/UnknownError'
 import FormError from '@/types/errors/FormError'
 import {appModule} from '@/store/appModule'
 import Cropper from '@/tools/Cropper'
+import Validator from '@/tools/Validator'
+import {UPDATE} from '@/types/ValidationGroups'
 
 @Component({
     name: 'profile-settings-page',
@@ -64,6 +66,7 @@ import Cropper from '@/tools/Cropper'
 export default class ProfileSettingsPage extends Vue {
 
     originalUsername = ''
+    editing = false
 
     get user(): User {
         return userModule.getCurrentUser
@@ -82,6 +85,10 @@ export default class ProfileSettingsPage extends Vue {
     }
 
     doEditUsername() {
+        if (this.editing) {
+            return
+        }
+        this.editing = true
         this.$ionic.alertController.create({
             message: this.$t('new-username-message').toString(),
             cssClass: 'username-alert',
@@ -93,10 +100,14 @@ export default class ProfileSettingsPage extends Vue {
             }],
             buttons: [{
                 text: this.$t('cancel').toString(),
-                role: 'cancel'
+                role: 'cancel',
+                handler: () => {
+                    this.editing = false
+                }
             }, {
                 text: this.$t('save').toString(),
                 handler: (data) => {
+                    this.editing = false
                     this.updateUsername(data.username)
                 }
             }]
@@ -115,8 +126,11 @@ export default class ProfileSettingsPage extends Vue {
         if (this.originalUsername === username) {
             return
         }
-        appModule.showLoader(this.$ionic)
-            .then(() => userModule.updateUser({username}))
+        const user = new User()
+        user.username = username
+        Validator.validate(user, {groups: [UPDATE], skipMissingProperties: true})
+            .then(() => appModule.showLoader(this.$ionic))
+            .then(() => userModule.updateUser({username: username.trim()}))
             .then(() => this.handleSuccess())
             .catch((error) => this.handleError(error))
     }

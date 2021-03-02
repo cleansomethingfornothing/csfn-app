@@ -1,6 +1,6 @@
 export default class Cropper {
 
-    static SIDE = 128
+    static SIDE = 256
 
     canvas: HTMLCanvasElement
 
