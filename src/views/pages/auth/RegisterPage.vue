@@ -124,7 +124,7 @@ export default class RegisterPage extends Vue {
         this.fieldErrors[field] = undefined
     }
 
-    fileSelected(file: Blob) {
+    fileSelected([file]: Blob[]) {
         this.loadingPicture = true
         this.fieldErrors['picture'] = undefined
         Cropper.cropSquare(file)

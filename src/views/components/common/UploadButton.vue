@@ -21,9 +21,8 @@ import Vue from 'vue'
 import Component from 'vue-class-component'
 import {Emit, Prop} from 'vue-property-decorator'
 import {nativeProvider} from '@/providers/native/native.provider'
-import {CameraResultType, CameraSource, Plugins} from '@capacitor/core'
+import {ImagePicker} from '@ionic-native/image-picker';
 
-const {Camera} = Plugins
 @Component({
     name: 'upload-button'
 })
@@ -38,6 +37,9 @@ export default class UploadButton extends Vue {
 
     @Prop()
     file: any
+
+    @Prop({default: 1})
+    max: number
 
     @Prop(String)
     url: string
@@ -56,28 +58,27 @@ export default class UploadButton extends Vue {
             return
         }
         this.loading = true
-        Camera.getPhoto({
-                quality: 100,
-                correctOrientation: true,
-                source: CameraSource.Photos,
-                resultType: CameraResultType.DataUrl
+        ImagePicker.getPictures({
+                maximumImagesCount: this.max,
+                width: 1024,
+                quality: 90,
+                outputType: 1
             })
-            .then((image) => {
-                return fetch(image.dataUrl)
-            })
-            .then((res) => res.blob())
-            .then((blob) => {
+            .then((images: string[]) => Promise.all(images.map((image) =>
+                fetch('data:image/jpeg;base64,' + image).then((res) => res.blob())))
+            ).then((blobs: Blob[]) => {
                 this.loading = false
-                this.fileSelected(blob)
+                this.filesSelected(blobs)
             })
-            .catch(() => {
+            .catch((err) => {
+                console.log(err)
                 this.loading = false
             })
     }
 
     @Emit('select')
-    fileSelected(file: Blob) {
-        return file
+    filesSelected(files: Blob[]) {
+        return files
     }
 
     @Emit('click')

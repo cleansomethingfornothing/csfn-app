@@ -15,9 +15,10 @@ dependencies {
     implementation project(':capacitor-community-http')
     implementation project(':codetrix-studio-capacitor-google-auth')
     implementation project(':capacitor-secure-storage-plugin')
-
+    implementation "com.android.support:appcompat-v7:27.+"
 }
-
+apply from: "../../node_modules/cordova-plugin-telerik-imagepicker/src/android/ignorelinterrors.gradle"
+apply from: "../../node_modules/cordova-plugin-telerik-imagepicker/src/android/androidtarget.gradle"
 
 if (hasProperty('postBuildExtras')) {
   postBuildExtras()

@@ -372,7 +372,7 @@
 				INFOPLIST_FILE = App/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = "1.0.0-alpha.1";
+				MARKETING_VERSION = "1.0.0-alpha.2";
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-DDEBUG\"";
 				PRODUCT_BUNDLE_IDENTIFIER = com.cleansomething.app;
 				PRODUCT_NAME = CSFN;
@@ -391,7 +391,7 @@
 				INFOPLIST_FILE = App/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = "1.0.0-alpha.1";
+				MARKETING_VERSION = "1.0.0-alpha.2";
 				PRODUCT_BUNDLE_IDENTIFIER = com.cleansomething.app;
 				PRODUCT_NAME = CSFN;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = USE_PUSH;

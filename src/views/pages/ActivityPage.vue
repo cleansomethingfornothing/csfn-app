@@ -70,9 +70,8 @@
                             <!-- Location -->
                             <ion-item class="pl-0" lines="none">
                                 <ion-icon class="mr-2" color="secondary" name="location-sharp"></ion-icon>
-                                <ion-label class="font-bold text-xs">{{ activity.location.address.city }},
-                                    {{ activity.location.address.state }},
-                                    {{ activity.location.address.country }}
+                                <ion-label class="font-bold text-xs">
+                                    {{addressString}}
                                 </ion-label>
                             </ion-item>
 
@@ -124,6 +123,7 @@ import PageTransparentHeader from '@/views/components/common/PageTransparentHead
 import Cleanup from "@/types/Cleanup";
 import {cleanupsModule} from '@/store/cleanupsModule'
 import Image from '@/types/Image'
+import {addressToString} from '@/tools/Utils'
 
 @Component({
     name: 'cleanup-page',
@@ -154,6 +154,10 @@ export default class ActivityPage extends Vue {
 
     get formattedDate() {
         return this.activity && moment(this.activity.date).format('D MMMM YYYY')
+    }
+
+    get addressString() {
+        return addressToString(this.activity.location.address)
     }
 
     mounted() {

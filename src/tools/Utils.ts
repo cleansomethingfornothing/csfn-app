@@ -4,7 +4,7 @@ import Coords from '@/types/Coords'
 import distance from '@turf/distance'
 
 export function addressToString(address: Address) {
-    return [address.city, address.state, address.country].filter(s => s !== undefined).join(', ')
+    return [address.city, address.state, address.country].filter(s => !!s).join(', ')
 }
 
 export function coordsBoundToString(bounds: CoordsBound): string {

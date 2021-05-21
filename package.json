@@ -1,6 +1,6 @@
 {
   "name": "csfn-app",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0-alpha.2",
   "private": true,
   "postinstall": "jetifier",
   "scripts": {
@@ -26,6 +26,7 @@
     "@capacitor/ios": "2.0.2",
     "@codetrix-studio/capacitor-google-auth": "^2.1.3",
     "@ionic-native/core": "^5.30.0",
+    "@ionic-native/image-picker": "^5.31.1",
     "@ionic/core": "^4.11.13",
     "@ionic/pwa-elements": "^3.0.2",
     "@ionic/vue": "0.0.9",
@@ -41,6 +42,7 @@
     "class-validator": "^0.11.1",
     "compose-function": "^3.0.3",
     "cordova-plugin-screen-orientation": "^3.0.2",
+    "cordova-plugin-telerik-imagepicker": "^2.3.6",
     "core-js": "^3.8.2",
     "countries-list": "^2.6.1",
     "es6-promise-plugin": "^4.2.2",

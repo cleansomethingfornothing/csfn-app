@@ -114,9 +114,9 @@ export default class ProfileSettingsPage extends Vue {
         }).then(alert => alert.present())
     }
 
-    updatePicture(picture) {
+    updatePicture([picture]: Blob[]) {
         appModule.showLoader(this.$ionic)
-            .then(() => Cropper.cropSquare(picture as Blob, true))
+            .then(() => Cropper.cropSquare(picture, true))
             .then((cropped) => userModule.updateUserPicture(cropped))
             .then(() => this.handleSuccess())
             .catch((error) => this.handleError(error))

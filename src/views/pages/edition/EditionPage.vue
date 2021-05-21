@@ -106,10 +106,10 @@
                         <ion-label class="publish-label" position="floating">{{ $t('pictures') }}</ion-label>
                         <ion-row v-if="activity.pictures" class="w-full mt-8 mb-2">
                             <ion-col v-for="i of [0,1,2,3,4]" :key="i">
-                                <upload-button :file="activity.pictures[i]"
+                                <upload-button :file="thumbnails[i]" :max="5 - activity.pictures.length"
                                                :url="activity.pictures[i] && activity.pictures[i].publicUrl"
                                                @click="resetError('pictures') || activity.pictures[i] && openImagePreview(i)"
-                                               @select="arrayChange(activity.pictures, $event)"></upload-button>
+                                               @select="picturesSelected"></upload-button>
                             </ion-col>
                         </ion-row>
                     </input-item>
@@ -150,7 +150,7 @@ import Validator from "@/tools/Validator";
 import {appModule} from "@/store/appModule";
 import UnknownError from "@/types/errors/UnknownError";
 import {userModule} from '@/store/userModule'
-import {processActivityPicture} from '@/tools/ImageProcessor'
+import {resizePicture} from '@/tools/ImageProcessor'
 import {Prop} from 'vue-property-decorator'
 
 @Component({
@@ -165,6 +165,7 @@ export default class EditionPage extends Vue {
     errors = {}
 
     activity = null
+    thumbnails: Blob[] = []
     previousPictures = []
     removedPictures = []
 
@@ -373,6 +374,7 @@ export default class EditionPage extends Vue {
                     this.removedPictures.push(this.activity.pictures[data.index].id)
                 }
                 this.activity.pictures.splice(data.index, 1)
+                this.thumbnails.splice(data.index, 1)
             }
         })
     }
@@ -381,11 +383,10 @@ export default class EditionPage extends Vue {
         this.$set(this.activity, field, value)
     }
 
-    arrayChange(array, picture) {
-        processActivityPicture(picture)
-            .then((processed) => {
-                this.$set(array, array.length, processed)
-            })
+    picturesSelected(pictures: Blob[]) {
+        this.$set(this.activity, 'pictures', [...this.activity.pictures, ...pictures])
+        Promise.all(pictures.map(picture => resizePicture(picture, 256)))
+            .then((resized) => this.$set(this, 'thumbnails', [...this.thumbnails, ...resized]))
     }
 
     resetError(field) {
