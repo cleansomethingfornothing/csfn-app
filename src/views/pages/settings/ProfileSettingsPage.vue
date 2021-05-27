@@ -17,7 +17,7 @@
         </ion-header>
         <ion-content>
             <div class="mx-auto my-6 w-2/5 rounded-full border-solid border-4 border-white shadow-md">
-                <upload-button :rounded="true" :url="user.picture.publicUrl" @select="updatePicture"/>
+                <upload-button :rounded="true" :url="user.picture && user.picture.publicUrl" @select="updatePicture"/>
             </div>
 
             <ion-list>

@@ -3,7 +3,7 @@ import FieldError from '@/types/errors/FieldError'
 import UnknownError from '@/types/errors/UnknownError'
 import {HttpResponse} from '@capacitor-community/http'
 
-export const handleBackError = (action: string) => (error: HttpResponse) => {
+export const handleBackError = (action: string) => (error: Partial<HttpResponse>) => {
     try {
         if (error.status === 400 && error.data.message) {
             return Promise.reject(new FormError(error.data.message.map(({property, constraints}) => new FieldError(property, Object.keys(constraints)[0]))))

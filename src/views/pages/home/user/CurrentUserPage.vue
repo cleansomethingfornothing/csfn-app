@@ -38,16 +38,16 @@
                     <user-counter :key="'cleanups-' + user.totalCleanups"
                                   :icon-src="require('ionicons5/dist/svg/trash-outline.svg')" :label="$t('cleanups')"
                                   :max="userLevel.threshold.cleanups"
-                                  :value="user.totalCleanups"/>
+                                  :value="user.totalCleanups.toString()"/>
 
                     <user-counter :key="'volume-' + user.totalVolume"
                                   :icon-src="require('@/assets/img/icons/bag-outline.svg')"
-                                  :label="$t('liters')" :max="userLevel.threshold.liters" :value="user.totalVolume"/>
+                                  :label="$t('liters')" :max="userLevel.threshold.liters" :value="user.totalVolume.toString()"/>
 
                     <user-counter :key="'weight-' + user.totalWeight"
                                   :icon-src="require('@/assets/img/icons/scale-outline.svg')"
                                   :label="$t('kilos')" :max="userLevel.threshold.kilos"
-                                  :value="user.totalWeight"/>
+                                  :value="user.totalWeight.toString()"/>
                 </div>
 
                 <ion-card v-if="user.totalCleanups" style="height: 250px">

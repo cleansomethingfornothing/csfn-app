@@ -3,8 +3,8 @@
         <div class="w-full h-full absolute">
             <div v-if="isMobile" class="w-full h-full absolute cursor-pointer z-10" @click="getPicture"></div>
             <label v-else class="w-full h-full absolute cursor-pointer z-10">
-                <input accept=".png,.jpg" class="hidden" name="file" type="file"
-                       @change="fileSelected($event.target.files[0])">
+                <input accept=".png,.jpg" class="hidden" name="file" type="file" v-if="!file"
+                       @change="filesSelected([$event.target.files[0]])">
             </label>
             <ion-spinner v-if="loading" class="absolute w-full h-full opacity-50 z-50" color="primary"
                          name="crescent"></ion-spinner>

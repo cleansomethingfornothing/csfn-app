@@ -27,7 +27,7 @@
                             </ion-chip>
                             <ion-chip v-if="cleanup.weight" class="h-6" color="secondary">
                                 <ion-icon :src="require('@/assets/img/icons/scale.svg')" class="ml-0 mr-2 text-sm"/>
-                                {{ cleanup.weight }} {{ $t('kilos') }}
+                                {{ cleanup.weight | localeString}} {{ $t('kilos') }}
                             </ion-chip>
                         </div>
                         <ion-label class="text-xs font-bold mr-1" color="medium" style="margin-bottom: 2px">

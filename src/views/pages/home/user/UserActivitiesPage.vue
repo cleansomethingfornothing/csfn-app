@@ -39,7 +39,7 @@
                             </ion-chip>
                             <ion-chip v-if="activity.weight" color="secondary">
                                 <ion-icon :src="require('@/assets/img/icons/scale.svg')" class="mr-1 text-sm"/>
-                                {{ activity.weight }} {{ $t('kilos') }}
+                                {{ activity.weight | localeString}} {{ $t('kilos') }}
                             </ion-chip>
                         </div>
                     </ion-label>

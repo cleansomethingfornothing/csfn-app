@@ -32,7 +32,7 @@
                             </div>
 
                             <div v-if="totalStats" class="text-right">
-                                <number-display :number="totalStats[measure]"></number-display>
+                                <number-display :number="totalStats[measure].toString()" :decimals="measure === 'weight'"></number-display>
                                 <span class="text-lg lg:text-2xl text-white">{{ $t(`total-${measure}`) }}</span>
                             </div>
                             <div v-else class="flex flex-col items-end -mt-2">
@@ -101,7 +101,7 @@
                                     <img v-if="user.picture" :src="user.picture.publicUrl">
                                 </ion-avatar>
                                 <ion-label class="font-bold my-6 lg:my-4">{{ user.username }}</ion-label>
-                                <p class="pr-2">{{ user['total' + capitalize(measure)] }} {{ units }}</p>
+                                <p class="pr-2">{{ user['total' + capitalize(measure)] | localeString }} {{ units }}</p>
                             </ion-item>
                         </ion-list>
                         <div v-else class="pt-2 px-6 mb-24 opacity-50">

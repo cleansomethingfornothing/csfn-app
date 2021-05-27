@@ -6,12 +6,15 @@
   "webDir": "dist",
   "backgroundColor": "#ffffffff",
   "server": {
-    "hostname": "native.cleansomethingfornothing.com"
+    "hostname": "native.cleansomethingfornothing.com",
+    "allowNavigation": [
+      "app.cleansomethingfornothing.com"
+    ]
   },
   "plugins": {
     "SplashScreen": {
       "launchShowDuration": 10000,
-      "splashFullScreen": false,
+      "splashFullScreen": true,
       "splashImmersive": false
     },
     "GoogleAuth": {
@@ -19,7 +22,7 @@
         "profile",
         "email"
       ],
-      "serverClientId": "597121035718-js77umaebmsjp5c9qbvjvc9oee4o1e85.apps.googleusercontent.com",
+      "serverClientId": "871904238312-rabbaf1jtvm97h9vb4hd0ufnj82orpuu.apps.googleusercontent.com",
       "forceCodeForRefreshToken": true
     },
     "Keyboard": {

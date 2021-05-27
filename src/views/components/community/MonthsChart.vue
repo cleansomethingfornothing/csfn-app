@@ -8,7 +8,7 @@
             <div class="relative h-full flex flex-col justify-end items-center">
                 <transition name="fade">
                     <div v-if="showData === i" :style="`bottom: ${heights[i] + 1}%`" class="tooltip text-sm">
-                        <span>{{ month[measure] }} {{ units }}</span>
+                        <span>{{ month[measure] | localeString }} {{ units }}</span>
                     </div>
                 </transition>
                 <div :class="showData === i ? 'selected' : ''" :style="`height: ${heights[i]}%`" :tabindex="i"

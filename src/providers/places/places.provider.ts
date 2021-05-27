@@ -25,7 +25,8 @@ class PlacesProvider {
                 lat: coords.lat,
                 lon: coords.lng,
                 format: 'json',
-                addressdetails: 1
+                addressdetails: 1,
+                'accept-language': 'en'
             }
         }).then(({data}) => {
             const countryCode = data.address.country_code.toUpperCase()
@@ -38,9 +39,9 @@ class PlacesProvider {
         return this.axios.get(searchURL, {
             params: {
                 q: query,
-                countrycodes: country,
                 addressdetails: 1,
-                format: 'json'
+                format: 'json',
+                'accept-language': 'en'
             }
         }).then(({data}) => {
             const places = data

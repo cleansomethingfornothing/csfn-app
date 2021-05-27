@@ -3,6 +3,7 @@ export interface UserLevel {
     name: string
     icon: string
     background: string
+    backgroundClass: string,
     threshold: {
         cleanups: number,
         liters: number

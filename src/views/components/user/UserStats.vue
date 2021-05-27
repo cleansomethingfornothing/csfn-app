@@ -110,7 +110,7 @@ export default class UserStats extends Vue {
                             family: 'Montserrat',
                             size: 10
                         },
-                        formatter: (label) => label + ' ' + this.$t('Lt')
+                        formatter: (label) => label + ' ' + 'Lt'
                     }
                 }
             }

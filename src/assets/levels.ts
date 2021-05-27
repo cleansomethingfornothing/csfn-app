@@ -5,6 +5,7 @@ export default [
         index: 0,
         icon: require('@/assets/img/levels/wildlife/goat.svg'),
         background: require('@/assets/img/levels/wildlife/goat_bg.jpg'),
+        backgroundClass: 'object-center',
         name: 'goat',
         threshold: {
             cleanups: 4,
@@ -16,6 +17,7 @@ export default [
         index: 1,
         icon: require('@/assets/img/levels/wildlife/sloth.svg'),
         background: require('@/assets/img/levels/wildlife/sloth_bg.jpg'),
+        backgroundClass: 'object-center',
         name: 'sloth',
         threshold: {
             cleanups: 8,
@@ -27,6 +29,7 @@ export default [
         index: 2,
         icon: require('@/assets/img/levels/wildlife/racoon.svg'),
         background: require('@/assets/img/levels/wildlife/racoon_bg.jpg'),
+        backgroundClass: 'object-center',
         name: 'racoon',
         threshold: {
             cleanups: 14,
@@ -37,6 +40,7 @@ export default [
         index: 3,
         icon: require('@/assets/img/levels/wildlife/meerkat.svg'),
         background: require('@/assets/img/levels/wildlife/meerkat_bg.jpg'),
+        backgroundClass: 'object-bottom',
         name: 'meerkat',
         threshold: {
             cleanups: 20,
@@ -47,6 +51,7 @@ export default [
         index: 4,
         icon: require('@/assets/img/levels/wildlife/beaver.svg'),
         background: require('@/assets/img/levels/wildlife/beaver_bg.jpg'),
+        backgroundClass: 'object-center',
         name: 'beaver',
         threshold: {
             cleanups: 28,

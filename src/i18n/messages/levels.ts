@@ -15,7 +15,7 @@ export default {
         'meerkat-description': 'The meerkat is a eusocial mammal animal, forming packs of two to 30 individuals in form of multiple family units of pairs. Members of a pack take turns at looking after pups and keeping an eye for predators. It is really particular the way they “stand up” when they are vigilant and they always try to protect their territory as a group.',
         'beaver': 'Beaver',
         'beaver-subtitle': 'Go with the flow',
-        'beaver-description': 'Beavers are large, semiaquatic rodents, that are able to build dams and lodges using tree branches, vegetation, rocks and mud. It is impressive how they can chew down trees to obtain building material. Their infrastructure creates wetlands used by many other species, and because of their effect on other organisms in the ecosystem, they are considered a keystone species. Adult males and females use to live in monogamous pairs with their offspring.'
+        'beaver-description': 'Beavers are large, semiaquatic rodents, that are able to build dams and lodges using tree branches, vegetation, rocks and mud. It is impressive how they can chew down trees to obtain building material. Their infrastructure creates wetlands used by many other species, and because of their effect on other organisms in the ecosystem, they are considered a keystone species.'
     },
     es: {}
 }
