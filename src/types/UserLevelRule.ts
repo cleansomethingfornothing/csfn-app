@@ -1,9 +1,9 @@
-import {UserLevel} from '@/types/UserLevel'
+import { UserLevel } from '@/types/UserLevel'
 
 export default class UserLevelRule {
 
-    level: UserLevel
-    minCleanups: number
-    minWeight: number
+  level: UserLevel
+  minCleanups: number
+  minWeight: number
 
 }

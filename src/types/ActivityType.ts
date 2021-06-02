@@ -1,5 +1,5 @@
 export enum ActivityType {
-    cleanup = 'cleanup',
-    alert = 'alert',
-    event = 'event'
+  cleanup = 'cleanup',
+  alert = 'alert',
+  event = 'event'
 }

@@ -1,37 +1,39 @@
 import {
-    validateOrReject,
-    ValidationArguments,
-    ValidationError,
-    ValidatorConstraint,
-    ValidatorConstraintInterface,
-    ValidatorOptions
+  validateOrReject,
+  ValidationArguments,
+  ValidationError,
+  ValidatorConstraint,
+  ValidatorConstraintInterface,
+  ValidatorOptions
 } from 'class-validator'
 import FormError from '@/types/errors/FormError'
 import FieldError from '@/types/errors/FieldError'
 import User from '@/types/User'
 
 export default class Validator {
-    public static validate(object: any, options?: ValidatorOptions): Promise<void | FormError> {
-        return validateOrReject(object, options)
-            .catch((errors) => this.handleRejection(errors))
-    }
+  public static validate(object: any,
+                         options?: ValidatorOptions): Promise<void | FormError> {
+    return validateOrReject(object, options)
+      .catch((errors) => this.handleRejection(errors))
+  }
 
-    private static handleRejection(errors) {
-        return Promise.reject(this.getFormError(errors))
-    }
+  private static handleRejection(errors) {
+    return Promise.reject(this.getFormError(errors))
+  }
 
-    private static getFormError(errors: ValidationError[]): FormError {
-        return new FormError(errors.map(this.getFieldError))
-    }
+  private static getFormError(errors: ValidationError[]): FormError {
+    return new FormError(errors.map(this.getFieldError))
+  }
 
-    private static getFieldError(error: ValidationError): FieldError {
-        return new FieldError(error.property, Object.values(error.constraints)[0])
-    }
+  private static getFieldError(error: ValidationError): FieldError {
+    return new FieldError(error.property, Object.values(error.constraints)[0])
+  }
 }
 
-@ValidatorConstraint({name: 'passwordConfirmation', async: false})
+@ValidatorConstraint({ name: 'passwordConfirmation', async: false })
 export class PasswordConfirmation implements ValidatorConstraintInterface {
-    validate(value: any, validationArguments?: ValidationArguments): Promise<boolean> | boolean {
-        return value === (validationArguments.object as User).password
-    }
+  validate(value: any,
+           validationArguments?: ValidationArguments): Promise<boolean> | boolean {
+    return value === (validationArguments.object as User).password
+  }
 }

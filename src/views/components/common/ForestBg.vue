@@ -1,9 +1,9 @@
 <template>
   <picture>
     <img
-        class="forest-bg"
-        sizes="(max-width: 1920px) 100vw, 1920px"
-        srcset="/img/forest_bg/forest_bg_w_360.jpg 360w,
+      class="forest-bg"
+      sizes="(max-width: 1920px) 100vw, 1920px"
+      srcset="/img/forest_bg/forest_bg_w_360.jpg 360w,
             /img/forest_bg/forest_bg_w_601.jpg 601w,
             /img/forest_bg/forest_bg_w_780.jpg 780w,
             /img/forest_bg/forest_bg_w_918.jpg 918w,
@@ -16,8 +16,8 @@
             /img/forest_bg/forest_bg_w_1550.jpg 1550w,
             /img/forest_bg/forest_bg_w_1624.jpg 1624w,
             /img/forest_bg/forest_bg_w_1920.jpg 1920w"
-        src="/img/forest_bg/forest_bg_w_1920.jpg"
-        alt="Forest background">
+      src="/img/forest_bg/forest_bg_w_1920.jpg"
+      alt="Forest background">
   </picture>
 </template>
 <script lang="ts">

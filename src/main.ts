@@ -13,6 +13,7 @@ import { defineCustomElements } from '@ionic/pwa-elements/loader'
 import './icons'
 import './assets/style/tailwind.css'
 import * as _ from 'lodash'
+import language from '@/tools/language'
 
 Vue.config.productionTip = false
 Vue.config.ignoredElements = [/^ion-/]
@@ -26,7 +27,7 @@ Vue.filter('capitalize', function (value) {
 })
 
 Vue.filter('localeString', function (value) {
-  return Number(value).toLocaleString()
+  return Number(value).toLocaleString(language())
 })
 
 new Vue({ store, router, i18n, render: h => h(Main) })

@@ -17,16 +17,16 @@
 <script lang=ts>
 import Vue from 'vue'
 import Component from 'vue-class-component'
-import {Emit, Prop} from 'vue-property-decorator'
+import { Emit, Prop } from 'vue-property-decorator'
 import PlaceholderCard from '@/views/components/home/PlaceholderCard.vue'
 import CleanupCard from '@/views/components/home/CleanupCard.vue'
 import Coords from '@/types/Coords'
-import Cleanup from "@/types/Cleanup";
-import {calculateDistance} from '@/tools/Utils'
+import Cleanup from '@/types/Cleanup'
+import { calculateDistance } from '@/tools/Utils'
 
 @Component({
-  name: "cleanups-list",
-  components: {CleanupCard: CleanupCard, PlaceholderCard: PlaceholderCard}
+  name: 'cleanups-list',
+  components: { CleanupCard: CleanupCard, PlaceholderCard: PlaceholderCard }
 })
 export default class HomeCleanupsList extends Vue {
 
@@ -37,7 +37,7 @@ export default class HomeCleanupsList extends Vue {
   cleanups: { [id: string]: Cleanup }
 
   calcDistance(cleanupCoords: Coords) {
-      return this.coords ? Math.round(calculateDistance(this.coords, cleanupCoords)) : 0
+    return this.coords ? Math.round(calculateDistance(this.coords, cleanupCoords)) : 0
   }
 
   @Emit('click')

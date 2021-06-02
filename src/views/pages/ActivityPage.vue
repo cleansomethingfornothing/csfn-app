@@ -13,7 +13,7 @@
 
       <ion-content ref="cleanup-content" :fullscreen="true" :scroll-events="true" class="fullscreen"
                    color="lighter" @ionScroll="onScroll">
-        <div class="lg:w-2/3 xl:w-1/2 m-auto bg-white lg:rounded-lg lg:my-16 overflow-hidden lg:shadow-lg">
+        <div class="m-auto bg-white overflow-hidden">
 
           <!-- Pictures -->
           <div class="cleanup-page__picture h-2/3 cursor-pointer">
@@ -28,7 +28,7 @@
           </div>
 
           <transition name="fade">
-            <div v-if="activity" class="ion-padding">
+            <div v-if="activity" class="ion-padding lg:px-24">
               <!-- Title -->
               <ion-label class="text-xl font-bold">
                 {{ title }}
@@ -123,7 +123,7 @@ import PageTransparentHeader from '@/views/components/common/PageTransparentHead
 import Cleanup from '@/types/Cleanup'
 import { cleanupsModule } from '@/store/cleanupsModule'
 import Image from '@/types/Image'
-import { addressToString } from '@/tools/Utils'
+import { addressToString, remToPixel } from '@/tools/Utils'
 
 @Component({
   name: 'cleanup-page',
@@ -137,6 +137,10 @@ export default class ActivityPage extends Vue {
 
   @Ref('activity-content')
   content: HTMLIonContentElement
+
+  get isSmall() {
+    return window.innerWidth < 600
+  }
 
   get activity(): Cleanup {
     return cleanupsModule.getCleanup
@@ -163,7 +167,7 @@ export default class ActivityPage extends Vue {
   mounted() {
     cleanupsModule.fetchCleanup(Number(this.$route.params.id))
     setTimeout(() => {
-      this.width = window.innerWidth
+      this.width = Math.round(window.innerWidth < 600 ? window.innerWidth : window.innerWidth - remToPixel(12))
     })
   }
 

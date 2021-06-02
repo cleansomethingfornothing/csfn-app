@@ -7,15 +7,15 @@
 <script lang="ts">
 import Vue from 'vue'
 import Component from 'vue-class-component'
-import {Action} from 'vuex-class'
+import { Action } from 'vuex-class'
 import MenuItems from '@/views/components/menu/MenuItems.vue'
 import MenuProfile from '@/views/components/menu/MenuProfile.vue'
-import {Emit, Prop, Ref} from 'vue-property-decorator'
+import { Emit, Prop, Ref } from 'vue-property-decorator'
 import User from '@/types/User'
 
 @Component({
   name: 'app-menu',
-  components: {MenuItems, MenuProfile}
+  components: { MenuItems, MenuProfile }
 })
 export default class AppMenu extends Vue {
 

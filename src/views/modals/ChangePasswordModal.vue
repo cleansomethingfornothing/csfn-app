@@ -29,19 +29,19 @@
   </ion-page>
 </template>
 <script lang="ts">
-import {Component, Prop, Vue} from 'vue-property-decorator'
+import { Component, Prop, Vue } from 'vue-property-decorator'
 import InputItem from '@/views/components/common/InputItem.vue'
-import {authModule} from '@/store/authModule'
+import { authModule } from '@/store/authModule'
 import ErrorMessage from '@/tools/ErrorMessage'
 import FormError from '@/types/errors/FormError'
 import UnknownError from '@/types/errors/UnknownError'
 import ToastPresenter from '@/tools/ToastPresenter'
 import FieldError from '@/types/errors/FieldError'
-import {appModule} from '@/store/appModule'
+import { appModule } from '@/store/appModule'
 
 @Component({
   name: 'ChangePasswordModal',
-  components: {InputItem}
+  components: { InputItem }
 })
 export default class ChangePasswordModal extends Vue {
 
@@ -76,25 +76,25 @@ export default class ChangePasswordModal extends Vue {
     }
     this.loading = true
     appModule.showLoader(this.ionic)
-        .then(() => authModule.changePassword({currentPassword: this.password, newPassword: this.newPassword}))
-        .then(() => {
-          appModule.hideLoader()
-          ToastPresenter.present(this.ionic, this.t.success, 'success')
-          this.dismiss(true)
-        })
-        .catch(error => {
-          appModule.hideLoader()
-          if (error instanceof FormError) {
-            error.fieldErrors.forEach((fieldError) => {
-              this.$set(this.fieldErrors, fieldError.param,
-                  [ErrorMessage.getMessage(fieldError)])
-            })
-          }
-          if (error instanceof UnknownError) {
-            ToastPresenter.present(this.ionic, ErrorMessage.getMessage(error))
-          }
-          this.loading = false
-        })
+      .then(() => authModule.changePassword({ currentPassword: this.password, newPassword: this.newPassword }))
+      .then(() => {
+        appModule.hideLoader()
+        ToastPresenter.present(this.ionic, this.t.success, 'success')
+        this.dismiss(true)
+      })
+      .catch(error => {
+        appModule.hideLoader()
+        if (error instanceof FormError) {
+          error.fieldErrors.forEach((fieldError) => {
+            this.$set(this.fieldErrors, fieldError.param,
+              [ErrorMessage.getMessage(fieldError)])
+          })
+        }
+        if (error instanceof UnknownError) {
+          ToastPresenter.present(this.ionic, ErrorMessage.getMessage(error))
+        }
+        this.loading = false
+      })
   }
 
   dismiss(updated: boolean) {

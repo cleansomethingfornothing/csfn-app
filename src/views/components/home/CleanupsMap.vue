@@ -9,11 +9,11 @@
     </transition>
     <div id="home-map" class="w-full h-full"></div>
     <transition name="fade-up">
-      <div class="absolute bottom-0 w-full flex justify-center md:justify-start lg:w-1/2 xl:w-1/3"
+      <div class="absolute bottom-0 w-full flex justify-center md:justify-start"
            v-if="selectedCleanup"
            style="z-index: 1000">
         <div class="w-full z-50 ">
-            <map-cleanup-card :cleanup="selectedCleanup" @click="click"></map-cleanup-card>
+          <map-cleanup-card :cleanup="selectedCleanup" @click="click"></map-cleanup-card>
         </div>
       </div>
     </transition>
@@ -23,14 +23,14 @@
 import Vue from 'vue'
 import Map from '@/tools/Map'
 import Component from 'vue-class-component'
-import {Emit, Prop, Watch} from 'vue-property-decorator'
+import { Emit, Prop, Watch } from 'vue-property-decorator'
 import Coords from '@/types/Coords'
 import MapCleanupCard from '@/views/components/home/CleanupCard.vue'
-import Cleanup from "@/types/Cleanup";
+import Cleanup from '@/types/Cleanup'
 
 @Component({
-  name: "cleanups-map",
-  components: {MapCleanupCard}
+  name: 'cleanups-map',
+  components: { MapCleanupCard }
 })
 export default class CleanupsMap extends Vue {
 
@@ -64,14 +64,14 @@ export default class CleanupsMap extends Vue {
     this.map.removeMarkers()
     for (const cleanup of Object.values(cleanups)) {
       this.map.addMarker(cleanup.location.coords,
-          '/img/cleanup_pin.png',
-          () => {
-            this.selectedCleanup = undefined
-            this.map.moveCamera({lat: cleanup.location.coords.lat - 0.05, lng: cleanup.location.coords.lng})
-            setTimeout(() => {
-              this.selectedCleanup = cleanup
-            }, 100)
-          })
+        '/img/cleanup_pin.png',
+        () => {
+          this.selectedCleanup = undefined
+          this.map.moveCamera({ lat: cleanup.location.coords.lat - 0.05, lng: cleanup.location.coords.lng })
+          setTimeout(() => {
+            this.selectedCleanup = cleanup
+          }, 100)
+        })
     }
   }
 
@@ -93,7 +93,7 @@ export default class CleanupsMap extends Vue {
   }
 
   openCleanup(id: string) {
-    this.$router.push({name: 'Cleanup', params: {id}})
+    this.$router.push({ name: 'Cleanup', params: { id } })
   }
 
 }

@@ -225,12 +225,8 @@ ion-slides {
 
 .bg-poly-1 {
   background-image: url("~@/assets/img/poly-01.png");
-  background-position-y: 40px;
 }
 
-.ios .bg-poly-1 {
-  background-position-y: calc(var(--ion-safe-area-top) + 14px);
-}
 
 .bg-poly-2 {
   background-image: url("~@/assets/img/poly-02.png");
@@ -286,5 +282,15 @@ ion-chip.chip-outline.ion-color {
   border-color: rgba(var(--ion-color-base-rgb), 1) !important;
   background-color: white !important;
   color: rgba(var(--ion-color-base-rgb), 1) !important;
+}
+
+.wave-wrapper {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  padding-top: 70%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 }
 

@@ -11,6 +11,7 @@ import Vue from 'vue'
 import Component from 'vue-class-component'
 import { Prop } from 'vue-property-decorator'
 import DigitDisplay from '@/views/components/community/DigitDisplay.vue'
+import language from '@/tools/language'
 
 @Component({
   name: 'NumberDisplay',
@@ -24,7 +25,7 @@ export default class NumberDisplay extends Vue {
   decimals: boolean
 
   get digits() {
-    return Number(this.number).toLocaleString(undefined, this.decimals ? {
+    return Number(this.number).toLocaleString(language(), this.decimals ? {
       minimumFractionDigits: 2
     } : undefined).split('')
   }

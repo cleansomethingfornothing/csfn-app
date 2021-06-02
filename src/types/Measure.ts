@@ -1,4 +1,4 @@
 export enum Measure {
-    volume = 'volume',
-    weight = 'weight'
+  volume = 'volume',
+  weight = 'weight'
 }

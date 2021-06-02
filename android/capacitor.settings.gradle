@@ -5,12 +5,6 @@ project(':capacitor-android').projectDir = new File('../node_modules/@capacitor/
 include ':capacitor-community-facebook-login'
 project(':capacitor-community-facebook-login').projectDir = new File('../node_modules/@capacitor-community/facebook-login/android')
 
-include ':capacitor-community-firebase-analytics'
-project(':capacitor-community-firebase-analytics').projectDir = new File('../node_modules/@capacitor-community/firebase-analytics/android')
-
-include ':capacitor-community-firebase-crashlytics'
-project(':capacitor-community-firebase-crashlytics').projectDir = new File('../node_modules/@capacitor-community/firebase-crashlytics/android')
-
 include ':capacitor-community-http'
 project(':capacitor-community-http').projectDir = new File('../node_modules/@capacitor-community/http/android')
 

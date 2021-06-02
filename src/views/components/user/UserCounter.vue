@@ -15,6 +15,7 @@ import Component from 'vue-class-component'
 import ProgressBar from 'progressbar.js'
 import Shape from 'progressbar.js/shape'
 import { Prop, Watch } from 'vue-property-decorator'
+import language from '@/tools/language'
 
 @Component({
   name: 'user-counter'
@@ -30,11 +31,14 @@ export default class UserCounter extends Vue {
   @Prop({ type: String })
   value: string
 
+  @Prop({ type: String })
+  progressValue: number
+
   @Prop(Number)
   max: number
 
   get localizedSeparator() {
-    return (1.1).toLocaleString()[1]
+    return (1.1).toLocaleString(language())[1]
   }
 
   get integer() {
@@ -61,12 +65,12 @@ export default class UserCounter extends Vue {
         circle.path.setAttribute('stroke', state.color)
       },
     })
-    this.progressBar.animate(Math.min(Number(this.value) / this.max, 1))
+    this.progressBar.animate(Math.min(Number(this.progressValue) / this.max, 1))
   }
 
-  @Watch('value')
-  valueChanged(value) {
-    this.progressBar.animate(Math.min(value / this.max, 1))
+  @Watch('progressValue')
+  valueChanged(progressValue) {
+    this.progressBar.animate(Math.min(progressValue / this.max, 1))
   }
 
 }

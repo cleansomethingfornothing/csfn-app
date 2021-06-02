@@ -11,6 +11,6 @@ const locale = 'en'
 moment.locale(locale)
 
 export const i18n = new VueI18n({
-    locale,
-    messages
+  locale,
+  messages
 })

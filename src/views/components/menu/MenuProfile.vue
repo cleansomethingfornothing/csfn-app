@@ -11,11 +11,11 @@ import Vue from 'vue'
 import Component from 'vue-class-component'
 import Avatar from '@/views/components/common/Avatar.vue'
 import User from '@/types/User'
-import {Prop} from 'vue-property-decorator'
+import { Prop } from 'vue-property-decorator'
 
 @Component({
   name: 'menu-profile',
-  components: {Avatar}
+  components: { Avatar }
 })
 export default class MenuProfile extends Vue {
 

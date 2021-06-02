@@ -1,4 +1,4 @@
 export default interface TotalStats {
-    weight: number
-    volume: number
+  weight: number
+  volume: number
 }

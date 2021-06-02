@@ -26,7 +26,7 @@
 
       <transition name="fade-up">
         <div v-if="selectedCleanup"
-             class="absolute bottom-0 w-full flex justify-center md:justify-start lg:w-1/2 xl:w-1/3"
+             class="absolute bottom-0 w-full flex justify-center md:justify-start lg:w-2/3 xl:w-1/2 lg:p-4"
              style="z-index: 1000">
           <div class="w-full z-50 ">
             <map-cleanup-card @click="openSelectedCleanup"></map-cleanup-card>

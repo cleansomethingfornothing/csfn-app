@@ -1,4 +1,4 @@
 export default interface UserProfileStats {
-    date: string
-    volume: number
+  date: string
+  volume: number
 }
