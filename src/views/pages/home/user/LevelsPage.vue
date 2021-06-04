@@ -50,19 +50,19 @@
 
                 <span class="mt-2 font-bold text-2xl">{{ $t(level.name) }}</span>
                 <div class="flex mt-1 ">
-                  <ion-chip class="border text-xs" outline :color="cleanupsDone ? 'secondary' : 'dark'">
+                  <ion-chip class="border text-xs" outline :color="cleanupsDone ? 'secondary' : 'dark'" v-if="level.threshold.cleanups">
                     <ion-icon
                       :src="require(`ionicons5/dist/svg/${cleanupsDone ? 'checkmark-outline': 'trash-outline'}.svg`)"
                       class="ml-0 mr-2 text-sm hidden sm:block"/>
-                    {{ level.threshold.cleanups }} {{ $t('cleanups') }}
+                    {{ level.threshold.cleanups }} {{ $tc('level-cleanups', level.threshold.cleanups) }}
                   </ion-chip>
-                  <ion-chip class="border text-xs" outline :color="litersDone ? 'secondary' : 'dark'">
+                  <ion-chip class="border text-xs" outline :color="litersDone ? 'secondary' : 'dark'" v-if="level.threshold.liters">
                     <ion-icon
                       :src="require(litersDone ? 'ionicons5/dist/svg/checkmark-outline.svg': '@/assets/img/icons/bag-outline.svg')"
                       class="ml-0 mr-2 text-sm hidden sm:block"/>
                     {{ level.threshold.liters }} {{ $t('liters') }}
                   </ion-chip>
-                  <ion-chip class="border text-xs" outline :color="kilosDone ? 'secondary' : 'dark'">
+                  <ion-chip class="border text-xs" outline :color="kilosDone ? 'secondary' : 'dark'" v-if="level.threshold.kilos">
                     <ion-icon
                       :src="require(kilosDone ? 'ionicons5/dist/svg/checkmark-outline.svg': '@/assets/img/icons/scale-outline.svg')"
                       class="ml-0 mr-2 text-sm hidden sm:block"/>
@@ -124,9 +124,9 @@ export default class LevelsPage extends Vue {
       return 100
     } else {
       return ((
-        Math.min((this.user.totalCleanups - this.previousLevel.threshold.cleanups) / (this.level.threshold.cleanups - this.previousLevel.threshold.cleanups), 1)
-        + Math.min((this.user.totalVolume - this.previousLevel.threshold.liters) / (this.level.threshold.liters - this.previousLevel.threshold.liters), 1)
-        + Math.min((this.user.totalWeight - this.previousLevel.threshold.kilos) / (this.level.threshold.kilos - this.previousLevel.threshold.kilos), 1)
+        Math.min((this.user.totalCleanups - (this.previousLevel ? this.previousLevel.threshold.cleanups : 0)) / (this.level.threshold.cleanups - (this.previousLevel ? this.previousLevel.threshold.cleanups : 0)), 1)
+        + Math.min((this.user.totalVolume - (this.previousLevel ? this.previousLevel.threshold.liters : 0)) / (this.level.threshold.liters - (this.previousLevel ? this.previousLevel.threshold.liters : 0)), 1)
+        + Math.min((this.user.totalWeight - (this.previousLevel ? this.previousLevel.threshold.kilos : 0)) / (this.level.threshold.kilos - (this.previousLevel ? this.previousLevel.threshold.kilos : 0)), 1)
       ) / 3) * 100
     }
   }

@@ -36,34 +36,38 @@
           <div class="flex justify-around w-full py-2 my-3">
             <user-counter :key="'cleanups-' + user.totalCleanups"
                           :icon-src="require('ionicons5/dist/svg/trash-outline.svg')" :label="$t('cleanups')"
-                          :max="userLevel.threshold.cleanups - previousLevel.threshold.cleanups"
-                          :progress-value="(user.totalCleanups - previousLevel.threshold.cleanups).toString()"
+                          :max="max(userLevel, previousLevel, 'cleanups')"
+                          :progress-value=" progress(user.totalCleanups, previousLevel, 'cleanups')"
                           :value="user.totalCleanups.toString()"/>
 
             <user-counter :key="'volume-' + user.totalVolume"
                           :icon-src="require('@/assets/img/icons/bag-outline.svg')"
-                          :progress-value="(user.totalVolume - previousLevel.threshold.liters).toString()"
-                          :label="$t('liters')" :max="userLevel.threshold.liters - previousLevel.threshold.liters"
+                          :progress-value="progress(user.totalVolume,previousLevel,'liters')"
+                          :label="$t('liters')" :max="max(userLevel, previousLevel, 'liters')"
                           :value="user.totalVolume.toString()"/>
 
             <user-counter :key="'weight-' + user.totalWeight"
                           :icon-src="require('@/assets/img/icons/scale-outline.svg')"
-                          :progress-value="(user.totalWeight - previousLevel.threshold.kilos).toString()"
-                          :label="$t('kilos')" :max="userLevel.threshold.kilos - previousLevel.threshold.kilos"
+                          :progress-value="progress(user.totalWeight, previousLevel,'kilos')"
+                          :label="$t('kilos')" :max="max(userLevel, previousLevel, 'kilos')"
                           :value="user.totalWeight.toString()"/>
           </div>
 
-          <ion-card v-if="user.totalCleanups" style="height: 250px">
-            <user-stats
-              :key="userStats.reduce((a, b) => a + b.date, '') + userStats.reduce((a, b) => a + b.volume, 0)"
-              :stats="userStats"/>
+          <ion-card v-if="user.totalCleanups">
+            <div style="height: 250px">
+              <user-stats
+                :key="userStats.reduce((a, b) => a + b.date, '') + userStats.reduce((a, b) => a + b.volume, 0)"
+                :stats="userStats"/>
+            </div>
           </ion-card>
-          <ion-card v-else class="p-4">
-            <p class="font-bold text-lg text-gray-800">You have no cleanups</p>
-            <p class="text-base mb-4">{{ $t('no-cleanups') }}</p>
-            <ion-button shape="round" size="block" @click="$router.push('/edit-cleanup')">
-              {{ $t('publish-cleanup') }}
-            </ion-button>
+          <ion-card v-else>
+            <div class="p-4">
+              <p class="font-bold text-lg text-gray-800">You have no cleanups</p>
+              <p class="text-base mb-4">{{ $t('no-cleanups') }}</p>
+              <ion-button shape="round" size="block" @click="$router.push('/edit-cleanup')">
+                {{ $t('publish-cleanup') }}
+              </ion-button>
+            </div>
           </ion-card>
 
           <ion-list class="mt-5 pt-0 mb-20 list-large-items" lines="inset">
@@ -158,6 +162,17 @@ export default class CurrentUserPage extends Vue {
     this.$router.push({ name: 'Cleanup', params: { id } })
   }
 
+  progress(userTotal: number,
+           previousLevel: UserLevel,
+           property: 'cleanups' | 'liters' | 'kilos') {
+    return (userTotal - (previousLevel ? previousLevel.threshold[property] : 0)).toString()
+  }
+
+  max(currentLevel: UserLevel,
+      previousLevel: UserLevel,
+      property: 'cleanups' | 'liters' | 'kilos') {
+    return currentLevel.threshold[property] - (previousLevel ? previousLevel.threshold[property] : 0)
+  }
 }
 </script>
 <style>

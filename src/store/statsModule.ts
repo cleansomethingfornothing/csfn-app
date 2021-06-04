@@ -48,7 +48,7 @@ class StatsModule extends VuexModule {
   }
 
   get getCountries() {
-    return this.countries
+    return this.countries.filter((country => country.volume > 0 || country.weight > 0 || country.users > 0))
   }
 
   @Mutation

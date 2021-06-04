@@ -19,7 +19,7 @@
           <ion-label>
             <p class="font-bold pl-2">{{ countryName(country) }}</p>
             <div class="ion-text-wrap">
-              <ion-chip v-if="country.cleanups" color="secondary">
+              <ion-chip v-if="country.cleanups !== '0'" color="secondary">
                 <ion-icon :src="require('ionicons5/dist/svg/trash.svg')" class="mr-1 text-sm"/>
                 {{ country.cleanups }} {{ $t('cleanups') }}
               </ion-chip>
@@ -27,7 +27,7 @@
                 <ion-icon class="mr-1 text-sm" :src="require('@/assets/img/icons/bag.svg')"/>
                 {{ country.volume }} {{ $t('liters') }}
               </ion-chip>
-              <ion-chip color="secondary" v-if="country.weight">
+              <ion-chip color="secondary" v-if="country.weight !== '0.00'">
                 <ion-icon :src="require('@/assets/img/icons/scale.svg')" class="mr-1 text-sm"/>
                 {{ country.weight | localeString }} {{ $t('kilos') }}
               </ion-chip>

@@ -12,6 +12,7 @@ import UserProfileStats from '@/types/UserProfileStats'
 import { statsProvider } from '@/providers/data/stats.provider'
 import moment from 'moment'
 import { Plugins } from '@capacitor/core'
+import Vue from 'vue'
 
 const { FirebaseAnalytics } = Plugins
 
@@ -68,7 +69,7 @@ class UserModule extends VuexModule {
 
   @Mutation
   setCurrentUser(user: User) {
-    this.currentUser = user
+    Vue.set(this, 'currentUser', user)
   }
 
   @Mutation
@@ -83,7 +84,7 @@ class UserModule extends VuexModule {
 
   @Mutation
   setCurrentUserCleanups(cleanups: Cleanup[]) {
-    this.currentUserCleanups = cleanups
+    Vue.set(this, 'currentUserCleanups', cleanups)
   }
 
   @Mutation
@@ -93,7 +94,7 @@ class UserModule extends VuexModule {
 
   @Mutation
   setCurrentUserStats(stats: UserProfileStats[]) {
-    this.currentUserStats = stats
+    Vue.set(this, 'currentUserStats', stats)
   }
 
   @Action
