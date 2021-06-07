@@ -18,8 +18,7 @@
   },
   "dependencies": {
     "@capacitor-community/facebook-login": "^1.0.3",
-    "@capacitor-community/firebase-analytics": "^0.2.0",
-    "@capacitor-community/firebase-crashlytics": "^0.3.0",
+    "@capacitor-community/firebase-analytics": "^0.3.2",
     "@capacitor-community/http": "^0.3.1",
     "@capacitor/android": "^2.4.6",
     "@capacitor/core": "2.0.2",

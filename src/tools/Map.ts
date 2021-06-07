@@ -33,6 +33,10 @@ export default class Map {
           featureType: 'poi',
           elementType: 'labels.icon',
           stylers: [{ visibility: 'off' }],
+        }, {
+          featureType: 'road',
+          elementType: 'labels.icon',
+          stylers: [{ visibility: 'off' }],
         }
       ]
     })

@@ -102,7 +102,7 @@ export default class LoginPage extends Vue {
       .then(() => authModule.doCredentialsLogin(this.userLogin))
       .then((user) => {
         appModule.hideLoader()
-        this.$router.replace('/home')
+        this.$router.push('/home')
       })
       .catch(error => {
         appModule.hideLoader()

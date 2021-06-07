@@ -3,7 +3,7 @@ import axios from 'axios'
 
 import { Plugins } from '@capacitor/core'
 
-const { FirebaseAnalytics } = Plugins
+import { FirebaseAnalytics } from "@capacitor-community/firebase-analytics"
 
 export default class HttpTool {
 

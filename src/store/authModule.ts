@@ -10,9 +10,7 @@ import { LOGIN, RESET_PASSWORD, UPDATE_EMAIL, UPDATE_PASSWORD } from '@/types/Va
 import { passwordResetProvider } from '@/providers/data/password-reset.provider'
 import { nativeProvider } from '@/providers/native/native.provider'
 import { locationModule } from '@/store/locationModule'
-import { Plugins } from '@capacitor/core'
-
-const { FirebaseAnalytics } = Plugins
+import { FirebaseAnalytics } from '@capacitor-community/firebase-analytics'
 
 const SESSION = 'CSFN_SESSION'
 
@@ -95,7 +93,7 @@ class AuthModule extends VuexModule {
         newEmail: change.email
       }))
       .then(user => {
-        FirebaseAnalytics.logEvent({ name: 'update_email' })
+        FirebaseAnalytics.logEvent({ name: 'update_email', params: {} })
         userModule.setCurrentUser(user)
       })
   }
@@ -108,7 +106,7 @@ class AuthModule extends VuexModule {
         currentPassword, newPassword
       }))
       .then(user => {
-        FirebaseAnalytics.logEvent({ name: 'update_password' })
+        FirebaseAnalytics.logEvent({ name: 'update_password', params: {} })
         userModule.setCurrentUser(user)
       })
   }
@@ -117,7 +115,7 @@ class AuthModule extends VuexModule {
   doPasswordReset(reset: User): Promise<void> {
     return Validator.validate(reset, { groups: [RESET_PASSWORD] })
       .then(() => {
-        FirebaseAnalytics.logEvent({ name: 'reset_password' })
+        FirebaseAnalytics.logEvent({ name: 'reset_password', params: {} })
         return passwordResetProvider.request(reset.email)
       })
   }
@@ -126,7 +124,7 @@ class AuthModule extends VuexModule {
   doLogout(): Promise<void> {
     return authProvider.doLogout()
       .then(() => {
-        FirebaseAnalytics.logEvent({ name: 'logout' })
+        FirebaseAnalytics.logEvent({ name: 'logout', params: {} })
         this.loggedOut()
       })
   }
@@ -150,7 +148,7 @@ class AuthModule extends VuexModule {
   deleteAccount(password: string) {
     return authProvider.deleteAccount({ email: userModule.getCurrentUser.email, password })
       .then(() => {
-        FirebaseAnalytics.logEvent({ name: 'delete_account' })
+        FirebaseAnalytics.logEvent({ name: 'delete_account', params: {} })
         this.loggedOut()
       })
   }

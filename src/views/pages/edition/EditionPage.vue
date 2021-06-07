@@ -44,8 +44,8 @@
                       :slotted-input="$refs.weight"
                       end-note="Kg" @focus="resetError('weight')">
             <ion-label class="fix-label" position="floating">{{ $t('weight') }} <span class="text-xs">{{ automaticWeight ? $t('automatic-weight') : ''}}</span></ion-label>
-            <ion-input ref="weight" :value="activity.weight"
-                       type="number" @ionInput="automaticWeight = false"
+            <ion-input ref="weight" :value="activity.weight" enterkeyhint="enter"
+                       type="number" @ionInput="automaticWeight = false" inputmode="numeric"
                        @ionChange="change('weight', $event.target.value)"></ion-input>
           </input-item>
           <input-item v-if="isEvent" :errors="errors['targetVolume']"

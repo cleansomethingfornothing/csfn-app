@@ -11,10 +11,8 @@ import { UserLevel } from '@/types/UserLevel'
 import UserProfileStats from '@/types/UserProfileStats'
 import { statsProvider } from '@/providers/data/stats.provider'
 import moment from 'moment'
-import { Plugins } from '@capacitor/core'
 import Vue from 'vue'
-
-const { FirebaseAnalytics } = Plugins
+import { FirebaseAnalytics } from '@capacitor-community/firebase-analytics'
 
 @Module
 class UserModule extends VuexModule {

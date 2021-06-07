@@ -1,11 +1,10 @@
-import {Route} from 'vue-router'
-import {Plugins} from "@capacitor/core";
+import { Route } from 'vue-router'
+import { FirebaseAnalytics } from '@capacitor-community/firebase-analytics'
 
-const {FirebaseAnalytics} = Plugins;
-
-export default function afterEach(to: Route, _: Route) {
-    FirebaseAnalytics.setScreenName({
-        screenName: to.name,
-        nameOverride: to.name
-    });
+export default function afterEach(to: Route,
+                                  _: Route) {
+  FirebaseAnalytics.setScreenName({
+    screenName: to.name,
+    nameOverride: to.name
+  })
 }
