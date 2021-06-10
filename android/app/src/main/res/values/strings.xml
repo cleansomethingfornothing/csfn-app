@@ -7,4 +7,10 @@
   <string name="facebook_app_id">328579138196679</string>
   <string name="fb_login_protocol_scheme">fb328579138196679</string>
   <string name="server_client_id">597121035718-js77umaebmsjp5c9qbvjvc9oee4o1e85.apps.googleusercontent.com</string>
+  <string name="ionic_app_id">89b63024</string>
+  <string name="ionic_channel_name">Production</string>
+  <string name="ionic_update_method">background</string>
+  <string name="ionic_max_versions">2</string>
+  <string name="ionic_min_background_duration">30</string>
+  <string name="ionic_update_api">https://api.ionicjs.com</string>
 </resources>
