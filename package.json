@@ -7,7 +7,7 @@
     "ionic:serve": "vue-cli-service serve --port 8888 --https",
     "ionic:serve:prod": "vue-cli-service serve --mode production",
     "ionic:build": "vue-cli-service build && ionic deploy manifest && npx cap sync",
-    "build": "vue-cli-service build",
+    "build": "vue-cli-service build && ionic deploy manifest",
     "open:android": "npx cap open android",
     "open:ios": "npx cap open ios",
     "lint": "vue-cli-service lint",
