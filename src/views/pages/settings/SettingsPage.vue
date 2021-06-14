@@ -64,9 +64,9 @@ export default class SettingsPage extends Vue {
     Promise.all([Device.getInfo(), Deploy.getCurrentVersion()])
       .then(([info, deployVersion]) => this.$ionic.alertController.create({
         message: '<div class="text-center text-xl economica text-black mt-4">Clean Something For Nothing</div>' +
-          '<div class="text-base text-black text-center my-3">v' + info.appVersion + (deployVersion ? ' (' + deployVersion.buildId + ')' : '') + '</div>' +
+          '<div class="text-base text-black text-center my-3">v' + info.appVersion + (deployVersion ? ' <span class="text-xs">(' + deployVersion.buildId + ')</span>' : '') + '</div>' +
           '<span class="text-xs">Idea by César González</span><br>' +
-          '<span class="text-xs">App developed by Lester Pérez</span>',
+          '<span class="text-xs">Developed by Lester Pérez</span>',
         cssClass: 'alert-no-header'
       }))
       .then((alert) => alert.present())
