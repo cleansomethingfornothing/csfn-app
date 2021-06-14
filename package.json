@@ -1,17 +1,18 @@
 {
   "name": "csfn-app",
-  "version": "1.0.0-alpha.2",
+  "version": "1.0.0-beta",
   "private": true,
   "postinstall": "jetifier",
   "scripts": {
     "ionic:serve": "vue-cli-service serve --port 8888 --https",
     "ionic:serve:prod": "vue-cli-service serve --mode production",
     "ionic:build": "vue-cli-service build && ionic deploy manifest && npx cap sync",
+    "build": "vue-cli-service build",
     "open:android": "npx cap open android",
     "open:ios": "npx cap open ios",
     "lint": "vue-cli-service lint",
     "run:android": "vue-cli-service build && npx cap sync android && npx cap open android",
-    "run:ios": "vue-cli-service build && npx cap copy && npx cap open ios",
+    "run:ios": "vue-cli-service build && npx cap sync && npx cap open ios",
     "resources": "node ./scripts/copy-resources/index.js",
     "resources:android": "capacitor-resources -p android -i ./resources/icon_android.png -I",
     "resources:ios": "capacitor-resources -p ios -i ./resources/icon_ios.png"
