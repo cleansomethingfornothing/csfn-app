@@ -169,7 +169,7 @@ export default class EditionPage extends Vue {
   activity: Cleanup = null
   thumbnails: (Blob | string)[] = []
   previousPictures = []
-  removedPictures = []
+  removedPictures: number[] = []
   automaticWeight = false
 
   get currentUser() {
@@ -381,7 +381,7 @@ export default class EditionPage extends Vue {
     }).then(({ data }) => {
       if (data) {
         if (this.activity.id) {
-          this.removedPictures.push(this.activity.pictures[data.index].id)
+          this.removedPictures.push((this.activity.pictures[data.index] as Image).id)
         }
         this.activity.pictures.splice(data.index, 1)
         this.thumbnails.splice(data.index, 1)
