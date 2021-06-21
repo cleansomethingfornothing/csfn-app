@@ -36,7 +36,7 @@ class UserModule extends VuexModule {
     return levels.filter(level =>
       this.currentUser.totalCleanups < level.threshold.cleanups
       || this.currentUser.totalVolume < level.threshold.liters
-      || this.currentUser.totalWeight < level.threshold.kilos)[0]
+      || this.currentUser.totalWeight < level.threshold.kilos)[0] || levels.slice(-1)[0]
   }
 
   get getViewingUser(): User {

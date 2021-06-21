@@ -4,7 +4,7 @@
   "private": true,
   "postinstall": "jetifier",
   "scripts": {
-    "ionic:serve": "vue-cli-service serve --port 8888 --https",
+    "ionic:serve": "vue-cli-service serve --port 8888",
     "ionic:serve:prod": "vue-cli-service serve --mode production",
     "ionic:build": "vue-cli-service build && ionic deploy manifest && npx cap sync",
     "build": "vue-cli-service build && ionic deploy manifest",
