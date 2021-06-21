@@ -3,7 +3,7 @@ import axios from 'axios'
 
 import { Plugins } from '@capacitor/core'
 
-import { FirebaseAnalytics } from "@capacitor-community/firebase-analytics"
+import { FirebaseAnalytics } from '@capacitor-community/firebase-analytics'
 
 export default class HttpTool {
 
@@ -36,6 +36,10 @@ export default class HttpTool {
                     i) => data.append('images', image, i + '.jpg'))
 
     return axios.post(process.env.VUE_APP_BACK_URL + this.baseUrl + path, data)
+  }
+
+  public deleteFile(path: string) {
+    return axios.delete(process.env.VUE_APP_BACK_URL + this.baseUrl + path)
   }
 
   public get(path: string) {

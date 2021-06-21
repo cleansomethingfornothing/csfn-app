@@ -43,7 +43,8 @@
                       :icon-src="require('@/assets/img/icons/scale.svg')"
                       :slotted-input="$refs.weight"
                       end-note="Kg" @focus="resetError('weight')">
-            <ion-label class="fix-label" position="floating">{{ $t('weight') }} <span class="text-xs">{{ automaticWeight ? $t('automatic-weight') : ''}}</span></ion-label>
+            <ion-label class="fix-label" position="floating">{{ $t('weight') }} <span
+              class="text-xs">{{ automaticWeight ? $t('automatic-weight') : '' }}</span></ion-label>
             <ion-input ref="weight" :value="activity.weight" enterkeyhint="enter"
                        type="number" @ionInput="automaticWeight = false" inputmode="numeric"
                        @ionChange="change('weight', $event.target.value)"></ion-input>
@@ -152,6 +153,7 @@ import UnknownError from '@/types/errors/UnknownError'
 import { userModule } from '@/store/userModule'
 import { resizePicture } from '@/tools/ImageProcessor'
 import { Prop } from 'vue-property-decorator'
+import Image from '@/types/Image'
 
 @Component({
   name: 'edition-page',
@@ -164,8 +166,8 @@ export default class EditionPage extends Vue {
 
   errors = {}
 
-  activity = null
-  thumbnails: Blob[] = []
+  activity: Cleanup = null
+  thumbnails: (Blob | string)[] = []
   previousPictures = []
   removedPictures = []
   automaticWeight = false
@@ -237,6 +239,7 @@ export default class EditionPage extends Vue {
     this.$set(this, 'activity', cleanupsModule.getCleanup || new Cleanup())
     if (this.activity.id) {
       this.previousPictures = [...this.activity.pictures]
+      this.thumbnails = (this.activity.pictures as Image[]).map(({publicUrl}) => publicUrl)
     }
   }
 

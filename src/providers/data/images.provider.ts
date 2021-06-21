@@ -17,7 +17,8 @@ export default class ImagesProvider extends DataProvider {
   }
 
   removeImage(id: number): Promise<void> {
-    return this.http.delete('/' + id)
+    return this.http.deleteFile('/' + id)
+      .then(() => {})
   }
 }
 
