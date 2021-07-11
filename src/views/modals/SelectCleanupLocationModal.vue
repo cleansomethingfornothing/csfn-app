@@ -4,7 +4,7 @@
       <ion-toolbar class="px-2 pb-2" mode="ios" @keyup.enter="search">
         <text-item v-model="searchText" :clear="true" :outline="true" :placeholder="searchPlaceholder"
                    :rounded="true"
-                   class="mt-2" icon="search" type="search" @blur="clear" @cleared="clear"></text-item>
+                   class="mt-2" icon="search" type="search" onBlur="clear" @cleared="clear"></text-item>
       </ion-toolbar>
       <ion-progress-bar v-if="searching" color="primary" type="indeterminate"></ion-progress-bar>
     </ion-header>

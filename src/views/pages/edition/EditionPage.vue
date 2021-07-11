@@ -19,8 +19,8 @@
         </ion-buttons>
       </ion-toolbar>
     </ion-header>
-    <ion-content>
-      <form class="lg:w-2/3 xl:w-1/2 m-auto bg-white lg:rounded-lg lg:my-8 lg:shadow-lg h-full lg:h-auto">
+    <ion-content ref="content">
+      <form class="lg:px-16 xl:px-40 bg-white" :style="{marginBottom: (this.keyboardHeight || 0) + 'px'}">
         <ion-list v-if="activity" class="p-0 pb-16" lines="full">
           <input-item v-if="isEvent" v-model="activity.title" :errors="errors['title']"
                       :placeholder="$t('title')"
@@ -28,8 +28,8 @@
           <input-item :errors="errors['description']" :slotted-input="$refs['desc']"
                       @focus="resetError('description')">
             <ion-textarea ref="desc" :placeholder="$t('write-description')" :value="activity.description"
-                          auto-grow="true" maxlength="1024" rows="3"
-                          @ionChange="change('description', $event.target.value)"></ion-textarea>
+                          maxlength="1024" rows="3" @click="runAutoScroll"
+                          @ionChange="runAutoGrow() || change('description', $event.target.value)"></ion-textarea>
           </input-item>
           <ion-picker-controller v-if="isCleanup"></ion-picker-controller>
           <input-item v-if="isCleanup" :errors="errors['volume']"
@@ -154,6 +154,9 @@ import { userModule } from '@/store/userModule'
 import { resizePicture } from '@/tools/ImageProcessor'
 import { Prop } from 'vue-property-decorator'
 import Image from '@/types/Image'
+import { KeyboardInfo, Plugins } from '@capacitor/core'
+
+const { Keyboard } = Plugins
 
 @Component({
   name: 'edition-page',
@@ -171,6 +174,9 @@ export default class EditionPage extends Vue {
   previousPictures = []
   removedPictures: number[] = []
   automaticWeight = false
+  keyboardHeight = 0
+  textareaHeight = 0
+  scroll = 0
 
   get currentUser() {
     return userModule.currentUser
@@ -239,8 +245,15 @@ export default class EditionPage extends Vue {
     this.$set(this, 'activity', cleanupsModule.getCleanup || new Cleanup())
     if (this.activity.id) {
       this.previousPictures = [...this.activity.pictures]
-      this.thumbnails = (this.activity.pictures as Image[]).map(({publicUrl}) => publicUrl)
+      this.thumbnails = (this.activity.pictures as Image[]).map(({ publicUrl }) => publicUrl)
     }
+
+    Keyboard.addListener('keyboardWillShow', (info: KeyboardInfo) => {
+      this.keyboardHeight = info.keyboardHeight
+    })
+    Keyboard.addListener('keyboardWillHide', () => {
+      this.keyboardHeight = 0
+    })
   }
 
   publish() {
@@ -387,6 +400,28 @@ export default class EditionPage extends Vue {
         this.thumbnails.splice(data.index, 1)
       }
     })
+  }
+
+  runAutoGrow() {
+    (this.$refs['desc'] as HTMLIonTextareaElement).getInputElement()
+      .then(textarea => {
+        textarea.style.height = 'auto'
+        textarea.style.height = textarea.scrollHeight + 'px';
+        (this.$refs['desc'] as HTMLIonTextareaElement).style.height = textarea.scrollHeight + 'px'
+      })
+  }
+
+  runAutoScroll() {
+    (this.$refs['desc'] as HTMLIonTextareaElement).getInputElement()
+      .then(textarea => {
+        const fontSize = Number(window.getComputedStyle(textarea, null).getPropertyValue('font-size').replace('px', ''))
+        const currentLine = textarea.value.substring(0, textarea.selectionStart).split('\n').length
+        const scroll = fontSize * currentLine - fontSize
+        if (scroll !== this.scroll) {
+          (this.$refs['content'] as HTMLIonContentElement).scrollToPoint(0, fontSize * currentLine - fontSize, 500)
+          this.scroll = scroll
+        }
+      })
   }
 
   change(field,

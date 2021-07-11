@@ -8,7 +8,7 @@ export default class Map {
 
   static zoom = 14
 
-  map: any
+  map: google.maps.Map
   zoom: number
   pin: string
   origin: Coords
@@ -159,9 +159,10 @@ export default class Map {
     }
   }
 
-  public moveCamera(position) {
+  public moveCamera(position,
+                    zoom?: number) {
     this.map.panTo(position)
-    this.map.setZoom(this.zoom || Map.zoom)
+    this.map.setZoom(zoom || this.zoom || Map.zoom)
   }
 
   public setOrigin(origin) {

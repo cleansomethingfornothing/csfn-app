@@ -10,7 +10,7 @@
                      :class="inputClass" :clear-input="clear" :placeholder="placeholder"
                      :readonly="readonly" :type="type === 'password' && showPassword ? 'text' : type"
                      :value="value"
-                     @ionBlur="blur" @ionChange="change"
+                     @ionBlur="onBlur" @ionChange="change"
                      @ionFocus="focused" @ionInput="onInput"></ion-input>
         </slot>
         <div v-if="$scopedSlots['end']" slot="end">
@@ -31,8 +31,8 @@
       <input-error :error="error"></input-error>
     </div>
     <ion-note v-for="message in messages" :key="message" class="flex ml-5 mt-2 opacity-75 mb-1">
-       <ion-icon name="information-circle" class="mr-1"></ion-icon>
-        <span class=" font-bold text-xs">{{ $t(message) }}</span>
+      <ion-icon name="information-circle" class="mr-1"></ion-icon>
+      <span class=" font-bold text-xs">{{ $t(message) }}</span>
     </ion-note>
   </div>
 </template>
@@ -119,7 +119,7 @@ export default class InputItem extends Vue {
 
   clicked() {
     this.input?.setFocus()
-    this.slottedInput?.setFocus()
+    this.slottedInput?.setFocus ? this.slottedInput?.setFocus() : this.slottedInput?.focus()
     this.focused()
   }
 
@@ -129,13 +129,18 @@ export default class InputItem extends Vue {
   }
 
   @Emit('blur')
-  blur() {
+  onBlur() {
     return
   }
 
   focus() {
     this.input?.setFocus()
   }
+
+  blur() {
+    this.input?.getInputElement().then((input: HTMLInputElement) => input.blur())
+  }
+
 }
 </script>
 <style>

@@ -12,13 +12,13 @@
           <input-item v-model="userLogin.email" :errors="fieldErrors.email" :placeholder="$t('email')"
                       :rounded="true"
                       icon="mail"
-                      type="email" @blur="blur"
+                      type="email" onBlur="blur"
                       @focus="resetError('email') || focus()"></input-item>
           <input-item v-model="userLogin.password" :errors="fieldErrors.password"
                       :placeholder="$t('password')"
                       :rounded="true"
                       icon="lock-closed"
-                      type="password" @blur="blur"
+                      type="password" onBlur="blur"
                       @focus="resetError('password') || focus()"></input-item>
           <button-item :center="true" :disabled="loading" :text="$t('login')" color="primary"
                        @click="credentialsLogin"></button-item>

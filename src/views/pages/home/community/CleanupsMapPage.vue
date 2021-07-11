@@ -8,8 +8,8 @@
           </ion-button>
         </ion-buttons>
         <text-item v-model="searchText" :clear="true" :outline="true" :placeholder="$t('search-place')"
-                   :rounded="true"
-                   class="mt-2" icon="search" type="search" @blur="clear" @cleared="clear"></text-item>
+                   :rounded="true" ref="text-input"
+                   class="mt-2" icon="search" type="search" onBlur="clear" @cleared="clear"></text-item>
       </ion-toolbar>
       <ion-progress-bar v-if="loading" color="primary" type="indeterminate"></ion-progress-bar>
     </ion-header>
@@ -91,6 +91,8 @@ export default class MapModal extends Vue {
   }
 
   touched() {
+    (this.$refs['text-input'] as HTMLInputElement).blur()
+    this.searchResults = []
     this.selectedCleanup = 0
     cleanupsModule.setCleanup(null)
     debounce(() => {
@@ -99,7 +101,6 @@ export default class MapModal extends Vue {
   }
 
   fetch() {
-
     this.loading = true
     cleanupsModule.fetchMarkers(this.map.getBounds())
   }
@@ -115,7 +116,7 @@ export default class MapModal extends Vue {
   }
 
   selectCleanup(cleanup: Cleanup) {
-    this.map.moveCamera({ lat: cleanup.location.coords.lat - 0.01, lng: cleanup.location.coords.lng })
+    //this.map.moveCamera({ lat: cleanup.location.coords.lat - 0.01, lng: cleanup.location.coords.lng })
     cleanupsModule.fetchCleanup(cleanup.id)
     this.selectedCleanup = cleanup.id
   }
@@ -146,7 +147,7 @@ export default class MapModal extends Vue {
   selectedSearch(selected: Location) {
     this.searchText = ''
     this.selectedResult = selected
-    this.map.moveCamera(selected.coords)
+    this.map.moveCamera(selected.coords, 10)
   }
 
   addressToString(address) {
